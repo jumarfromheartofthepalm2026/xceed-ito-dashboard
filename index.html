@@ -1,5 +1,5 @@
 <!doctype html>
-<title>Xceed ITO — Market Study 2025</title>
+<title>Xceed ITO — Vendor Dashboard</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -213,8 +213,8 @@ tr:hover td { background: var(--surface2); }
 <!-- ══════ HEADER ══════ -->
 <div class="site-header">
   <div>
-    <h1>Xceed <span>ITO</span> — Market Study</h1>
-    <div class="meta">Pre-first-deal stage · 6 entities operational · Delivery: Cairo · Last updated: <strong>Nov 2025</strong></div>
+    <h1>Xceed <span>ITO</span> — Vendor Partnership Tracker</h1>
+    <div class="meta" id="header-meta">Pre-first-deal stage · 6 entities operational · Delivery: Cairo · Last updated: <strong id="header-date">—</strong></div>
   </div>
   <div style="display:flex;gap:8px;flex-wrap:wrap">
     <span class="badge badge-green">🟢 Tenable: Registered</span>
@@ -2131,7 +2131,12 @@ var STATUS_CONFIG = {
 function loadVendorData() {
   fetch('vendor-data.json?v=' + Date.now())
     .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-    .then(function(data){ renderVendors(data); })
+    .then(function(data){
+      // Update header date from JSON
+      var hd = document.getElementById('header-date');
+      if(hd && data.lastUpdated) hd.textContent = data.lastUpdated;
+      renderVendors(data);
+    })
     .catch(function(e){
       document.getElementById('vendor-loading').hidden = true;
       var errEl = document.getElementById('vendor-error');
