@@ -22,7 +22,7 @@
       "status": "Waiting for Vendor Feedback",
       "statusKey": "waiting-vendor-feedback",
       "details": "Registered with NetApp (Nov 2026); awaiting feedback mail",
-      "commitment": "Await vendor feedback mail",
+      "commitment": "Waiting for vendor response",
       "requirements": "Complete legal review; resolve partner training certification requirement",
       "targetAudience": "Enterprise — Banks, Aramco, SABIC, large corporates in KSA & UAE",
       "leadsGeneration": "Target: KSA government & banking sector; UAE enterprise hybrid storage deals"
