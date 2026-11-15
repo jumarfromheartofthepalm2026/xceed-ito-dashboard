@@ -263,6 +263,23 @@ body::before {
 
 .btn-logout:hover { border-color: var(--red); color: var(--red); }
 
+.btn-download {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  color: var(--fg2);
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.btn-download:hover { border-color: var(--green); color: var(--green); }
+
 /* Badges row */
 .header-badges {
   display: flex;
@@ -775,6 +792,7 @@ td {
           <span class="user-name" id="user-name-display"></span>
           <span class="role-badge" id="role-badge">viewer</span>
         </div>
+        <a class="btn-download" href="partner-tracker.xlsx" download title="Download Partner Tracker Excel">⬇ Partner Tracker</a>
         <button class="btn-logout" id="btn-logout" title="Sign out">↩</button>
       </div>
     </div>
