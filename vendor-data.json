@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-12",
+  "lastUpdated": "2026-11-15",
   "vendors": [
     {
       "category": "Data Management",
@@ -19,10 +19,10 @@
       "company": "NetApp",
       "countries": ["UAE", "KSA"],
       "scope": "Enterprise Storage (ONTAP), Cloud Volumes ONTAP, Azure NetApp Files, DR Replication",
-      "status": "Waiting for Vendor — Legal Review",
-      "statusKey": "waiting-vendor-issue",
-      "details": "Registered; contract sent and forwarded to legal; training issue pending with partner",
-      "commitment": "Resolve training issue; legal sign-off on contract",
+      "status": "Waiting for Vendor Feedback",
+      "statusKey": "waiting-vendor-feedback",
+      "details": "Registered with NetApp (Nov 2026); awaiting feedback mail",
+      "commitment": "Await vendor feedback mail",
       "requirements": "Complete legal review; resolve partner training certification requirement",
       "targetAudience": "Enterprise — Banks, Aramco, SABIC, large corporates in KSA & UAE",
       "leadsGeneration": "Target: KSA government & banking sector; UAE enterprise hybrid storage deals"
