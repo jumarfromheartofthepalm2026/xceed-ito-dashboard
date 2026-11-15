@@ -32,6 +32,10 @@
   --grey: #9ba3bf;
   --radius: 10px;
   --radius-sm: 6px;
+  --surface: #1a1e2a;
+  --surface2: #222738;
+  --gold: #f0c040;
+  --yellow: #f5a623;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -809,6 +813,171 @@ td {
   .modal { padding: 20px 18px; }
   .last-updated { display: none; }
 }
+
+/* ══════════════════════════════════════
+   MAIN TAB SWITCHER
+══════════════════════════════════════ */
+.main-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 12px 24px 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+}
+.main-tab-btn {
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  color: var(--fg2);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  transition: color .15s, border-color .15s;
+}
+.main-tab-btn:hover { color: var(--fg); }
+.main-tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ══════════════════════════════════════
+   MARKET STUDY — SCOPED STYLES
+══════════════════════════════════════ */
+.ms-wrapper {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--fg);
+  background: var(--bg);
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+.ms-wrapper .site-header {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.ms-wrapper .site-header h1 { font-size: 22px; font-weight: 700; color: var(--fg); }
+.ms-wrapper .site-header h1 span { color: var(--accent); }
+.ms-wrapper .meta { font-size: 12px; color: var(--fg3); margin-top: 4px; }
+.ms-wrapper .nav {
+  display: flex;
+  gap: 4px;
+  padding: 12px 24px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.ms-wrapper .nav-btn {
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg2);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s;
+}
+.ms-wrapper .nav-btn:hover { background: var(--bg3); color: var(--fg); }
+.ms-wrapper .nav-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.ms-wrapper .page { display: none; padding: 24px 32px; max-width: 1100px; margin: 0 auto; }
+.ms-wrapper .page.active { display: block; }
+.ms-wrapper .section-title { font-size: 20px; font-weight: 700; color: var(--fg); margin-bottom: 6px; }
+.ms-wrapper .section-sub { font-size: 13px; color: var(--fg3); margin-bottom: 20px; }
+.ms-wrapper .card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.ms-wrapper .card-title { font-size: 15px; font-weight: 700; color: var(--fg); margin-bottom: 14px; }
+.ms-wrapper .card-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.ms-wrapper .card-row:last-child { border-bottom: none; }
+.ms-wrapper .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+.ms-wrapper .stat-num { font-size: 26px; font-weight: 700; color: var(--accent); line-height: 1; }
+.ms-wrapper .stat-label { font-size: 12px; color: var(--fg2); margin-top: 4px; }
+.ms-wrapper .stat-src { font-size: 10px; color: var(--fg3); margin-top: 4px; }
+.ms-wrapper .badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.ms-wrapper .badge-green { background: rgba(52,201,123,.15); color: var(--green); border: 1px solid rgba(52,201,123,.3); }
+.ms-wrapper .badge-yellow { background: rgba(245,166,35,.15); color: var(--orange); border: 1px solid rgba(245,166,35,.3); }
+.ms-wrapper .badge-red { background: rgba(240,82,82,.15); color: var(--red); border: 1px solid rgba(240,82,82,.3); }
+.ms-wrapper .badge-blue { background: rgba(79,142,247,.15); color: var(--accent); border: 1px solid rgba(79,142,247,.3); }
+.ms-wrapper .badge-purple { background: rgba(99,102,241,.15); color: var(--accent2); border: 1px solid rgba(99,102,241,.3); }
+.ms-wrapper .badge-teal { background: rgba(56,196,196,.15); color: var(--teal); border: 1px solid rgba(56,196,196,.3); }
+.ms-wrapper .badge-orange { background: rgba(245,166,35,.15); color: var(--orange); border: 1px solid rgba(245,166,35,.3); }
+.ms-wrapper .tbl-wrap { overflow-x: auto; }
+.ms-wrapper table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.ms-wrapper th { background: var(--bg3); padding: 10px 12px; text-align: left; color: var(--fg2); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; border-bottom: 1px solid var(--border); }
+.ms-wrapper td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--fg2); vertical-align: top; }
+.ms-wrapper tr:last-child td { border-bottom: none; }
+.ms-wrapper tr:hover td { background: rgba(255,255,255,.02); }
+.ms-wrapper .ctabs { display: flex; gap: 4px; margin-bottom: 16px; flex-wrap: wrap; }
+.ms-wrapper .ctab {
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg2);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.ms-wrapper .ctab:hover { background: var(--bg3); color: var(--fg); }
+.ms-wrapper .ctab.active { background: var(--accent2); color: #fff; border-color: var(--accent2); }
+.ms-wrapper .cpanel { display: none; }
+.ms-wrapper .cpanel.active { display: block; }
+.ms-wrapper .timeline { display: flex; flex-direction: column; gap: 12px; }
+.ms-wrapper .tl-step {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.ms-wrapper .tl-step.done { border-left-color: var(--green); opacity: .7; }
+.ms-wrapper .tl-step.now { border-left-color: var(--gold); }
+.ms-wrapper .insight {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  border: 1px solid;
+}
+.ms-wrapper .insight.warn { background: rgba(245,166,35,.08); border-color: rgba(245,166,35,.25); color: var(--fg2); }
+.ms-wrapper .insight.good { background: rgba(52,201,123,.08); border-color: rgba(52,201,123,.25); color: var(--fg2); }
+.ms-wrapper .insight.danger { background: rgba(240,82,82,.08); border-color: rgba(240,82,82,.25); color: var(--fg2); }
+.ms-wrapper .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.ms-wrapper .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.ms-wrapper .sources { font-size: 11px; color: var(--fg3); margin-top: 12px; }
+.ms-wrapper .vendor-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px; border-radius: 20px;
+  background: var(--surface2); border: 1px solid var(--border);
+  font-size: 12px; color: var(--fg2); margin: 2px;
+}
+.ms-wrapper .dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+.ms-wrapper .dot-green { background: var(--green); }
+.ms-wrapper .dot-yellow { background: var(--orange); }
+.ms-wrapper .dot-red { background: var(--red); }
+.ms-wrapper .dot-blue { background: var(--accent); }
+@media (max-width: 600px) {
+  .ms-wrapper .page { padding: 16px; }
+  .ms-wrapper .grid2, .ms-wrapper .grid3 { grid-template-columns: 1fr; }
+  .ms-wrapper .site-header { padding: 16px; }
+  .ms-wrapper .nav { padding: 10px 16px; }
+}
 </style>
 </head>
 <body>
@@ -868,6 +1037,14 @@ td {
 
 <!-- Main App -->
 <div id="app">
+
+  <!-- Main Tab Switcher -->
+  <div class="main-tabs">
+    <button class="main-tab-btn active" onclick="showMainTab(this,'section-vendors')">🏢 Vendor Tracker</button>
+    <button class="main-tab-btn" onclick="showMainTab(this,'section-market-study')">📊 Market Study</button>
+  </div>
+
+  <div id="section-vendors">
 
   <!-- Header -->
   <div class="header">
@@ -935,6 +1112,605 @@ td {
       <tbody id="vendors-body"></tbody>
     </table>
   </div>
+
+  </div><!-- /section-vendors -->
+
+  <!-- Market Study Section -->
+  <div id="section-market-study" class="ms-wrapper" style="display:none">
+
+    <div class="site-header">
+      <div>
+        <h1>Xceed <span>ITO</span> — Market Study</h1>
+        <div class="meta">Pre-first-deal stage · 6 entities operational · Delivery: Cairo · Last updated: <strong>Nov 2025</strong></div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span class="badge badge-green">🟢 Tenable: Registered</span>
+        <span class="badge badge-green">🟢 Acronis: Registered</span>
+        <span class="badge badge-yellow">🟡 BlueCat: Pending sign</span>
+        <span class="badge badge-red">🔴 Fortinet: Not applied</span>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="nav-btn active" onclick="msShowPage(this,'ms-pg-overview')">📊 Overview</button>
+      <button class="nav-btn" onclick="msShowPage(this,'ms-pg-markets')">🌍 Countries</button>
+      <button class="nav-btn" onclick="msShowPage(this,'ms-pg-offers')">📦 Offers</button>
+      <button class="nav-btn" onclick="msShowPage(this,'ms-pg-compete')">⚔️ Competition</button>
+      <button class="nav-btn" onclick="msShowPage(this,'ms-pg-action')">🚀 Action Plan</button>
+      <button class="nav-btn" onclick="msShowPage(this,'ms-pg-recs')">💡 Recommendations</button>
+    </div>
+
+    <!-- PAGE: OVERVIEW -->
+    <div id="ms-pg-overview" class="page active">
+      <div class="section-title">Market Overview</div>
+      <div class="section-sub">Strategic snapshot — where Xceed ITO sits and what the market looks like right now</div>
+      <div class="grid3" style="margin-bottom:16px">
+        <div class="stat"><div class="stat-num">$25B</div><div class="stat-label">ME Managed Security Services Market</div><div class="stat-src">Source: MarketsandMarkets 2024 — 14.6% CAGR through 2029</div></div>
+        <div class="stat"><div class="stat-num">108</div><div class="stat-label">NCA ECC-2:2024 Mandatory Controls (KSA)</div><div class="stat-src">Source: NCA.gov.sa — effective 2024 for all government entities</div></div>
+        <div class="stat"><div class="stat-num">+300%</div><div class="stat-label">VMware Broadcom price increase at vSphere 8 renewal</div><div class="stat-src">Source: Avasant Research 2024 — 300–500% at renewal</div></div>
+        <div class="stat"><div class="stat-num">60–70%</div><div class="stat-label">Cost advantage vs Gulf MSPs (Cairo delivery)</div><div class="stat-src">Internal estimate — Gulf engineer rates $80–150/hr vs Cairo $25–40/hr</div></div>
+        <div class="stat"><div class="stat-num">$2.8B</div><div class="stat-label">Morocco IT Market (2024, growing 9% YoY)</div><div class="stat-src">Source: IDC MEA 2024 — nearshore BPO IT demand driver</div></div>
+        <div class="stat"><div class="stat-num">6</div><div class="stat-label">Legal entities operational (UAE, KSA, Morocco, Mauritius, India, Egypt)</div><div class="stat-src">Internal — delivery from Cairo; invoicing from local entities</div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">⚡ 3 Market Shocks Creating Immediate Demand</div>
+        <div class="insight warn">🔴 <strong>VMware Broadcom shock:</strong> 300–500% price increase forcing Gulf companies to evaluate alternatives — immediate migration consulting opportunity. Every VMware shop is a prospect.</div>
+        <div class="insight warn">🟡 <strong>NCA ECC-2:2024 (KSA):</strong> 108 mandatory controls for all government entities and Critical National Infrastructure. Most banks and ministries are behind. Compliance deadline = immediate need for Tenable + Fortinet managed services.</div>
+        <div class="insight good">🟢 <strong>Gulf entity expansion wave:</strong> New Freezone registrations in Dubai up 20%+ — every new entity needs IT from day one, with no existing vendor relationship to displace.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🗺️ Market Priority Map</div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Market</th><th>Role</th><th>Timeline</th><th>Primary Angle</th><th>Entity</th></tr></thead>
+          <tbody>
+            <tr><td>🇦🇪 UAE Freezone SMB</td><td>Commercial beachhead</td><td>NOW</td><td>Cost arbitrage + multi-entity</td><td>UAE (DIFC)</td></tr>
+            <tr><td>🇸🇦 KSA Gov/Banking</td><td>High-value Y1</td><td>NOW</td><td>NCA ECC compliance + data residency</td><td>KSA entity</td></tr>
+            <tr><td>🇲🇦 Morocco BPOs</td><td>Quick wins parallel</td><td>NOW</td><td>Acronis backup + local entity</td><td>Morocco entity</td></tr>
+            <tr><td>🇲🇺 Mauritius</td><td>DR hub add-on</td><td>Y2</td><td>Legally accepted offshore DR</td><td>Mauritius entity</td></tr>
+            <tr><td>🇮🇳 India</td><td>Multinational play</td><td>Y2</td><td>Indian-entity requirement</td><td>India entity</td></tr>
+            <tr><td>🇪🇬 Egypt</td><td>Delivery only</td><td>Internal</td><td>No external sales</td><td>Egypt entity</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="card">
+        <div class="card-title">⚠️ Critical Gaps — Must Fix Before Selling</div>
+        <div class="grid2">
+          <div class="insight danger">🔴 <strong>Fortinet — Not Applied:</strong> Missing the #1 security vendor in Gulf. Blocks NCA ECC compliance pitch and UAE firewall managed service. Apply this week.</div>
+          <div class="insight danger">🔴 <strong>Veeam — On Hold:</strong> DR-as-a-Service (Package 4) is blocked. Mauritius DR hub cannot launch. Resolve hold immediately.</div>
+          <div class="insight warn">🟡 <strong>BlueCat — Pending Signature:</strong> DNS/DHCP/IPAM play blocked until agreement signed. Close this week.</div>
+          <div class="insight warn">🟡 <strong>Microsoft — Portal Issue:</strong> CSP licensing blocked. UAE Freezone SMB onboarding slowed. Resolve Ingram Micro portal access.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE: MARKETS -->
+    <div id="ms-pg-markets" class="page">
+      <div class="section-title">Country Deep Dives</div>
+      <div class="section-sub">Market context, ICP, vendor fit, and entry motion by country</div>
+      <div class="ctabs">
+        <button class="ctab active" onclick="msShowC(this,'uae')">🇦🇪 UAE</button>
+        <button class="ctab" onclick="msShowC(this,'ksa')">🇸🇦 KSA</button>
+        <button class="ctab" onclick="msShowC(this,'ma')">🇲🇦 Morocco</button>
+        <button class="ctab" onclick="msShowC(this,'mu')">🇲🇺 Mauritius</button>
+        <button class="ctab" onclick="msShowC(this,'in')">🇮🇳 India</button>
+      </div>
+
+      <div class="cpanel active" id="ms-cpanel-uae">
+        <div class="grid3" style="margin-bottom:16px">
+          <div class="stat"><div class="stat-num">AED 25K</div><div class="stat-label">Average SME MSP monthly spend</div><div class="stat-src">Infraon UAE MSP list 2024</div></div>
+          <div class="stat"><div class="stat-num">60%</div><div class="stat-label">Cost saving vs Help AG tier</div><div class="stat-src">Internal estimate</div></div>
+          <div class="stat"><div class="stat-num">20%+</div><div class="stat-label">New Freezone registrations growth</div><div class="stat-src">CBUAE 2024 annual report</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">🎯 ICP — UAE Tier 1</div>
+          <div class="card-row"><span>Segment</span><span>Freezone SMB — 10 to 200 employees</span></div>
+          <div class="card-row"><span>Location</span><span>DIFC, DMCC, Dubai Internet City, Dubai Media City, JAFZA</span></div>
+          <div class="card-row"><span>Sector</span><span>Financial services, tech, logistics, trading, professional services</span></div>
+          <div class="card-row"><span>Buying signal</span><span>Growing team + no dedicated IT, or current IT person leaving</span></div>
+          <div class="card-row"><span>Invoice from</span><span>UAE DIFC entity — USD</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title">🤝 Vendor Fit — UAE</div>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>Vendor</th><th>Status</th><th>Role in UAE</th></tr></thead>
+            <tbody>
+              <tr><td>Acronis</td><td><span class="badge badge-green">✅ Registered</span></td><td>Backup managed service entry product for Freezone SMBs</td></tr>
+              <tr><td>Fortinet</td><td><span class="badge badge-red">🔴 Not Applied</span></td><td>Firewall + NGFW management — CRITICAL for UAE mid-market</td></tr>
+              <tr><td>Tenable</td><td><span class="badge badge-green">✅ Registered</span></td><td>Vulnerability management — NCA ECC compliance + UAE fintech</td></tr>
+              <tr><td>Veeam</td><td><span class="badge badge-yellow">🟡 On Hold</span></td><td>DR-as-a-Service for UAE clients using Mauritius DR site</td></tr>
+              <tr><td>BlueCat</td><td><span class="badge badge-yellow">🟡 Pending sign</span></td><td>DNS/DHCP/IPAM for mid-market network management</td></tr>
+              <tr><td>Nutanix</td><td><span class="badge badge-yellow">🟡 Docs pending</span></td><td>VMware migration play — 35% of Gulf companies evaluating alternatives</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="card">
+          <div class="card-title">🚀 Entry Motion — UAE</div>
+          <div class="card-row"><span>Primary offer</span><span>Free 1-day NCA/VMware assessment → 90-day remediation project</span></div>
+          <div class="card-row"><span>Field quote</span><span>"We're not competing with Help AG — we serve the market Help AG priced themselves out of."</span></div>
+          <div class="card-row"><span>First 3 targets</span><span>DIFC fintech (10–50 employees), DMCC trading company, DIC tech startup</span></div>
+        </div>
+      </div>
+
+      <div class="cpanel" id="ms-cpanel-ksa">
+        <div class="grid3" style="margin-bottom:16px">
+          <div class="stat"><div class="stat-num">SR 15.2B</div><div class="stat-label">KSA cybersecurity market 2024</div><div class="stat-src">Saudi Gazette 2024</div></div>
+          <div class="stat"><div class="stat-num">108</div><div class="stat-label">NCA ECC-2:2024 mandatory controls</div><div class="stat-src">NCA.gov.sa official</div></div>
+          <div class="stat"><div class="stat-num">15%+</div><div class="stat-label">CAGR through 2031 (compliance driven)</div><div class="stat-src">GlobeNewsWire 2026</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">🎯 ICP — KSA Tier 2</div>
+          <div class="card-row"><span>Segment</span><span>Government ministries, Vision 2030 entities, SAMA-regulated banks</span></div>
+          <div class="card-row"><span>Size</span><span>1,000+ employees</span></div>
+          <div class="card-row"><span>Buying signal</span><span>NCA ECC audit deadline, VMware Broadcom price shock, new CISO hire</span></div>
+          <div class="card-row"><span>Invoice from</span><span>KSA entity — critical for government/banking procurement</span></div>
+          <div class="card-row"><span>Key differentiator</span><span>Cairo delivery ≠ India delivery. KSA government explicitly rejects India-based delivery.</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title">🤝 Vendor Fit — KSA</div>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>Vendor</th><th>Status</th><th>Role in KSA</th></tr></thead>
+            <tbody>
+              <tr><td>Tenable</td><td><span class="badge badge-green">✅ Registered</span></td><td>NCA ECC vulnerability scanning — ECC-1 and ECC-2 mapping</td></tr>
+              <tr><td>Fortinet</td><td><span class="badge badge-red">🔴 Not Applied — URGENT</span></td><td>NGFW mandatory for NCA ECC controls. Apply immediately.</td></tr>
+              <tr><td>Nutanix</td><td><span class="badge badge-yellow">🟡 Docs pending</span></td><td>VMware migration for Vision 2030 entities</td></tr>
+              <tr><td>Veeam</td><td><span class="badge badge-yellow">🟡 On Hold</span></td><td>DR management — SAMA requires tested DR for banks</td></tr>
+              <tr><td>BlueCat</td><td><span class="badge badge-yellow">🟡 Pending sign</span></td><td>DNS management for large government networks</td></tr>
+              <tr><td>Kaspersky</td><td><span class="badge badge-red">🔴 Excluded</span></td><td>US/EU restrictions — do not bundle for KSA government</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="card">
+          <div class="card-title">🚀 Entry Motion — KSA</div>
+          <div class="card-row"><span>Primary offer</span><span>Free NCA ECC gap assessment (1 day) → compliance remediation project</span></div>
+          <div class="card-row"><span>Field quote</span><span>"Intertec delivers from India — KSA government procurement explicitly rejects that. We deliver from Cairo with a KSA entity invoice."</span></div>
+          <div class="card-row"><span>Timeline</span><span>3–6 month sales cycle. Free assessment is essential to get in the door.</span></div>
+        </div>
+      </div>
+
+      <div class="cpanel" id="ms-cpanel-ma">
+        <div class="grid3" style="margin-bottom:16px">
+          <div class="stat"><div class="stat-num">$2.8B</div><div class="stat-label">Morocco IT market 2024</div><div class="stat-src">IDC MEA 2024</div></div>
+          <div class="stat"><div class="stat-num">$25–49/hr</div><div class="stat-label">Local MSP rates (Clutch 2024)</div><div class="stat-src">Not a price war — vendor depth wins</div></div>
+          <div class="stat"><div class="stat-num">0</div><div class="stat-label">Dominant MSSP player in Morocco</div><div class="stat-src">Fragmented market — opportunity</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">🎯 ICP — Morocco</div>
+          <div class="card-row"><span>Segment</span><span>Nearshore BPOs + financial services in Casablanca/Rabat</span></div>
+          <div class="card-row"><span>Size</span><span>50–500 employees</span></div>
+          <div class="card-row"><span>Key angle</span><span>Multi-country entity structure — Morocco + UAE + KSA in one SLA</span></div>
+          <div class="card-row"><span>Invoice from</span><span>Morocco entity — MAD or EUR, local procurement</span></div>
+          <div class="card-row"><span>Language</span><span>French preferred for all materials and delivery</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title">🤝 Vendor Fit — Morocco</div>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>Vendor</th><th>Status</th><th>Role in Morocco</th></tr></thead>
+            <tbody>
+              <tr><td>Acronis</td><td><span class="badge badge-green">✅ Registered</span></td><td>Entry product — backup for Casablanca BPOs</td></tr>
+              <tr><td>Fortinet</td><td><span class="badge badge-red">🔴 Not Applied</span></td><td>Firewall management — premium differentiator vs local players</td></tr>
+              <tr><td>Tenable</td><td><span class="badge badge-green">✅ Registered</span></td><td>Vulnerability management — no local player has this</td></tr>
+              <tr><td>Kaspersky</td><td><span class="badge badge-red">🔴 Restricted</span></td><td>Avoid for Moroccan clients with EU exposure</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <div class="cpanel" id="ms-cpanel-mu">
+        <div class="grid3" style="margin-bottom:16px">
+          <div class="stat"><div class="stat-num">0</div><div class="stat-label">Capital controls</div><div class="stat-src">Mauritius Financial Centre</div></div>
+          <div class="stat"><div class="stat-num">✅</div><div class="stat-label">Accepted by SAMA + CBUAE as DR site</div><div class="stat-src">Regulatory confirmation</div></div>
+          <div class="stat"><div class="stat-num">Y2</div><div class="stat-label">Target go-live for DR-as-a-Service</div><div class="stat-src">After UAE/KSA reference clients first</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">🏝️ Mauritius — DR-as-a-Service Hub</div>
+          <div class="card-row"><span>Primary role</span><span>Legally accepted offshore DR site for Gulf clients (SAMA + CBUAE approved)</span></div>
+          <div class="card-row"><span>Key angle</span><span>"Gulf regulation requires a DR site outside your primary country. Mauritius = zero restrictions."</span></div>
+          <div class="card-row"><span>Blocker</span><span>Veeam hold must be lifted before DR-as-a-Service can launch</span></div>
+          <div class="card-row"><span>Invoice from</span><span>Mauritius entity — clean jurisdiction, no data sovereignty issues</span></div>
+          <div class="card-row"><span>Secondary market</span><span>Sub-Saharan Africa companies needing stable legal jurisdiction</span></div>
+        </div>
+      </div>
+
+      <div class="cpanel" id="ms-cpanel-in">
+        <div class="grid2" style="margin-bottom:16px">
+          <div class="stat"><div class="stat-num">India entity</div><div class="stat-label">Procurement entry for Indian-registered vendor requirements</div><div class="stat-src">Multinationals with Indian HQ or procurement</div></div>
+          <div class="stat"><div class="stat-num">Y2</div><div class="stat-label">Target activation after UAE/KSA traction</div><div class="stat-src">Focus on multinationals first</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">🇮🇳 India — Multinational Entry Play</div>
+          <div class="card-row"><span>Primary angle</span><span>India entity = procurement entry for multinationals requiring Indian-registered vendor</span></div>
+          <div class="card-row"><span>Target</span><span>Multinationals with India HQ + Gulf operations (need one partner across both)</span></div>
+          <div class="card-row"><span>Key message</span><span>"Gulf delivery capability from an Indian-registered company — one SLA, two regions."</span></div>
+          <div class="card-row"><span>Warning</span><span>Do not position as India delivery — that hurts KSA positioning. Egypt delivery, India entity.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE: OFFERS -->
+    <div id="ms-pg-offers" class="page">
+      <div class="section-title">Offer Architecture — What to Sell and How</div>
+      <div class="section-sub">No published pricing yet — all figures are market benchmarks for internal discussion only</div>
+      <div class="insight warn">⚠️ <strong>Important:</strong> No published pricing yet. All price ranges below are market benchmarks for discussion — not Xceed ITO published rates. Confirm numbers with management before any client proposal.</div>
+      <div class="card">
+        <div class="card-title">🚪 Entry Offers — Pre-Reference Client Stage</div>
+        <div class="grid2">
+          <div style="border:1px solid var(--border);border-radius:8px;padding:16px">
+            <div style="font-weight:600;font-size:14px;margin-bottom:8px">Option A: Free Assessment → Paid Project</div>
+            <div style="font-size:13px;color:var(--fg2);line-height:1.8">• 1-day free assessment (NCA ECC gap, VMware sizing, DR readiness)<br>• Deliverable: written gap report with Xceed's recommendation<br>• Conversion: assessment → 90-day remediation project<br>• <strong>Why it works:</strong> IT Director gets something to show their CISO/CTO with zero commitment from them</div>
+            <div style="margin-top:10px"><span class="badge badge-green">Best for: KSA Gov/Banking</span></div>
+          </div>
+          <div style="border:1px solid var(--border);border-radius:8px;padding:16px">
+            <div style="font-weight:600;font-size:14px;margin-bottom:8px">Option B: 90-Day POC</div>
+            <div style="font-size:13px;color:var(--fg2);line-height:1.8">• Scope: 1 vendor, 1 use case, defined success criteria<br>• Month 1: Deploy + configure → Month 2: Test + tune → Month 3: Handover + review<br>• Goal: written case study at end (with client permission)<br>• <strong>Pricing:</strong> Below market to win first reference — discuss with management</div>
+            <div style="margin-top:10px"><span class="badge badge-blue">Best for: UAE Freezone SMB</span></div>
+          </div>
+          <div style="border:1px solid var(--border);border-radius:8px;padding:16px">
+            <div style="font-weight:600;font-size:14px;margin-bottom:8px">Option C: Small Project → Managed Service</div>
+            <div style="font-size:13px;color:var(--fg2);line-height:1.8">• Start with time-boxed migration or deployment project<br>• End of project: offer to maintain as a monthly managed service<br>• Lower barrier than starting with 12-month MSP contract<br>• <strong>Why it works:</strong> Reduces procurement risk for client's first engagement</div>
+            <div style="margin-top:10px"><span class="badge badge-teal">Best for: Morocco BPOs</span></div>
+          </div>
+          <div style="border:1px solid var(--border);border-radius:8px;padding:16px">
+            <div style="font-weight:600;font-size:14px;margin-bottom:8px">Commercial Structure (All Markets)</div>
+            <div style="font-size:13px;color:var(--fg2);line-height:1.8">• <strong>Payment:</strong> 30% upfront → 60% on delivery → 10% sign-off<br>• <strong>Year 1 contract:</strong> 6 months (not 12) — reduces procurement friction<br>• <strong>Year 2+:</strong> 12-month with auto-renewal + 90-day notice<br>• <strong>Currency:</strong> USD (UAE/KSA/Mauritius) · MAD/EUR (Morocco) · INR/USD (India)</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📋 Managed Service Packages — Value Stack</div>
+        <div class="grid2">
+          <div style="background:var(--surface2);border-radius:8px;padding:16px;border-left:3px solid var(--green)">
+            <div style="font-weight:700;color:var(--green);margin-bottom:8px">Package 1: Backup &amp; Recovery</div>
+            <div style="font-size:12px;color:var(--fg3);margin-bottom:8px">Best for: UAE Freezone SMB · Morocco BPO</div>
+            <div style="font-size:13px;color:var(--fg2)"><strong>What's in it:</strong> Acronis managed backup (cloud + on-prem) · Daily automated backups + weekly verification · Defined RTO/RPO SLA · Monthly dashboard report · Incident response<br><br><strong>Urgency angle:</strong> "One ransomware incident without tested backups costs more than 3 years of this service."<br><br><strong>Invoice from:</strong> UAE entity (UAE) · Morocco entity (Morocco)</div>
+          </div>
+          <div style="background:var(--surface2);border-radius:8px;padding:16px;border-left:3px solid var(--yellow)">
+            <div style="font-weight:700;color:var(--yellow);margin-bottom:8px">Package 2: Security &amp; Compliance</div>
+            <div style="font-size:12px;color:var(--fg3);margin-bottom:8px">Best for: KSA Gov/Banking · UAE Fintech</div>
+            <div style="font-size:13px;color:var(--fg2)"><strong>What's in it:</strong> Fortinet FortiGate management* · Tenable vulnerability scanning · Monthly NCA ECC compliance report · Patch management · Incident response<br><br><strong>Urgency angle:</strong> "NCA audit is coming — most banks fail ECC-1 and ECC-2 on first assessment."<br><br><strong>Invoice from:</strong> KSA entity (critical for government procurement)</div>
+            <div style="font-size:11px;color:var(--red);margin-top:6px">* Fortinet component blocked until FortiPartner registration</div>
+          </div>
+          <div style="background:var(--surface2);border-radius:8px;padding:16px;border-left:3px solid var(--accent)">
+            <div style="font-weight:700;color:var(--accent);margin-bottom:8px">Package 3: Full Stack Infra</div>
+            <div style="font-size:12px;color:var(--fg3);margin-bottom:8px">Best for: UAE Mid-Market · KSA Enterprise</div>
+            <div style="font-size:13px;color:var(--fg2)"><strong>What's in it:</strong> Veeam DR management* · Fortinet firewall* · Nutanix/on-prem infra monitoring* · NetApp storage mgmt* · Defined uptime SLA · Monthly review call<br><br><strong>Urgency angle:</strong> "VMware Broadcom pricing has forced 35% of Gulf companies to evaluate alternatives."</div>
+            <div style="font-size:11px;color:var(--red);margin-top:6px">* Most components pending — this is a Y2 package</div>
+          </div>
+          <div style="background:var(--surface2);border-radius:8px;padding:16px;border-left:3px solid var(--accent2)">
+            <div style="font-weight:700;color:var(--accent2);margin-bottom:8px">Package 4: DR-as-a-Service (Mauritius)</div>
+            <div style="font-size:12px;color:var(--fg3);margin-bottom:8px">Best for: UAE/KSA clients needing offshore DR</div>
+            <div style="font-size:13px;color:var(--fg2)"><strong>What's in it:</strong> Veeam replication to Mauritius DR site* · Defined RTO/RPO + quarterly DR drill · Mauritius entity invoicing (legally accepted by SAMA + CBUAE)<br><br><strong>Urgency angle:</strong> "Gulf regulation requires a DR site outside your primary country."</div>
+            <div style="font-size:11px;color:var(--red);margin-top:6px">* Requires Veeam hold lift + UAE/KSA reference clients first</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">⏰ Real Urgency Triggers — Not Manufactured Scarcity</div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Trigger</th><th>Evidence</th><th>Use on</th></tr></thead>
+          <tbody>
+            <tr><td>VMware Broadcom renewal pricing</td><td>+300–500% at vSphere 8 renewal</td><td>Any VMware shop in UAE/KSA</td></tr>
+            <tr><td>NCA ECC-2:2024 controls</td><td>108 mandatory controls — NCA Official</td><td>KSA Gov/Banking Tier 2</td></tr>
+            <tr><td>New Gulf office opening</td><td>They need IT from day one — no existing vendor</td><td>UAE Freezone new entrants</td></tr>
+            <tr><td>CISO hire at target company</td><td>LinkedIn alert: new CISO = vendor review window</td><td>Any target company</td></tr>
+            <tr><td>MSP contract renewal approaching</td><td>"When does your current contract end?"</td><td>Displacement plays</td></tr>
+            <tr><td>Ransomware in their sector</td><td>Real public incidents — link news article</td><td>Backup + recovery offers</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- PAGE: COMPETITION -->
+    <div id="ms-pg-compete" class="page">
+      <div class="section-title">Competitive Reality</div>
+      <div class="section-sub">Who is actually in each market, where they are weak, and how Xceed ITO wins — by country</div>
+      <div class="insight warn">⚠️ <strong>Pre-first-deal note:</strong> Xceed ITO has no Gulf reference clients yet. The competitive argument below is based on <em>structural advantages</em> — not "we're better." Lead with the free assessment to create a low-risk entry.</div>
+      <div class="ctabs" id="ms-comp-tabs" style="margin-bottom:0">
+        <button class="ctab active" onclick="msShowComp(this,'ms-comp-uae')">🇦🇪 UAE</button>
+        <button class="ctab" onclick="msShowComp(this,'ms-comp-ksa')">🇸🇦 KSA</button>
+        <button class="ctab" onclick="msShowComp(this,'ms-comp-ma')">🇲🇦 Morocco</button>
+        <button class="ctab" onclick="msShowComp(this,'ms-comp-mu')">🇲🇺 Mauritius</button>
+        <button class="ctab" onclick="msShowComp(this,'ms-comp-in')">🇮🇳 India</button>
+      </div>
+
+      <div class="cpanel active" id="ms-comp-uae">
+        <div class="card"><div class="card-title">🇦🇪 UAE — Market Context</div><div style="font-size:13px;color:var(--fg2);line-height:1.7">UAE MSP/MSSP market dominated by 3–4 large players targeting enterprise and government. SMB Freezone segment (10–200 employees) is chronically underserved — either priced out of Help AG-tier or stuck with break-fix VARs. Pricing benchmark: AED 12,000–25,000/month for SME managed services.</div></div>
+        <div class="card" style="border-left:3px solid var(--red)">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px"><div style="font-weight:700;font-size:15px;color:var(--red)">Help AG — e&amp; enterprise cybersecurity arm</div><div style="font-size:11px;background:rgba(240,82,82,.12);color:var(--red);padding:3px 8px;border-radius:12px;font-weight:600">TIER 1 THREAT</div></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px;margin-bottom:12px">
+            <div style="background:var(--surface);border-radius:6px;padding:12px"><div style="color:var(--green);font-weight:700;margin-bottom:6px;font-size:11px">✅ STRENGTHS</div><ul style="padding-left:14px;line-height:1.9"><li>IDC MarketScape Leader 2024 — most recognized MSSP brand in GCC</li><li>e&amp; (Etisalat) group backing — largest telecom in UAE</li><li>ISO 27001 + CREST certified SOC in UAE; 24/7 coverage</li><li>Full-stack: Fortinet, Palo Alto, Splunk, Microsoft Sentinel</li></ul></div>
+            <div style="background:var(--surface);border-radius:6px;padding:12px"><div style="color:var(--red);font-weight:700;margin-bottom:6px;font-size:11px">⚠️ WEAKNESSES</div><ul style="padding-left:14px;line-height:1.9"><li><strong>Price floor: AED 500K–1M+ minimum annual deal</strong> — SMBs structurally excluded</li><li>Gulf engineer rates: $80–150/hr — same skill, 3–5× Xceed ITO cost</li><li>No Morocco entity — cannot invoice Moroccan clients locally</li><li>No India entity — cannot serve Indian-registered procurement</li></ul></div>
+          </div>
+          <div style="background:linear-gradient(135deg,rgba(79,142,247,.08),rgba(79,142,247,.03));border:1px solid rgba(79,142,247,.2);border-radius:8px;padding:14px;font-size:13px"><div style="font-weight:700;color:var(--accent);margin-bottom:6px">🎯 Xceed ITO Win Angle</div><em>"We're not competing with Help AG — we serve the market Help AG priced themselves out of. Same Fortinet certification, same DIFC invoice, 60% lower cost because our engineers are in Cairo."</em></div>
+        </div>
+        <div class="card" style="border-left:3px solid var(--yellow)">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px"><div style="font-weight:700;font-size:15px;color:var(--yellow)">Intertec Systems — Dubai HQ, India delivery</div><div style="font-size:11px;background:rgba(245,166,35,.12);color:var(--yellow);padding:3px 8px;border-radius:12px;font-weight:600">KSA KEY WIN</div></div>
+          <div style="background:linear-gradient(135deg,rgba(245,166,35,.08),rgba(245,166,35,.03));border:1px solid rgba(245,166,35,.2);border-radius:8px;padding:14px;font-size:13px"><div style="font-weight:700;color:var(--yellow);margin-bottom:6px">🎯 Xceed ITO Win Angle</div><em>"Intertec invoices from Dubai and delivers from India. KSA government procurement explicitly rejects India-based delivery for sensitive data. We deliver from Cairo — not India — and we invoice from our KSA entity with full NCA ECC compliance positioning."</em></div>
+        </div>
+        <div class="card">
+          <div class="card-title">💰 UAE MSP Pricing Benchmark</div>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>Segment</th><th>Market Rate (Gulf MSPs)</th><th>Xceed ITO Position</th><th>Saving</th></tr></thead>
+            <tbody>
+              <tr><td>SME (10–50 users)</td><td>AED 12,000–25,000/month</td><td>AED 5,000–12,000/month (est.)</td><td>~55–60%</td></tr>
+              <tr><td>Mid-market (50–200 users)</td><td>AED 25,000–120,000/month</td><td>AED 10,000–50,000/month (est.)</td><td>~55–60%</td></tr>
+              <tr><td>Per-user pricing</td><td>AED 150–500/user/month</td><td>AED 60–200/user/month (est.)</td><td>~60%</td></tr>
+            </tbody>
+          </table></div>
+          <div style="margin-top:8px;font-size:11px;color:var(--fg3)">⚠️ Internal estimates only — Xceed ITO pricing not yet published.</div>
+        </div>
+      </div>
+
+      <div class="cpanel" id="ms-comp-ksa">
+        <div class="card"><div class="card-title">🇸🇦 KSA — Market Context</div><div style="font-size:13px;color:var(--fg2);line-height:1.7">Saudi cybersecurity market reached <strong>SR 15.2 billion (~$4.05B) in 2024</strong>, driven by mandatory NCA ECC-2:2024 compliance. Every government ministry, SAMA-regulated bank, and Vision 2030 entity must comply. Market expected to grow at 15%+ CAGR through 2031.</div></div>
+        <div class="card" style="border-left:3px solid var(--red)">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px"><div style="font-weight:700;font-size:15px;color:var(--red)">SAT Microsystems — Jeddah-based managed IT + DR</div><div style="font-size:11px;background:rgba(240,82,82,.12);color:var(--red);padding:3px 8px;border-radius:12px;font-weight:600">DIRECT KSA COMPETITOR</div></div>
+          <div style="background:linear-gradient(135deg,rgba(79,142,247,.08),rgba(79,142,247,.03));border:1px solid rgba(79,142,247,.2);border-radius:8px;padding:14px;font-size:13px"><div style="font-weight:700;color:var(--accent);margin-bottom:6px">🎯 Xceed ITO Win Angle</div><em>"SAT Microsystems starts at $250K and serves only KSA. If your company also operates in UAE or Morocco, you need one partner who covers all three with a single SLA. And our Cairo delivery model means you get the same NCA-compliant stack at 60% less cost."</em></div>
+        </div>
+        <div class="card" style="background:linear-gradient(135deg,rgba(52,201,123,.05),rgba(52,201,123,.02));border:1px solid rgba(52,201,123,.2)">
+          <div class="card-title" style="color:var(--green)">🔐 NCA ECC-2:2024 — The KSA Competitive Differentiator</div>
+          <div style="font-size:13px;color:var(--fg2);line-height:1.7;margin-bottom:12px">108 mandatory controls for all KSA government entities. <strong>Most local MSPs are not structured to deliver compliance-as-a-service</strong> — they manage IT but cannot produce the monthly NCA audit report an IT Director needs to show their CISO.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px">
+            <div style="background:var(--surface);border-radius:6px;padding:12px"><div style="font-weight:700;margin-bottom:6px">What Xceed ITO delivers</div><ul style="padding-left:14px;line-height:1.9;color:var(--fg2)"><li>Tenable vulnerability scans mapped to NCA ECC controls ✅</li><li>Fortinet FortiGate management (NCA requires NGFW) — pending registration</li><li>Monthly NCA compliance report for IT Director → CISO escalation</li><li>KSA entity invoice = no procurement friction</li></ul></div>
+            <div style="background:var(--surface);border-radius:6px;padding:12px"><div style="font-weight:700;margin-bottom:6px">What competitors can't match</div><ul style="padding-left:14px;line-height:1.9;color:var(--fg2)"><li>India-delivery players (Intertec, Hexaware) can't satisfy data residency</li><li>Local SIs (Saudi Bell, Natcom) lack tool automation for 108-control tracking</li><li>Enterprise players (IBM, Accenture) are out of price range for KSA mid-market</li><li>Xceed ITO: Tenable ✅ registered + KSA entity + Cairo delivery = compliance at 60% cost</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cpanel" id="ms-comp-ma">
+        <div class="card"><div class="card-title">🇲🇦 Morocco — Market Context</div><div style="font-size:13px;color:var(--fg2);line-height:1.7">Morocco's IT services market is bifurcated: large telco-affiliated SIs (Maroc Telecom, Orange) serve enterprise, while fragmented small local MSPs fight for mid-market. <strong>No single dominant MSSP player</strong> — the market is open for a well-positioned entrant with local entity invoicing and French-language delivery.</div></div>
+        <div class="card" style="border-left:3px solid var(--red)">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px"><div style="font-weight:700;font-size:15px;color:var(--red)">CyberOne.ma — local low-cost cybersecurity + managed IT</div><div style="font-size:11px;background:rgba(240,82,82,.12);color:var(--red);padding:3px 8px;border-radius:12px;font-weight:600">CLOSEST DIRECT COMPETITOR</div></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px;margin-bottom:12px">
+            <div style="background:var(--surface);border-radius:6px;padding:12px"><div style="color:var(--green);font-weight:700;margin-bottom:6px;font-size:11px">✅ STRENGTHS</div><ul style="padding-left:14px;line-height:1.9"><li>Morocco-based — local trust, French-language, local MAD invoicing</li><li>Under $25/hr — cheapest credible MSSP in Morocco market</li><li>Strong Clutch reviews (5.0 rating)</li></ul></div>
+            <div style="background:var(--surface);border-radius:6px;padding:12px"><div style="color:var(--red);font-weight:700;margin-bottom:6px;font-size:11px">⚠️ WEAKNESSES</div><ul style="padding-left:14px;line-height:1.9"><li><strong>Morocco-only</strong> — cannot invoice from UAE, KSA, or Mauritius entities</li><li>No international vendor certifications (Tenable, Veeam, Fortinet)</li><li>No Gulf reference clients — cannot serve companies expanding to UAE/KSA</li></ul></div>
+          </div>
+          <div style="background:linear-gradient(135deg,rgba(79,142,247,.08),rgba(79,142,247,.03));border:1px solid rgba(79,142,247,.2);border-radius:8px;padding:14px;font-size:13px"><div style="font-weight:700;color:var(--accent);margin-bottom:6px">🎯 Xceed ITO Win Angle</div><em>"CyberOne is Morocco-only. If your company operates in UAE or KSA as well, you need one partner across all three. We have local Morocco entity invoicing in MAD or EUR, plus UAE DIFC and KSA entities — one SLA for all your markets."</em></div>
+        </div>
+        <div class="card" style="background:linear-gradient(135deg,rgba(52,201,123,.05),rgba(52,201,123,.02));border:1px solid rgba(52,201,123,.2)">
+          <div class="card-title" style="color:var(--green)">🚪 Morocco Entry Strategy — Why It's Different from Gulf</div>
+          <div style="font-size:13px;color:var(--fg2);line-height:1.7">Morocco is not a price war — the local players are already cheap ($25–49/hr). Xceed ITO's competitive advantage here is <strong>vendor depth + multi-country entity structure</strong>, not cost. The target is nearshore BPO companies and financial services firms in Casablanca/Rabat who also have Gulf operations.</div>
+        </div>
+      </div>
+
+      <div class="cpanel" id="ms-comp-mu">
+        <div class="card"><div class="card-title">🇲🇺 Mauritius — Market Context</div><div style="font-size:13px;color:var(--fg2);line-height:1.7">Mauritius is not a primary competitive battleground — it is Xceed ITO's <strong>DR-as-a-Service hub</strong>. The island's value is jurisdictional (zero capital controls, stable legal system, accepted by UAE/KSA regulators as DR site). The main competition is "doing nothing" or using an on-premises DR site in the client's own country.</div></div>
+        <div class="card">
+          <div class="card-title">Competitive Dynamics in Mauritius</div>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>Alternative</th><th>Why it falls short</th><th>Xceed ITO position</th></tr></thead>
+            <tbody>
+              <tr><td>On-premises DR in home country</td><td>Not accepted by SAMA/CBUAE as "outside primary country" DR site</td><td>Mauritius entity = legally accepted offshore DR</td></tr>
+              <tr><td>AWS/Azure cloud DR</td><td>Data sovereignty concerns for KSA government; hyperscaler pricing for small clients</td><td>Dedicated DR site + Mauritius entity invoice + Veeam SLA</td></tr>
+              <tr><td>UAE entity DR</td><td>CBUAE requires DR site OUTSIDE UAE — a UAE DR site doesn't qualify</td><td>Mauritius = truly offshore, zero restrictions</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <div class="cpanel" id="ms-comp-in">
+        <div class="card"><div class="card-title">🇮🇳 India — Use Cases</div>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>Client Type</th><th>Why India Entity</th><th>What We Sell</th></tr></thead>
+            <tbody>
+              <tr><td>Multinational with India HQ</td><td>Indian-registered vendor required by procurement policy</td><td>Full managed service from Cairo, invoiced from India entity</td></tr>
+              <tr><td>Indian company with Gulf operations</td><td>Needs one partner covering India + UAE/KSA</td><td>Multi-country SLA: India entity + UAE entity</td></tr>
+              <tr><td>Gulf company needing India support</td><td>Indian tech staff, India entity for local procurement</td><td>Backup + DR for India operations, Cairo delivery</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="insight warn">⚠️ <strong>Year 2 Warning:</strong> India is not a delivery location. Never position as "India delivery" — this undermines the KSA data residency story. Always say: "Egypt delivery, India entity for procurement."</div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:16px">
+        <div class="card-title">🛡️ Shared Objection Handling — All Markets</div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Objection</th><th>Root concern</th><th>Response</th></tr></thead>
+          <tbody>
+            <tr><td>"You're not local"</td><td>Trust + procurement friction</td><td>We have a local entity in your country — invoice from UAE/KSA/Morocco/Mauritius/India. Engineers are remote; your data stays in your country's data center.</td></tr>
+            <tr><td>"We need data to stay here"</td><td>Data sovereignty compliance</td><td>Our engineers access your systems remotely. The data never leaves your local data center. We can contractually commit to this.</td></tr>
+            <tr><td>"We've never heard of you"</td><td>Trust + risk</td><td>That's exactly why we're offering a free assessment — zero commitment from you, written report you can share with your CISO.</td></tr>
+            <tr><td>"Your team is in Egypt"</td><td>Quality concern, latency</td><td>60% lower cost with the same Tenable/Acronis certifications, same SLA, same DIFC invoice. The engineering comes from Cairo; the accountability comes from your local entity.</td></tr>
+            <tr><td>"We're locked into our current MSP"</td><td>Switching cost</td><td>When does your contract expire? We'll start the conversation now so you have a real alternative when renewal comes up.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- PAGE: ACTION PLAN -->
+    <div id="ms-pg-action" class="page">
+      <div class="section-title">Action Plan — 3-Phase Roadmap</div>
+      <div class="section-sub">Phase-by-phase execution plan to reach first 5 clients</div>
+      <div class="timeline">
+        <div class="tl-step now">
+          <div style="font-weight:700;font-size:15px;color:var(--gold);margin-bottom:8px">Phase 1 — Foundation (Months 1–2) 🔥 NOW</div>
+          <div style="font-size:13px;color:var(--fg2);line-height:1.8">
+            <strong>1. Vendor registrations (THIS WEEK):</strong> BlueCat sign agreement · Fortinet apply immediately · Veeam lift hold · Nutanix complete docs · Microsoft/Ingram Micro resolve portal<br>
+            <strong>2. LinkedIn company page:</strong> Xceed ITO page + 5 thought leadership posts (VMware migration, NCA compliance, Gulf IT cost arbitrage)<br>
+            <strong>3. Sales collateral:</strong> One-pager + battle cards for Help AG, Intertec, SAT Microsystems<br>
+            <strong>4. Prospecting list:</strong> 50 UAE Freezone + 20 KSA government + 20 Morocco nearshore<br>
+            <strong>5. Secondary sending domain:</strong> Set up cold email infrastructure
+          </div>
+        </div>
+        <div class="tl-step">
+          <div style="font-weight:700;font-size:15px;color:var(--accent);margin-bottom:8px">Phase 2 — Activate (Months 2–4)</div>
+          <div style="font-size:13px;color:var(--fg2);line-height:1.8">
+            <strong>1. Cold email sequences (4 tracks):</strong> UAE Freezone IT Directors · KSA IT/CISO (NCA angle) · UAE mid-market (VMware angle) · Morocco nearshore BPOs (French, Acronis angle)<br>
+            <strong>2. LinkedIn personal brand:</strong> Founder/sales lead posts 2–3×/week (market insights, vendor updates, "how we think about X")<br>
+            <strong>3. Referral activation:</strong> Ask every existing Xceed BPO relationship for introductions to their IT buyers<br>
+            <strong>4. GITEX attendance:</strong> Walk the floor, book 10 meetings in advance (no booth yet)
+          </div>
+        </div>
+        <div class="tl-step">
+          <div style="font-weight:700;font-size:15px;color:var(--green);margin-bottom:8px">Phase 3 — Close (Months 4–6)</div>
+          <div style="font-size:13px;color:var(--fg2);line-height:1.8">
+            <strong>1. Free assessment offer:</strong> "Free NCA ECC gap assessment" or "Free VMware migration sizing" — reason for IT Directors to take a meeting<br>
+            <strong>2. POC structure:</strong> Low-risk entry: 1 vendor, 90-day POC, success criteria defined<br>
+            <strong>3. Reference case study:</strong> Moment deal #1 closes → start documenting. First reference = unlocks all future deals.
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <div class="card-title">📊 Year 1 KPIs</div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Metric</th><th>3-month target</th><th>6-month target</th><th>12-month target</th></tr></thead>
+          <tbody>
+            <tr><td>Qualified prospects in pipeline</td><td>20</td><td>50</td><td>100</td></tr>
+            <tr><td>Meetings booked</td><td>5</td><td>20</td><td>50</td></tr>
+            <tr><td>POCs / assessments delivered</td><td>1</td><td>3</td><td>8</td></tr>
+            <tr><td>Deals closed</td><td>0</td><td>1</td><td>5</td></tr>
+            <tr><td>Reference clients</td><td>0</td><td>1</td><td>3</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="card">
+        <div class="card-title">📚 Data Sources Used in This Market Study</div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Source</th><th>Used for</th></tr></thead>
+          <tbody>
+            <tr><td>MarketsandMarkets 2024</td><td>$25B ME MSS market size, 14.6% CAGR</td></tr>
+            <tr><td>NCA.gov.sa official</td><td>NCA ECC-2:2024 — 108 mandatory controls</td></tr>
+            <tr><td>Avasant Research 2024</td><td>VMware Broadcom +300–500% pricing shock</td></tr>
+            <tr><td>Saudi Gazette 2024</td><td>KSA cybersecurity SR 15.2B market size</td></tr>
+            <tr><td>IDC MEA 2024</td><td>Morocco $2.8B IT market, 9% YoY growth</td></tr>
+            <tr><td>Clutch.co (UAE, KSA, Morocco)</td><td>Competitor profiles, pricing benchmarks</td></tr>
+            <tr><td>Infraon MSP list 2024</td><td>UAE MSP market rates (AED 12K–25K/month SME)</td></tr>
+            <tr><td>IDC MarketScape GCC MSS 2023</td><td>Help AG competitive positioning</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- PAGE: RECOMMENDATIONS -->
+    <div id="ms-pg-recs" class="page">
+      <div class="section-title">Recommendations</div>
+      <div class="section-sub">Strategic decisions and target companies by country</div>
+      <div class="card">
+        <div class="card-title">👥 Sales Team Decision</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px;margin-bottom:12px">
+          <div style="background:var(--surface);border-radius:6px;padding:12px">
+            <div style="font-weight:700;color:var(--green);margin-bottom:6px">Option A: Dedicated Sales (Recommended Y1)</div>
+            <ul style="padding-left:14px;line-height:1.9;color:var(--fg2)"><li>1 dedicated IT sales rep based in Dubai or working Gulf remotely</li><li>Must have GCC IT/MSP relationships — bought or sold managed services before</li><li>Commission structure: 10–15% of first year contract value</li><li>Cost: AED 15,000–25,000/month base + commission</li><li>Why: Gulf relationships close deals. Cold email alone won't work without someone who can walk into a DIFC office.</li></ul>
+          </div>
+          <div style="background:var(--surface);border-radius:6px;padding:12px">
+            <div style="font-weight:700;color:var(--fg3);margin-bottom:6px">Option B: BPO Sales (Y1 Fallback)</div>
+            <ul style="padding-left:14px;line-height:1.9;color:var(--fg2)"><li>Leverage existing Xceed BPO sales relationships for warm introductions</li><li>Add IT ITO sales motion as secondary track for BPO account managers</li><li>Lower cost but slower — requires retraining BPO sales on IT positioning</li><li>Risk: BPO deals consume sales bandwidth, IT ITO gets deprioritized</li></ul>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🛠️ Technical Team Decision</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px">
+          <div style="background:var(--surface);border-radius:6px;padding:12px">
+            <div style="font-weight:700;color:var(--green);margin-bottom:6px">Option A: 2 FTE Engineers (Recommended)</div>
+            <ul style="padding-left:14px;line-height:1.9;color:var(--fg2)"><li>1 senior infra + backup engineer (Veeam/Acronis/Nutanix certified)</li><li>1 security engineer (Tenable/Fortinet certified)</li><li>Cairo-based — delivery cost advantage maintained</li><li>Can handle 3–5 managed service clients simultaneously</li></ul>
+          </div>
+          <div style="background:var(--surface);border-radius:6px;padding:12px">
+            <div style="font-weight:700;color:var(--fg3);margin-bottom:6px">Option B: Freelancers (Y1 Risk)</div>
+            <ul style="padding-left:14px;line-height:1.9;color:var(--fg2)"><li>Lower fixed cost but SLA reliability risk</li><li>Can't get certified under Xceed ITO vendor partnerships</li><li>Client perception risk — "who's actually managing my systems?"</li><li>Only viable for project work, not recurring managed services</li></ul>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🎯 Target Companies by Country — First 5 Clients</div>
+        <div class="grid2">
+          <div>
+            <div style="font-weight:700;color:var(--accent);margin-bottom:8px;font-size:13px">🇦🇪 UAE — 6 targets</div>
+            <div class="tbl-wrap"><table>
+              <thead><tr><th>Type</th><th>Signal</th><th>Offer</th></tr></thead>
+              <tbody>
+                <tr><td>DIFC fintech (10–50 employees)</td><td>No dedicated IT team, using break-fix</td><td>Acronis backup + Tenable scan POC</td></tr>
+                <tr><td>DMCC trading company</td><td>VMware shop, Broadcom renewal approaching</td><td>Free VMware migration sizing</td></tr>
+                <tr><td>DIC tech startup (Series A)</td><td>Just hired CTO, building IT policy</td><td>Full managed IT + security package</td></tr>
+                <tr><td>JAFZA logistics company</td><td>Multi-site, no DR plan</td><td>Acronis backup + DR assessment</td></tr>
+                <tr><td>UAE fintech (CBUAE regulated)</td><td>CBUAE audit coming up</td><td>Tenable + compliance report offer</td></tr>
+                <tr><td>New Gulf office (European HQ)</td><td>Just registered, no IT vendor</td><td>Full onboarding: M365 + backup + firewall</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+          <div>
+            <div style="font-weight:700;color:var(--green);margin-bottom:8px;font-size:13px">🇸🇦 KSA — 6 targets</div>
+            <div class="tbl-wrap"><table>
+              <thead><tr><th>Type</th><th>Signal</th><th>Offer</th></tr></thead>
+              <tbody>
+                <tr><td>Tier 2 bank (Riyadh)</td><td>NCA ECC audit deadline, no compliance vendor</td><td>Free NCA ECC gap assessment</td></tr>
+                <tr><td>Government ministry (IT dept)</td><td>Using Intertec (India delivery) — displacement</td><td>NCA ECC compliance pitch + Cairo delivery</td></tr>
+                <tr><td>Vision 2030 entity</td><td>VMware Broadcom renewal coming</td><td>Nutanix migration sizing + Tenable scan</td></tr>
+                <tr><td>Saudi insurance company</td><td>SAMA regulated, no MSSP</td><td>Tenable + Fortinet compliance package</td></tr>
+                <tr><td>Fintech (SAMA license)</td><td>New CISO hire — vendor review window</td><td>Security + compliance managed service</td></tr>
+                <tr><td>Healthcare group (KSA)</td><td>Patient data compliance gaps</td><td>Tenable scan + NCA ECC report</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+        <div class="grid2" style="margin-top:14px">
+          <div>
+            <div style="font-weight:700;color:var(--orange);margin-bottom:8px;font-size:13px">🇲🇦 Morocco — 5 targets</div>
+            <div class="tbl-wrap"><table>
+              <thead><tr><th>Type</th><th>Signal</th><th>Offer</th></tr></thead>
+              <tbody>
+                <tr><td>Casablanca nearshore BPO</td><td>Gulf clients, needs Gulf-ready IT</td><td>Acronis backup + multi-country SLA</td></tr>
+                <tr><td>Rabat fintech (ACAPS regulated)</td><td>No MSSP, using break-fix IT</td><td>Acronis + Tenable managed service</td></tr>
+                <tr><td>Moroccan bank branch</td><td>Local IT management needed</td><td>Full managed IT + security (French)</td></tr>
+                <tr><td>BPO with UAE operations</td><td>Needs one IT partner for both markets</td><td>Multi-country SLA: Morocco + UAE</td></tr>
+                <tr><td>French multinational (Morocco office)</td><td>French-language IT support needed</td><td>Managed IT from Cairo in French</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+          <div>
+            <div style="font-weight:700;color:var(--accent2);margin-bottom:8px;font-size:13px">🇲🇺 Mauritius — 3 targets + 🇮🇳 India — 3 targets</div>
+            <div class="tbl-wrap"><table>
+              <thead><tr><th>Market</th><th>Type</th><th>Offer</th></tr></thead>
+              <tbody>
+                <tr><td>Mauritius</td><td>UAE client needing offshore DR</td><td>DR-as-a-Service (Y2 — after Veeam lift)</td></tr>
+                <tr><td>Mauritius</td><td>KSA bank needing SAMA-accepted DR</td><td>Mauritius DR hub + Veeam SLA</td></tr>
+                <tr><td>Mauritius</td><td>Sub-Saharan Africa holding company</td><td>Mauritius entity + managed IT Cairo</td></tr>
+                <tr><td>India</td><td>Multinational with India HQ + Gulf ops</td><td>India entity + UAE entity — one SLA</td></tr>
+                <tr><td>India</td><td>Indian IT company with Gulf delivery needs</td><td>Cairo delivery + India-registered vendor</td></tr>
+                <tr><td>India</td><td>Gulf company with India tech team</td><td>Backup + DR for India operations</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🗺️ Country Work-Direction Tiers</div>
+        <div class="grid2" style="margin-bottom:14px">
+          <div style="background:linear-gradient(135deg,rgba(79,142,247,.08),rgba(79,142,247,.03));border:1px solid rgba(79,142,247,.2);border-radius:8px;padding:16px">
+            <div style="font-weight:700;color:var(--accent);margin-bottom:8px">🇦🇪 UAE — Tier 1: Commercial Beachhead</div>
+            <div style="font-size:13px;color:var(--fg2);line-height:1.7">Focus: Freezone SMBs. Speed to first deal. 1 dedicated sales rep. Acronis + Tenable as entry. Fortinet registration is the unlocker for mid-market. GITEX is the relationship event.</div>
+          </div>
+          <div style="background:linear-gradient(135deg,rgba(52,201,123,.05),rgba(52,201,123,.02));border:1px solid rgba(52,201,123,.2);border-radius:8px;padding:16px">
+            <div style="font-weight:700;color:var(--green);margin-bottom:8px">🇸🇦 KSA — Tier 1: High Value (Slower Cycle)</div>
+            <div style="font-size:13px;color:var(--fg2);line-height:1.7">Focus: NCA ECC compliance. 3–6 month sales cycle. Free assessment is mandatory to get in the door. Fortinet registration unblocks the full NCA stack. India delivery displacement is the key win.</div>
+          </div>
+          <div style="background:linear-gradient(135deg,rgba(245,166,35,.05),rgba(245,166,35,.02));border:1px solid rgba(245,166,35,.2);border-radius:8px;padding:16px">
+            <div style="font-weight:700;color:var(--orange);margin-bottom:8px">🇲🇦 Morocco — Tier 1: Quick Wins (Parallel)</div>
+            <div style="font-size:13px;color:var(--fg2);line-height:1.7">Focus: Casablanca nearshore BPOs. French-language pitch. Acronis as entry. Morocco entity removes all procurement friction. Run parallel to UAE/KSA — different budget and procurement cycle.</div>
+          </div>
+          <div style="background:linear-gradient(135deg,rgba(56,196,196,.05),rgba(56,196,196,.02));border:1px solid rgba(56,196,196,.2);border-radius:8px;padding:16px">
+            <div style="font-weight:700;color:var(--teal);margin-bottom:8px">🇲🇺 Mauritius — Tier 2: DR Hub (Y2)</div>
+            <div style="font-size:13px;color:var(--fg2);line-height:1.7">Focus: DR-as-a-Service for UAE/KSA clients. Gate: Veeam hold must be lifted + 1 UAE/KSA reference client. Mauritius entity is clean — no sovereign risk issues for Gulf regulators.</div>
+          </div>
+          <div style="background:linear-gradient(135deg,rgba(99,102,241,.05),rgba(99,102,241,.02));border:1px solid rgba(99,102,241,.2);border-radius:8px;padding:16px">
+            <div style="font-weight:700;color:var(--accent2);margin-bottom:8px">🇮🇳 India — Tier 2: Multinational Play (Y2)</div>
+            <div style="font-size:13px;color:var(--fg2);line-height:1.7">Focus: Multinationals requiring Indian-registered vendor. India entity = procurement entry only — never market as India delivery. Activate after UAE/KSA traction established.</div>
+          </div>
+        </div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Market</th><th>Tier</th><th>Timeline</th><th>Gate to activate</th><th>First offer</th></tr></thead>
+          <tbody>
+            <tr><td>🇦🇪 UAE</td><td>Tier 1</td><td>NOW</td><td>Fortinet registration (unlock mid-market)</td><td>Free assessment or Acronis POC</td></tr>
+            <tr><td>🇸🇦 KSA</td><td>Tier 1</td><td>NOW</td><td>Fortinet registration (NCA ECC full stack)</td><td>Free NCA ECC gap assessment</td></tr>
+            <tr><td>🇲🇦 Morocco</td><td>Tier 1</td><td>NOW (parallel)</td><td>No gate — Acronis registered, Morocco entity exists</td><td>Acronis backup managed service</td></tr>
+            <tr><td>🇲🇺 Mauritius</td><td>Tier 2</td><td>Y2</td><td>Veeam hold lift + 1 UAE/KSA reference client</td><td>DR-as-a-Service upsell</td></tr>
+            <tr><td>🇮🇳 India</td><td>Tier 2</td><td>Y2</td><td>UAE/KSA traction established</td><td>Multi-country SLA pitch</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+
+  </div><!-- /section-market-study -->
+
 </div>
 
 <!-- Edit Modal -->
@@ -1028,7 +1804,38 @@ const STATUS_CONFIG = {
 
 // ── TOAST ──────────────────────────────
 let toastTimer;
-function showToast(msg, type = '') {
+function showMainTab(btn, sectionId) {
+    document.querySelectorAll('.main-tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('section-vendors').style.display = 'none';
+    document.getElementById('section-market-study').style.display = 'none';
+    document.getElementById(sectionId).style.display = 'block';
+  }
+  function msShowPage(btn, id) {
+    document.querySelectorAll('.ms-wrapper .nav-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.ms-wrapper .page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+  function msShowC(btn, country) {
+    const panel = btn.closest('.ms-wrapper');
+    panel.querySelectorAll('.ctab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    panel.querySelectorAll('.cpanel').forEach(p => p.classList.remove('active'));
+    const cp = document.getElementById('ms-cpanel-' + country);
+    if (cp) cp.classList.add('active');
+  }
+  function msShowComp(btn, id) {
+    document.querySelectorAll('#ms-comp-tabs .ctab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    ['ms-comp-uae','ms-comp-ksa','ms-comp-ma','ms-comp-mu','ms-comp-in'].forEach(cid => {
+      const el = document.getElementById(cid);
+      if (el) el.classList.remove('active');
+    });
+    const el = document.getElementById(id);
+    if (el) el.classList.add('active');
+  }
+  function showToast(msg, type = '') {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.className = 'show ' + type;
