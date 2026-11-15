@@ -1250,7 +1250,9 @@ function renderTable() {
       ? '<span class="leads-yes">✓ Yes</span>'
       : leadsVal === false || leadsVal === 'No' || leadsVal === 'no'
         ? '<span class="leads-no">✗ No</span>'
-        : '—';
+        : leadsVal
+          ? esc(leadsVal)
+          : '—';
 
     return `<tr>
       <td class="td-num">${i + 1}</td>
