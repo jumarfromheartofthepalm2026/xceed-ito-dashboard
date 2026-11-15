@@ -374,7 +374,7 @@ body::before {
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 700px;
+  min-width: 1100px;
 }
 
 thead th {
@@ -460,18 +460,115 @@ td {
 .td-details {
   font-size: 12px;
   color: var(--fg2);
-  min-width: 200px;
-  max-width: 280px;
+  min-width: 160px;
+  max-width: 220px;
 }
 
 .td-commitment {
   font-size: 12px;
   color: var(--fg);
-  min-width: 160px;
-  max-width: 220px;
+  min-width: 130px;
+  max-width: 180px;
 }
 
+.td-scope {
+  font-size: 12px;
+  color: var(--fg2);
+  min-width: 130px;
+  max-width: 180px;
+}
+
+.td-requirements {
+  font-size: 12px;
+  color: var(--fg2);
+  min-width: 130px;
+  max-width: 180px;
+}
+
+.td-audience {
+  font-size: 12px;
+  color: var(--fg2);
+  min-width: 110px;
+  max-width: 150px;
+}
+
+.td-leads {
+  font-size: 12px;
+  min-width: 100px;
+}
+
+.td-phase {
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 80px;
+  white-space: nowrap;
+}
+
+.leads-yes { color: var(--green); }
+.leads-no  { color: var(--fg3); }
+
 .td-actions { width: 48px; text-align: center; }
+
+/* Mobile card view */
+@media (max-width: 768px) {
+  .table-wrap {
+    padding: 0 0 24px;
+    overflow-x: visible;
+  }
+
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead { display: none; }
+
+  tbody tr {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin: 0 max(12px, env(safe-area-inset-left)) 12px;
+    padding: 12px;
+    background: rgba(255,255,255,0.025);
+  }
+
+  tbody tr:hover { background: rgba(255,255,255,0.045); }
+
+  td {
+    padding: 4px 0;
+    border: none;
+    font-size: 13px;
+  }
+
+  td::before {
+    content: attr(data-label);
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--fg3);
+    min-width: 110px;
+    margin-right: 6px;
+  }
+
+  .td-num { display: none; }
+  .td-actions { padding: 8px 0 4px; }
+  .td-actions::before { content: ''; min-width: 0; }
+
+  .td-company {
+    font-size: 15px;
+    font-weight: 700;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+  .td-company::before { display: none; }
+
+  .td-details, .td-commitment, .td-scope, .td-requirements {
+    max-width: 100%;
+    white-space: normal;
+    word-break: break-word;
+  }
+}
 
 /* Edit button */
 .btn-edit {
@@ -833,9 +930,14 @@ td {
           <th>Company</th>
           <th>Category</th>
           <th>Countries</th>
+          <th>Scope of Services</th>
           <th>Status</th>
           <th>Details</th>
-          <th>Commitment / Next Step</th>
+          <th>Commitment</th>
+          <th>Requirements</th>
+          <th>Target Audience</th>
+          <th>Leads</th>
+          <th>Phase</th>
           <th id="actions-header" style="display:none"></th>
         </tr>
       </thead>
@@ -1153,7 +1255,7 @@ function applyFilters() {
 function renderTable() {
   const tbody = document.getElementById('vendors-body');
   if (!filteredVendors.length) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="8">No vendors match the current filters.</td></tr>';
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="13">No vendors match the current filters.</td></tr>';
     return;
   }
 
@@ -1164,14 +1266,26 @@ function renderTable() {
       ? `<button class="btn-edit" onclick="openEdit('${v.id}')">✏️</button>`
       : '';
 
+    const leadsVal = v.leads_generation;
+    const leadsHtml = leadsVal === true || leadsVal === 'Yes' || leadsVal === 'yes'
+      ? '<span class="leads-yes">✓ Yes</span>'
+      : leadsVal === false || leadsVal === 'No' || leadsVal === 'no'
+        ? '<span class="leads-no">✗ No</span>'
+        : '—';
+
     return `<tr>
       <td class="td-num">${i + 1}</td>
-      <td class="td-company">${esc(v.company)}</td>
-      <td class="td-category">${esc(v.category)}</td>
-      <td class="td-countries">${countries}</td>
-      <td class="td-status"><span class="status-pill ${cfg.cls}">${cfg.icon} ${esc(cfg.label)}</span></td>
-      <td class="td-details">${esc(v.details || '—')}</td>
-      <td class="td-commitment">${esc(v.commitment || '—')}</td>
+      <td class="td-company" data-label="Company">${esc(v.company)}</td>
+      <td class="td-category" data-label="Category">${esc(v.category)}</td>
+      <td class="td-countries" data-label="Countries">${countries}</td>
+      <td class="td-scope" data-label="Scope">${esc(v.scope_of_services || '—')}</td>
+      <td class="td-status" data-label="Status"><span class="status-pill ${cfg.cls}">${cfg.icon} ${esc(cfg.label)}</span></td>
+      <td class="td-details" data-label="Details">${esc(v.details || '—')}</td>
+      <td class="td-commitment" data-label="Commitment">${esc(v.commitment || '—')}</td>
+      <td class="td-requirements" data-label="Requirements">${esc(v.requirements || '—')}</td>
+      <td class="td-audience" data-label="Target">${esc(v.target_audience || '—')}</td>
+      <td class="td-leads" data-label="Leads">${leadsHtml}</td>
+      <td class="td-phase" data-label="Phase">${esc(v.phase_priority || '—')}</td>
       <td class="td-actions">${editBtn}</td>
     </tr>`;
   }).join('');
