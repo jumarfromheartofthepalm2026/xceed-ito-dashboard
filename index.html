@@ -216,12 +216,7 @@ tr:hover td { background: var(--surface2); }
     <h1>Xceed <span>ITO</span> — Vendor Partnership Tracker</h1>
     <div class="meta" id="header-meta">Pre-first-deal stage · 6 entities operational · Delivery: Cairo · Last updated: <strong id="header-date">—</strong></div>
   </div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap">
-    <span class="badge badge-green">🟢 Tenable: Registered</span>
-    <span class="badge badge-green">🟢 Acronis: Registered</span>
-    <span class="badge badge-yellow">🟡 BlueCat: Pending sign</span>
-    <span class="badge badge-red">🔴 Fortinet: Not applied</span>
-  </div>
+  <div id="header-badges" style="display:flex;gap:8px;flex-wrap:wrap"></div>
 </div>
 
 <!-- ══════ TOP NAV ══════ -->
@@ -2135,6 +2130,28 @@ function loadVendorData() {
       // Update header date from JSON
       var hd = document.getElementById('header-date');
       if(hd && data.lastUpdated) hd.textContent = data.lastUpdated;
+      // Build header badges dynamically from vendor data
+      var badgesEl = document.getElementById('header-badges');
+      if(badgesEl && data.vendors) {
+        var badgeMap = {
+          'registered-testing': { cls:'badge-green', icon:'🟢' },
+          'waiting-vendor-feedback': { cls:'badge-blue', icon:'🔵' },
+          'waiting-vendor-issue': { cls:'badge-orange', icon:'🟡' },
+          'waiting-xceed': { cls:'badge-pink', icon:'🔴' },
+          'not-applied-urgent': { cls:'badge-red', icon:'🔴' },
+          'on-hold': { cls:'badge-grey', icon:'⚪' },
+          'dropped': { cls:'badge-grey', icon:'⚫' },
+          'not-contacted': { cls:'badge-teal', icon:'🔵' }
+        };
+        var html = '';
+        data.vendors.forEach(function(v){
+          var bm = badgeMap[v.statusKey] || { cls:'badge-grey', icon:'⚪' };
+          // Short status label
+          var shortLabel = v.status.split('—')[0].trim();
+          html += '<span class="badge ' + bm.cls + '">' + bm.icon + ' ' + v.company + ': ' + shortLabel + '</span>';
+        });
+        badgesEl.innerHTML = html;
+      }
       renderVendors(data);
     })
     .catch(function(e){
