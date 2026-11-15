@@ -947,17 +947,6 @@ async function init() {
 async function onSignedIn(user) {
   currentUser = user;
 
-  // Check if first login (needs password change)
-  // We detect by checking if created_at ≈ last_sign_in_at (within 30s)
-  const created = new Date(user.created_at).getTime();
-  const lastLogin = new Date(user.last_sign_in_at).getTime();
-  const isFirstLogin = Math.abs(lastLogin - created) < 30000;
-
-  if (isFirstLogin) {
-    show('change-password-screen');
-    return;
-  }
-
   // Load role
   const { data: profile } = await sb.from('ito_user_profiles')
     .select('role, email')
