@@ -12,7 +12,7 @@
 <title>Xceed ITO — Vendor Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js" onerror="document.getElementById('loading').innerHTML='<p style=color:#f05252;padding:2rem>❌ Failed to load. Please check your internet connection and refresh.</p>'"></script>
 <style>
 :root {
   --bg: #0f1117;
@@ -844,6 +844,19 @@ td {
 // ── CONFIG ─────────────────────────────
 const SUPABASE_URL = 'https://wmmqymlbamrwbdthfbdd.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_MPcfTORLcxVk6cv-fSiTwg_5p2rC5Kl';
+
+// Timeout: if still loading after 8 seconds, show error
+setTimeout(() => {
+  const el = document.getElementById('loading');
+  if (el && el.style.display !== 'none') {
+    el.innerHTML = '<p style="color:#f05252;padding:2rem;text-align:center">❌ Could not connect. Check your internet and <a href="" style="color:#4f8ef7">refresh</a>.</p>';
+  }
+}, 8000);
+
+if (typeof supabase === 'undefined') {
+  document.getElementById('loading').innerHTML = '<p style="color:#f05252;padding:2rem;text-align:center">❌ Failed to load library. Please refresh.</p>';
+  throw new Error('Supabase library not loaded');
+}
 
 const { createClient } = supabase;
 const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
