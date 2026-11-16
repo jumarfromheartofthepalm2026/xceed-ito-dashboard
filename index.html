@@ -1906,7 +1906,7 @@ function showMainTab(btn, sectionId) {
       v.company || '',
       v.category || '',
       (v.countries || []).join(', '),
-      v.scope_of_services || '',
+      v.scope || v.scope_of_services || '',
       v.status || '',
       v.details || '',
       v.commitment || '',
@@ -2177,7 +2177,7 @@ function renderTable() {
       <td class="td-company" data-label="Company">${esc(v.company)}</td>
       <td class="td-category" data-label="Category">${esc(v.category)}</td>
       <td class="td-countries" data-label="Countries">${countries}</td>
-      <td class="td-scope" data-label="Scope">${esc(v.scope_of_services || '—')}</td>
+      <td class="td-scope" data-label="Scope">${esc(v.scope || v.scope_of_services || '—')}</td>
       <td class="td-status" data-label="Status"><span class="status-pill ${cfg.cls}">${cfg.icon} ${esc(cfg.label)}</span></td>
       <td class="td-details" data-label="Details">${esc(v.details || '—')}</td>
       <td class="td-commitment" data-label="Commitment">${esc(v.commitment || '—')}</td>
