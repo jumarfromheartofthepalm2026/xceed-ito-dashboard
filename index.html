@@ -1005,10 +1005,11 @@ td {
   .ms-wrapper .card-row { flex-direction: column; align-items: flex-start; gap: 2px; }
   .ms-wrapper .card-row span:last-child { text-align: left; flex-shrink: unset; }
 
-  /* tables */
-  .ms-wrapper .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .ms-wrapper table { font-size: 12px; min-width: 400px; }
-  .ms-wrapper th, .ms-wrapper td { padding: 7px 8px; }
+  /* tables — horizontal scroll with compact sizing */
+  .ms-wrapper .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 8px; }
+  .ms-wrapper table { font-size: 11px; min-width: 480px; width: 100%; }
+  .ms-wrapper th { font-size: 10px; padding: 6px 8px; white-space: nowrap; }
+  .ms-wrapper td { padding: 6px 8px; font-size: 11px; max-width: 140px; }
 
   /* stats */
   .ms-wrapper .stat { padding: 12px; }
