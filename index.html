@@ -1903,15 +1903,15 @@ function showMainTab(btn, sectionId) {
     if (!allVendors || allVendors.length === 0) { showToast('No data to export', 'error'); return; }
     const headers = ['Company','Category','Countries','Scope of Services','Status','Details','Commitment','Requirements','Target Audience','Leads','Phase'];
     const rows = allVendors.map(v => [
-      v.name || '',
+      v.company || '',
       v.category || '',
       (v.countries || []).join(', '),
-      v.scope || '',
+      v.scope_of_services || '',
       v.status || '',
       v.details || '',
       v.commitment || '',
       v.requirements || '',
-      v.target || '',
+      v.target_audience || '',
       v.leads_generation || '',
       v.phase_priority || ''
     ]);
