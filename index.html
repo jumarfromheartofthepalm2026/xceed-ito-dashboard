@@ -930,10 +930,10 @@ td {
 .ms-wrapper .badge-purple { background: rgba(99,102,241,.15); color: var(--accent2); border: 1px solid rgba(99,102,241,.3); }
 .ms-wrapper .badge-teal { background: rgba(56,196,196,.15); color: var(--teal); border: 1px solid rgba(56,196,196,.3); }
 .ms-wrapper .badge-orange { background: rgba(245,166,35,.15); color: var(--orange); border: 1px solid rgba(245,166,35,.3); }
-.ms-wrapper .tbl-wrap { overflow-x: auto; }
-.ms-wrapper table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.ms-wrapper th { background: var(--bg3); padding: 10px 12px; text-align: left; color: var(--fg2); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; border-bottom: 1px solid var(--border); }
-.ms-wrapper td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--fg2); vertical-align: top; }
+.ms-wrapper .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+.ms-wrapper table { width: 100%; min-width: 320px; border-collapse: collapse; font-size: 13px; table-layout: auto; }
+.ms-wrapper th { background: var(--bg3); padding: 8px 10px; text-align: left; color: var(--fg2); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.ms-wrapper td { padding: 8px 10px; border-bottom: 1px solid var(--border); color: var(--fg2); vertical-align: top; word-break: break-word; max-width: 200px; }
 .ms-wrapper tr:last-child td { border-bottom: none; }
 .ms-wrapper tr:hover td { background: rgba(255,255,255,.02); }
 .ms-wrapper .ctabs { display: flex; gap: 4px; margin-bottom: 16px; flex-wrap: wrap; }
@@ -986,14 +986,51 @@ td {
 .ms-wrapper .dot-yellow { background: var(--orange); }
 .ms-wrapper .dot-red { background: var(--red); }
 .ms-wrapper .dot-blue { background: var(--accent); }
-@media (max-width: 600px) {
-  .ms-wrapper .page { padding: 16px; }
-  .ms-wrapper .grid2, .ms-wrapper .grid3 { grid-template-columns: 1fr; }
-  .ms-wrapper .site-header { padding: 16px; }
-  .ms-wrapper .nav { padding: 10px 16px; }
-  .ms-wrapper [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
-  .ms-wrapper .card { overflow: hidden; }
-  .ms-wrapper .card-title { word-break: break-word; }
+@media (max-width: 640px) {
+  /* layout */
+  .ms-wrapper .page { padding: 12px; }
+  .ms-wrapper .site-header { padding: 14px 12px; }
+  .ms-wrapper .nav { padding: 8px 12px; gap: 4px; }
+  .ms-wrapper .nav-btn { padding: 7px 10px; font-size: 12px; }
+
+  /* grids → single column */
+  .ms-wrapper .grid2,
+  .ms-wrapper .grid3 { grid-template-columns: 1fr; }
+  .ms-wrapper [style*="grid-template-columns:1fr 1fr"],
+  .ms-wrapper [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+
+  /* cards */
+  .ms-wrapper .card { overflow: hidden; padding: 14px 12px; }
+  .ms-wrapper .card-title { word-break: break-word; font-size: 14px; }
+  .ms-wrapper .card-row { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .ms-wrapper .card-row span:last-child { text-align: left; flex-shrink: unset; }
+
+  /* tables */
+  .ms-wrapper .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .ms-wrapper table { font-size: 12px; min-width: 400px; }
+  .ms-wrapper th, .ms-wrapper td { padding: 7px 8px; }
+
+  /* stats */
+  .ms-wrapper .stat { padding: 12px; }
+  .ms-wrapper .stat-num { font-size: 22px; }
+
+  /* competitor tabs */
+  .ms-wrapper .ctabs { gap: 3px; }
+  .ms-wrapper .ctab { padding: 6px 10px; font-size: 12px; }
+
+  /* priority map & gaps */
+  .ms-wrapper [style*="display:grid"] { grid-template-columns: 1fr !important; }
+  .ms-wrapper [style*="display: grid"] { grid-template-columns: 1fr !important; }
+
+  /* text overflow protection */
+  .ms-wrapper p, .ms-wrapper li, .ms-wrapper td, .ms-wrapper th,
+  .ms-wrapper .section-title, .ms-wrapper .section-sub {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* phase timeline */
+  .ms-wrapper [style*="border-left"] { padding-left: 12px !important; }
 }
 </style>
 </head>
