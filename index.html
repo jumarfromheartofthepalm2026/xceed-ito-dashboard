@@ -266,6 +266,18 @@ body::before {
 }
 
 .btn-logout:hover { border-color: var(--red); color: var(--red); }
+.btn-export {
+  background: none;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  color: var(--accent);
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-export:hover { background: rgba(79,142,247,0.12); }
 
 .btn-download {
   background: none;
@@ -1064,6 +1076,7 @@ td {
           <span class="user-name" id="user-name-display"></span>
           <span class="role-badge" id="role-badge">viewer</span>
         </div>
+        <button class="btn-export" id="btn-export" onclick="exportToExcel()" title="Export to Excel">📥 Excel</button>
         <button class="btn-logout" id="btn-logout" title="Sign out">↩</button>
       </div>
     </div>
@@ -1840,6 +1853,32 @@ function showMainTab(btn, sectionId) {
     const el = document.getElementById(id);
     if (el) el.classList.add('active');
   }
+  function exportToExcel() {
+    if (!allVendors || allVendors.length === 0) { showToast('No data to export', 'error'); return; }
+    const headers = ['Vendor','Category','Countries','Status','Scope','Details','Commitment','Requirements','Target','Next Action','Owner'];
+    const rows = allVendors.map(v => [
+      v.name || '',
+      v.category || '',
+      (v.countries || []).join(', '),
+      v.status || '',
+      v.scope || '',
+      v.details || '',
+      v.commitment || '',
+      v.requirements || '',
+      v.target || '',
+      v.next_action || '',
+      v.owner || ''
+    ]);
+    const csvContent = [headers, ...rows].map(r => r.map(c => '"' + String(c).replace(/"/g,'""') + '"').join(',')).join('\n');
+    const blob = new Blob(['﻿' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'xceed-ito-vendors-' + new Date().toISOString().slice(0,10) + '.csv';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('Exported successfully ✓', 'success');
+  }
+
   function showToast(msg, type = '') {
   const t = document.getElementById('toast');
   t.textContent = msg;
