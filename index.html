@@ -1005,11 +1005,14 @@ td {
   .ms-wrapper .card-row { flex-direction: column; align-items: flex-start; gap: 2px; }
   .ms-wrapper .card-row span:last-child { text-align: left; flex-shrink: unset; }
 
-  /* tables — horizontal scroll with compact sizing */
-  .ms-wrapper .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 8px; }
-  .ms-wrapper table { font-size: 11px; min-width: 480px; width: 100%; }
-  .ms-wrapper th { font-size: 10px; padding: 6px 8px; white-space: nowrap; }
-  .ms-wrapper td { padding: 6px 8px; font-size: 11px; max-width: 140px; }
+  /* tables — horizontal scroll, all table elements stay as normal */
+  .ms-wrapper .tbl-wrap { overflow-x: scroll; -webkit-overflow-scrolling: touch; }
+  .ms-wrapper table { font-size: 12px; min-width: 520px; border-collapse: collapse; }
+  .ms-wrapper table thead { display: table-header-group; }
+  .ms-wrapper table tr { display: table-row; border: none; margin: 0; padding: 0; background: transparent; border-radius: 0; }
+  .ms-wrapper table td { display: table-cell; border-bottom: 1px solid var(--border); padding: 7px 8px; font-size: 12px; max-width: 160px; }
+  .ms-wrapper table th { font-size: 10px; padding: 6px 8px; }
+  .ms-wrapper table td::before { display: none; }
 
   /* stats */
   .ms-wrapper .stat { padding: 12px; }
@@ -1032,6 +1035,13 @@ td {
 
   /* phase timeline */
   .ms-wrapper [style*="border-left"] { padding-left: 12px !important; }
+
+  /* prevent any child from overflowing the wrapper */
+  .ms-wrapper { overflow-x: hidden; }
+
+  /* inline text overflow in paragraphs */
+  .ms-wrapper [style*="font-size:13px"],
+  .ms-wrapper [style*="font-size: 13px"] { font-size: 12px !important; }
 }
 </style>
 </head>
