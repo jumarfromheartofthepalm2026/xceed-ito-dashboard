@@ -525,13 +525,13 @@ td {
     overflow-x: visible;
   }
 
-  table, thead, tbody, th, td, tr {
+  .table-wrap table, .table-wrap thead, .table-wrap tbody, .table-wrap th, .table-wrap td, .table-wrap tr {
     display: block;
   }
 
-  thead { display: none; }
+  .table-wrap thead { display: none; }
 
-  tbody tr {
+  .table-wrap tbody tr {
     border: 1px solid var(--border);
     border-radius: var(--radius);
     margin: 0 max(12px, env(safe-area-inset-left)) 12px;
@@ -539,15 +539,15 @@ td {
     background: rgba(255,255,255,0.025);
   }
 
-  tbody tr:hover { background: rgba(255,255,255,0.045); }
+  .table-wrap tbody tr:hover { background: rgba(255,255,255,0.045); }
 
-  td {
+  .table-wrap td {
     padding: 4px 0;
     border: none;
     font-size: 13px;
   }
 
-  td::before {
+  .table-wrap td::before {
     content: attr(data-label);
     display: inline-block;
     font-size: 10px;
@@ -570,9 +570,9 @@ td {
     border-bottom: 1px solid var(--border);
     margin-bottom: 4px;
   }
-  .td-company::before { display: none; }
+  .table-wrap .td-company::before { display: none; }
 
-  .td-details, .td-commitment, .td-scope, .td-requirements {
+  .table-wrap .td-details, .table-wrap .td-commitment, .table-wrap .td-scope, .table-wrap .td-requirements {
     max-width: 100%;
     white-space: normal;
     word-break: break-word;
