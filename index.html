@@ -1960,8 +1960,19 @@ async function init() {
 async function onSignedIn(user) {
   currentUser = user;
 
-  // Role already set from LOCAL_USERS on login
-  if (!currentRole) currentRole = 'viewer';
+  // Fetch role from ito_user_profiles (try by id first, then by email)
+  try {
+    let profile = null;
+    const { data: d1 } = await sb.from('ito_user_profiles').select('role').eq('id', user.id).single();
+    if (d1) { profile = d1; }
+    else {
+      const { data: d2 } = await sb.from('ito_user_profiles').select('role').eq('email', user.email).single();
+      profile = d2;
+    }
+    currentRole = profile?.role || 'viewer';
+  } catch(e) {
+    currentRole = 'viewer';
+  }
 
   // Update UI
   const email = user.email || '';
@@ -1980,17 +1991,17 @@ async function onSignedIn(user) {
   show('app');
 }
 
-// Local users (no Supabase auth dependency)
-const LOCAL_USERS = {
-  'wael.kamel@xceedcc.com':     { password: 'XceedITO@2026!', role: 'admin' },
-  'mohamed.mahdy@xceedcc.com':  { password: 'XceedITO@2026!', role: 'editor' },
-  'omar.zaher@xceedcc.com':     { password: 'XceedITO@2026!', role: 'editor' },
-  'mohamed.sayed@xceedcc.com':  { password: 'XceedITO@2026!', role: 'viewer' },
-  'islam.yassin@xceedcc.com':   { password: 'XceedITO@2026!', role: 'viewer' },
-  'amr.nashaat@xceedcc.com':    { password: 'XceedITO@2026!', role: 'viewer' },
-  'tarek.amin@xceedcc.com':     { password: 'XceedITO@2026!', role: 'viewer' },
-  'haitham.gaber@xceedcc.com':  { password: 'XceedITO@2026!', role: 'viewer' },
-};
+// Allowed emails (role fetched from ito_user_profiles after login)
+const ALLOWED_EMAILS = new Set([
+  'wael.kamel@xceedcc.com',
+  'mohamed.mahdy@xceedcc.com',
+  'omar.zaher@xceedcc.com',
+  'mohamed.sayed@xceedcc.com',
+  'islam.yassin@xceedcc.com',
+  'amr.nashaat@xceedcc.com',
+  'tarek.amin@xceedcc.com',
+  'haitham.gaber@xceedcc.com',
+]);
 
 // Login
 document.getElementById('btn-login').addEventListener('click', async () => {
@@ -2000,25 +2011,55 @@ document.getElementById('btn-login').addEventListener('click', async () => {
   const btn = document.getElementById('btn-login');
 
   errEl.textContent = '';
-  if (!email || !pw) { errEl.textContent = 'Please enter email and password.'; return; }
+  if (!email) { errEl.textContent = 'Please enter your email.'; return; }
+
+  // Check allowed email
+  if (!ALLOWED_EMAILS.has(email)) {
+    errEl.textContent = 'This email is not authorized.';
+    return;
+  }
+
+  // First-time flow: no password entered → set new password
+  if (!pw) {
+    errEl.textContent = 'Please enter your password. First time? Enter a new password below.';
+    document.getElementById('login-password').focus();
+    return;
+  }
 
   btn.disabled = true;
   btn.textContent = 'Signing in…';
 
-  const localUser = LOCAL_USERS[email];
-  if (!localUser || localUser.password !== pw) {
+  // Try sign in
+  const { data, error } = await sb.auth.signInWithPassword({ email, password: pw });
+
+  if (error) {
+    // If "Invalid login credentials" it might be first time — try signUp to set password
+    if (error.message && (error.message.includes('Invalid login credentials') || error.message.includes('invalid'))) {
+      const { data: signUpData, error: signUpError } = await sb.auth.signUp({ email, password: pw });
+      if (!signUpError && signUpData?.user) {
+        // signUp succeeded → now sign in
+        const { data: data2, error: error2 } = await sb.auth.signInWithPassword({ email, password: pw });
+        if (!error2 && data2?.user) {
+          btn.disabled = false;
+          btn.textContent = 'Sign In';
+          await onSignedIn(data2.user);
+          return;
+        }
+      }
+      btn.disabled = false;
+      btn.textContent = 'Sign In';
+      errEl.textContent = 'Invalid email or password.';
+      return;
+    }
     btn.disabled = false;
     btn.textContent = 'Sign In';
-    errEl.textContent = 'Invalid email or password.';
+    errEl.textContent = error.message || 'Sign in failed. Try again.';
     return;
   }
 
   btn.disabled = false;
   btn.textContent = 'Sign In';
-
-  currentRole = localUser.role;
-  currentUser = { email, id: email };
-  await onSignedIn(currentUser);
+  await onSignedIn(data.user);
 });
 
 // Enter key on password field
