@@ -1960,16 +1960,15 @@ async function init() {
 async function onSignedIn(user) {
   currentUser = user;
 
-  // Fetch role from ito_user_profiles (try by id first, then by email)
+  // Fetch role from ito_user_profiles
   try {
-    let profile = null;
-    const { data: d1 } = await sb.from('ito_user_profiles').select('role').eq('id', user.id).single();
-    if (d1) { profile = d1; }
-    else {
-      const { data: d2 } = await sb.from('ito_user_profiles').select('role').eq('email', user.email).single();
-      profile = d2;
+    const { data: d1, error: e1 } = await sb.from('ito_user_profiles').select('role').eq('id', user.id).maybeSingle();
+    if (d1?.role) {
+      currentRole = d1.role;
+    } else {
+      const { data: d2 } = await sb.from('ito_user_profiles').select('role').eq('email', user.email).maybeSingle();
+      currentRole = d2?.role || 'viewer';
     }
-    currentRole = profile?.role || 'viewer';
   } catch(e) {
     currentRole = 'viewer';
   }
