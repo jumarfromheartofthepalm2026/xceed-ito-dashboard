@@ -1007,11 +1007,12 @@ td {
 
   /* tables — horizontal scroll, all table elements stay as normal */
   .ms-wrapper .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; display: block; width: 100%; }
-  .ms-wrapper table { font-size: 12px; min-width: 520px; border-collapse: collapse; }
-  .ms-wrapper table thead { display: table-header-group; }
-  .ms-wrapper table tr { display: table-row; border: none; margin: 0; padding: 0; background: transparent; border-radius: 0; }
-  .ms-wrapper table td { display: table-cell; border-bottom: 1px solid var(--border); padding: 7px 8px; font-size: 12px; max-width: 160px; }
-  .ms-wrapper table th { font-size: 10px; padding: 6px 8px; }
+  .ms-wrapper table { font-size: 12px; min-width: 480px; border-collapse: collapse; display: table; width: 100%; }
+  .ms-wrapper table thead { display: table-header-group !important; }
+  .ms-wrapper table tbody { display: table-row-group !important; }
+  .ms-wrapper table tr { display: table-row !important; border: none; margin: 0; padding: 0; background: transparent; border-radius: 0; }
+  .ms-wrapper table td { display: table-cell !important; border-bottom: 1px solid var(--border); padding: 7px 8px; font-size: 12px; max-width: 160px; vertical-align: top; }
+  .ms-wrapper table th { display: table-cell !important; font-size: 10px; padding: 6px 8px; white-space: nowrap; }
   .ms-wrapper table td::before { display: none; }
 
   /* stats */
