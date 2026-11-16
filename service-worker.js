@@ -1,8 +1,8 @@
 const CACHE = 'xceed-ito-v1';
 const STATIC = [
-  '/',
-  '/index.html',
-  '/manifest.json'
+  '/xceed-ito-dashboard/',
+  '/xceed-ito-dashboard/index.html',
+  '/xceed-ito-dashboard/manifest.json'
 ];
 
 self.addEventListener('install', e => {
