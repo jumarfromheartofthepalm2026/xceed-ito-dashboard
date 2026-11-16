@@ -2031,33 +2031,14 @@ document.getElementById('btn-login').addEventListener('click', async () => {
   // Try sign in
   const { data, error } = await sb.auth.signInWithPassword({ email, password: pw });
 
+  btn.disabled = false;
+  btn.textContent = 'Sign In';
+
   if (error) {
-    // If "Invalid login credentials" it might be first time — try signUp to set password
-    if (error.message && (error.message.includes('Invalid login credentials') || error.message.includes('invalid'))) {
-      const { data: signUpData, error: signUpError } = await sb.auth.signUp({ email, password: pw });
-      if (!signUpError && signUpData?.user) {
-        // signUp succeeded → now sign in
-        const { data: data2, error: error2 } = await sb.auth.signInWithPassword({ email, password: pw });
-        if (!error2 && data2?.user) {
-          btn.disabled = false;
-          btn.textContent = 'Sign In';
-          await onSignedIn(data2.user);
-          return;
-        }
-      }
-      btn.disabled = false;
-      btn.textContent = 'Sign In';
-      errEl.textContent = 'Invalid email or password.';
-      return;
-    }
-    btn.disabled = false;
-    btn.textContent = 'Sign In';
-    errEl.textContent = error.message || 'Sign in failed. Try again.';
+    errEl.textContent = 'Invalid email or password.';
     return;
   }
 
-  btn.disabled = false;
-  btn.textContent = 'Sign In';
   await onSignedIn(data.user);
 });
 
