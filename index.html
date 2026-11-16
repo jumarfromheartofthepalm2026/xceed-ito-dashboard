@@ -1901,19 +1901,19 @@ function showMainTab(btn, sectionId) {
   }
   function exportToExcel() {
     if (!allVendors || allVendors.length === 0) { showToast('No data to export', 'error'); return; }
-    const headers = ['Vendor','Category','Countries','Status','Scope','Details','Commitment','Requirements','Target','Next Action','Owner'];
+    const headers = ['Company','Category','Countries','Scope of Services','Status','Details','Commitment','Requirements','Target Audience','Leads','Phase'];
     const rows = allVendors.map(v => [
       v.name || '',
       v.category || '',
       (v.countries || []).join(', '),
-      v.status || '',
       v.scope || '',
+      v.status || '',
       v.details || '',
       v.commitment || '',
       v.requirements || '',
       v.target || '',
-      v.next_action || '',
-      v.owner || ''
+      v.leads || '',
+      v.phase || ''
     ]);
     const csvContent = [headers, ...rows].map(r => r.map(c => '"' + String(c).replace(/"/g,'""') + '"').join(',')).join('\n');
     const blob = new Blob(['﻿' + csvContent], { type: 'text/csv;charset=utf-8;' });
