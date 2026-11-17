@@ -1995,12 +1995,16 @@ function showMainTab(btn, sectionId) {
     document.getElementById('section-market-study').style.display = 'none';
     document.getElementById(sectionId).style.display = 'block';
   }
+  window.showMainTab = showMainTab;
+
   function msShowPage(btn, id) {
     document.querySelectorAll('.ms-wrapper .nav-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     document.querySelectorAll('.ms-wrapper .page').forEach(p => p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
   }
+  window.msShowPage = msShowPage;
+
   function msShowC(btn, country) {
     const panel = btn.closest('.ms-wrapper');
     panel.querySelectorAll('.ctab').forEach(b => b.classList.remove('active'));
@@ -2009,6 +2013,8 @@ function showMainTab(btn, sectionId) {
     const cp = document.getElementById('ms-cpanel-' + country);
     if (cp) cp.classList.add('active');
   }
+  window.msShowC = msShowC;
+
   function msShowComp(btn, id) {
     document.querySelectorAll('#ms-comp-tabs .ctab').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
@@ -2019,6 +2025,8 @@ function showMainTab(btn, sectionId) {
     const el = document.getElementById(id);
     if (el) el.classList.add('active');
   }
+  window.msShowComp = msShowComp;
+
   function exportToExcel() {
     if (!allVendors || allVendors.length === 0) { showToast('No data to export', 'error'); return; }
     const headers = ['Company','Category','Countries','Scope of Services','Status','Details','Commitment','Requirements','Target Audience','Leads','Phase'];
@@ -2044,6 +2052,7 @@ function showMainTab(btn, sectionId) {
     URL.revokeObjectURL(url);
     showToast('Exported successfully ✓', 'success');
   }
+  window.exportToExcel = exportToExcel;
 
   function showToast(msg, type = '') {
   const t = document.getElementById('toast');
