@@ -1947,6 +1947,7 @@ td {
 <div id="toast"></div>
 
 <script>
+(function() {
 // ── CONFIG ─────────────────────────────
 const SUPABASE_URL = 'https://wmmqymlbamrwbdthfbdd.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtbXF5bWxiYW1yd2JkdGhmYmRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ3MjM5NzksImV4cCI6MjExMDI5OTk3OX0.GcUuoaDuEUAAUpOazf81Bt177q3sRgAZUQypEKLKxoc';
@@ -2074,14 +2075,21 @@ async function init() {
 async function onSignedIn(user) {
   currentUser = user;
 
-  // Fetch role from ito_user_profiles
+  // Fetch role from ito_user_profiles — also validates user is in the system
   try {
-    const { data: d1, error: e1 } = await sb.from('ito_user_profiles').select('role').eq('id', user.id).maybeSingle();
+    const { data: d1 } = await sb.from('ito_user_profiles').select('role').eq('id', user.id).maybeSingle();
     if (d1?.role) {
       currentRole = (d1.role || 'viewer').trim().toLowerCase();
     } else {
       const { data: d2 } = await sb.from('ito_user_profiles').select('role').eq('email', user.email).maybeSingle();
-      currentRole = (d2?.role || 'viewer').trim().toLowerCase();
+      if (!d2) {
+        // User authenticated but not in profiles table — sign them out
+        await sb.auth.signOut();
+        show('login-screen');
+        document.getElementById('login-error').textContent = 'This email is not authorized.';
+        return;
+      }
+      currentRole = (d2.role || 'viewer').trim().toLowerCase();
     }
   } catch(e) {
     currentRole = 'viewer';
@@ -2319,7 +2327,8 @@ function esc(s) {
 }
 
 // ── EDIT MODAL ─────────────────────────
-function openEdit(vendorId) {
+window.openEdit = function openEdit(vendorId) {
+  if (currentRole !== 'admin' && currentRole !== 'editor') return;
   const v = allVendors.find(x => x.id === vendorId);
   if (!v) return;
 
@@ -2479,6 +2488,10 @@ dz.addEventListener('drop', e => {
 dz.addEventListener('click', () => document.getElementById('import-file-input').click());
 
 document.getElementById('btn-import-confirm').addEventListener('click', async () => {
+  if (currentRole !== 'admin' && currentRole !== 'editor') {
+    showToast('⛔ Not authorized', 'error');
+    return;
+  }
   if (!importRows.length) return;
   const btn = document.getElementById('btn-import-confirm');
   const status = document.getElementById('import-status');
@@ -2518,6 +2531,10 @@ document.getElementById('btn-import-confirm').addEventListener('click', async ()
 });
 
 document.getElementById('btn-modal-save').addEventListener('click', async () => {
+  if (currentRole !== 'admin' && currentRole !== 'editor') {
+    showToast('⛔ Not authorized', 'error');
+    return;
+  }
   const id = document.getElementById('edit-vendor-id').value;
   const statusKey = document.getElementById('edit-status').value;
   const statusLabel = STATUS_CONFIG[statusKey]?.label || statusKey;
@@ -2595,6 +2612,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+})(); // end IIFE
 </script>
 </body>
 </html>
