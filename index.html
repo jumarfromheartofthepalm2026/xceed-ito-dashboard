@@ -279,6 +279,61 @@ body::before {
   transition: background 0.15s;
 }
 .btn-export:hover { background: rgba(79,142,247,0.12); }
+.btn-import {
+  background: none;
+  border: 1px solid var(--green, #4ade80);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  color: var(--green, #4ade80);
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-import:hover { background: rgba(74,222,128,0.12); }
+.btn-template {
+  background: none;
+  border: 1px solid var(--muted);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  color: var(--muted);
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-template:hover { background: rgba(255,255,255,0.07); }
+#import-dropzone {
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  padding: 32px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+#import-dropzone.drag-over {
+  border-color: var(--accent);
+  background: rgba(79,142,247,0.06);
+}
+#import-preview-table th {
+  background: var(--surface2);
+  padding: 6px 8px;
+  text-align: left;
+  font-size: 0.75rem;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+#import-preview-table td {
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--border);
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .btn-download {
   background: none;
@@ -1129,6 +1184,8 @@ td {
           <span class="role-badge" id="role-badge">viewer</span>
         </div>
         <button class="btn-export" id="btn-export" onclick="exportToExcel()" title="Export to Excel">📥 Excel</button>
+        <button class="btn-template" id="btn-template" title="Download CSV Template" style="display:none">📋 Template</button>
+        <button class="btn-import" id="btn-import" title="Import from CSV" style="display:none">📤 Import</button>
         <button class="btn-logout" id="btn-logout" title="Sign out">⬡ Sign out</button>
       </div>
     </div>
@@ -1778,6 +1835,47 @@ td {
 </div>
 
 <!-- Edit Modal -->
+<!-- Import Modal -->
+<div class="modal-overlay" id="import-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Import Vendors from CSV</h3>
+      <button class="btn-close" id="btn-import-close">✕</button>
+    </div>
+
+    <div id="import-step-upload">
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:12px;">
+        Upload a CSV file using the exact same column headers as the vendor table.<br>
+        Any file with missing or extra columns will be rejected.
+      </p>
+      <div id="import-dropzone">
+        <div id="import-dropzone-label">
+          <span style="font-size:1.5rem">📄</span><br>
+          Drop CSV here or <label for="import-file-input" style="color:var(--blue);cursor:pointer;text-decoration:underline">browse</label>
+        </div>
+        <input type="file" id="import-file-input" accept=".csv" style="display:none">
+      </div>
+      <div id="import-error" style="display:none;color:var(--red);font-size:0.85rem;margin-top:8px;"></div>
+    </div>
+
+    <div id="import-step-preview" style="display:none">
+      <div id="import-summary" style="font-size:0.85rem;margin-bottom:10px;color:var(--muted);"></div>
+      <div style="max-height:260px;overflow-y:auto;border:1px solid var(--border);border-radius:6px;">
+        <table style="width:100%;border-collapse:collapse;font-size:0.78rem;" id="import-preview-table">
+          <thead id="import-preview-head"></thead>
+          <tbody id="import-preview-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <span class="save-status" id="import-status"></span>
+      <button class="btn-cancel" id="btn-import-cancel">Cancel</button>
+      <button class="btn-save" id="btn-import-confirm" style="display:none">Import</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="edit-modal">
   <div class="modal">
     <div class="modal-header">
@@ -1999,6 +2097,8 @@ async function onSignedIn(user) {
 
   if (currentRole === 'admin' || currentRole === 'editor') {
     document.getElementById('actions-header').style.display = '';
+    document.getElementById('btn-template').style.display = '';
+    document.getElementById('btn-import').style.display = '';
   }
 
   await loadVendors();
@@ -2107,6 +2207,8 @@ document.getElementById('btn-change-pw').addEventListener('click', async () => {
 
     if (currentRole === 'admin' || currentRole === 'editor') {
       document.getElementById('actions-header').style.display = '';
+      document.getElementById('btn-template').style.display = '';
+      document.getElementById('btn-import').style.display = '';
     }
 
     await loadVendors();
@@ -2242,6 +2344,172 @@ document.getElementById('btn-modal-close').addEventListener('click', closeModal)
 document.getElementById('btn-modal-cancel').addEventListener('click', closeModal);
 document.getElementById('edit-modal').addEventListener('click', e => {
   if (e.target === e.currentTarget) closeModal();
+});
+
+// ── CSV Template download ──────────────────────────────────────────────
+const IMPORT_HEADERS = [
+  'company','category','countries','scope','status','details',
+  'commitment','requirements','target_audience','leads_generation','phase_priority'
+];
+
+document.getElementById('btn-template').addEventListener('click', () => {
+  const exampleRow = [
+    'Acme Corp','Cybersecurity','UAE, KSA','Managed Firewall',
+    'Not Contacted','','','','SMBs','','Phase 1'
+  ];
+  const csv = [IMPORT_HEADERS, exampleRow]
+    .map(r => r.map(c => '"' + String(c).replace(/"/g,'""') + '"').join(','))
+    .join('\n');
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'xceed-ito-import-template.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('Template downloaded ✓', 'success');
+});
+
+// ── Import Modal ───────────────────────────────────────────────────────
+let importRows = [];
+
+function openImportModal() {
+  importRows = [];
+  document.getElementById('import-step-upload').style.display = '';
+  document.getElementById('import-step-preview').style.display = 'none';
+  document.getElementById('btn-import-confirm').style.display = 'none';
+  document.getElementById('import-error').style.display = 'none';
+  document.getElementById('import-error').textContent = '';
+  document.getElementById('import-status').textContent = '';
+  document.getElementById('import-file-input').value = '';
+  document.getElementById('import-modal').classList.add('open');
+}
+
+function closeImportModal() {
+  document.getElementById('import-modal').classList.remove('open');
+}
+
+document.getElementById('btn-import').addEventListener('click', openImportModal);
+document.getElementById('btn-import-close').addEventListener('click', closeImportModal);
+document.getElementById('btn-import-cancel').addEventListener('click', closeImportModal);
+document.getElementById('import-modal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeImportModal();
+});
+
+function parseCSV(text) {
+  const lines = text.trim().split(/\r?\n/);
+  if (lines.length < 2) return { error: 'File has no data rows.' };
+  const parseRow = line => {
+    const cols = []; let cur = ''; let inQ = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') { if (inQ && line[i+1] === '"') { cur += '"'; i++; } else inQ = !inQ; }
+      else if (ch === ',' && !inQ) { cols.push(cur); cur = ''; }
+      else cur += ch;
+    }
+    cols.push(cur);
+    return cols.map(c => c.trim());
+  };
+  const headers = parseRow(lines[0]).map(h => h.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,''));
+  // validate headers match exactly
+  const missing = IMPORT_HEADERS.filter(h => !headers.includes(h));
+  const extra   = headers.filter(h => !IMPORT_HEADERS.includes(h));
+  if (missing.length) return { error: 'Missing columns: ' + missing.join(', ') };
+  if (extra.length)   return { error: 'Unknown columns: ' + extra.join(', ') + '. Use the Template exactly.' };
+  const rows = lines.slice(1).map(line => {
+    const vals = parseRow(line);
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = vals[i] || '');
+    return obj;
+  }).filter(r => r.company); // skip empty rows
+  if (rows.length === 0) return { error: 'No data rows found (company column is required).' };
+  return { headers, rows };
+}
+
+function showImportPreview(headers, rows) {
+  document.getElementById('import-step-upload').style.display = 'none';
+  document.getElementById('import-step-preview').style.display = '';
+  document.getElementById('btn-import-confirm').style.display = '';
+  document.getElementById('import-summary').textContent =
+    rows.length + ' row' + (rows.length !== 1 ? 's' : '') + ' ready to import.';
+  const thead = document.getElementById('import-preview-head');
+  const tbody = document.getElementById('import-preview-body');
+  thead.innerHTML = '<tr>' + IMPORT_HEADERS.map(h => '<th>' + h + '</th>').join('') + '</tr>';
+  tbody.innerHTML = rows.slice(0, 10).map(r =>
+    '<tr>' + IMPORT_HEADERS.map(h => '<td title="' + (r[h]||'') + '">' + (r[h]||'') + '</td>').join('') + '</tr>'
+  ).join('');
+  if (rows.length > 10) {
+    tbody.innerHTML += '<tr><td colspan="' + IMPORT_HEADERS.length + '" style="text-align:center;color:var(--muted);padding:6px;">… and ' + (rows.length - 10) + ' more rows</td></tr>';
+  }
+}
+
+function handleImportFile(file) {
+  if (!file) return;
+  if (!file.name.endsWith('.csv')) {
+    document.getElementById('import-error').textContent = 'Only .csv files are accepted.';
+    document.getElementById('import-error').style.display = '';
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    const result = parseCSV(e.target.result);
+    if (result.error) {
+      document.getElementById('import-error').textContent = '✕ ' + result.error;
+      document.getElementById('import-error').style.display = '';
+      return;
+    }
+    importRows = result.rows;
+    showImportPreview(result.headers, result.rows);
+  };
+  reader.readAsText(file, 'utf-8');
+}
+
+document.getElementById('import-file-input').addEventListener('change', e => {
+  handleImportFile(e.target.files[0]);
+});
+
+const dz = document.getElementById('import-dropzone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+dz.addEventListener('drop', e => {
+  e.preventDefault(); dz.classList.remove('drag-over');
+  handleImportFile(e.dataTransfer.files[0]);
+});
+dz.addEventListener('click', () => document.getElementById('import-file-input').click());
+
+document.getElementById('btn-import-confirm').addEventListener('click', async () => {
+  if (!importRows.length) return;
+  const btn = document.getElementById('btn-import-confirm');
+  const status = document.getElementById('import-status');
+  btn.disabled = true; btn.textContent = 'Importing…'; status.textContent = '';
+
+  const records = importRows.map(r => ({
+    company:         r.company,
+    category:        r.category || null,
+    countries:       r.countries ? r.countries.split(',').map(c => c.trim()).filter(Boolean) : [],
+    scope:           r.scope || null,
+    status:          r.status || 'Not Contacted',
+    status_key:      'not-contacted',
+    details:         r.details || null,
+    commitment:      r.commitment || null,
+    requirements:    r.requirements || null,
+    target_audience: r.target_audience || null,
+    leads_generation:r.leads_generation || null,
+    phase_priority:  r.phase_priority || null,
+    updated_by:      currentUser?.email || 'import',
+    updated_at:      new Date().toISOString()
+  }));
+
+  const { error } = await sb.from('ito_vendors').upsert(records, { onConflict: 'company' });
+
+  btn.disabled = false; btn.textContent = 'Import';
+  if (error) {
+    status.style.color = 'var(--red)';
+    status.textContent = '✕ Error: ' + error.message;
+  } else {
+    closeImportModal();
+    showToast(importRows.length + ' vendors imported ✓', 'success');
+    await loadVendors();
+  }
 });
 
 document.getElementById('btn-modal-save').addEventListener('click', async () => {
