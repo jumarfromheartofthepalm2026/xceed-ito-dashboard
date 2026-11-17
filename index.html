@@ -1977,7 +1977,7 @@ async function onSignedIn(user) {
   rb.textContent = currentRole;
   rb.className = 'role-badge ' + currentRole;
 
-  if (currentRole === 'admin') {
+  if (currentRole === 'admin' || currentRole === 'editor') {
     document.getElementById('actions-header').style.display = '';
   }
 
@@ -2085,7 +2085,7 @@ document.getElementById('btn-change-pw').addEventListener('click', async () => {
     rb.textContent = currentRole;
     rb.className = 'role-badge ' + currentRole;
 
-    if (currentRole === 'admin') {
+    if (currentRole === 'admin' || currentRole === 'editor') {
       document.getElementById('actions-header').style.display = '';
     }
 
@@ -2159,7 +2159,7 @@ function renderTable() {
   tbody.innerHTML = filteredVendors.map((v, i) => {
     const cfg = STATUS_CONFIG[v.status_key] || { label: v.status, icon: '⚪', cls: 'status-not-contacted' };
     const countries = (v.countries || []).map(c => `<span class="country-tag">${c}</span>`).join('');
-    const editBtn = currentRole === 'admin'
+    const editBtn = (currentRole === 'admin' || currentRole === 'editor')
       ? `<button class="btn-edit" onclick="openEdit('${v.id}')">✏️</button>`
       : '';
 
