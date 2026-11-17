@@ -1185,8 +1185,8 @@ td {
           <span class="role-badge" id="role-badge">viewer</span>
         </div>
         <button class="btn-export" id="btn-export" onclick="exportToExcel()" title="Export to Excel">📥 Excel</button>
-        <button class="btn-template hidden-btn" id="btn-template" title="Download CSV Template">📋 Template</button>
-        <button class="btn-import hidden-btn" id="btn-import" title="Import from CSV">📤 Import</button>
+        <button class="btn-template" id="btn-template" style="display:none" title="Download CSV Template">📋 Template</button>
+        <button class="btn-import" id="btn-import" style="display:none" title="Import from CSV">📤 Import</button>
         <button class="btn-logout" id="btn-logout" title="Sign out">⬡ Sign out</button>
       </div>
     </div>
@@ -2078,10 +2078,10 @@ async function onSignedIn(user) {
   try {
     const { data: d1, error: e1 } = await sb.from('ito_user_profiles').select('role').eq('id', user.id).maybeSingle();
     if (d1?.role) {
-      currentRole = d1.role;
+      currentRole = (d1.role || 'viewer').trim().toLowerCase();
     } else {
       const { data: d2 } = await sb.from('ito_user_profiles').select('role').eq('email', user.email).maybeSingle();
-      currentRole = d2?.role || 'viewer';
+      currentRole = (d2?.role || 'viewer').trim().toLowerCase();
     }
   } catch(e) {
     currentRole = 'viewer';
@@ -2096,11 +2096,10 @@ async function onSignedIn(user) {
   rb.textContent = currentRole;
   rb.className = 'role-badge ' + currentRole;
 
-  if (currentRole === 'admin' || currentRole === 'editor') {
-    document.getElementById('actions-header').style.display = '';
-    document.getElementById('btn-template').classList.remove('hidden-btn');
-    document.getElementById('btn-import').classList.remove('hidden-btn');
-  }
+  const isPrivileged = (currentRole === 'admin' || currentRole === 'editor');
+  document.getElementById('actions-header').style.display = isPrivileged ? '' : 'none';
+  document.getElementById('btn-template').style.display = isPrivileged ? '' : 'none';
+  document.getElementById('btn-import').style.display = isPrivileged ? '' : 'none';
 
   await loadVendors();
   show('app');
@@ -2195,7 +2194,7 @@ document.getElementById('btn-change-pw').addEventListener('click', async () => {
       .select('role')
       .eq('id', user.id)
       .single();
-    currentRole = profile?.role || 'viewer';
+    currentRole = (profile?.role || 'viewer').trim().toLowerCase();
     currentUser = user;
 
     const email = user.email || '';
@@ -2206,11 +2205,10 @@ document.getElementById('btn-change-pw').addEventListener('click', async () => {
     rb.textContent = currentRole;
     rb.className = 'role-badge ' + currentRole;
 
-    if (currentRole === 'admin' || currentRole === 'editor') {
-      document.getElementById('actions-header').style.display = '';
-      document.getElementById('btn-template').classList.remove('hidden-btn');
-      document.getElementById('btn-import').classList.remove('hidden-btn');
-    }
+    const isPrivileged2 = (currentRole === 'admin' || currentRole === 'editor');
+    document.getElementById('actions-header').style.display = isPrivileged2 ? '' : 'none';
+    document.getElementById('btn-template').style.display = isPrivileged2 ? '' : 'none';
+    document.getElementById('btn-import').style.display = isPrivileged2 ? '' : 'none';
 
     await loadVendors();
     show('app');
@@ -2223,6 +2221,9 @@ document.getElementById('btn-logout').addEventListener('click', async () => {
   currentUser = null;
   currentRole = 'viewer';
   allVendors = [];
+  document.getElementById('btn-template').style.display = 'none';
+  document.getElementById('btn-import').style.display = 'none';
+  document.getElementById('actions-header').style.display = 'none';
   show('login-screen');
 });
 
