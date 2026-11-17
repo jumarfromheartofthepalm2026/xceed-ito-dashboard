@@ -1816,6 +1816,26 @@ td {
       <textarea id="edit-requirements" rows="2" placeholder="Partner program requirements…"></textarea>
     </div>
 
+    <div class="form-group">
+      <label>Scope of Services</label>
+      <textarea id="edit-scope" rows="2" placeholder="Services in scope…"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Target Audience</label>
+      <textarea id="edit-target-audience" rows="2" placeholder="Target audience…"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Leads Generation</label>
+      <textarea id="edit-leads-generation" rows="2" placeholder="Leads generation notes…"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Phase Priority</label>
+      <input type="text" id="edit-phase" placeholder="e.g. Phase 1, Phase 2…">
+    </div>
+
     <div class="modal-footer">
       <span class="save-status" id="save-status"></span>
       <button class="btn-cancel" id="btn-modal-cancel">Cancel</button>
@@ -2205,6 +2225,10 @@ function openEdit(vendorId) {
   document.getElementById('edit-details').value = v.details || '';
   document.getElementById('edit-commitment').value = v.commitment || '';
   document.getElementById('edit-requirements').value = v.requirements || '';
+  document.getElementById('edit-scope').value = v.scope || '';
+  document.getElementById('edit-target-audience').value = v.target_audience || '';
+  document.getElementById('edit-leads-generation').value = v.leads_generation || '';
+  document.getElementById('edit-phase').value = v.phase_priority || '';
   document.getElementById('save-status').textContent = '';
 
   document.getElementById('edit-modal').classList.add('open');
@@ -2227,6 +2251,10 @@ document.getElementById('btn-modal-save').addEventListener('click', async () => 
   const details = document.getElementById('edit-details').value.trim();
   const commitment = document.getElementById('edit-commitment').value.trim();
   const requirements = document.getElementById('edit-requirements').value.trim();
+  const scope = document.getElementById('edit-scope').value.trim();
+  const targetAudience = document.getElementById('edit-target-audience').value.trim();
+  const leadsGeneration = document.getElementById('edit-leads-generation').value.trim();
+  const phase = document.getElementById('edit-phase').value.trim();
 
   const saveBtn = document.getElementById('btn-modal-save');
   const saveStatus = document.getElementById('save-status');
@@ -2244,6 +2272,10 @@ document.getElementById('btn-modal-save').addEventListener('click', async () => 
     details,
     commitment,
     requirements,
+    scope,
+    target_audience: targetAudience,
+    leads_generation: leadsGeneration,
+    phase_priority: phase,
     updated_at: new Date().toISOString(),
     updated_by: currentUser?.email || 'unknown'
   }).eq('id', id);
