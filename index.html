@@ -2482,24 +2482,27 @@ document.getElementById('btn-import-confirm').addEventListener('click', async ()
   const status = document.getElementById('import-status');
   btn.disabled = true; btn.textContent = 'Importing…'; status.textContent = '';
 
-  const records = importRows.map(r => ({
-    company:         r.company,
-    category:        r.category || null,
-    countries:       r.countries ? r.countries.split(',').map(c => c.trim()).filter(Boolean) : [],
-    scope:           r.scope || null,
-    status:          r.status || 'Not Contacted',
-    status_key:      'not-contacted',
-    details:         r.details || null,
-    commitment:      r.commitment || null,
-    requirements:    r.requirements || null,
-    target_audience: r.target_audience || null,
-    leads_generation:r.leads_generation || null,
-    phase_priority:  r.phase_priority || null,
-    updated_by:      currentUser?.email || 'import',
-    updated_at:      new Date().toISOString()
-  }));
+  // Build each record with only non-empty fields so existing data isn't wiped
+  const records = importRows.map(r => {
+    const rec = {
+      company:    r.company,
+      updated_by: currentUser?.email || 'import',
+      updated_at: new Date().toISOString()
+    };
+    if (r.category)        rec.category         = r.category;
+    if (r.countries)       rec.countries        = r.countries.split(',').map(c => c.trim()).filter(Boolean);
+    if (r.scope)           rec.scope            = r.scope;
+    if (r.status)          rec.status           = r.status;
+    if (r.details)         rec.details          = r.details;
+    if (r.commitment)      rec.commitment       = r.commitment;
+    if (r.requirements)    rec.requirements     = r.requirements;
+    if (r.target_audience) rec.target_audience  = r.target_audience;
+    if (r.leads_generation)rec.leads_generation = r.leads_generation;
+    if (r.phase_priority)  rec.phase_priority   = r.phase_priority;
+    return rec;
+  });
 
-  const { error } = await sb.from('ito_vendors').upsert(records, { onConflict: 'company' });
+  const { error } = await sb.from('ito_vendors').upsert(records, { onConflict: 'company', ignoreDuplicates: false });
 
   btn.disabled = false; btn.textContent = 'Import';
   if (error) {
