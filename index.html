@@ -198,10 +198,11 @@ body::before {
 
 .header-top {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 10px;
+  flex-wrap: wrap;
 }
 
 .header-brand h1 {
@@ -219,7 +220,7 @@ body::before {
   margin-top: 2px;
 }
 
-.header-actions { display: flex; align-items: center; gap: 10px; }
+.header-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
 .user-pill {
   display: flex;
@@ -892,19 +893,25 @@ td {
   padding: 12px 24px 0;
   border-bottom: 1px solid var(--border);
   background: var(--bg2);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+.main-tabs::-webkit-scrollbar { display: none; }
 .main-tab-btn {
-  padding: 10px 20px;
+  padding: 10px 16px;
   border: none;
   background: transparent;
   color: var(--fg2);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   border-bottom: 3px solid transparent;
   margin-bottom: -1px;
   border-radius: var(--radius-sm) var(--radius-sm) 0 0;
   transition: color .15s, border-color .15s;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .main-tab-btn:hover { color: var(--fg); }
 .main-tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
