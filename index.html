@@ -1168,6 +1168,7 @@ td {
     <button class="main-tab-btn active" onclick="showMainTab(this,'section-vendors')">🏢 Vendor Tracker</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-market-study')">📊 Market Study</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-partner-report')">🤝 Partner Ecosystem</button>
+    <button class="main-tab-btn" onclick="showMainTab(this,'section-ito-strategy')">🗺️ ITO Strategy</button>
   </div>
 
   <div id="section-vendors">
@@ -1836,6 +1837,177 @@ td {
     <iframe src="partner-ecosystem-report.html" style="width:100%;height:calc(100vh - 120px);border:none;display:block" title="Partner Ecosystem Report"></iframe>
   </div><!-- /section-partner-report -->
 
+  <!-- ══ ITO STRATEGY PLAN ══ -->
+  <div id="section-ito-strategy" style="display:none;padding:24px 20px">
+
+    <!-- VISION + MISSION -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
+      <div style="background:var(--accent-light);border:1px solid var(--accent);border-radius:12px;padding:20px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:10px">🔭 Vision — Where We're Going</div>
+        <p style="font-size:15px;font-weight:600;color:var(--fg);line-height:1.6">"To be the go-to managed IT partner for Gulf and Africa businesses that need enterprise-grade technology, delivered from Cairo, invoiced from their country."</p>
+      </div>
+      <div style="background:var(--purple-light);border:1px solid var(--purple);border-radius:12px;padding:20px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:10px">🎯 Mission — What We Do Daily</div>
+        <p style="font-size:15px;font-weight:600;color:var(--fg);line-height:1.6">"We help SMBs and mid-market companies in UAE, KSA, Morocco, Mauritius, and India manage their IT infrastructure — backup, security, and cloud — at 60–70% lower cost than local MSPs, with the same certifications and a legal entity in their country."</p>
+      </div>
+    </div>
+
+    <!-- THE EVIDENCE (Why We Can Win) -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 22px;margin-bottom:20px">
+      <div style="font-size:13px;font-weight:700;color:var(--fg);margin-bottom:14px">📊 The Evidence — Why This Works (from our 25 vendors)</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+        <div style="background:var(--surface2);border-radius:8px;padding:14px;text-align:center">
+          <div style="font-size:28px;font-weight:800;color:var(--accent)">25</div>
+          <div style="font-size:12px;color:var(--fg2);margin-top:4px">Vendor partnerships across 7 categories</div>
+        </div>
+        <div style="background:var(--surface2);border-radius:8px;padding:14px;text-align:center">
+          <div style="font-size:28px;font-weight:800;color:var(--green)">6</div>
+          <div style="font-size:12px;color:var(--fg2);margin-top:4px">Legal entities: UAE, KSA, Morocco, Mauritius, India, Egypt</div>
+        </div>
+        <div style="background:var(--surface2);border-radius:8px;padding:14px;text-align:center">
+          <div style="font-size:28px;font-weight:800;color:var(--amber)">60–70%</div>
+          <div style="font-size:12px;color:var(--fg2);margin-top:4px">Lower cost vs Help AG / Intertec for same service</div>
+        </div>
+        <div style="background:var(--surface2);border-radius:8px;padding:14px;text-align:center">
+          <div style="font-size:28px;font-weight:800;color:var(--purple)">5</div>
+          <div style="font-size:12px;color:var(--fg2);margin-top:4px">Target markets in Y1: UAE · KSA · Morocco · Mauritius · India</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STRATEGIC PILLARS -->
+    <div style="font-size:13px;font-weight:700;color:var(--fg);margin-bottom:12px">🏛️ Strategic Pillars</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:24px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px">
+        <div style="font-size:20px;margin-bottom:8px">☁️</div>
+        <div style="font-size:13px;font-weight:700;color:var(--fg);margin-bottom:6px">1. Cloud & Backup First</div>
+        <div style="font-size:12px;color:var(--fg2);line-height:1.5">Acronis + Veeam as entry products. Every SMB needs backup — zero friction, quick wins, fast revenue. Opens the door to full-stack.</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px">
+        <div style="font-size:20px;margin-bottom:8px">🔐</div>
+        <div style="font-size:13px;font-weight:700;color:var(--fg);margin-bottom:6px">2. Security & Compliance Upsell</div>
+        <div style="font-size:12px;color:var(--fg2);line-height:1.5">Tenable + Fortinet for KSA NCA ECC compliance. KSA clients can't pass audit without us. Highest ACV, longest retention.</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px">
+        <div style="font-size:20px;margin-bottom:8px">🏢</div>
+        <div style="font-size:13px;font-weight:700;color:var(--fg);margin-bottom:6px">3. Local Entity = No Friction</div>
+        <div style="font-size:12px;color:var(--fg2);line-height:1.5">Invoice from the client's country. UAE entity for UAE, KSA entity for KSA, Morocco entity for Morocco. This beats every competitor without a local entity.</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px">
+        <div style="font-size:20px;margin-bottom:8px">🌍</div>
+        <div style="font-size:13px;font-weight:700;color:var(--fg);margin-bottom:6px">4. Cairo Delivery = Cost Advantage</div>
+        <div style="font-size:12px;color:var(--fg2);line-height:1.5">Delivery from Cairo is the feature, not a liability. Same certs, same SLA, 60–70% lower. We never hide it — we lead with it.</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px">
+        <div style="font-size:20px;margin-bottom:8px">🤝</div>
+        <div style="font-size:13px;font-weight:700;color:var(--fg);margin-bottom:6px">5. First Reference Client = Everything</div>
+        <div style="font-size:12px;color:var(--fg2);line-height:1.5">Pre-first-deal stage. The goal of every activity in Y1 is to close 3–5 reference clients. POC offers and free assessments are the entry strategy.</div>
+      </div>
+    </div>
+
+    <!-- 12-MONTH ROADMAP -->
+    <div style="font-size:13px;font-weight:700;color:var(--fg);margin-bottom:12px">🗓️ 12-Month Roadmap</div>
+    <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px">
+      <table style="width:100%;border-collapse:collapse">
+        <thead>
+          <tr style="background:var(--surface2)">
+            <th style="padding:10px 14px;text-align:left;font-size:12px;color:var(--fg2);font-weight:600;border-bottom:1px solid var(--border)">Phase</th>
+            <th style="padding:10px 14px;text-align:left;font-size:12px;color:var(--fg2);font-weight:600;border-bottom:1px solid var(--border)">Timeline</th>
+            <th style="padding:10px 14px;text-align:left;font-size:12px;color:var(--fg2);font-weight:600;border-bottom:1px solid var(--border)">Goal</th>
+            <th style="padding:10px 14px;text-align:left;font-size:12px;color:var(--fg2);font-weight:600;border-bottom:1px solid var(--border)">Key Actions</th>
+            <th style="padding:10px 14px;text-align:left;font-size:12px;color:var(--fg2);font-weight:600;border-bottom:1px solid var(--border)">Markets</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:12px 14px;font-size:13px;font-weight:700;color:var(--amber)">🔧 Foundation</td>
+            <td style="padding:12px 14px;font-size:12px;color:var(--fg2)">M1–M2</td>
+            <td style="padding:12px 14px;font-size:12px;color:var(--fg)">Sales machinery ready</td>
+            <td style="padding:12px 14px;font-size:12px;color:var(--fg2)">Complete vendor registrations (BlueCat, Fortinet, Veeam) · Build prospect list 50 UAE + 20 KSA + 20 Morocco · LinkedIn company page + 5 thought leadership posts</td>
+            <td style="padding:12px 14px;font-size:12px"><span style="background:var(--accent-light);color:var(--accent);padding:2px 8px;border-radius:4px;font-size:11px">UAE · KSA · 🇲🇦 Morocco</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:var(--surface2)">
+            <td style="padding:12px 14px;font-size:13px;font-weight:700;color:var(--green)">🚀 Activate</td>
+            <td style="padding:12px 14px;font-size:12px;color:var(--fg2)">M2–M4</td>
+            <td style="padding:12px 14px;font-size:12px;color:var(--fg)">Pipeline generation</td>
+            <td style="padding:12px 14px;font-size:12px;color:var(--fg2)">4 cold email sequences · LinkedIn 2–3×/week · Free NCA ECC assessment offer · GITEX floor walks + 10 pre-booked meetings</td>
+            <td style="padding:12px 14px;font-size:12px"><span style="background:var(--accent-light);color:var(--accent);padding:2px 8px;border-radius:4px;font-size:11px">UAE · KSA</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:12px 14px;font-size:13px;font-weight:700;color:var(--accent)">🏆 Convert</td>
+            <td style="padding:12px 14px;font-size:12px;color:var(--fg2)">M4–M6</td>
+            <td style="padding:12px 14px;font-size:12px;color:var(--fg)">3–5 reference clients</td>
+            <td style="padding:12px 14px;font-size:12px;color:var(--fg2)">90-day POC structure · 6-month contracts (not 12) · Case study on deal #1 · 30%/60%/10% payment terms</td>
+            <td style="padding:12px 14px;font-size:12px"><span style="background:var(--green-light);color:var(--green);padding:2px 8px;border-radius:4px;font-size:11px">UAE · KSA · Morocco</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:var(--surface2)">
+            <td style="padding:12px 14px;font-size:13px;font-weight:700;color:var(--purple)">📈 Expand</td>
+            <td style="padding:12px 14px;font-size:12px;color:var(--fg2)">M6–M12</td>
+            <td style="padding:12px 14px;font-size:12px;color:var(--fg)">Scale + new markets</td>
+            <td style="padding:12px 14px;font-size:12px;color:var(--fg2)">DR-as-a-Service via Mauritius · India entity activation · Renew Y1 clients to 12-month · Hire 2nd certified engineer</td>
+            <td style="padding:12px 14px;font-size:12px"><span style="background:var(--purple-light);color:var(--purple);padding:2px 8px;border-radius:4px;font-size:11px">+ Mauritius · India</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- REVENUE MODEL -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px">
+        <div style="font-size:13px;font-weight:700;color:var(--fg);margin-bottom:12px">💰 Revenue Model</div>
+        <div style="font-size:12px;color:var(--fg2);line-height:1.8">
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)"><span>Payment terms</span><span style="color:var(--fg)">30% upfront · 60% delivery · 10% sign-off</span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)"><span>Y1 contract length</span><span style="color:var(--fg)">6 months (not 12) — less friction</span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)"><span>Y2+ contract</span><span style="color:var(--fg)">12 months, auto-renewal</span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)"><span>Currency</span><span style="color:var(--fg)">USD (all markets)</span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0"><span>Annual pre-pay discount</span><span style="color:var(--fg)">10–15% off monthly rate</span></div>
+        </div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px">
+        <div style="font-size:13px;font-weight:700;color:var(--fg);margin-bottom:12px">🎖️ Competitive Position</div>
+        <div style="font-size:12px;color:var(--fg2);line-height:1.8">
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)"><span>vs Help AG</span><span style="color:var(--green)">60% lower, same Fortinet cert</span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)"><span>vs Intertec</span><span style="color:var(--green)">KSA data stays in KSA (not India)</span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)"><span>vs Alpha Data</span><span style="color:var(--green)">Full stack for SMB, not enterprise-only</span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)"><span>vs Natcom KSA</span><span style="color:var(--green)">Multi-country vs KSA-only</span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0"><span>Key risk</span><span style="color:var(--amber)">No Gulf ref clients yet — POC is the fix</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOP ACTIONS THIS WEEK -->
+    <div style="background:var(--green-light);border:1px solid var(--green);border-radius:10px;padding:18px 22px;margin-bottom:16px">
+      <div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:12px">⚡ Top Actions This Week</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px">
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <span style="font-size:16px;margin-top:1px">1️⃣</span>
+          <div><div style="font-size:12px;font-weight:600;color:var(--fg)">Complete BlueCat registration</div><div style="font-size:11px;color:var(--fg2);margin-top:2px">This week — blocked until signed</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <span style="font-size:16px;margin-top:1px">2️⃣</span>
+          <div><div style="font-size:12px;font-weight:600;color:var(--fg)">Apply for Fortinet FortiPartner</div><div style="font-size:11px;color:var(--fg2);margin-top:2px">Critical gap — can't sell firewall without it</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <span style="font-size:16px;margin-top:1px">3️⃣</span>
+          <div><div style="font-size:12px;font-weight:600;color:var(--fg)">Build UAE Freezone prospect list</div><div style="font-size:11px;color:var(--fg2);margin-top:2px">50 companies · IT Director contacts · LinkedIn</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <span style="font-size:16px;margin-top:1px">4️⃣</span>
+          <div><div style="font-size:12px;font-weight:600;color:var(--fg)">Write 3 cold email sequences</div><div style="font-size:11px;color:var(--fg2);margin-top:2px">UAE Freezone · KSA NCA angle · Morocco French</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <span style="font-size:16px;margin-top:1px">5️⃣</span>
+          <div><div style="font-size:12px;font-weight:600;color:var(--fg)">Lift Veeam hold</div><div style="font-size:11px;color:var(--fg2);margin-top:2px">Blocking DR-as-a-Service and UAE deals</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:12px;font-size:12px;color:var(--fg3)">
+      All data from 25 vendors tracked in this dashboard · Evidence-based, not invented · Last updated Nov 2026
+    </div>
+
+  </div><!-- /section-ito-strategy -->
+
 </div>
 
 <!-- Edit Modal -->
@@ -1957,6 +2129,7 @@ function showMainTab(btn, sectionId) {
   document.getElementById('section-vendors').style.display = 'none';
   document.getElementById('section-market-study').style.display = 'none';
   document.getElementById('section-partner-report').style.display = 'none';
+  document.getElementById('section-ito-strategy').style.display = 'none';
   document.getElementById(sectionId).style.display = 'block';
 }
 function msShowPage(btn, id) {
