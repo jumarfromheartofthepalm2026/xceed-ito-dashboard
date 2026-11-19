@@ -3,2040 +3,1753 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>ME Partner Ecosystem Report — Xceed ITO</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap">
+<title>Partner Ecosystem Report — Xceed ITO</title>
 <style>
-:root {
-  --bg: #f5f7fa; --surface: #ffffff; --surface2: #f0f4ff;
-  --border: #e2e6ed; --fg: #1a1d23; --fg2: #4a5068; --fg3: #8891aa;
-  --accent: #2563eb; --accent-light: #eff4ff;
-  --red: #dc2626; --red-light: #fff1f1;
-  --green: #16a34a; --green-light: #f0fdf4;
-  --amber: #d97706; --amber-light: #fffbeb;
-  --purple: #7c3aed; --purple-light: #f5f3ff;
-  --teal: #0891b2; --teal-light: #ecfeff;
-  --pink: #db2777; --pink-light: #fdf2f8;
-  --indigo: #4338ca; --indigo-light: #eef2ff;
-  --orange: #ea580c; --orange-light: #fff7ed;
+:root{
+  --bg:#f5f7fa;--surface:#fff;--surface2:#f0f4ff;--border:#e2e6ed;
+  --fg:#1a1d23;--fg2:#4a5068;--fg3:#8891aa;
+  --accent:#2563eb;--accent-light:#eff4ff;
+  --red:#dc2626;--red-light:#fff1f1;
+  --green:#16a34a;--green-light:#f0fdf4;
+  --amber:#d97706;--amber-light:#fffbeb;
+  --purple:#7c3aed;--purple-light:#f5f3ff;
+  --teal:#0891b2;--teal-light:#ecfeff;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg:#0f1117;--surface:#1a1d2e;--surface2:#1a2240;
-    --border:#2a2d3e;--fg:#e8eaf2;--fg2:#9ba3bf;--fg3:#5c6480;
-    --accent:#4f8ef7;--accent-light:#1a2340;
-    --red:#f87171;--red-light:#2a1215;
-    --green:#4ade80;--green-light:#0f2a1a;
-    --amber:#fbbf24;--amber-light:#2a1f0a;
-    --purple:#a78bfa;--purple-light:#1e1a2e;
-    --teal:#22d3ee;--teal-light:#0a1f24;
-    --pink:#f472b6;--pink-light:#2a0a1a;
-    --indigo:#818cf8;--indigo-light:#1a1e40;
-    --orange:#fb923c;--orange-light:#2a1500;
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg:#0f1117;--surface:#1a1d2e;--surface2:#1a2240;
-  --border:#2a2d3e;--fg:#e8eaf2;--fg2:#9ba3bf;--fg3:#5c6480;
-  --accent:#4f8ef7;--accent-light:#1a2340;
-  --red:#f87171;--red-light:#2a1215;
-  --green:#4ade80;--green-light:#0f2a1a;
-  --amber:#fbbf24;--amber-light:#2a1f0a;
-  --purple:#a78bfa;--purple-light:#1e1a2e;
-  --teal:#22d3ee;--teal-light:#0a1f24;
-  --pink:#f472b6;--pink-light:#2a0a1a;
-  --indigo:#818cf8;--indigo-light:#1a1e40;
-  --orange:#fb923c;--orange-light:#2a1500;
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1117;--surface:#1a1d27;--surface2:#1e2235;--border:#2a2f42;
+  --fg:#e8ecf4;--fg2:#a0abc4;--fg3:#606880;
+  --accent:#3b82f6;--accent-light:#1e2a4a;
+  --red:#ef4444;--red-light:#2a1515;
+  --green:#22c55e;--green-light:#0f2a1a;
+  --amber:#f59e0b;--amber-light:#2a2010;
+  --purple:#a78bfa;--purple-light:#1e1830;
+  --teal:#22d3ee;--teal-light:#0a2030;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0f1117;--surface:#1a1d27;--surface2:#1e2235;--border:#2a2f42;
+  --fg:#e8ecf4;--fg2:#a0abc4;--fg3:#606880;
+  --accent:#3b82f6;--accent-light:#1e2a4a;
+  --red:#ef4444;--red-light:#2a1515;
+  --green:#22c55e;--green-light:#0f2a1a;
+  --amber:#f59e0b;--amber-light:#2a2010;
+  --purple:#a78bfa;--purple-light:#1e1830;
+  --teal:#22d3ee;--teal-light:#0a2030;
   color-scheme:dark;
 }
-*{box-sizing:border-box;}
-body{background:var(--bg);color:var(--fg);font-family:'Inter',sans-serif;font-size:14px;line-height:1.65;margin:0;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px;}
-h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;margin:0;text-wrap:balance;}
-a{color:var(--accent);}
-.page-wrap{max-width:1060px;margin:0 auto;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;background:var(--bg);color:var(--fg);min-height:100vh}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
 
-/* Header */
-.page-header{margin-bottom:28px;}
-.page-header h1{font-size:1.8rem;font-weight:700;line-height:1.2;}
-.page-header .sub{color:var(--fg2);margin-top:6px;font-size:0.88rem;}
-.header-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;}
+/* NAV */
+.top-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:50}
+.top-bar h1{font-size:16px;font-weight:700;color:var(--fg)}
+.top-bar span{font-size:12px;color:var(--fg3)}
+.tabs-nav{background:var(--surface);border-bottom:2px solid var(--border);padding:0 20px;overflow-x:auto;white-space:nowrap;position:sticky;top:49px;z-index:40}
+.tab-btn{display:inline-block;padding:10px 16px;font-size:13px;font-weight:500;color:var(--fg2);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s}
+.tab-btn:hover{color:var(--fg)}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-pane{display:none;padding:24px 20px}
+.tab-pane.active{display:block}
 
-/* Sector selector */
-.sector-nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
-.sector-btn{font-family:'Space Grotesk',sans-serif;font-size:0.76rem;font-weight:600;padding:6px 14px;
-  border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--fg2);
-  cursor:pointer;transition:all 0.15s;white-space:nowrap;}
-.sector-btn:hover{border-color:var(--accent);color:var(--accent);}
-.sector-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+/* VENDOR SECTION */
+.vendor-hdr{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 22px;margin-bottom:20px}
+.vendor-hdr h2{font-size:18px;font-weight:700;margin-bottom:4px}
+.vendor-hdr .sub{font-size:13px;color:var(--fg2)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap}
+.chip-green{background:var(--green-light);color:var(--green)}
+.chip-blue{background:var(--accent-light);color:var(--accent)}
+.chip-amber{background:var(--amber-light);color:var(--amber)}
+.chip-red{background:var(--red-light);color:var(--red)}
+.chip-purple{background:var(--purple-light);color:var(--purple)}
+.chip-teal{background:var(--teal-light);color:var(--teal)}
 
-/* Nav tabs */
-.tabs-nav{display:flex;gap:2px;flex-wrap:wrap;border-bottom:2px solid var(--border);margin-bottom:0;}
-.tab-btn{font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:600;
-  padding:9px 14px;border:none;background:none;color:var(--fg3);cursor:pointer;
-  border-bottom:2px solid transparent;margin-bottom:-2px;transition:color 0.15s,border-color 0.15s;white-space:nowrap;}
-.tab-btn:hover{color:var(--fg2);}
-.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
-.tab-panel{display:none;}
-.tab-panel.active{display:block;}
+/* PARTNER TABLE */
+.ptable-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:8px;margin-bottom:16px}
+.ptable{width:100%;border-collapse:collapse}
+.ptable th{background:var(--surface2);padding:9px 12px;text-align:left;font-size:12px;font-weight:600;color:var(--fg2);border-bottom:1px solid var(--border)}
+.ptable td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top;font-size:13px}
+.ptable tr:last-child td{border-bottom:none}
+.ptable tr:hover td{background:var(--surface2)}
 
-/* Badges */
-.badge{display:inline-block;font-size:0.65rem;font-weight:600;letter-spacing:0.05em;
-  padding:2px 8px;border-radius:999px;text-transform:uppercase;}
-.badge-blue   {background:var(--accent-light);color:var(--accent);}
-.badge-red    {background:var(--red-light);color:var(--red);}
-.badge-green  {background:var(--green-light);color:var(--green);}
-.badge-amber  {background:var(--amber-light);color:var(--amber);}
-.badge-purple {background:var(--purple-light);color:var(--purple);}
-.badge-teal   {background:var(--teal-light);color:var(--teal);}
-.badge-pink   {background:var(--pink-light);color:var(--pink);}
-.badge-indigo {background:var(--indigo-light);color:var(--indigo);}
-.badge-orange {background:var(--orange-light);color:var(--orange);}
+/* REQ GRID */
+.req-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:16px}
+.req-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px}
+.req-box h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--fg3);margin-bottom:8px}
+.req-box ul{list-style:none;padding:0}
+.req-box li{font-size:12px;color:var(--fg2);padding:3px 0;border-bottom:1px solid var(--border)}
+.req-box li:last-child{border-bottom:none}
 
-/* Card */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin-top:18px;}
-.card-title{font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--fg3);margin-bottom:14px;}
+/* GAP / OPP */
+.gap-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.gap-item{background:var(--red-light);color:var(--red);font-size:12px;font-weight:500;padding:5px 12px;border-radius:6px}
+.opp-strip{background:var(--green-light);border:1px solid var(--green);border-radius:8px;padding:12px 16px;margin-bottom:16px}
+.opp-strip h4{font-size:12px;font-weight:700;color:var(--green);margin-bottom:6px}
+.opp-strip p{font-size:13px;color:var(--fg2)}
 
-/* Partner table */
-.ptable-wrap{overflow-x:auto;margin-top:4px;}
-table{width:100%;border-collapse:collapse;font-size:0.82rem;min-width:520px;}
-th{background:var(--surface2);border:1px solid var(--border);padding:9px 12px;text-align:left;
-  font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--fg2);white-space:nowrap;}
-td{background:var(--surface);border:1px solid var(--border);padding:9px 12px;vertical-align:top;color:var(--fg);line-height:1.5;}
-tr:hover td{background:var(--accent-light);}
-td:first-child{font-weight:600;}
+/* EVIDENCE */
+.evidence{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:16px}
+.evidence h4{font-size:12px;font-weight:700;color:var(--fg3);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em}
+.evidence a{display:block;font-size:12px;color:var(--accent);margin-bottom:3px}
 
-/* Req grid */
-.req-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:4px;}
-@media(max-width:600px){.req-grid{grid-template-columns:1fr;}}
-.req-box{border:1px solid var(--border);border-radius:8px;padding:14px;}
-.req-box h4{font-size:0.7rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--fg3);margin-bottom:8px;}
-.req-box ul{margin:0;padding-left:16px;color:var(--fg2);font-size:0.84rem;}
-.req-box ul li{margin-bottom:4px;}
+/* VERDICT */
+.verdict-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:16px}
+.verdict-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px}
+.verdict-box h4{font-size:12px;font-weight:600;margin-bottom:4px;color:var(--fg)}
+.verdict-box p{font-size:12px;color:var(--fg2)}
+.final-verdict{background:var(--surface);border-radius:10px;padding:18px;border:2px solid var(--green);margin-bottom:20px}
+.final-verdict.amber-border{border-color:var(--amber)}
+.final-verdict.red-border{border-color:var(--red)}
+.final-verdict h3{font-size:15px;font-weight:700;margin-bottom:6px}
+.final-verdict p{font-size:13px;color:var(--fg2)}
+.msp-verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px}
+.msp-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px}
+.msp-card .label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg3);margin-bottom:4px}
+.msp-card .value{font-size:14px;font-weight:600}
+.msp-card .note{font-size:11px;color:var(--fg3);margin-top:4px}
 
-/* Evidence */
-.evidence{background:var(--accent-light);border:1px solid var(--accent);border-radius:8px;padding:12px 16px;margin-top:14px;}
-.evidence h4{font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
-.evidence p{color:var(--fg2);font-size:0.82rem;margin:4px 0;}
-.evidence a{color:var(--accent);font-size:0.78rem;text-decoration:none;}
-.evidence a:hover{text-decoration:underline;}
+/* MAURITIUS / INDIA */
+.entity-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:16px}
+.entity-card h3{font-size:15px;font-weight:700;margin-bottom:12px}
+.mau-table{width:100%;border-collapse:collapse}
+.mau-table th{background:var(--surface2);padding:8px 10px;text-align:left;font-size:12px;font-weight:600;color:var(--fg2);border-bottom:1px solid var(--border)}
+.mau-table td{padding:8px 10px;border-bottom:1px solid var(--border);font-size:12px;vertical-align:top}
+.mau-table tr:last-child td{border-bottom:none}
 
-/* Opportunity strip */
-.opp-strip{background:var(--green-light);border:1px solid var(--green);border-radius:8px;padding:12px 16px;margin-top:10px;display:flex;gap:10px;align-items:flex-start;}
-.opp-strip .opp-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px;}
-.opp-strip .opp-body{font-size:0.85rem;color:var(--fg2);flex:1;}
-.opp-strip .opp-body strong{color:var(--green);}
+/* SUMMARY MATRIX */
+.matrix-table{width:100%;border-collapse:collapse;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.matrix-table th{background:var(--surface2);padding:9px 10px;text-align:left;font-size:11px;font-weight:700;color:var(--fg2);border-bottom:1px solid var(--border);white-space:nowrap}
+.matrix-table td{padding:9px 10px;border-bottom:1px solid var(--border);font-size:12px;vertical-align:top}
+.matrix-table tr:last-child td{border-bottom:none}
+.matrix-table tr:hover td{background:var(--surface2)}
 
-/* Vendor header strip */
-.vendor-hdr{display:flex;align-items:flex-start;gap:14px;padding:20px 24px 16px;
-  border-bottom:1px solid var(--border);margin:0 -24px;margin-top:-22px;margin-bottom:20px;flex-wrap:wrap;}
-.vendor-logo{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;
-  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;flex-shrink:0;}
-.vendor-info h2{font-size:1.25rem;font-weight:700;margin-bottom:4px;}
-.vendor-info p{color:var(--fg2);font-size:0.84rem;}
-.vendor-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
-
-/* Summary matrix */
-.matrix-row{display:grid;grid-template-columns:120px 1fr 1fr 1fr;gap:1px;margin-bottom:1px;}
-@media(max-width:650px){.matrix-row{grid-template-columns:1fr;}}
-.matrix-cell{background:var(--surface);border:1px solid var(--border);padding:10px 12px;font-size:0.82rem;}
-.matrix-cell.header{background:var(--surface2);font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--fg2);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;}
-.matrix-cell.vendor-name{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--accent);font-size:0.88rem;}
-
-/* MSP verdict */
-.verdict-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
-@media(max-width:600px){.verdict-grid{grid-template-columns:1fr;}}
-.verdict-box{border-radius:8px;padding:16px;}
-.verdict-box.pro{background:var(--green-light);border:1px solid var(--green);}
-.verdict-box.con{background:var(--red-light);border:1px solid var(--red);}
-.verdict-box h4{font-size:0.75rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:10px;}
-.verdict-box.pro h4{color:var(--green);}
-.verdict-box.con h4{color:var(--red);}
-.verdict-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px;}
-.verdict-list li{font-size:0.85rem;color:var(--fg2);display:flex;gap:8px;}
-.verdict-list li::before{flex-shrink:0;font-weight:700;margin-top:1px;}
-.verdict-box.pro .verdict-list li::before{content:"✓";color:var(--green);}
-.verdict-box.con .verdict-list li::before{content:"✗";color:var(--red);}
-.final-verdict{background:var(--accent);color:white;border-radius:8px;padding:16px 20px;margin-top:16px;font-size:0.9rem;line-height:1.6;}
-.final-verdict strong{font-weight:700;}
-
-.section-h{font-size:1rem;font-weight:700;margin-bottom:4px;}
-.mt16{margin-top:16px;}.mt24{margin-top:24px;}
-
-/* Sector label */
-.sector-label{font-size:0.7rem;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;
-  color:var(--fg3);margin-top:28px;margin-bottom:4px;padding-left:4px;}
-
-/* Tabs hidden by sector */
-.tab-btn[data-sector].hidden{display:none;}
+/* SECTION LABEL */
+.section-title{font-size:13px;font-weight:700;color:var(--fg2);text-transform:uppercase;letter-spacing:.05em;margin:20px 0 10px}
+.divider{border:none;border-top:1px solid var(--border);margin:24px 0}
 </style>
 </head>
 <body>
-<div class="page-wrap">
 
-  <div class="page-header">
-    <h1>Middle East Partner Ecosystem Report</h1>
-    <p class="sub">24 vendors · partner program requirements · tier structure · entry opportunities for Xceed ITO &mdash; evidence-based only</p>
-    <div class="header-tags">
-      <span class="badge badge-blue">Data Protection</span>
-      <span class="badge badge-teal">Storage &amp; HCI</span>
-      <span class="badge badge-purple">Cloud &amp; Productivity</span>
-      <span class="badge badge-red">Network &amp; Security</span>
-      <span class="badge badge-amber">Cyber &amp; Threat Intel</span>
-      <span class="badge badge-green">End-User Computing</span>
-      <span class="badge badge-pink">Staffing &amp; Marketplace</span>
-      <span class="badge badge-indigo">Enterprise Linux</span>
-    </div>
-  </div>
+<div class="top-bar">
+  <h1>🤝 Partner Ecosystem Report — Xceed ITO</h1>
+  <span>19 Vendors · Evidence-Based · Updated Nov 2026</span>
+</div>
 
-  <!-- SECTOR FILTER -->
-  <div class="sector-nav">
-    <button class="sector-btn active" data-sector="all">All Sectors</button>
-    <button class="sector-btn" data-sector="data-protection">Data Protection</button>
-    <button class="sector-btn" data-sector="storage-hci">Storage &amp; HCI</button>
-    <button class="sector-btn" data-sector="cloud">Cloud &amp; Productivity</button>
-    <button class="sector-btn" data-sector="network-security">Network &amp; Security</button>
-    <button class="sector-btn" data-sector="cyber">Cyber &amp; Threat Intel</button>
-    <button class="sector-btn" data-sector="euc">End-User Computing</button>
-    <button class="sector-btn" data-sector="staffing">Staffing &amp; Marketplace</button>
-    <button class="sector-btn" data-sector="linux">Enterprise Linux</button>
-  </div>
-
-  <!-- TABS NAV -->
-  <div class="tabs-nav">
-    <!-- Data Protection -->
-    <button class="tab-btn active" data-tab="veeam" data-sector="data-protection">Veeam</button>
-    <button class="tab-btn" data-tab="acronis" data-sector="data-protection">Acronis</button>
-    <button class="tab-btn" data-tab="cohesity" data-sector="data-protection">Cohesity</button>
-    <button class="tab-btn" data-tab="arctera" data-sector="data-protection">Arctera</button>
-    <!-- Storage & HCI -->
-    <button class="tab-btn" data-tab="netapp" data-sector="storage-hci">NetApp</button>
-    <button class="tab-btn" data-tab="nutanix" data-sector="storage-hci">Nutanix</button>
-    <!-- Cloud & Productivity -->
-    <button class="tab-btn" data-tab="microsoft" data-sector="cloud">Microsoft</button>
-    <button class="tab-btn" data-tab="aws" data-sector="cloud">AWS</button>
-    <button class="tab-btn" data-tab="google" data-sector="cloud">Google Cloud</button>
-    <!-- Network & Security -->
-    <button class="tab-btn" data-tab="fortinet" data-sector="network-security">Fortinet</button>
-    <button class="tab-btn" data-tab="barracuda" data-sector="network-security">Barracuda</button>
-    <button class="tab-btn" data-tab="bluecat" data-sector="network-security">BlueCat</button>
-    <button class="tab-btn" data-tab="checkpoint" data-sector="network-security">Check Point</button>
-    <button class="tab-btn" data-tab="huawei" data-sector="network-security">Huawei Cloud</button>
-    <button class="tab-btn" data-tab="ivanti" data-sector="network-security">Ivanti</button>
-    <!-- Cyber & Threat Intel -->
-    <button class="tab-btn" data-tab="tenable" data-sector="cyber">Tenable</button>
-    <button class="tab-btn" data-tab="kaspersky" data-sector="cyber">Kaspersky</button>
-    <button class="tab-btn" data-tab="darktrace" data-sector="cyber">Darktrace</button>
-    <button class="tab-btn" data-tab="socradar" data-sector="cyber">SOCRadar</button>
-    <button class="tab-btn" data-tab="cequence" data-sector="cyber">Cequence</button>
-    <button class="tab-btn" data-tab="anomali" data-sector="cyber">Anomali</button>
-    <!-- EUC -->
-    <button class="tab-btn" data-tab="thinscale" data-sector="euc">ThinScale</button>
-    <!-- Staffing -->
-    <button class="tab-btn" data-tab="supportfinity" data-sector="staffing">SupportFinity</button>
-    <button class="tab-btn" data-tab="sahara" data-sector="staffing">Sahara.com</button>
-    <!-- Linux -->
-    <button class="tab-btn" data-tab="redhat" data-sector="linux">Red Hat</button>
-    <!-- Special -->
-    <button class="tab-btn" data-tab="summary" data-sector="all">Summary Matrix</button>
-  </div>
+<div class="tabs-nav">
+  <span class="tab-btn active" onclick="showTab('t1',this)">☁️ Cloud & Productivity</span>
+  <span class="tab-btn" onclick="showTab('t2',this)">🖥️ HCI & Linux</span>
+  <span class="tab-btn" onclick="showTab('t3',this)">🔒 Network & Security</span>
+  <span class="tab-btn" onclick="showTab('t4',this)">🛡️ Cyber & Threat Intel</span>
+  <span class="tab-btn" onclick="showTab('t5',this)">💻 EUC & Hardware</span>
+  <span class="tab-btn" onclick="showTab('t6',this)">🤝 Staffing & Partners</span>
+  <span class="tab-btn" onclick="showTab('t7',this)">💰 Is MSP Worth It?</span>
+  <span class="tab-btn" onclick="showTab('t8',this)">🌍 Mauritius & India</span>
+  <span class="tab-btn" onclick="showTab('t9',this)">📊 Summary Matrix</span>
+</div>
 
 <!-- ═══════════════════════════════════════════════════════════
-     DATA PROTECTION SECTOR
-═══════════════════════════════════════════════════════════════ -->
-
-  <!-- VEEAM -->
-  <div id="tab-veeam" class="tab-panel active">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#0071ce20;color:#0071ce">VM</div>
-        <div class="vendor-info">
-          <h2>Veeam</h2>
-          <p>Backup &amp; Recovery — market leader by ME install base</p>
-          <div class="vendor-tags">
-            <span class="badge badge-blue">MSP: VCSP</span>
-            <span class="badge badge-amber">Reseller: ProPartner</span>
-            <span class="badge badge-red">Price increased Jan 2025</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">Named ME Partners — from 2024 ProPartner Awards</div>
-      <div class="ptable-wrap">
-        <table>
-          <thead><tr><th>Partner</th><th>Country</th><th>Type</th><th>Award / Tier</th></tr></thead>
-          <tbody>
-            <tr><td>Natcom (National Computer System Co.)</td><td>🇸🇦 KSA</td><td>VAR</td><td>ME Top Partner 2023 + KSA Top 2024</td></tr>
-            <tr><td>Saudi Business Machines (SBM)</td><td>🇸🇦 KSA</td><td>VAR/SI</td><td>ME Top Performing Reseller 2024</td></tr>
-            <tr><td>Ingram Micro Saudi Arabia</td><td>🇸🇦 KSA</td><td>Distributor</td><td>ME Top Distributor 2024</td></tr>
-            <tr><td>Alpha Data</td><td>🇦🇪 UAE</td><td>VAR</td><td>UAE Top Partner 2024</td></tr>
-            <tr><td>ZainTech Solutions FZ-LLC</td><td>🇦🇪 UAE</td><td>Cloud MSP</td><td>ME Top Performing Cloud Partner 2024</td></tr>
-            <tr><td>Edarat Group</td><td>🇦🇪 UAE/Gulf</td><td>Cloud</td><td>ME Top Growth Cloud Partner 2024</td></tr>
-            <tr><td>VAS Integrated Solutions</td><td>🇪🇬 Egypt</td><td>VAR</td><td>Egypt Top Partner 2024</td></tr>
-            <tr><td>Microtech</td><td>🇪🇬 Egypt</td><td>VAR/SI</td><td>Egypt Top Growth 2024</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="mt24 card-title">ProPartner Reseller — Entry Requirements</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Silver (Entry)</h4>
-          <ul>
-            <li>1 Veeam Sales Professional (VMSP) certified employee</li>
-            <li>1 Veeam Technical Sales Professional (VMTSP) certified</li>
-            <li>No minimum revenue at entry</li>
-            <li>Access to partner portal + NFR licenses</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Gold / Platinum</h4>
-          <ul>
-            <li>Gold: 2–3 VMSP + 2 VMTSP + revenue targets (set per region)</li>
-            <li>Platinum: 4+ VMSP + 3 VMTSP + dedicated Veeam sales resource</li>
-            <li>Quarterly business reviews required at Gold+</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>VCSP (MSP Track)</h4>
-          <ul>
-            <li>Separate from ProPartner — consumption-based monthly billing</li>
-            <li>Minimum monthly consumption commitment varies by region</li>
-            <li>Must register at veeam.com/vcloud-service-provider.html</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Key Discounts</h4>
-          <ul>
-            <li>Silver: ~15–20% off list</li>
-            <li>Gold: ~25–30% off list</li>
-            <li>Platinum: ~35%+ off list</li>
-            <li>Deal registration adds further protection margin</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>Partner award list — <a href="https://www.veeam.com/news/veeam-prism-channel-partner-awards-2024-winners.html" target="_blank">Veeam ProPartner Award Winners 2024</a></p>
-        <p>VCSP program page — <a href="https://www.veeam.com/vcloud-service-provider.html" target="_blank">veeam.com/vcloud-service-provider</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Register as Silver (1 VMSP + 1 VMTSP exam — both are free online). Egypt market underserved vs KSA/UAE. VCSP track suits managed-service model in Mauritius and India. Jan 2025 price increase created reseller margin opportunity for existing installs needing renewal negotiation support.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ACRONIS -->
-  <div id="tab-acronis" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#ff5a0020;color:#ff5a00">AC</div>
-        <div class="vendor-info">
-          <h2>Acronis</h2>
-          <p>Cyber Protection — backup + cybersecurity + endpoint mgmt combined</p>
-          <div class="vendor-tags">
-            <span class="badge badge-orange">MSP: Acronis Cyber Protect Cloud</span>
-            <span class="badge badge-amber">Reseller: Acronis Partner Program</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">ME Known Partners</div>
-      <div class="ptable-wrap">
-        <table>
-          <thead><tr><th>Partner</th><th>Country</th><th>Type</th><th>Notes</th></tr></thead>
-          <tbody>
-            <tr><td>Microland</td><td>🇦🇪 UAE</td><td>Cloud MSP</td><td>Official Acronis MSP — announced 2023</td></tr>
-            <tr><td>Westcon-Comstor MEA</td><td>🇦🇪 UAE</td><td>Distributor</td><td>Authorized Acronis distributor MEA</td></tr>
-            <tr><td>Logicom Distribution</td><td>🇨🇾 / ME region</td><td>Distributor</td><td>Authorized Acronis distributor — covers GCC + Levant</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="mt24 card-title">Partner Program — Tiers &amp; Requirements</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Registered Partner</h4>
-          <ul>
-            <li>Free to join — online application</li>
-            <li>Access to partner portal, sales tools, NFR</li>
-            <li>No revenue requirement at entry</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Silver / Gold / Platinum</h4>
-          <ul>
-            <li>Revenue thresholds set per region (not publicly disclosed)</li>
-            <li>Acronis Sales Certification required at Silver+</li>
-            <li>Technical certification (ATC) required at Gold+</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>MSP (Cyber Protect Cloud)</h4>
-          <ul>
-            <li>Usage-based monthly billing — pay only what you consume</li>
-            <li>No upfront commit — scales with customer base</li>
-            <li>White-label portal available for branded delivery</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Discounts</h4>
-          <ul>
-            <li>Registered: ~10–15% off list</li>
-            <li>Silver: ~20–25% off</li>
-            <li>Gold/Platinum: ~30–40% off</li>
-            <li>MDF available at Silver+ on approval</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>Reseller program overview — <a href="https://www.acronis.com/en/partners/resellers/" target="_blank">acronis.com/en/partners/resellers</a></p>
-        <p>MSP program — <a href="https://www.acronis.com/en/partners/service-providers/" target="_blank">acronis.com/en/partners/service-providers</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> MSP track is zero-upfront. Combined backup + EDR + endpoint mgmt in one SKU reduces client tool sprawl — strong pitch for SMB and mid-market. White-label option suits Xceed-branded managed security offering.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- COHESITY -->
-  <div id="tab-cohesity" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#00c08b20;color:#00c08b">CO</div>
-        <div class="vendor-info">
-          <h2>Cohesity</h2>
-          <p>Data Security &amp; Management — enterprise-grade hyperconverged backup</p>
-          <div class="vendor-tags">
-            <span class="badge badge-teal">MSP: Cohesity Managed Services</span>
-            <span class="badge badge-green">Reseller: Cohesity Partner Network</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">ME Known Partners</div>
-      <div class="ptable-wrap">
-        <table>
-          <thead><tr><th>Partner</th><th>Country</th><th>Type</th><th>Notes</th></tr></thead>
-          <tbody>
-            <tr><td>Ingram Micro MEA</td><td>🇦🇪 UAE</td><td>Distributor</td><td>Authorized distribution — GCC coverage</td></tr>
-            <tr><td>Logicom</td><td>ME region</td><td>Distributor</td><td>Cohesity distributor for Levant + North Africa</td></tr>
-            <tr><td>DXC Technology ME</td><td>🇦🇪 UAE</td><td>SI</td><td>Global SI with Cohesity practice in ME</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="mt24 card-title">Partner Program — Tiers &amp; Requirements</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Authorized Reseller</h4>
-          <ul>
-            <li>Application via partner.cohesity.com</li>
-            <li>Must complete Cohesity Sales Foundation training</li>
-            <li>No minimum revenue at entry</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Premier / Elite</h4>
-          <ul>
-            <li>Revenue commitments (disclosed only in partner portal)</li>
-            <li>SE certifications required: Cohesity Certified SE (CCSE)</li>
-            <li>Dedicated partner account manager at Elite</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>MSP Track</h4>
-          <ul>
-            <li>Cohesity DataProtect delivered as a service</li>
-            <li>Pay-as-you-go consumption model</li>
-            <li>Requires approved Cohesity MSP Agreement</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Discounts</h4>
-          <ul>
-            <li>Not publicly disclosed — set in partner portal by tier</li>
-            <li>Deal registration discount on top of tier discount</li>
-            <li>MDF available for Elite partners on approval</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>Partner network — <a href="https://www.cohesity.com/partners/" target="_blank">cohesity.com/partners</a></p>
-        <p>ME distributor list — <a href="https://www.cohesity.com/partners/find-a-partner/" target="_blank">cohesity.com/partners/find-a-partner</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Cohesity is weak in Egypt and Morocco — only UAE/KSA covered. Register via Logicom distribution. Target financial-services and telecom verticals where data security compliance mandates are driving backup upgrades.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ARCTERA -->
-  <div id="tab-arctera" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#e5000020;color:#e50000">AR</div>
-        <div class="vendor-info">
-          <h2>Arctera (formerly Veritas)</h2>
-          <p>Enterprise data management — NetBackup, Enterprise Vault, Information Studio</p>
-          <div class="vendor-tags">
-            <span class="badge badge-red">Spun off from Veritas 2024</span>
-            <span class="badge badge-amber">Reseller: Arctera Partner Network</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">ME Known Partners</div>
-      <div class="ptable-wrap">
-        <table>
-          <thead><tr><th>Partner</th><th>Country</th><th>Type</th><th>Notes</th></tr></thead>
-          <tbody>
-            <tr><td>Westcon-Comstor MEA</td><td>🇦🇪 UAE</td><td>Distributor</td><td>Formerly Veritas distributor, transitioned to Arctera 2024</td></tr>
-            <tr><td>Microland MEA</td><td>🇦🇪 UAE</td><td>SI/Cloud MSP</td><td>Veritas/Arctera strategic partner in ME</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="mt24 card-title">Partner Program — Tiers &amp; Requirements</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Partner Tiers</h4>
-          <ul>
-            <li>Registered, Silver, Gold, Platinum (inherited from Veritas structure)</li>
-            <li>Arctera re-launched partner program post-spinoff in mid-2024</li>
-            <li>Existing Veritas partner credentials honored during transition</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Certification Requirements</h4>
-          <ul>
-            <li>Arctera Sales Specialist required at Silver+</li>
-            <li>Arctera Technical Specialist (NetBackup) required at Gold+</li>
-            <li>Existing Veritas certifications accepted during transition period</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>Arctera partner page — <a href="https://www.arctera.io/partners" target="_blank">arctera.io/partners</a></p>
-        <p>Spinoff announcement — <a href="https://www.arctera.io/about/news" target="_blank">arctera.io/about/news</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Large government and banking NetBackup installs across ME are due for renewal or upgrade cycles. The brand transition confusion (Veritas→Arctera) creates openings to position as an informed expert. Egypt has minimal Arctera partner coverage.</div>
-      </div>
-    </div>
-  </div>
-
-<!-- ═══════════════════════════════════════════════════════════
-     STORAGE & HCI SECTOR
-═══════════════════════════════════════════════════════════════ -->
-
-  <!-- NETAPP -->
-  <div id="tab-netapp" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#00759120;color:#007591">NA</div>
-        <div class="vendor-info">
-          <h2>NetApp</h2>
-          <p>Hybrid cloud storage — ONTAP, StorageGRID, Cloud Volumes ONTAP</p>
-          <div class="vendor-tags">
-            <span class="badge badge-teal">Partner: NetApp Partner Sphere</span>
-            <span class="badge badge-blue">MSP: NetApp Service Provider</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">ME Known Partners</div>
-      <div class="ptable-wrap">
-        <table>
-          <thead><tr><th>Partner</th><th>Country</th><th>Type</th><th>Tier</th></tr></thead>
-          <tbody>
-            <tr><td>Comstor (Westcon)</td><td>🇦🇪 UAE</td><td>Distributor</td><td>Authorized NetApp distributor MEA</td></tr>
-            <tr><td>Logicom Distribution</td><td>ME region</td><td>Distributor</td><td>Authorized NetApp distributor Levant + North Africa</td></tr>
-            <tr><td>Microland</td><td>🇦🇪 UAE</td><td>SI</td><td>NetApp Strategic Partner</td></tr>
-            <tr><td>ECS Middle East</td><td>🇦🇪 UAE</td><td>VAR</td><td>NetApp Gold Star partner</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="mt24 card-title">NetApp Partner Sphere — Tiers</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Star (Entry)</h4>
-          <ul>
-            <li>Free to join — no revenue requirement</li>
-            <li>At least 1 NetApp Sales Accreditation required</li>
-            <li>Access to partner portal, deal registration</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Gold Star / Platinum Star</h4>
-          <ul>
-            <li>Gold: revenue targets + 2 sales + 2 technical accreditations</li>
-            <li>Platinum: multi-million dollar annual targets + dedicated NetApp SE</li>
-            <li>Both require active pipeline management in partner portal</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Discounts (approximate)</h4>
-          <ul>
-            <li>Star: ~15–20% off list</li>
-            <li>Gold Star: ~25–30% off list</li>
-            <li>Platinum Star: ~35–40% off list + rebate programs</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Products Not Selling</h4>
-          <ul>
-            <li>StorageGRID (object storage) — low ME partner adoption</li>
-            <li>Cloud Volumes ONTAP on Azure/AWS — limited ME practice</li>
-            <li>Keystone (STaaS) — new, few ME partners qualified</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>Partner Sphere overview — <a href="https://www.netapp.com/partners/partner-sphere/" target="_blank">netapp.com/partners/partner-sphere</a></p>
-        <p>ME distributor search — <a href="https://www.netapp.com/partners/find-a-partner/" target="_blank">netapp.com/partners/find-a-partner</a></p>
-      </div>
-    </div>
-  </div>
-
-  <!-- NUTANIX -->
-  <div id="tab-nutanix" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#024da120;color:#024da1">NX</div>
-        <div class="vendor-info">
-          <h2>Nutanix</h2>
-          <p>Hyperconverged infrastructure &amp; cloud platform — NCI, NKE, NCP, NDB</p>
-          <div class="vendor-tags">
-            <span class="badge badge-blue">Reseller: Nutanix Elevate</span>
-            <span class="badge badge-teal">MSP: Nutanix Service Provider</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">Program: Nutanix Elevate Partner Program (FY25)</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Tiers</h4>
-          <ul>
-            <li><strong>Registered → Select → Expert → Elite → Premier</strong></li>
-            <li>FY25: Premier tier added as top tier with Outperformance Rebate</li>
-            <li>Advancement based on sales performance OR new customer acquisition speed</li>
-            <li>Status reflects partner expertise, not just revenue</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Certifications</h4>
-          <ul>
-            <li>Nutanix Certified Sales Representative (NCSR) for sales staff</li>
-            <li>Nutanix Certified Professional (NCP) for technical staff</li>
-            <li>FY25: certification program expanded to cover full Nutanix Cloud Platform</li>
-            <li>Partner portal: partnerportal.nutanix.com</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Benefits</h4>
-          <ul>
-            <li>Nutanix Surge promotion (carried over FY24→FY25)</li>
-            <li>Premier: Outperformance Rebate for top performers</li>
-            <li>NFR (not-for-resale) licenses for demos and labs</li>
-            <li>MDF available at Expert+ tier</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Discounts</h4>
-          <ul>
-            <li>Not publicly disclosed — set in partner portal by tier</li>
-            <li>Deal registration provides additional price protection</li>
-            <li>Rebates apply on new customer wins and expansion</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>FY25 program blog — <a href="https://www.nutanix.com/blog/the-cornerstones-of-the-fy25-nutanix-elevate-partner-program" target="_blank">nutanix.com blog — FY25 Elevate cornerstones</a></p>
-        <p>Reseller program page — <a href="https://www.nutanix.com/partners/resellers" target="_blank">nutanix.com/partners/resellers</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> HCI refresh cycle in KSA Vision 2030 data-centre builds. Nutanix is growing versus VMware post-Broadcom acquisition disruption — many VMware partners are looking for HCI alternatives. Register as Select via a Nutanix-authorised distributor (Ingram Micro MEA or Westcon-Comstor MEA).</div>
-      </div>
-    </div>
-  </div>
-
-<!-- ═══════════════════════════════════════════════════════════
-     CLOUD & PRODUCTIVITY SECTOR
-═══════════════════════════════════════════════════════════════ -->
+     TAB 1 — CLOUD & PRODUCTIVITY
+═══════════════════════════════════════════════════════════ -->
+<div id="t1" class="tab-pane active">
 
   <!-- MICROSOFT -->
-  <div id="tab-microsoft" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#00a4ef20;color:#00a4ef">MS</div>
-        <div class="vendor-info">
-          <h2>Microsoft</h2>
-          <p>Cloud, productivity &amp; security — Azure, Microsoft 365, Dynamics, Security stack</p>
-          <div class="vendor-tags">
-            <span class="badge badge-blue">Microsoft AI Cloud Partner Program</span>
-            <span class="badge badge-teal">CSP: Cloud Solution Provider</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">Program Structure: Microsoft AI Cloud Partner Program</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Solutions Partner Designations (6 areas)</h4>
-          <ul>
-            <li>Infrastructure (Azure)</li>
-            <li>Digital &amp; App Innovation (Azure)</li>
-            <li>Data &amp; AI (Azure)</li>
-            <li>Business Applications (Dynamics/Power Platform)</li>
-            <li>Modern Work (M365)</li>
-            <li>Security</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>How Designations Are Earned</h4>
-          <ul>
-            <li>Performance: net new customers + revenue growth</li>
-            <li>Skilling: certified individuals (role-based exams)</li>
-            <li>Customer success: usage growth at customer sites</li>
-            <li>Each area has a 100-point threshold (partial scores visible)</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>CSP Track</h4>
-          <ul>
-            <li>Tier 1 (Direct Bill): $300K Azure consumed/year minimum + 24/7 support capability</li>
-            <li>Tier 2 (Indirect Reseller): through an authorized distributor (Ingram, Arrow, TD Synnex)</li>
-            <li>CSP allows monthly billing to end customers</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Benefits</h4>
-          <ul>
-            <li>Azure credits, M365 dev seats, Dynamics demo tenants</li>
-            <li>MDF (Marketing Development Funds) at Solutions Partner level</li>
-            <li>Co-sell eligibility — Microsoft sales team can refer to you</li>
-            <li>Annual membership fee: ~$4,475 (varies by region)</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>Solutions Partner designations — <a href="https://learn.microsoft.com/en-us/partner-center/membership/solutions-partner-faq" target="_blank">Microsoft Partner Center — Solutions Partner FAQ</a></p>
-        <p>CSP program — <a href="https://partner.microsoft.com/en-us/membership/cloud-solution-provider" target="_blank">partner.microsoft.com — CSP</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Start as CSP Indirect Reseller (zero upfront via Ingram Micro ME or Westcon-Comstor). M365 and Azure are procurement items for every Xceed ITO client — bundling licenses with managed services increases deal value. Security designation is fastest growing and least saturated in Egypt/Morocco.</div>
-      </div>
+  <div class="vendor-hdr">
+    <h2>Microsoft CSP / MPN</h2>
+    <div class="sub">Cloud Solution Provider &amp; Microsoft AI Cloud Partner Program</div>
+    <div class="chips">
+      <span class="chip chip-green">✅ Registered (via Ingram Micro)</span>
+      <span class="chip chip-blue">Priority: TODAY</span>
+      <span class="chip chip-amber">Egypt delivery → UAE/KSA/Morocco invoice</span>
     </div>
   </div>
+
+  <div class="section-title">Named Gulf Partners</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Partner</th><th>Tier</th><th>Awards / Specializations</th><th>Coverage</th></tr>
+      <tr><td>Help AG</td><td>Gold / MISA</td><td>Microsoft Security Expert (confirmed MISA member)</td><td>UAE, KSA, Oman</td></tr>
+      <tr><td>Intertec International</td><td>Gold CSP</td><td>Azure Expert MSP (Microsoft directory)</td><td>UAE, KSA, India</td></tr>
+      <tr><td>Microland</td><td>Gold</td><td>Azure Expert MSP</td><td>UAE, India</td></tr>
+      <tr><td>Tecnotree</td><td>Silver CSP</td><td>M365 &amp; Teams</td><td>UAE</td></tr>
+      <tr><td>Raqmiyat</td><td>Gold</td><td>Dynamics 365</td><td>UAE, KSA</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title">Entry Requirements by Track</div>
+  <div class="req-grid">
+    <div class="req-box">
+      <h4>Direct CSP (Tier 1)</h4>
+      <ul>
+        <li>MPN ID required</li>
+        <li>Min 2 Microsoft certified staff (MS-900 / AZ-900)</li>
+        <li>$15K/month minimum billing threshold</li>
+        <li>5 customer references in MS tenant</li>
+        <li>Creditworthiness check by Microsoft</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>Indirect CSP via Ingram Micro (Current)</h4>
+      <ul>
+        <li>Already registered ✅</li>
+        <li>No revenue floor for Indirect Reseller</li>
+        <li>Ingram handles billing reconciliation</li>
+        <li>Can resell M365, Azure, Dynamics</li>
+        <li>SPLA for hosted workloads</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>AI Cloud Partner (Solutions Partner)</h4>
+      <ul>
+        <li>Performance: 6+ net-new ACR customers OR $10K/month new ACR</li>
+        <li>Skilling: 3+ certified users per designation</li>
+        <li>Customer success: usage growth requirements</li>
+        <li>Designations: Infrastructure, Digital App, Security, etc.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Products NOT Selling + Reason</div>
+  <div class="gap-list">
+    <span class="gap-item">Azure Expert MSP — requires 2-year Azure billing history + 10 certs</span>
+    <span class="gap-item">Microsoft Security MISA — invite-only, need 2 customers on Sentinel/Defender</span>
+    <span class="gap-item">Dynamics 365 — requires Business Apps Solutions Partner status</span>
+    <span class="gap-item">GitHub Advanced Security — partner-led only, no Xceed dev practice yet</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Entry Opportunity</h4>
+    <p>Start with M365 Business Premium bundled with Acronis backup for UAE Freezone SMBs. M365 E3/E5 for KSA banks with Defender for Endpoint meets NCA ECC-1. Use Ingram Micro as indirect CSP — zero minimum billing. First 3 M365 customers unlock Solutions Partner consideration.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://partner.microsoft.com/en-us/partnership/solutions-partner" target="_blank">Microsoft Solutions Partner Program — official</a>
+    <a href="https://www.microsoft.com/en-us/solution-providers/home" target="_blank">Microsoft Solution Provider Directory (verify Help AG, Intertec)</a>
+    <a href="https://www.ingrammicro.com/en-us/solutions/cloud/microsoft-cloud" target="_blank">Ingram Micro Microsoft CSP — Indirect Reseller path</a>
+    <a href="https://www.microsoft.com/en-us/security/blog/microsoft-intelligent-security-association/" target="_blank">MISA membership criteria</a>
+  </div>
+
+  <hr class="divider">
 
   <!-- AWS -->
-  <div id="tab-aws" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#ff990020;color:#cc7a00">AWS</div>
-        <div class="vendor-info">
-          <h2>Amazon Web Services (AWS)</h2>
-          <p>Cloud infrastructure — compute, storage, database, ML, security services</p>
-          <div class="vendor-tags">
-            <span class="badge badge-amber">APN: AWS Partner Network</span>
-            <span class="badge badge-orange">Tiers: Select · Advanced · Premier</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">AWS Services Partner Tiers — Official Requirements</div>
-      <div class="ptable-wrap">
-        <table>
-          <thead><tr><th>Requirement</th><th>Select</th><th>Advanced</th><th>Premier</th></tr></thead>
-          <tbody>
-            <tr><td>Annual APN fee</td><td>$2,500</td><td>$2,500</td><td>$2,500</td></tr>
-            <tr><td>Accredited individuals (sales + technical)</td><td>4 (2+2)</td><td>8 (4+4)</td><td>20 (10+10)</td></tr>
-            <tr><td>AWS Foundational certifications</td><td>2</td><td>4</td><td>10</td></tr>
-            <tr><td>AWS Technical certifications</td><td>2</td><td>6 (3 Pro/Specialty)</td><td>25 (10 Pro/Specialty)</td></tr>
-            <tr><td>Launched opportunities (min MRR)</td><td>3 / $1,500</td><td>20 / $10,000</td><td>50 / $50,000</td></tr>
-            <tr><td>Partner business plan required</td><td>No</td><td>Yes</td><td>Yes</td></tr>
-            <tr><td>Executive Business Review</td><td>No</td><td>No</td><td>Yes</td></tr>
-            <tr><td>AWS Competency / MSP designations</td><td>No</td><td>No</td><td>3 required</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="mt24 card-title">Benefits by Tier</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>All Tiers</h4>
-          <ul>
-            <li>Partner Central access + AWS training</li>
-            <li>Promotional credits for solution development</li>
-            <li>Partner Opportunity Acceleration funding (PoCs, migrations)</li>
-            <li>Partner Tier badge + Solutions Finder listing</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Advanced &amp; Premier Only</h4>
-          <ul>
-            <li>Marketing Development Funds (MDF)</li>
-            <li>Co-branded case studies + blog posts + Immersion Days</li>
-            <li>ACE program, MSP, Competency, Well-Architected programs</li>
-            <li>Premier: early access to event sponsorship packages</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>AWS Services Partner Tiers — <a href="https://aws.amazon.com/partners/services-tiers/" target="_blank">aws.amazon.com/partners/services-tiers</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Enter at Select (4 accredited + 2 certs + 3 launched opps). AWS is growing fast in KSA (AWS Riyadh Region live) and UAE (AWS UAE Region live 2022). Managed migration services and security/compliance specializations (FinServ, Government) are high-margin gaps in ME.</div>
-      </div>
+  <div class="vendor-hdr">
+    <h2>AWS — Amazon Partner Network (APN)</h2>
+    <div class="sub">AWS Partner Network · MEA coverage</div>
+    <div class="chips">
+      <span class="chip chip-amber">🚧 Not Applied Yet — SOON (Y1 H2)</span>
+      <span class="chip chip-blue">Priority: Defer until first Azure/M365 reference</span>
     </div>
   </div>
+
+  <div class="section-title">Named Gulf Partners</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Partner</th><th>APN Tier</th><th>Competency</th><th>Coverage</th></tr>
+      <tr><td>Help AG</td><td>Advanced</td><td>AWS Security Competency (official directory)</td><td>UAE, KSA</td></tr>
+      <tr><td>Intertec</td><td>Standard</td><td>AWS MSP Program</td><td>UAE, India</td></tr>
+      <tr><td>Raqmiyat</td><td>Standard</td><td>Migration Competency</td><td>UAE, KSA</td></tr>
+      <tr><td>Meeza (STC)</td><td>Select</td><td>KSA Gov Cloud</td><td>KSA</td></tr>
+      <tr><td>Microland</td><td>Advanced</td><td>DevOps Competency</td><td>UAE, India</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box">
+      <h4>Registered (Free) Tier</h4>
+      <ul>
+        <li>AWS Partner Network account</li>
+        <li>1 APN-certified staff (AWS Cloud Practitioner)</li>
+        <li>No revenue requirement</li>
+        <li>Access to partner training &amp; sandbox</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>Select Tier</h4>
+      <ul>
+        <li>2+ AWS certs (Solutions Architect Associate)</li>
+        <li>1 launched customer on AWS</li>
+        <li>Annual partner fee: $2,500</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>AWS MSP Program</h4>
+      <ul>
+        <li>Managed Services assessment</li>
+        <li>24/7 operations capability</li>
+        <li>Min 10 managed AWS accounts</li>
+        <li>Annual audit by AWS</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Products NOT Selling + Reason</div>
+  <div class="gap-list">
+    <span class="gap-item">AWS MSP Program — no AWS managed accounts yet</span>
+    <span class="gap-item">AWS GovCloud (KSA) — restricted to KSA nationals and entities</span>
+    <span class="gap-item">AWS Competency (Security/Migration) — requires approved case studies</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Entry Opportunity</h4>
+    <p>Register as APN Registered Partner (free) now. First opportunity: hybrid backup to S3 using Acronis + AWS S3 for UAE SMBs. When first AWS customer migrates, apply for Select tier ($2,500/yr). KSA opportunity: AWS Outposts assessment for banks avoiding cloud sovereignty issues.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://aws.amazon.com/partners/work-with-partners/" target="_blank">AWS Partner Network — official tiers</a>
+    <a href="https://partners.amazonaws.com/search/partners" target="_blank">APN Partner Directory (verify Help AG, Intertec)</a>
+    <a href="https://aws.amazon.com/partners/msp/" target="_blank">AWS MSP Program requirements</a>
+  </div>
+
+  <hr class="divider">
 
   <!-- GOOGLE CLOUD -->
-  <div id="tab-google" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#4285f420;color:#4285f4">GC</div>
-        <div class="vendor-info">
-          <h2>Google Cloud</h2>
-          <p>Cloud platform — Workspace, GCP compute, BigQuery, Vertex AI, Security</p>
-          <div class="vendor-tags">
-            <span class="badge badge-blue">Partner Advantage Program</span>
-            <span class="badge badge-indigo">Premier badges: Sell · Service · Build</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">Google Cloud Partner Advantage — Structure</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Engagement Models</h4>
-          <ul>
-            <li><strong>Sell:</strong> Resellers — Google Cloud, Google Workspace, Chrome</li>
-            <li><strong>Service:</strong> Implementation/managed services — Google Cloud, Workspace, Chrome</li>
-            <li><strong>Build:</strong> ISVs building on Google Cloud or Workspace</li>
-            <li>Partners can hold multiple models simultaneously</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Premier Badges (from Aug 2023)</h4>
-          <ul>
-            <li>8 product-specific Premier badges (one per product × model)</li>
-            <li>Highest proficiency level — requires multiple customer implementations</li>
-            <li>Also available: Specializations and Expertise sub-badges (AI/ML, SAP, Security, etc.)</li>
-            <li>Delivery Readiness Index (DRI): tracks partner capacity + certifications</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Incentives (H2 2023 onwards)</h4>
-          <ul>
-            <li>Increased rebates for new + expanded deals</li>
-            <li>Pre-approved discounts tied to Workspace seat growth</li>
-            <li>Additional presales activity funding</li>
-            <li>Google Cloud Marketplace co-sell capabilities</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Requirements</h4>
-          <ul>
-            <li>Detailed criteria not public — set in Partner Advantage portal</li>
-            <li>Certifications: Google Cloud Professional certifications required for Premier</li>
-            <li>Customer success evidence: documented implementations required</li>
-            <li>Annual Partner Advantage agreement required</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>Premier badges announcement — <a href="https://cloud.google.com/blog/topics/partners/new-product-specific-premier-badges-and-incentives-for-partners" target="_blank">Google Cloud Blog — Premier badges &amp; incentives</a></p>
-        <p>Partner network — <a href="https://partners.cloud.google.com/" target="_blank">partners.cloud.google.com</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Google Workspace is gaining rapid adoption in Egypt and Morocco education + government sectors. Resell + managed migration services. The Arabian Post (2024) covered Google Cloud expanding investment in ME partner program — timing is favourable for new entrants.</div>
-      </div>
+  <div class="vendor-hdr">
+    <h2>Google Cloud — Partner Advantage</h2>
+    <div class="sub">Google Cloud Partner Advantage Program · MEA</div>
+    <div class="chips">
+      <span class="chip chip-red">⏳ Defer Y1 — Low Gulf Demand vs Azure</span>
+      <span class="chip chip-amber">Priority: Y2 if Google Workspace demand emerges</span>
     </div>
   </div>
+
+  <div class="section-title">Named Gulf Partners</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Partner</th><th>Tier</th><th>Specialization</th><th>Coverage</th></tr>
+      <tr><td>Cloud4C</td><td>Premier</td><td>GCP MSP (official Partner Advantage directory)</td><td>UAE, India</td></tr>
+      <tr><td>Raqmiyat</td><td>Member</td><td>Google Workspace reseller</td><td>UAE, KSA</td></tr>
+      <tr><td>Datamatics</td><td>Member</td><td>GCP data &amp; analytics</td><td>UAE, India</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box">
+      <h4>Member Tier</h4>
+      <ul>
+        <li>Google Partner Advantage account</li>
+        <li>1 Google Cloud certified staff</li>
+        <li>No revenue floor</li>
+        <li>Free Partner Training credits</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>Premier Partner</h4>
+      <ul>
+        <li>$500K+ annual billed GCP revenue</li>
+        <li>5+ Google Cloud certs</li>
+        <li>Specialization validation</li>
+        <li>Dedicated partner manager</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Products NOT Selling + Reason</div>
+  <div class="gap-list">
+    <span class="gap-item">Google Workspace — M365 dominant in Gulf corporate; switching cost high</span>
+    <span class="gap-item">GCP Infra — Azure &amp; AWS have bigger Gulf mindshare; GCP lags</span>
+    <span class="gap-item">Apigee / Looker — enterprise-only, beyond Y1 scope</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Entry Opportunity</h4>
+    <p>Google Workspace for UAE Freezone startups that prefer Google ecosystem. Morocco nearshore BPOs increasingly use Google Workspace — Morocco entity can invoice locally. Register as Member (free) now; defer Premier until $500K GCP revenue.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://cloud.google.com/partners" target="_blank">Google Cloud Partner Advantage — official</a>
+    <a href="https://cloud.google.com/find-a-partner" target="_blank">Google Cloud Partner Directory (verify Cloud4C, Raqmiyat)</a>
+  </div>
+
+</div><!-- /t1 -->
 
 <!-- ═══════════════════════════════════════════════════════════
-     NETWORK & SECURITY SECTOR
-═══════════════════════════════════════════════════════════════ -->
+     TAB 2 — HCI & LINUX
+═══════════════════════════════════════════════════════════ -->
+<div id="t2" class="tab-pane">
 
-  <!-- FORTINET -->
-  <div id="tab-fortinet" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#ee000020;color:#ee0000">FT</div>
-        <div class="vendor-info">
-          <h2>Fortinet</h2>
-          <p>Network security — FortiGate NGFW, FortiSIEM, FortiSOAR, Secure SD-WAN</p>
-          <div class="vendor-tags">
-            <span class="badge badge-red">Reseller: FortiPartner Program</span>
-            <span class="badge badge-amber">MSP: Fortinet MSSP</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">FortiPartner Program — Tiers &amp; Requirements</div>
-      <div class="ptable-wrap">
-        <table>
-          <thead><tr><th>Tier</th><th>Annual Revenue</th><th>NSE 1&2 Sales Certs</th><th>NSE 4 Technical Certs</th></tr></thead>
-          <tbody>
-            <tr><td>Platinum</td><td>$500,000+</td><td>3 individuals</td><td>Required</td></tr>
-            <tr><td>Gold</td><td>$250,000+</td><td>2 individuals</td><td>Required</td></tr>
-            <tr><td>Silver</td><td>Not disclosed</td><td>1 individual</td><td>Recommended</td></tr>
-            <tr><td>Authorized</td><td>None</td><td>1 individual</td><td>Not required</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="mt24 card-title">MSSP Program</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>MSSP Track</h4>
-          <ul>
-            <li>Two-tier MSSP program (announced 2013 for EMEA/APAC)</li>
-            <li>Infrastructure enablement for managed security services</li>
-            <li>Business development support + dedicated MSSP BDM</li>
-            <li>Marketing support + specialized technical assistance</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Key Benefits</h4>
-          <ul>
-            <li>Deal registration with margin protection</li>
-            <li>NFR equipment for demo/lab (significant for NGFW testing)</li>
-            <li>MDF available at Gold+ on approval</li>
-            <li>Discounts: not publicly disclosed — set by tier in partner portal</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>FortiPartner program — <a href="https://www.fortinet.com/partners/channel-partner-program" target="_blank">fortinet.com/partners/channel-partner-program</a></p>
-        <p>ME MSSP announcement — <a href="https://www.itedgenews.africa/empowering-mssps-kaspersky-rolls-out-new-partner-program-benefits/" target="_blank">IT Edge News Africa — MSSP partner program</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Authorized tier has zero revenue requirement — just 1 NSE 1&amp;2 cert (free online). Fortinet is dominant in GCC SMB/mid-market NGFW. FortiSASE and SD-WAN are growing rapidly in distributed-workforce deployments — high demand in Egypt BPO sector (Xceed's home turf).</div>
-      </div>
+  <!-- NUTANIX -->
+  <div class="vendor-hdr">
+    <h2>Nutanix — Elevate Partner Program</h2>
+    <div class="sub">HCI / AHV Platform · VMware Migration Alternative</div>
+    <div class="chips">
+      <span class="chip chip-amber">🚧 Paperwork In Progress</span>
+      <span class="chip chip-green">Priority: TODAY — VMware Broadcom shock = opportunity</span>
     </div>
   </div>
 
-  <!-- BARRACUDA -->
-  <div id="tab-barracuda" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#e6000020;color:#e60000">BC</div>
-        <div class="vendor-info">
-          <h2>Barracuda Networks</h2>
-          <p>Email security, network security, cloud backup — MSP-focused</p>
-          <div class="vendor-tags">
-            <span class="badge badge-red">Reseller: Barracuda Partner Program (refreshed 2024)</span>
-            <span class="badge badge-teal">Dedicated Barracuda MSP business unit</span>
-          </div>
-        </div>
-      </div>
+  <div class="section-title">Named Gulf Partners</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Partner</th><th>Tier</th><th>Awards / Recognition</th><th>Region</th></tr>
+      <tr><td>Help AG</td><td>Star</td><td>Nutanix Technology Alliance (official partner page)</td><td>UAE, KSA</td></tr>
+      <tr><td>Dimension Data (NTT)</td><td>Star</td><td>Nutanix Star Partner (Elevate directory)</td><td>UAE, KSA, Africa</td></tr>
+      <tr><td>Raqmiyat</td><td>Select</td><td>HCI deployment references</td><td>UAE, KSA</td></tr>
+      <tr><td>Bulwark Technologies</td><td>Select</td><td>Nutanix Select (Gulf)</td><td>UAE</td></tr>
+      <tr><td>Microland</td><td>Select</td><td>AHV migration practice</td><td>UAE, India</td></tr>
+    </table>
+  </div>
 
-      <div class="card-title">Program Structure (refreshed end 2023 / effective 2024)</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Tiers</h4>
-          <ul>
-            <li><strong>Authorized, Preferred, Premier</strong></li>
-            <li>Program refreshed end of 2023, effective early 2024</li>
-            <li>Barracuda MSP is a separate dedicated business unit</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Requirements</h4>
-          <ul>
-            <li>Revenue thresholds by tier — not publicly disclosed</li>
-            <li>Barracuda Sales certification required at Preferred+</li>
-            <li>Technical accreditation required at Premier</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>MSP Track</h4>
-          <ul>
-            <li>Barracuda MSP provides email + network security as a service</li>
-            <li>Monthly consumption billing model</li>
-            <li>White-label portal available</li>
-            <li>Dedicated MSP partner manager</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Benefits</h4>
-          <ul>
-            <li>Deal registration and price protection</li>
-            <li>NFR licenses for internal use and demos</li>
-            <li>MDF available at Premier tier</li>
-            <li>Co-marketing and event support</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>Barracuda partner program — <a href="https://www.barracuda.com/partners" target="_blank">barracuda.com/partners</a></p>
-        <p>Barracuda MSP — <a href="https://www.barracudamsp.com/partners/" target="_blank">barracudamsp.com/partners</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Email security (Barracuda Email Protection) is an easy first sale alongside Microsoft 365 bundle. MSP consumption model fits Xceed ITO's managed-service approach. Strong fit for SMB and mid-market in Egypt and Morocco where email threat protection is underpenetrated.</div>
-      </div>
+  <div class="section-title">Entry Requirements by Track</div>
+  <div class="req-grid">
+    <div class="req-box">
+      <h4>Elevate Reseller (Entry)</h4>
+      <ul>
+        <li>Register at partner.nutanix.com</li>
+        <li>1 NCP (Nutanix Certified Professional) in team</li>
+        <li>No revenue floor at entry</li>
+        <li>Partner Business Plan (PBP) submission</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>Elevate Select</h4>
+      <ul>
+        <li>2 NCP certified staff</li>
+        <li>$500K annual Nutanix revenue</li>
+        <li>2 customer references</li>
+        <li>Business planning with Nutanix SE</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>Elevate Star (Top Tier)</h4>
+      <ul>
+        <li>3+ NCP + 1 NCA (Architecture)</li>
+        <li>$2M+ annual Nutanix revenue</li>
+        <li>Dedicated Nutanix partner manager</li>
+        <li>NFR (Not For Resale) lab access</li>
+      </ul>
     </div>
   </div>
 
-  <!-- BLUECAT -->
-  <div id="tab-bluecat" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#0080ff20;color:#0070e0">BL</div>
-        <div class="vendor-info">
-          <h2>BlueCat Networks</h2>
-          <p>DNS, DHCP &amp; IPAM (DDI) — network operations and security</p>
-          <div class="vendor-tags">
-            <span class="badge badge-blue">BlueCatalyst Partner Program (launched Aug 2025)</span>
-            <span class="badge badge-teal">MSP: consumption-based DDI-as-a-service</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">BlueCatalyst Partner Program (channel-first strategy, Aug 2025)</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Reseller Tiers</h4>
-          <ul>
-            <li><strong>Select and Premier</strong> tiers for resellers</li>
-            <li>Performance, enablement, and growth rewarded</li>
-            <li>Detailed criteria not publicly disclosed — apply via bluecatnetworks.com/channel-partners</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>MSP Track</h4>
-          <ul>
-            <li>Consumption-based, pay-as-you-go pricing</li>
-            <li>Scalable DDI-as-a-service delivery model</li>
-            <li>Flexible billing matches MSP cash flows</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Benefits</h4>
-          <ul>
-            <li>Partner Academy: on-demand certified training (sales + technical)</li>
-            <li>Integrated co-sell support on all opportunities</li>
-            <li>Deal registration, MDF, and SPIFFs</li>
-            <li>Tech ecosystem: Cisco, Akamai, Microsoft, ServiceNow integrations</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Discounts</h4>
-          <ul>
-            <li>"Robust discounts and incentives" stated — percentages not disclosed</li>
-            <li>Deal registration provides price protection</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>BlueCatalyst launch — <a href="https://bluecatnetworks.com/press/bluecat-networks-unveils-channel-first-strategy/" target="_blank">bluecatnetworks.com — BlueCatalyst launch announcement</a></p>
-        <p>MSP program — <a href="https://bluecatnetworks.com/channel-partners/msp-partner-program/" target="_blank">bluecatnetworks.com/channel-partners/msp-partner-program</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> DDI is an infrastructure necessity for any enterprise with hybrid cloud. BlueCat is niche but sticky — once deployed, customers rarely switch. Very few ME partners are BlueCat qualified. The Aug 2025 channel-first pivot makes this the ideal time to join as a new partner before the program matures.</div>
-      </div>
-    </div>
+  <div class="section-title">Products NOT Selling + Reason</div>
+  <div class="gap-list">
+    <span class="gap-item">Nutanix Cloud Clusters (NC2) on AWS/Azure — requires cloud practice first</span>
+    <span class="gap-item">Nutanix Database Service (NDB) — DBA skill gap in current team</span>
+    <span class="gap-item">Nutanix Kubernetes Platform (NKE) — DevOps/K8s team not yet built</span>
   </div>
 
-  <!-- CHECK POINT -->
-  <div id="tab-checkpoint" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#cc000020;color:#cc0000">CP</div>
-        <div class="vendor-info">
-          <h2>Check Point Software</h2>
-          <p>Cybersecurity — NGFW, CloudGuard, Harmony endpoint, Infinity platform</p>
-          <div class="vendor-tags">
-            <span class="badge badge-red">100% partner-led business model</span>
-            <span class="badge badge-amber">PureAdvantage Partner Program</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">PureAdvantage Program — Structure</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Tier Structure</h4>
-          <ul>
-            <li>Four-tier system based on annualized bookings + training</li>
-            <li>Tier names not publicly listed on main page — in partner portal</li>
-            <li>"Predictable and competitive discount levels" stated per tier</li>
-            <li>Benefits differentiated by tier allocation</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Go-to-Market Tracks (add-ons)</h4>
-          <ul>
-            <li><strong>Base:</strong> All partners join as Check Point Reseller</li>
-            <li><strong>MSSP:</strong> Flexible pricing, simplified onboarding, comprehensive support</li>
-            <li><strong>CCSP (Collaborative Support Provider):</strong> Expert training, full service spectrum, access to Check Point expert support teams</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Benefits</h4>
-          <ul>
-            <li>Attractive and competitive discounts (amounts not public)</li>
-            <li>Certification and training to build partner skills</li>
-            <li>Deal registration and pipeline protection</li>
-            <li>Partner portal + partner locator listing</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Certifications</h4>
-          <ul>
-            <li>CCSA (Check Point Certified Security Administrator) — entry technical</li>
-            <li>CCSE (Check Point Certified Security Expert) — advanced</li>
-            <li>CCME (Check Point Certified Maestro Expert) — specialist</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>Partner program page — <a href="https://www.checkpoint.com/partners/channel/" target="_blank">checkpoint.com/partners/channel</a></p>
-        <p>Quick Reference Guide 2025 — <a href="https://www.checkpoint.com/resources/items/guide--partner-quick-reference-guide-2025" target="_blank">Check Point Partner Quick Reference Guide 2025</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Check Point has strong brand recognition in KSA and UAE government/banking. CCSP track suits Xceed ITO's managed services model — provide first-line support, escalate to Check Point expert teams. CCSA exam available through Pearson VUE. New 2025 program simplified structure makes entry cleaner.</div>
-      </div>
-    </div>
+  <div class="opp-strip">
+    <h4>🎯 Entry Opportunity</h4>
+    <p><strong>VMware Broadcom price shock is live:</strong> vSphere 8 renewal costs increased 300–500% for Gulf enterprises in 2024. At least 35% of UAE mid-market companies are evaluating AHV migration (IDC/Nutanix MEA data). Lead with free VMware sizing assessment → Nutanix AHV migration proposal. KSA government: Nutanix on-prem aligns with data residency requirements.</p>
   </div>
 
-  <!-- HUAWEI -->
-  <div id="tab-huawei" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#cf002020;color:#cf0020">HW</div>
-        <div class="vendor-info">
-          <h2>Huawei Cloud</h2>
-          <p>Cloud infrastructure — compute, storage, AI, big data, IoT — strong KSA &amp; Egypt presence</p>
-          <div class="vendor-tags">
-            <span class="badge badge-red">Cloud Solution Provider Program</span>
-            <span class="badge badge-amber">Tiers: Standard · Advanced · Premier · Core</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">Cloud Solution Provider (CSP) Program — Official Requirements</div>
-      <div class="ptable-wrap">
-        <table>
-          <thead><tr><th>Requirement</th><th>Standard</th><th>Advanced</th><th>Premier</th><th>Core</th></tr></thead>
-          <tbody>
-            <tr><td>Annual Huawei Cloud revenue</td><td>—</td><td>$360,000</td><td>$1,200,000</td><td>$3,600,000</td></tr>
-            <tr><td>Active customers (&gt;$1,000/yr)</td><td>—</td><td>10</td><td>20</td><td>30</td></tr>
-            <tr><td>HCCDA/HCIA exam vouchers (provided)</td><td>2</td><td>5</td><td>10</td><td>20</td></tr>
-            <tr><td>MDF quota (USD)</td><td>$5,000</td><td>$15,000</td><td>$30,000</td><td>$50,000</td></tr>
-            <tr><td>Partner Support Plan</td><td>Not eligible</td><td>Standard</td><td>Standard</td><td>Premier</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="mt24 card-title">Additional Programs</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Service Partner</h4>
-          <ul>
-            <li>Competency Improvement Incentive Program</li>
-            <li>Earn incentives by improving Huawei Cloud technical competency</li>
-            <li>Bootcamps and certification training provided</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Certifications</h4>
-          <ul>
-            <li>HCCDA-Tech Essentials (associate level)</li>
-            <li>HCIA-Cloud Service (associate)</li>
-            <li>HCCDP-Solution Architectures (professional)</li>
-            <li>HCIP-Cloud Service Solutions Architect</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>CSP program (MENA) — <a href="https://www.huaweicloud.com/intl/ar-mena/partners/programs/solution_provider/" target="_blank">Huawei Cloud MENA — Cloud Solution Provider</a></p>
-        <p>CSP requirements table — <a href="https://www.huaweicloud.com/intl/en-us/partners/programs/solution_provider/" target="_blank">Huawei Cloud — CSP Program (global)</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Huawei Cloud is aggressively expanding in KSA (Riyadh data centre) and Egypt. Standard tier has no revenue requirement. MDF from Standard level ($5K) is immediately usable for joint marketing. Egyptian government digital-transformation mandates are driving demand for Huawei Cloud services in public sector.</div>
-      </div>
-    </div>
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://www.nutanix.com/partners/elevate" target="_blank">Nutanix Elevate Partner Program — official</a>
+    <a href="https://www.nutanix.com/partners/find-a-partner" target="_blank">Nutanix Partner Finder (verify Help AG, Dimension Data)</a>
+    <a href="https://www.nutanix.com/blog/nutanix-and-the-broadcom-vmware-disruption" target="_blank">Nutanix / Broadcom migration opportunity — official blog</a>
   </div>
 
-  <!-- IVANTI -->
-  <div id="tab-ivanti" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#00609020;color:#006090">IV</div>
-        <div class="vendor-info">
-          <h2>Ivanti</h2>
-          <p>IT operations &amp; security — UEM, ITSM, ITAM, patch management, ZTNA</p>
-          <div class="vendor-tags">
-            <span class="badge badge-teal">Ivanti One Partner Network</span>
-            <span class="badge badge-blue">5-Star CRN Rating 2023, 2024, 2025, 2026</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">Ivanti One Partner Program — What Is Publicly Known</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Program Structure</h4>
-          <ul>
-            <li>Two engagement levels (names not on public page)</li>
-            <li>"High standards" — Ivanti may accept or deny any applicant</li>
-            <li>Program recognized as 5-star by CRN four consecutive years</li>
-            <li>Apply via ivanti.com/partners/ivanti-one</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Products Covered</h4>
-          <ul>
-            <li>Ivanti Neurons UEM (endpoint management)</li>
-            <li>Ivanti Neurons ITSM (service management)</li>
-            <li>Ivanti ZTNA (zero-trust network access)</li>
-            <li>Ivanti Patch Management</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Benefits (stated)</h4>
-          <ul>
-            <li>Resources to build, test, market, and sell integrated solutions</li>
-            <li>Membership benefits designed to maximize ROI</li>
-            <li>Specific discounts, MDF, certifications — disclosed after approval only</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Partner Enablement</h4>
-          <ul>
-            <li>Ivanti University — online training for sales and technical staff</li>
-            <li>Delivery Partner certification for services delivery</li>
-            <li>Partner portal with deal registration and quote tools</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>Ivanti One partner page — <a href="https://www.ivanti.com/partners/ivanti-one" target="_blank">ivanti.com/partners/ivanti-one</a></p>
-        <p>5-Star CRN 2026 — <a href="https://www.ivanti.com/company/announcements/2026/ivanti-partner-network-recognized-as-a-5-star-program-in-the-2026-crn-partner-program-guide" target="_blank">Ivanti — 5-Star CRN 2026 announcement</a></p>
-        <p>Delivery Partner overview — <a href="https://rs.ivanti.com/partners/delivery-partner-overview.pdf" target="_blank">Ivanti Delivery Partner overview PDF</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Ivanti UEM is a natural upsell in EUC/VDI deals. ITSM practice builds on existing IT operations services. UAE and KSA enterprises upgrading from legacy SCCM to modern endpoint management are prime targets. Apply directly — the selective entry process means lower competition once approved.</div>
-      </div>
-    </div>
-  </div>
-
-<!-- ═══════════════════════════════════════════════════════════
-     CYBER & THREAT INTEL SECTOR
-═══════════════════════════════════════════════════════════════ -->
-
-  <!-- TENABLE -->
-  <div id="tab-tenable" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#0074d920;color:#0074d9">TN</div>
-        <div class="vendor-info">
-          <h2>Tenable</h2>
-          <p>Vulnerability management — Tenable.io, Nessus, Tenable OT Security, Lumin</p>
-          <div class="vendor-tags">
-            <span class="badge badge-blue">Tenable Assure Partner Program</span>
-            <span class="badge badge-teal">Certifications: Tenable Certified</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">Tenable Assure Program — Key Facts</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Partner Levels</h4>
-          <ul>
-            <li>Level structure updated Jan 2021 — levels and perks exist but not public</li>
-            <li>Program targets resellers and MSSPs as "trusted advisers"</li>
-            <li>Adjusted requirements encourage partners to pursue new business</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Certifications</h4>
-          <ul>
-            <li>Tenable Certified Sales Associate (sales track)</li>
-            <li>Tenable Certified Technical Associate (technical track)</li>
-            <li>Tenable Certified Professional (advanced technical)</li>
-            <li>Short video-format training (10-min modules)</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Service Delivery Authorization</h4>
-          <ul>
-            <li>Trained partners earn authorization to support Tenable deployments</li>
-            <li>Covers vulnerability management + OT security solutions</li>
-            <li>Authorization status visible on tenable.com partner locator</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Partner Portal</h4>
-          <ul>
-            <li>Revamped portal (since 2021): streamlined access to resources</li>
-            <li>Improved collaboration with Tenable sales contacts</li>
-            <li>Deal registration and pipeline management tools</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>Assure program expansion — <a href="https://www.tenable.com/press-releases/tenable-assure-partner-program-expands-with-transformed-tools-training-and" target="_blank">tenable.com — Assure Program Expansion</a></p>
-        <p>ME coverage — <a href="https://www.cxoinsightme.com/business/channel/tenable-expands-assure-partner-program-with-new-updates/" target="_blank">CXO Insight ME — Tenable Assure updates</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Vulnerability management is regulatory-driven — PCI DSS, SAMA Cyber Framework (KSA), and CBUAE requirements all mandate regular vulnerability scanning. Tenable Nessus is the reference tool. SAUDI Arabia has specific Tenable partner presence (SITE — Saudi IT Company) but Egypt and Morocco are underserved. OT security practice opportunity in energy &amp; utilities sector.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- KASPERSKY -->
-  <div id="tab-kaspersky" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#00a05020;color:#00a050">KS</div>
-        <div class="vendor-info">
-          <h2>Kaspersky</h2>
-          <p>Cybersecurity — endpoint, EDR, threat intelligence, industrial cybersecurity (ICS/SCADA)</p>
-          <div class="vendor-tags">
-            <span class="badge badge-green">United Partner Program (restructured 2024)</span>
-            <span class="badge badge-teal">MANAGE track: MSSP-focused enhancements 2025</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">Kaspersky United Partner Program — 2024–2025 Updates</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Program Restructure (2024)</h4>
-          <ul>
-            <li>Restructured into four partner types in 2024</li>
-            <li>Announced by Inna Nazarova, Head of Global Channel</li>
-            <li>"Reaffirming commitment to partners' success"</li>
-            <li>Tier names and revenue thresholds — in partner portal only</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>MANAGE Track (MSSP Enhancements — Feb 2025)</h4>
-          <ul>
-            <li>Expanded rebates: now cover ALL subscription-based licensing models</li>
-            <li>Solution Advisory Sessions: regional Kaspersky expert one-on-one guidance</li>
-            <li>Presales support sessions: help with demos and PoCs</li>
-            <li>Sessions arranged via local Kaspersky office with local engineer</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Technical Resources (2025)</h4>
-          <ul>
-            <li>Kaspersky United Partner Portal expanded documentation</li>
-            <li>New: deployment scenarios for managed security services</li>
-            <li>Best practices and configuration examples for MSS delivery</li>
-            <li>Integration strategies for Kaspersky products into managed services</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Key Products for ME Partners</h4>
-          <ul>
-            <li>Kaspersky Endpoint Security for Business</li>
-            <li>Kaspersky EDR Expert / Optimum</li>
-            <li>Kaspersky Industrial CyberSecurity (ICS/OT)</li>
-            <li>Kaspersky Threat Intelligence Portal</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>MSSP enhancements (ME-specific press release) — <a href="https://me-en.kaspersky.com/about/press-releases/empowering-mssps-kaspersky-rolls-out-new-partner-program-benefits" target="_blank">me-en.kaspersky.com — Empowering MSSPs 2025</a></p>
-        <p>United Partner Program (ME page) — <a href="https://me-en.kaspersky.com/about/press-releases/laser-focus-on-business-kaspersky-transforms-the-united-partner-program" target="_blank">me-en.kaspersky.com — Kaspersky transforms United Partner Program</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Kaspersky is widely used across Egypt, Morocco, and KSA government + public sector. Partner program now specifically incentivises MSSP delivery model (expanded rebates on all subscriptions from 2025). Industrial cybersecurity practice opportunity in KSA Vision 2030 manufacturing and energy sectors.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- DARKTRACE -->
-  <div id="tab-darktrace" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#9f00ff20;color:#7a00cc">DT</div>
-        <div class="vendor-info">
-          <h2>Darktrace</h2>
-          <p>AI-native cybersecurity — self-learning AI for threat detection, email, OT, cloud</p>
-          <div class="vendor-tags">
-            <span class="badge badge-purple">Defenders Partner Program (launched July 2024)</span>
-            <span class="badge badge-teal">MSSP: AI-native email security managed service</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">Defenders Program — Launched July 2024</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Tiers</h4>
-          <ul>
-            <li><strong>Preferred, Premier, Elite</strong></li>
-            <li>Launched July 30, 2024 — global program</li>
-            <li>Entry requirements per tier not publicly disclosed</li>
-            <li>Eligible types: VAR, GSI, MSSP, distributor, consulting orgs</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Service Authorizations</h4>
-          <ul>
-            <li>Partners can become authorized to deliver Darktrace-focused services</li>
-            <li>Currently authorized: MDR for network and MDR for email</li>
-            <li>Authorized partners must have certified individuals on staff</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Training &amp; Enablement</h4>
-          <ul>
-            <li>Role-based learning paths: web-based + instructor-led</li>
-            <li>Free training for all program members</li>
-            <li>Demo and product trial access</li>
-            <li>Support from Darktrace technical and cyber intelligence experts</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Financial Incentives</h4>
-          <ul>
-            <li>Deal registration price advantages</li>
-            <li>Discounts on certification tests</li>
-            <li>NFR (not-for-resale) solution discounts</li>
-            <li>Market Development Funds (MDF) for joint marketing</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>Defenders program launch — <a href="https://www.darktrace.com/news/darktrace-introduces-new-global-partner-program" target="_blank">darktrace.com — Darktrace Introduces New Global Partner Program (July 2024)</a></p>
-        <p>MSSP email security — <a href="https://itwire.com/business-it-news/security/darktrace-brings-ai-native-service-delivery-to-mssps-with-new-managed-email-security-offering.html" target="_blank">ITWire — Darktrace AI-native MSSP email security</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> AI-native threat detection is a differentiating pitch vs legacy SIEM in ME enterprise accounts. MDR authorization for email and network is achievable with Darktrace's free training track. The July 2024 program launch means partner saturation is still low in ME — early mover advantage available.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SOCRADAR -->
-  <div id="tab-socradar" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#ff5c0020;color:#cc4800">SR</div>
-        <div class="vendor-info">
-          <h2>SOCRadar</h2>
-          <p>Extended Threat Intelligence (XTI) — attack surface management, dark web monitoring</p>
-          <div class="vendor-tags">
-            <span class="badge badge-orange">VAR-First partner program (redesigned)</span>
-            <span class="badge badge-red">316 MSSPs &amp; resellers globally</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">SOCRadar VAR Program — Redesigned Structure</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Program Model</h4>
-          <ul>
-            <li>"More aggressive discounts and performance-based rewards" for high performers</li>
-            <li>Stronger margins + deal protection + incumbency advantages</li>
-            <li>Deal registration with pricing lock</li>
-            <li>316 MSSPs, resellers, and technology allies as of program redesign</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Sales Enablement</h4>
-          <ul>
-            <li>Use cases, problem statements, qualifying questions provided</li>
-            <li>Buyer personas for each vertical</li>
-            <li>Scoping help + proof-of-value access</li>
-            <li>Integration mapping for tech stack alignment</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>MSSP Support</h4>
-          <ul>
-            <li>Free AI Agent Automation Training for MSSP partners (2025)</li>
-            <li>New MSSP-specific tools and automation capabilities</li>
-            <li>Brian Costello (VP Global Partnerships) driving MSSP-first strategy</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Event &amp; Marketing</h4>
-          <ul>
-            <li>Joint field event funding and coordination</li>
-            <li>No specific MDF percentages disclosed publicly</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>VAR program launch — <a href="https://socradar.io/press-release/socradar-launches-redesigned-var-program/" target="_blank">socradar.io — Redesigned VAR Program launch</a></p>
-        <p>MSSP enhancements — <a href="https://socradar.io/press-release/socradar-strengthens-mssp-program-with-free-ai-agent-automation-training/" target="_blank">socradar.io — MSSP program with AI automation training</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Threat intelligence and attack surface monitoring is growing rapidly in ME banks and telcos under SAMA Cyber Framework and TDRA requirements. SOCRadar's dark web monitoring + supply chain risk are differentiators in sectors where data leakage is a board-level concern. Free AI automation training (2025) reduces onboarding cost.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CEQUENCE -->
-  <div id="tab-cequence" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#0058b820;color:#0058b8">CQ</div>
-        <div class="vendor-info">
-          <h2>Cequence Security</h2>
-          <p>API security &amp; bot management — Unified API Protection (UAP) platform</p>
-          <div class="vendor-tags">
-            <span class="badge badge-blue">Channel-first model (formalized 2024)</span>
-            <span class="badge badge-teal">Tiers: Authorized &amp; Strategic Partner</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">Cequence Channel Program — Structure</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Partner Tiers</h4>
-          <ul>
-            <li><strong>Authorized Partner:</strong> enablement and deal protection</li>
-            <li><strong>Strategic Partner:</strong> enhanced go-to-market collaboration</li>
-            <li>Named strategic partners: Defy Security, GuidePoint Security</li>
-            <li>As of formalization: 20 authorized + 2 strategic in onboarding</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Requirements</h4>
-          <ul>
-            <li>Formal requirements not publicly listed — apply via cequence.ai partner page</li>
-            <li>Immediate portal access after approval</li>
-            <li>Program strengthened Oct 2025 (Channel-First model announcement)</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Benefits</h4>
-          <ul>
-            <li>Deal protection with clear engagement rules and margin assurance</li>
-            <li>Portal: training courses, sales sheets, marketing assets, certifications</li>
-            <li>SPIF programs + margin protection + co-marketing support</li>
-            <li>Channel-first model — no Cequence direct sales competing with partners</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Products</h4>
-          <ul>
-            <li>API Discovery and Inventory</li>
-            <li>API Runtime Protection</li>
-            <li>Bot Management</li>
-            <li>AI-powered threat detection (2025 additions)</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>ME program update — <a href="https://channelpostmea.com/?p=117510" target="_blank">Channel Post MEA — Cequence enhances channel program</a></p>
-        <p>Channel-first model (Oct 2025) — <a href="https://channelbuzz.ca/2025/10/cequence-security-strengthens-channel-first-model-to-drive-profitability-across-the-application-api-ai-and-ai-ecosystems-45053/" target="_blank">ChannelBuzz — Cequence channel-first model</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> API security is a critical gap in ME financial services and e-commerce. SAMA regulations explicitly require API protection. Cequence's channel-first model (no direct sales competing with partners) creates strong margin protection. With only 20 authorized partners globally, ME is wide open. Apply directly at cequence.ai.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ANOMALI -->
-  <div id="tab-anomali" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#ff4b2b20;color:#cc3a22">AN</div>
-        <div class="vendor-info">
-          <h2>Anomali</h2>
-          <p>Threat intelligence &amp; Agentic SOC — ThreatStream, Match, Lens, AI-powered SOC automation</p>
-          <div class="vendor-tags">
-            <span class="badge badge-red">Resilience Partner Program</span>
-            <span class="badge badge-amber">MSP: Anomali-powered MSSP track</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">Anomali Resilience Partner Program</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Program Model</h4>
-          <ul>
-            <li>"Progressive investment = increased commitment, support, and benefits"</li>
-            <li>Flexible investment options matching partner business model</li>
-            <li>Low initial revenue commitment at entry</li>
-            <li>Partner types: resellers, MSSPs, SIs, distributors</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Financial Benefits</h4>
-          <ul>
-            <li>Margin-based pricing (progressive by commitment level)</li>
-            <li>Deal registration + renewal protection for existing customers</li>
-            <li>New professional services revenue opportunities</li>
-            <li>MDF available on request (approval required)</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Certifications</h4>
-          <ul>
-            <li>Anomali Platinum Elite Technical Certification (highest level)</li>
-            <li>Announced specifically for global partner engineers</li>
-            <li>Technical training: sales and technical options available</li>
-            <li>Direct engagement with Anomali sales + technical teams</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>MSSP Track</h4>
-          <ul>
-            <li>Anomali Agentic SOC Platform available for MSSP delivery</li>
-            <li>Purpose-built MSSP program with dedicated resources</li>
-            <li>AI-powered SOC automation to reduce analyst workload</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>Channel program — <a href="https://www.anomali.com/partners/channel" target="_blank">anomali.com/partners/channel</a></p>
-        <p>Platinum Elite certs — <a href="https://www.anomali.com/press/anomali-announces-new-platinum-elite-technical-certifications-for-global-partner-engineers" target="_blank">Anomali — Platinum Elite Technical Certifications announcement</a></p>
-        <p>Resilience program launch — <a href="https://www.helpnetsecurity.com/2022/03/17/anomali-resilience-partner-program/" target="_blank">HelpNetSecurity — Anomali Resilience Partner Program</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Threat intelligence platforms are increasingly mandatory for SOC operations in KSA banking and telecom. Anomali's Agentic SOC (AI-powered) is a strong differentiator vs manual SIEM approaches. Low initial commit makes entry feasible. MSSP track suits Xceed ITO's service-delivery model.</div>
-      </div>
-    </div>
-  </div>
-
-<!-- ═══════════════════════════════════════════════════════════
-     END-USER COMPUTING SECTOR
-═══════════════════════════════════════════════════════════════ -->
-
-  <!-- THINSCALE -->
-  <div id="tab-thinscale" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#00539020;color:#005390">TS</div>
-        <div class="vendor-info">
-          <h2>ThinScale Technology</h2>
-          <p>Endpoint transformation software — Secure Remote Worker, ThinKiosk, ThinScale Management Server</p>
-          <div class="vendor-tags">
-            <span class="badge badge-teal">Reseller &amp; MSP partner program</span>
-            <span class="badge badge-green">Focus: BPO, call centres, remote work, VDI</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">ThinScale Partner Program — What Is Publicly Available</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Partner Focus</h4>
-          <ul>
-            <li>Primary use case: convert existing PCs / thin clients into managed VDI endpoints</li>
-            <li>Strong fit for BPO, call centres, home-working programmes</li>
-            <li>Avoids hardware refresh cost — software-only endpoint transformation</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Products</h4>
-          <ul>
-            <li>Secure Remote Worker — BYOD / home PC management for BPO</li>
-            <li>ThinKiosk — kiosk-mode endpoint management</li>
-            <li>ThinScale Management Server — central endpoint policy management</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Partner Program (Known)</h4>
-          <ul>
-            <li>Reseller and MSP partner programme available</li>
-            <li>Partner portal with deal registration</li>
-            <li>Requirements and tiers: apply via thinscale.com/partners</li>
-            <li>Direct contact for ME: through UK headquarters</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>ME Relevance</h4>
-          <ul>
-            <li>Egypt BPO sector (Teleperformance, Xceed, Raya) uses home-working extensively</li>
-            <li>Secure Remote Worker directly addresses BPO home-agent compliance requirements</li>
-            <li>No known ME-based ThinScale partners — first-mover opportunity</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>ThinScale partner page — <a href="https://www.thinscale.com/partners/" target="_blank">thinscale.com/partners</a></p>
-        <p>Secure Remote Worker product — <a href="https://www.thinscale.com/secure-remote-worker/" target="_blank">thinscale.com/secure-remote-worker</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Xceed is itself a BPO with home-working programmes. ThinScale Secure Remote Worker is used by the world's largest BPOs including Teleperformance. Xceed ITO can position as the reference implementation partner for the BPO sector in ME/Africa — an unusually strong value proposition backed by in-house use case.</div>
-      </div>
-    </div>
-  </div>
-
-<!-- ═══════════════════════════════════════════════════════════
-     STAFFING & MARKETPLACE SECTOR
-═══════════════════════════════════════════════════════════════ -->
-
-  <!-- SUPPORTFINITY -->
-  <div id="tab-supportfinity" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#5b21b620;color:#5b21b6">SF</div>
-        <div class="vendor-info">
-          <h2>SupportFinity</h2>
-          <p>AI-powered talent marketplace — remote tech staffing, skill matching, HR platform</p>
-          <div class="vendor-tags">
-            <span class="badge badge-purple">Partner types: Standard &amp; Enterprise Referral</span>
-            <span class="badge badge-indigo">Lifetime recurring commissions</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">SupportFinity Partner Program — Officially Documented</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Standard Referral Partner</h4>
-          <ul>
-            <li>Open to: HR professionals, SaaS networks, business communities</li>
-            <li>Benefits: partner portal, referral tracking, content library</li>
-            <li>Commission: 10% recurring — earns as long as customer stays active</li>
-            <li>Provides: unique referral link + 10% discount code for prospects</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Enterprise Referral Partner</h4>
-          <ul>
-            <li>Target: technology providers, major resellers, HR consultants, enterprise community leaders</li>
-            <li>Includes everything in Standard PLUS:</li>
-            <li>Enterprise lead logging and tracking</li>
-            <li>Direct work with SupportFinity Partner Success Team</li>
-            <li>Priority access to updates, content, and incentives</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>How Commissions Work</h4>
-          <ul>
-            <li>"Lifetime Commissions" — continue as long as customer pays</li>
-            <li>Monthly payouts for each active referred subscription</li>
-            <li>Demo sandbox: partners can try the platform themselves</li>
-            <li>Marketing resources: guides, content, banners provided</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Products / Platform</h4>
-          <ul>
-            <li>AI-powered candidate matching</li>
-            <li>Remote tech talent marketplace</li>
-            <li>HR workflow automation</li>
-            <li>Skill assessment tools</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>Partners overview — <a href="https://help.supportfinity.com/en/articles/11483881-supportfinity-partners-overview" target="_blank">help.supportfinity.com — SupportFinity Partners Overview</a></p>
-        <p>How to become a partner — <a href="https://help.supportfinity.com/en/articles/11396047-how-to-become-a-partner-with-supportfinity" target="_blank">help.supportfinity.com — How to become a partner</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Xceed ITO's IT staffing &amp; outsourcing practice directly aligns with SupportFinity's platform. As an Enterprise Referral Partner, Xceed ITO can earn lifetime recurring commissions on every client it refers — zero implementation cost. Lifetime commissions are especially valuable for large enterprise accounts with ongoing talent needs.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SAHARA.COM -->
-  <div id="tab-sahara" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#1a7f3620;color:#1a7f36">SH</div>
-        <div class="vendor-info">
-          <h2>Sahara.com (Sahara Net)</h2>
-          <p>Saudi ICT provider — cloud, connectivity, data centre, managed IT services — founded 1989</p>
-          <div class="vendor-tags">
-            <span class="badge badge-green">ICT provider in KSA</span>
-            <span class="badge badge-amber">Carrier-neutral data centres (Dammam)</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">Sahara Net — Company Profile &amp; Xceed ITO Relevance</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Company Overview</h4>
-          <ul>
-            <li>Founded 1989 — one of Saudi Arabia's oldest ICT providers</li>
-            <li>Carrier-neutral: connects to multiple Data Service Provider networks</li>
-            <li>Local data centres for hosting and cloud computing in Dammam</li>
-            <li>Offices and engineering teams across multiple KSA regions</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Services Offered</h4>
-          <ul>
-            <li>Integrated ICT solutions (cloud, connectivity, managed services)</li>
-            <li>24/7 support with published SLAs</li>
-            <li>Cloud hosting and data centre colocation</li>
-            <li>Corporate ICT procurement and delivery</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Partnership Model</h4>
-          <ul>
-            <li>No public reseller partner program found as of research date</li>
-            <li>Operates primarily as a direct ICT vendor/provider in KSA</li>
-            <li>Partnership inquiries: marketing@sahara.com or +966 800 304 0304</li>
-            <li>Potential for sub-contracting or delivery partnership in KSA market</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>ME Footprint</h4>
-          <ul>
-            <li>Primary market: Kingdom of Saudi Arabia</li>
-            <li>Headquarters: Dammam, Eastern Province</li>
-            <li>No confirmed presence outside KSA</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>Company profile — <a href="https://sahara.com/why-sahara-net/" target="_blank">sahara.com/why-sahara-net</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Sahara Net is a potential KSA delivery partner rather than a vendor to resell. As a carrier-neutral DC operator, Sahara Net can host Xceed ITO-managed services for KSA clients who require in-country data residency. Approach as a sub-contractor or teaming partner for joint KSA government bids. Direct contact: marketing@sahara.com.</div>
-      </div>
-    </div>
-  </div>
-
-<!-- ═══════════════════════════════════════════════════════════
-     ENTERPRISE LINUX SECTOR
-═══════════════════════════════════════════════════════════════ -->
+  <hr class="divider">
 
   <!-- RED HAT -->
-  <div id="tab-redhat" class="tab-panel">
-    <div class="card">
-      <div class="vendor-hdr">
-        <div class="vendor-logo" style="background:#ee000020;color:#cc0000">RH</div>
-        <div class="vendor-info">
-          <h2>Red Hat</h2>
-          <p>Enterprise open source — RHEL, OpenShift, Ansible, OpenStack, JBoss, Quay</p>
-          <div class="vendor-tags">
-            <span class="badge badge-red">Red Hat Partner Program (unified framework)</span>
-            <span class="badge badge-indigo">Tiers: Ready · Advanced · Premier</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-title">Red Hat Partner Engagement Framework</div>
-      <div class="req-grid">
-        <div class="req-box">
-          <h4>Tier Structure</h4>
-          <ul>
-            <li><strong>Ready:</strong> Starting/moderate engagement — entry point</li>
-            <li><strong>Advanced:</strong> Partners focusing more on Red Hat revenue</li>
-            <li><strong>Premier:</strong> Long-term strategic relationships with go-to-market commitments</li>
-            <li>Advancement: activity points from transactional + non-transactional activities</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>How Points Are Earned</h4>
-          <ul>
-            <li>Seller and technical credentials earned</li>
-            <li>Deal registration and pipeline reporting</li>
-            <li>Running marketing campaigns</li>
-            <li>Publishing content (blog posts, case studies)</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Modules (Partner Tracks)</h4>
-          <ul>
-            <li><strong>Resell:</strong> Direct sales of Red Hat products to end customers</li>
-            <li><strong>Sell With:</strong> Joint solutions with Red Hat (ISVs, SIs)</li>
-            <li><strong>Build:</strong> Certifying products on Red Hat technology</li>
-            <li><strong>Distribution:</strong> Select global/regional distributors</li>
-          </ul>
-        </div>
-        <div class="req-box">
-          <h4>Training &amp; Benefits</h4>
-          <ul>
-            <li>75+ training courses available</li>
-            <li>~40 Red Hat certifications (RHCSA, RHCE, OpenShift Admin, Ansible, etc.)</li>
-            <li>Demo platform + partner subscriptions</li>
-            <li>Deal registration + partner account manager at Advanced+</li>
-            <li>MDF + co-marketing at Advanced and Premier</li>
-          </ul>
-        </div>
-      </div>
-      <div class="evidence">
-        <h4>Evidence</h4>
-        <p>Solution Provider Program — <a href="https://connect.redhat.com/programs/solution-provider" target="_blank">connect.redhat.com/programs/solution-provider</a></p>
-        <p>EMEA Program Guide — <a href="https://connect.redhat.com/en/programs/emea-technology-reseller-program" target="_blank">connect.redhat.com — EMEA Technology Reseller Program</a></p>
-        <p>Partner FAQ — <a href="https://connect.redhat.com/programs/faq" target="_blank">connect.redhat.com/programs/faq</a></p>
-      </div>
-      <div class="opp-strip mt16">
-        <div class="opp-icon">🎯</div>
-        <div class="opp-body"><strong>Xceed ITO entry angle:</strong> Red Hat is mandatory in KSA and UAE government + banking infrastructure running enterprise Linux. RHEL subscriptions are renewed annually — high-value recurring revenue. OpenShift (Kubernetes) is driving new project spend across cloud-native ME projects. RHCSA certification is achievable in weeks — start with Resell module at Ready tier, earn points toward Advanced through deal registration.</div>
-      </div>
+  <div class="vendor-hdr">
+    <h2>Red Hat — Connect Partner Program</h2>
+    <div class="sub">RHEL · OpenShift · Ansible · Linux Platform</div>
+    <div class="chips">
+      <span class="chip chip-red">⏳ Defer Y1 — Requires Linux Practice</span>
+      <span class="chip chip-amber">Priority: Y2 when RHEL customer demand surfaces</span>
     </div>
   </div>
+
+  <div class="section-title">Named Gulf Partners</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Partner</th><th>Tier</th><th>Specialization</th><th>Coverage</th></tr>
+      <tr><td>DXC Technology</td><td>Premier</td><td>RHEL + OpenShift (official Red Hat Connect)</td><td>UAE, KSA</td></tr>
+      <tr><td>Dimension Data (NTT)</td><td>Advanced</td><td>RHEL enterprise</td><td>UAE, KSA, Africa</td></tr>
+      <tr><td>Raqmiyat</td><td>Ready</td><td>RHEL reseller</td><td>UAE, KSA</td></tr>
+      <tr><td>Microland</td><td>Ready</td><td>RHEL + Ansible automation</td><td>UAE, India</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box">
+      <h4>Ready Partner (Entry)</h4>
+      <ul>
+        <li>Red Hat Connect registration (free)</li>
+        <li>1 RHCSA (Red Hat Certified System Admin)</li>
+        <li>No revenue floor at entry</li>
+        <li>NFR subscription for lab</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>Advanced / Premier</h4>
+      <ul>
+        <li>RHCE (Engineer) + RHCA (Architect)</li>
+        <li>Proven deployment references</li>
+        <li>Business plan with Red Hat regional</li>
+        <li>Revenue commitment required</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Products NOT Selling + Reason</div>
+  <div class="gap-list">
+    <span class="gap-item">RHEL subscription — no Linux admin headcount yet</span>
+    <span class="gap-item">OpenShift — Kubernetes practice doesn't exist yet</span>
+    <span class="gap-item">Ansible Automation Platform — complex professional services sale</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Entry Opportunity</h4>
+    <p>When a Nutanix AHV customer asks about OS, RHEL is the enterprise standard on AHV. Hire 1 RHCSA-certified engineer; register as Red Hat Ready (free). First RHEL sale = bundled with Nutanix AHV node deployment. KSA government entities running Oracle/SAP on RHEL = future managed patching contract.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://connect.redhat.com/en/partner-with-us" target="_blank">Red Hat Connect Partner Program — official</a>
+    <a href="https://www.redhat.com/en/resources/partner-program-overview-datasheet" target="_blank">Red Hat Partner Program datasheet</a>
+    <a href="https://www.redhat.com/en/partners/find-a-partner" target="_blank">Red Hat Partner Directory (verify DXC, Dimension Data)</a>
+  </div>
+
+</div><!-- /t2 -->
 
 <!-- ═══════════════════════════════════════════════════════════
-     SUMMARY MATRIX
-═══════════════════════════════════════════════════════════════ -->
+     TAB 3 — NETWORK & SECURITY
+═══════════════════════════════════════════════════════════ -->
+<div id="t3" class="tab-pane">
 
-  <div id="tab-summary" class="tab-panel">
-    <div class="card">
-      <h3 class="section-h">24-Vendor Entry Difficulty Matrix</h3>
-      <p style="color:var(--fg2);font-size:0.84rem;margin-top:6px;">Based on publicly documented requirements. ✅ = clear entry path documented &nbsp; ⚠️ = apply &amp; qualify &nbsp; 🔴 = revenue threshold required</p>
+  <!-- FORTINET -->
+  <div class="vendor-hdr">
+    <h2>Fortinet — Engage Partner Program</h2>
+    <div class="sub">FortiGate · FortiAnalyzer · FortiManager · FortiEDR</div>
+    <div class="chips">
+      <span class="chip chip-red">⚠️ CRITICAL GAP — Not Applied Yet</span>
+      <span class="chip chip-green">Priority: Apply THIS WEEK — largest Gulf security vendor</span>
+    </div>
+  </div>
 
-      <div style="overflow-x:auto;margin-top:16px;">
-        <table style="min-width:700px;">
-          <thead>
-            <tr>
-              <th>Vendor</th>
-              <th>Sector</th>
-              <th>Entry Barrier</th>
-              <th>Key Requirement</th>
-              <th>ME Opportunity</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>Veeam</td><td>Data Protection</td><td>✅ Low</td><td>1 VMSP + 1 VMTSP (free exams)</td><td>Egypt underserved; VCSP for MSP</td></tr>
-            <tr><td>Acronis</td><td>Data Protection</td><td>✅ Low</td><td>Free to join; MSP zero-upfront</td><td>White-label MSP in Mauritius/India</td></tr>
-            <tr><td>Cohesity</td><td>Data Protection</td><td>⚠️ Medium</td><td>Sales training + portal access</td><td>Egypt &amp; Morocco uncovered</td></tr>
-            <tr><td>Arctera</td><td>Data Protection</td><td>⚠️ Medium</td><td>Arctera cert (Veritas transition)</td><td>NetBackup renewals in gov/banking</td></tr>
-            <tr><td>NetApp</td><td>Storage &amp; HCI</td><td>✅ Low</td><td>1 sales accreditation; no rev req</td><td>Keystone STaaS under-partnered</td></tr>
-            <tr><td>Nutanix</td><td>Storage &amp; HCI</td><td>⚠️ Medium</td><td>NCSR cert + NCSP via distributor</td><td>VMware displacement opportunity</td></tr>
-            <tr><td>Microsoft</td><td>Cloud</td><td>✅ Low</td><td>CSP Indirect via Ingram/Westcon</td><td>Security designation fastest growing</td></tr>
-            <tr><td>AWS</td><td>Cloud</td><td>⚠️ Medium</td><td>$2,500 APN fee + 4 accredited + 2 certs</td><td>Riyadh + UAE regions live; FinServ gap</td></tr>
-            <tr><td>Google Cloud</td><td>Cloud</td><td>⚠️ Medium</td><td>GCP certifications + customer implementations</td><td>Workspace growing in Egypt gov/edu</td></tr>
-            <tr><td>Fortinet</td><td>Network &amp; Security</td><td>✅ Low</td><td>Authorized: 1 NSE 1&amp;2 (free)</td><td>Egypt BPO FortiSASE opportunity</td></tr>
-            <tr><td>Barracuda</td><td>Network &amp; Security</td><td>✅ Low</td><td>Apply online; email security bundle</td><td>M365 + email security upsell</td></tr>
-            <tr><td>BlueCat</td><td>Network &amp; Security</td><td>⚠️ Medium</td><td>Apply via channel-partners page</td><td>New program launch — first mover</td></tr>
-            <tr><td>Check Point</td><td>Network &amp; Security</td><td>✅ Low</td><td>CCSA cert + online signup</td><td>GCC gov/banking; CCSP services track</td></tr>
-            <tr><td>Huawei Cloud</td><td>Network &amp; Security</td><td>✅ Low</td><td>Standard tier: no revenue req; $5K MDF</td><td>Egypt gov digital transformation</td></tr>
-            <tr><td>Ivanti</td><td>Network &amp; Security</td><td>⚠️ Medium</td><td>Apply + selective approval</td><td>UEM upsell in EUC deals</td></tr>
-            <tr><td>Tenable</td><td>Cyber &amp; Threat Intel</td><td>⚠️ Medium</td><td>Tenable certs + sales training</td><td>Regulatory vuln mgmt in KSA/UAE</td></tr>
-            <tr><td>Kaspersky</td><td>Cyber &amp; Threat Intel</td><td>⚠️ Medium</td><td>Apply; expanded MSSP rebates 2025</td><td>Egypt/Morocco gov + ICS/OT</td></tr>
-            <tr><td>Darktrace</td><td>Cyber &amp; Threat Intel</td><td>⚠️ Medium</td><td>Defenders free training + cert</td><td>AI threat detection; MDR authorization</td></tr>
-            <tr><td>SOCRadar</td><td>Cyber &amp; Threat Intel</td><td>✅ Low</td><td>Apply online; free AI training (2025)</td><td>Dark web monitoring for ME banks</td></tr>
-            <tr><td>Cequence</td><td>Cyber &amp; Threat Intel</td><td>✅ Low</td><td>Apply; 20 global partners only</td><td>API security SAMA compliance</td></tr>
-            <tr><td>Anomali</td><td>Cyber &amp; Threat Intel</td><td>✅ Low</td><td>Low initial commit; progressive model</td><td>Agentic SOC for ME banks/telcos</td></tr>
-            <tr><td>ThinScale</td><td>End-User Computing</td><td>✅ Low</td><td>Apply via thinscale.com/partners</td><td>Egypt BPO home-agent unique angle</td></tr>
-            <tr><td>SupportFinity</td><td>Staffing</td><td>✅ Low</td><td>Free signup; referral link</td><td>IT staffing practice; lifetime commissions</td></tr>
-            <tr><td>Sahara.com</td><td>Staffing/KSA DC</td><td>✅ Low</td><td>Direct contact: marketing@sahara.com</td><td>KSA DC partner for data residency</td></tr>
-            <tr><td>Red Hat</td><td>Enterprise Linux</td><td>✅ Low</td><td>Free; earn points via deal reg</td><td>RHEL/OpenShift in KSA/UAE gov</td></tr>
-          </tbody>
-        </table>
+  <div class="section-title">Named Gulf Partners</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Partner</th><th>Tier</th><th>Awards / Recognition</th><th>Coverage</th></tr>
+      <tr><td>Help AG</td><td>Expert (Top)</td><td>Fortinet Middle East Partner of the Year 2022, 2023 (Fortinet press release)</td><td>UAE, KSA, Oman, Bahrain</td></tr>
+      <tr><td>Intertec</td><td>Advanced</td><td>FortiPartner Advanced (Fortinet MEA directory)</td><td>UAE, India</td></tr>
+      <tr><td>Spire Solutions</td><td>Advanced</td><td>Fortinet Distributor — MENA (official Fortinet dist. locator)</td><td>UAE, KSA, Egypt, Qatar</td></tr>
+      <tr><td>Alpha Data</td><td>Advanced</td><td>FortiPartner Advanced UAE</td><td>UAE</td></tr>
+      <tr><td>Bulwark Technologies</td><td>Authorized</td><td>Fortinet Authorized Partner UAE</td><td>UAE</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box">
+      <h4>Authorized (Entry)</h4>
+      <ul>
+        <li>Apply at fortinet.com/partners</li>
+        <li>1 NSE 4 (Network Security Expert) certified</li>
+        <li>Business registration proof</li>
+        <li>No revenue floor at Authorized level</li>
+        <li>Spire Solutions as MENA distributor</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>Advanced (Target Y1)</h4>
+      <ul>
+        <li>2 NSE 4 + 1 NSE 7 certified</li>
+        <li>$500K+ annual Fortinet revenue</li>
+        <li>Managed Security Service capability</li>
+        <li>24/7 NOC/SOC evidence</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>Expert (Top Tier)</h4>
+      <ul>
+        <li>5+ NSE 7 engineers</li>
+        <li>$5M+ annual Fortinet revenue</li>
+        <li>Invite only by Fortinet regional VP</li>
+        <li>Annual partner business review</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Products NOT Selling + Reason</div>
+  <div class="gap-list">
+    <span class="gap-item">FortiGate MSSP — blocked until registration complete</span>
+    <span class="gap-item">FortiSIEM — requires SIEM practice + SOC team</span>
+    <span class="gap-item">FortiNAC — network access control, needs on-site survey capability</span>
+    <span class="gap-item">SD-WAN managed service — Advanced tier + 3 NSE7 required</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Entry Opportunity — URGENT</h4>
+    <p>Fortinet is the #1 firewall vendor for UAE Freezone SMBs and KSA banks. Help AG charges 60% more for identical FortiGate management. Register this week via Spire Solutions (MENA distributor). First product: FortiGate-100F managed firewall for UAE Freezone SMBs ($2–4K/month MRR each). KSA banks require NSE 4 certification for procurement acceptance — hire 2 NSE 4 engineers immediately.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://www.fortinet.com/partners/become-a-partner" target="_blank">Fortinet Engage Partner Program — official</a>
+    <a href="https://www.fortinet.com/partners/find-a-partner" target="_blank">Fortinet Partner Locator (verify Help AG, Spire Solutions)</a>
+    <a href="https://www.helpag.com/awards" target="_blank">Help AG — Fortinet Partner of the Year award confirmation</a>
+    <a href="https://www.spiresolutions.com/vendors/fortinet/" target="_blank">Spire Solutions — Fortinet MENA Distributor</a>
+  </div>
+
+  <hr class="divider">
+
+  <!-- BARRACUDA -->
+  <div class="vendor-hdr">
+    <h2>Barracuda — MSP Partner Program</h2>
+    <div class="sub">Email Security · Backup · Firewall · Zero Trust</div>
+    <div class="chips">
+      <span class="chip chip-green">Priority: TODAY — MSP-first vendor, low barriers</span>
+      <span class="chip chip-blue">Best for: UAE Freezone SMBs with M365</span>
+    </div>
+  </div>
+
+  <div class="section-title">Named Gulf Partners</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Partner</th><th>Tier</th><th>Notes</th><th>Coverage</th></tr>
+      <tr><td>Help AG</td><td>MSP Elite</td><td>Barracuda Essentials for M365 reseller</td><td>UAE, KSA</td></tr>
+      <tr><td>Spire Solutions</td><td>Distributor</td><td>Barracuda MENA distributor (official)</td><td>UAE, KSA, Egypt</td></tr>
+      <tr><td>Bulwark Technologies</td><td>MSP Gold</td><td>Barracuda Email + Backup UAE</td><td>UAE</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box">
+      <h4>MSP Partner (Entry)</h4>
+      <ul>
+        <li>Apply at barracuda.com/partners/msp</li>
+        <li>No certification required at entry</li>
+        <li>Monthly licensing model (no upfront)</li>
+        <li>Spire Solutions as MENA distributor</li>
+        <li>Free NFR license for demo/lab</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>MSP Gold</h4>
+      <ul>
+        <li>$100K annual Barracuda revenue</li>
+        <li>Barracuda Technical Sales (BTS) cert</li>
+        <li>5+ MSP-managed endpoints</li>
+        <li>Dedicated partner manager</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Products NOT Selling + Reason</div>
+  <div class="gap-list">
+    <span class="gap-item">Barracuda XDR — requires 24/7 SOC capability</span>
+    <span class="gap-item">Barracuda SecureEdge (SASE) — requires SD-WAN design practice</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Entry Opportunity</h4>
+    <p>Barracuda Essentials for M365 is the #1 email security add-on for SMBs already on M365. Bundle: M365 Business Premium + Barracuda Email Security + Acronis Backup = complete SMB IT stack. No upfront cost (monthly SaaS). Register via Spire Solutions today.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://www.barracuda.com/partners/msp" target="_blank">Barracuda MSP Partner Program — official</a>
+    <a href="https://www.spiresolutions.com/vendors/barracuda/" target="_blank">Spire Solutions — Barracuda MENA Distributor</a>
+  </div>
+
+  <hr class="divider">
+
+  <!-- BLUECAT -->
+  <div class="vendor-hdr">
+    <h2>BlueCat — Partner Program</h2>
+    <div class="sub">DDI — DNS, DHCP, IPAM · Network Automation</div>
+    <div class="chips">
+      <span class="chip chip-amber">🖊️ Awaiting Signature — This Week</span>
+      <span class="chip chip-blue">Niche product, strong KSA government demand</span>
+    </div>
+  </div>
+
+  <div class="section-title">Named Gulf Partners</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Partner</th><th>Tier</th><th>Notes</th><th>Coverage</th></tr>
+      <tr><td>Help AG</td><td>Select</td><td>BlueCat DNS Edge integration with Fortinet (Help AG blog)</td><td>UAE, KSA</td></tr>
+      <tr><td>Spire Solutions</td><td>Distributor</td><td>BlueCat MENA distributor</td><td>UAE, KSA, Egypt</td></tr>
+      <tr><td>Raqmiyat</td><td>Reseller</td><td>BlueCat IPAM for Saudi Aramco networks (project reference)</td><td>KSA</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box">
+      <h4>Authorized Reseller</h4>
+      <ul>
+        <li>BlueCat partner agreement (awaiting signature)</li>
+        <li>1 BlueCat Certified Associate (BCA)</li>
+        <li>Via Spire Solutions as distributor</li>
+        <li>No revenue floor at entry</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>Select / Premier</h4>
+      <ul>
+        <li>BlueCat Certified Professional (BCP)</li>
+        <li>$250K annual BlueCat revenue</li>
+        <li>Customer references in DDI projects</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Products NOT Selling + Reason</div>
+  <div class="gap-list">
+    <span class="gap-item">BlueCat Integrity (full suite) — complex 6-month enterprise deployment</span>
+    <span class="gap-item">BlueCat Edge Cloud DNS — requires cloud networking practice</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Entry Opportunity</h4>
+    <p>KSA government entities (ministries, Saudi Aramco affiliates) use BlueCat for DNS/DHCP compliance with NCA ECC-7 (network segmentation). Once signature complete, offer BlueCat DNS assessment as part of NCA ECC gap analysis service. Egypt has no named BlueCat partner = first-mover opportunity.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://www.bluecatnetworks.com/partners/" target="_blank">BlueCat Partner Program — official</a>
+    <a href="https://www.spiresolutions.com/vendors/bluecat/" target="_blank">Spire Solutions — BlueCat MENA distributor</a>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CHECK POINT -->
+  <div class="vendor-hdr">
+    <h2>Check Point — CPSP Partner Program</h2>
+    <div class="sub">Network Security · CloudGuard · Harmony Endpoint</div>
+    <div class="chips">
+      <span class="chip chip-amber">🚧 Apply Y1 H2 — After Fortinet base established</span>
+      <span class="chip chip-blue">Priority: KSA government + banking sector</span>
+    </div>
+  </div>
+
+  <div class="section-title">Named Gulf Partners</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Partner</th><th>Tier</th><th>Awards</th><th>Coverage</th></tr>
+      <tr><td>Help AG</td><td>Diamond Elite</td><td>Check Point Gulf Partner of the Year (Check Point press)</td><td>UAE, KSA, Oman</td></tr>
+      <tr><td>Bulwark Technologies</td><td>Gold</td><td>Check Point Gold UAE (official CPSP directory)</td><td>UAE</td></tr>
+      <tr><td>AmiViz</td><td>Distributor</td><td>Check Point MENA Distributor</td><td>UAE, KSA, Egypt, Qatar</td></tr>
+      <tr><td>Spire Solutions</td><td>Distributor</td><td>Check Point official distributor (overlaps with AmiViz)</td><td>UAE, KSA</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box">
+      <h4>Authorized (Entry)</h4>
+      <ul>
+        <li>CCSA (Check Point Security Admin) certification</li>
+        <li>Apply via AmiViz or Spire as distributor</li>
+        <li>No revenue floor at Authorized</li>
+        <li>NFR license access</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>Gold / Diamond Elite</h4>
+      <ul>
+        <li>CCSE (Security Expert) + CCSM</li>
+        <li>$1M+ annual Check Point revenue</li>
+        <li>Dedicated Check Point SE support</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Products NOT Selling + Reason</div>
+  <div class="gap-list">
+    <span class="gap-item">CloudGuard CNAPP — cloud-native, requires AWS/Azure practice</span>
+    <span class="gap-item">Quantum Maestro (hyperscale) — large enterprise only</span>
+    <span class="gap-item">Harmony SASE — requires SD-WAN/CASB expertise</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Entry Opportunity</h4>
+    <p>Check Point is mandated in multiple KSA ministries. After Fortinet base is established, apply for Check Point Authorized via AmiViz. First opportunity: Harmony Endpoint for UAE SMBs already on Fortinet firewall (complementary, not competing). KSA banking: Check Point Quantum for perimeter + NCA ECC compliance bundled service.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://www.checkpoint.com/partners/reseller-partner-program/" target="_blank">Check Point CPSP Program — official</a>
+    <a href="https://www.checkpoint.com/partnermap/" target="_blank">Check Point Partner Map (verify Help AG, Bulwark)</a>
+    <a href="https://www.amiviz.com/vendors/check-point/" target="_blank">AmiViz — Check Point MENA distributor page</a>
+  </div>
+
+</div><!-- /t3 -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 4 — CYBER & THREAT INTEL
+═══════════════════════════════════════════════════════════ -->
+<div id="t4" class="tab-pane">
+
+  <!-- TENABLE -->
+  <div class="vendor-hdr">
+    <h2>Tenable — Tenable Assure Partner Program</h2>
+    <div class="sub">Nessus · Tenable.sc · Tenable.io · OT Security</div>
+    <div class="chips">
+      <span class="chip chip-green">✅ Registered</span>
+      <span class="chip chip-green">Priority: ACTIVE-GROW — NCA ECC mandates Tenable</span>
+    </div>
+  </div>
+
+  <div class="section-title">Named Gulf Partners</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Partner</th><th>Tier</th><th>Awards / Notes</th><th>Coverage</th></tr>
+      <tr><td>AmiViz DMCC</td><td>Distributor</td><td>Official Tenable Distributor — covers UAE, Egypt, Qatar, KSA, Oman, Kuwait, Pakistan, Bahrain (Tenable distributor locator)</td><td>UAE, KSA, Egypt, Qatar+</td></tr>
+      <tr><td>Help AG</td><td>Premier</td><td>Tenable MSSP Partner (Help AG website)</td><td>UAE, KSA</td></tr>
+      <tr><td>CyberKnight</td><td>Select</td><td>Tenable value-added reseller UAE</td><td>UAE</td></tr>
+      <tr><td>Dark Matter</td><td>Premier</td><td>OT/ICS Tenable — Abu Dhabi critical infrastructure</td><td>UAE</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box">
+      <h4>Authorized Reseller</h4>
+      <ul>
+        <li>Already registered ✅</li>
+        <li>Tenable.io for MSPs (via AmiViz)</li>
+        <li>1 Tenable Certified Sales Associate (TCSA)</li>
+        <li>No revenue floor at Authorized</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>Premier Partner</h4>
+      <ul>
+        <li>Tenable Certified SE (TCSE)</li>
+        <li>$500K+ annual Tenable revenue</li>
+        <li>MSSP portal access</li>
+        <li>Sub-licensing capability for managed scanning</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Products NOT Selling + Reason</div>
+  <div class="gap-list">
+    <span class="gap-item">Tenable OT — operational technology (ICS/SCADA) requires specialized engineers</span>
+    <span class="gap-item">Tenable Lumin (exposure management) — Premier tier only, $1M+ deals</span>
+    <span class="gap-item">Tenable Web App Scanning — requires application security practice</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Growth Opportunity</h4>
+    <p>NCA ECC controls ECC-1 (asset inventory) and ECC-2 (vulnerability management) are MANDATORY for KSA banks and government. No KSA bank can pass NCA audit without documented vulnerability scanning. Xceed can offer: monthly Tenable scan + NCA compliance report = recurring MRR. AmiViz provides sub-licensing for managed service model. Egypt: no major Tenable MSSP = first-mover in Cairo for GCC-bound companies.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://www.tenable.com/partners/partner-locator" target="_blank">Tenable Partner Locator (verify AmiViz as distributor)</a>
+    <a href="https://www.tenable.com/partners/assure" target="_blank">Tenable Assure Partner Program — official</a>
+    <a href="https://www.amiviz.com/vendors/tenable/" target="_blank">AmiViz — Tenable distributor page</a>
+    <a href="https://nca.gov.sa/en/pages/ECC" target="_blank">NCA ECC controls — official Saudi source</a>
+  </div>
+
+  <hr class="divider">
+
+  <!-- KASPERSKY -->
+  <div class="vendor-hdr">
+    <h2>Kaspersky — United Partner Program</h2>
+    <div class="sub">Endpoint Security · Threat Intelligence · Anti-APT</div>
+    <div class="chips">
+      <span class="chip chip-amber">🚧 Apply Y1 H2 — Geopolitical flag in some KSA entities</span>
+      <span class="chip chip-blue">Best for: UAE SMB, Morocco, Egypt domestic</span>
+    </div>
+  </div>
+
+  <div class="section-title">Named Gulf Partners</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Partner</th><th>Tier</th><th>Notes</th><th>Coverage</th></tr>
+      <tr><td>MicroFocus / OpenText</td><td>Premier</td><td>Kaspersky Threat Intelligence reseller UAE</td><td>UAE</td></tr>
+      <tr><td>Help AG</td><td>Gold</td><td>Kaspersky Gold (Kaspersky partner directory)</td><td>UAE, KSA</td></tr>
+      <tr><td>Bulwark Technologies</td><td>Silver</td><td>KAV endpoint UAE SMB reseller</td><td>UAE</td></tr>
+      <tr><td>Spire Solutions</td><td>Distributor</td><td>Kaspersky MENA distributor (official Kaspersky)</td><td>UAE, KSA, Egypt</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box">
+      <h4>Registered (Entry)</h4>
+      <ul>
+        <li>Apply at kaspersky.com/partners</li>
+        <li>No certification required at entry</li>
+        <li>Via Spire Solutions as distributor</li>
+        <li>NFR license for demo use</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>Silver / Gold</h4>
+      <ul>
+        <li>Kaspersky Sales/Technical cert (online)</li>
+        <li>$100K–$500K annual Kaspersky revenue</li>
+        <li>Dedicated channel manager</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Products NOT Selling + Reason</div>
+  <div class="gap-list">
+    <span class="gap-item">Kaspersky Anti-APT / TIP — enterprise threat intel, requires security analyst team</span>
+    <span class="gap-item">Kaspersky for KSA Government — US ban risk; some KSA agencies follow US guidance</span>
+    <span class="gap-item">Kaspersky KATA (Anti Targeted Attack) — complex deployment, needs security practice</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Entry Opportunity</h4>
+    <p>Kaspersky Endpoint Security for Business — cost-effective alternative to Defender for UAE Freezone SMBs that don't need M365. Morocco: strong Kaspersky presence, local pricing competitive. Egypt domestic: Kaspersky is widely used in Cairo enterprises. Register via Spire Solutions. Avoid leading with Kaspersky for KSA government — geopolitical sensitivity.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://www.kaspersky.com/partners/unite" target="_blank">Kaspersky United Partner Program — official</a>
+    <a href="https://www.kaspersky.com/partners/find-a-partner" target="_blank">Kaspersky Partner Locator (verify Help AG, Bulwark)</a>
+    <a href="https://www.spiresolutions.com/vendors/kaspersky/" target="_blank">Spire Solutions — Kaspersky MENA distributor</a>
+  </div>
+
+  <hr class="divider">
+
+  <!-- DARKTRACE -->
+  <div class="vendor-hdr">
+    <h2>Darktrace — Partner Program</h2>
+    <div class="sub">AI-Powered NDR · Email Security · OT/IoT Detection</div>
+    <div class="chips">
+      <span class="chip chip-red">⏳ Defer Y1 — High TCO, enterprise-only deals</span>
+      <span class="chip chip-amber">Priority: Y2 when enterprise pipeline matures</span>
+    </div>
+  </div>
+
+  <div class="section-title">Named Gulf Partners</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Partner</th><th>Tier</th><th>Notes</th><th>Coverage</th></tr>
+      <tr><td>Help AG</td><td>Premier</td><td>Darktrace Gulf Partner (Help AG vendor page)</td><td>UAE, KSA, Oman</td></tr>
+      <tr><td>Spire Solutions</td><td>Distributor</td><td>Darktrace MENA distributor</td><td>UAE, KSA</td></tr>
+      <tr><td>Dark Matter</td><td>Premier</td><td>Darktrace OT/ICS UAE critical infrastructure</td><td>UAE</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box">
+      <h4>Authorized Reseller</h4>
+      <ul>
+        <li>Darktrace application + business plan</li>
+        <li>Darktrace Certified Partner (DCP) training</li>
+        <li>No revenue floor at entry</li>
+        <li>Min deal size: $50K+</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Products NOT Selling + Reason</div>
+  <div class="gap-list">
+    <span class="gap-item">Darktrace Enterprise — $50K+ minimum deal, beyond SMB ICP</span>
+    <span class="gap-item">Darktrace ActiveAI — requires 24/7 analyst team to operate</span>
+    <span class="gap-item">Darktrace OT — specialized ICS engineering not in team</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Y2 Entry Opportunity</h4>
+    <p>When UAE mid-market pipeline matures (500+ employee companies), Darktrace NDR adds premium MRR. Register as Authorized in Y2. Lead with Darktrace Email (lower entry price) for M365 customers already managed by Xceed.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://www.darktrace.com/partners" target="_blank">Darktrace Partner Program — official</a>
+    <a href="https://www.spiresolutions.com/vendors/darktrace/" target="_blank">Spire Solutions — Darktrace MENA distributor</a>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SOCRADAR -->
+  <div class="vendor-hdr">
+    <h2>SOCRadar — Partner Program</h2>
+    <div class="sub">External Attack Surface Management · Dark Web Monitoring · CTI</div>
+    <div class="chips">
+      <span class="chip chip-green">🎯 First-Mover in Egypt — No Named Partner</span>
+      <span class="chip chip-blue">Priority: Apply NOW — SCOPE Middle East is regional distributor</span>
+    </div>
+  </div>
+
+  <div class="section-title">Named Gulf Partners</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Partner</th><th>Tier</th><th>Notes</th><th>Coverage</th></tr>
+      <tr><td>SCOPE Middle East</td><td>Distributor</td><td>SOCRadar MENA Distributor since Aug 2022 (SOCRadar press release)</td><td>UAE, KSA, Levant</td></tr>
+      <tr><td>Help AG</td><td>Select</td><td>CTI integration with Fortinet SOC (Help AG blog)</td><td>UAE, KSA</td></tr>
+      <tr><td style="color:var(--green);font-weight:600">Egypt</td><td>—</td><td style="color:var(--green)">NO named SOCRadar partner in Egypt = first-mover opportunity</td><td>Egypt</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box">
+      <h4>Reseller Partner</h4>
+        <ul>
+          <li>Apply via SCOPE Middle East (distributor)</li>
+          <li>SOCRadar technical onboarding training</li>
+          <li>No revenue floor at Reseller level</li>
+          <li>SOC analyst team recommended (not required)</li>
+        </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Products NOT Selling + Reason</div>
+  <div class="gap-list">
+    <span class="gap-item">SOCRadar Supply Chain Intelligence — enterprise, $100K+ deals</span>
+    <span class="gap-item">SOCRadar Brand Protection — requires marketing/IR team to operate findings</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 First-Mover Opportunity</h4>
+    <p>Egypt has no named SOCRadar partner. Contact SCOPE Middle East this week. Lead product: SOCRadar TI Feed + Dark Web Monitoring as managed service for KSA banks (NCA ECC-10 Threat Intelligence control). Egypt delivery = cost-effective analysts monitoring SOCRadar dashboard for Gulf clients.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://socradar.io/partners/" target="_blank">SOCRadar Partner Program — official</a>
+    <a href="https://socradar.io/socradar-appoints-scope-middle-east-as-its-distribution-partner-for-mena/" target="_blank">SOCRadar — SCOPE Middle East appointment press release (Aug 2022)</a>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CEQUENCE -->
+  <div class="vendor-hdr">
+    <h2>Cequence Security — Partner Program</h2>
+    <div class="sub">API Security · Bot Management · WAAP</div>
+    <div class="chips">
+      <span class="chip chip-red">⏳ Defer Y1 — API security niche, enterprise-only</span>
+      <span class="chip chip-amber">Priority: Y2 when fintech/banking pipeline matures</span>
+    </div>
+  </div>
+
+  <div class="section-title">Named Gulf Partners</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Partner</th><th>Tier</th><th>Notes</th><th>Coverage</th></tr>
+      <tr><td>Help AG</td><td>Select</td><td>Cequence API Security (Help AG vendor list)</td><td>UAE, KSA</td></tr>
+      <tr><td>Spire Solutions</td><td>Distributor</td><td>Cequence MENA (Spire vendor page)</td><td>UAE, KSA</td></tr>
+    </table>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Y2 Opportunity</h4>
+    <p>SAMA (Saudi banking regulator) now requires API security assessments. When KSA banking pipeline is established, Cequence is the natural add-on to Tenable vulnerability management. Register via Spire Solutions in Y2.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://www.cequence.ai/partners/" target="_blank">Cequence Security Partner Program — official</a>
+    <a href="https://www.spiresolutions.com/vendors/cequence/" target="_blank">Spire Solutions — Cequence vendor page</a>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ANOMALI -->
+  <div class="vendor-hdr">
+    <h2>Anomali — Partner Program</h2>
+    <div class="sub">Threat Intelligence Platform · SIEM Integration · ThreatStream</div>
+    <div class="chips">
+      <span class="chip chip-red">⏳ Defer Y1 — Requires dedicated threat intel analysts</span>
+      <span class="chip chip-amber">Priority: Y2 when SOC practice is established</span>
+    </div>
+  </div>
+
+  <div class="section-title">Named Gulf Partners</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Partner</th><th>Tier</th><th>Notes</th><th>Coverage</th></tr>
+      <tr><td>Help AG</td><td>Premier</td><td>Anomali ThreatStream SIEM integration (Help AG)</td><td>UAE, KSA</td></tr>
+      <tr><td>Spire Solutions</td><td>Distributor</td><td>Anomali MENA distributor</td><td>UAE, KSA</td></tr>
+      <tr><td style="color:var(--green);font-weight:600">Egypt / Morocco</td><td>—</td><td style="color:var(--green)">No named Anomali partner = opportunity</td><td>Egypt, Morocco</td></tr>
+    </table>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Y2 Opportunity</h4>
+    <p>Once SOCRadar is established as the entry-level CTI product, Anomali ThreatStream is the upgrade path for KSA banks running their own SOC. Register via Spire Solutions in Y2. Morocco: no Anomali partner = first-mover for Casablanca financial sector.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://www.anomali.com/partners" target="_blank">Anomali Partner Program — official</a>
+    <a href="https://www.spiresolutions.com/vendors/anomali/" target="_blank">Spire Solutions — Anomali MENA distributor</a>
+  </div>
+
+</div><!-- /t4 -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 5 — EUC & HARDWARE
+═══════════════════════════════════════════════════════════ -->
+<div id="t5" class="tab-pane">
+
+  <!-- THINSCALE -->
+  <div class="vendor-hdr">
+    <h2>ThinScale Technology — Partner Program</h2>
+    <div class="sub">Secure Remote Worker · ThinKiosk · Persistent VDI Replacement</div>
+    <div class="chips">
+      <span class="chip chip-amber">🚧 Apply Y1 H2 — BPO/Call Center angle</span>
+      <span class="chip chip-blue">Best for: Cairo BPO delivery + Gulf remote workforce</span>
+    </div>
+  </div>
+
+  <div class="section-title">Named Gulf Partners</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Partner</th><th>Tier</th><th>Notes</th><th>Coverage</th></tr>
+      <tr><td>Intertec</td><td>Select</td><td>ThinScale for Citrix replacement (Intertec EUC page)</td><td>UAE, India</td></tr>
+      <tr><td>Dimension Data</td><td>Select</td><td>ThinKiosk BPO deployment (NTT)</td><td>UAE, KSA, Africa</td></tr>
+      <tr><td style="color:var(--green);font-weight:600">Egypt</td><td>—</td><td style="color:var(--green)">No named ThinScale partner in Egypt = first-mover for Cairo BPO market</td><td>Egypt</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box">
+      <h4>Reseller Partner</h4>
+      <ul>
+        <li>ThinScale partner application (thinscale.com)</li>
+        <li>No certification required at entry</li>
+        <li>NFR license for lab/demo</li>
+        <li>No revenue floor at Reseller</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Products NOT Selling + Reason</div>
+  <div class="gap-list">
+    <span class="gap-item">ThinScale enterprise full deployment — requires Citrix/VDI migration expertise</span>
+    <span class="gap-item">BYO-PC secure access — legal/compliance review per client required</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Entry Opportunity</h4>
+    <p>Xceed parent company operates Cairo BPO — ThinScale Secure Remote Worker is a natural fit for agents working from home. Sell internally first = reference case. Then market to UAE/KSA call centers: "BPO-grade secure endpoints, 60% cheaper than managed VDI." Egypt has no ThinScale partner = first-mover advantage.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://www.thinscale.com/partners/" target="_blank">ThinScale Partner Program — official</a>
+    <a href="https://www.intertec.ae/solutions/end-user-computing/" target="_blank">Intertec EUC page (verify ThinScale reference)</a>
+  </div>
+
+  <hr class="divider">
+
+  <!-- HUAWEI -->
+  <div class="vendor-hdr">
+    <h2>Huawei — Partner Program (Gulf &amp; Egypt)</h2>
+    <div class="sub">Cloud Stack · OceanStor · FusionServer · Huawei Cloud</div>
+    <div class="chips">
+      <span class="chip chip-red">⏳ Defer Y1 — US export control sensitivity for some KSA clients</span>
+      <span class="chip chip-green">Priority: Egypt domestic market + Morocco = strong Huawei presence</span>
+    </div>
+  </div>
+
+  <div class="section-title">Named Gulf Partners</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Partner</th><th>Tier</th><th>Awards</th><th>Coverage</th></tr>
+      <tr><td>Raqmiyat</td><td>Gold</td><td>Huawei Cloud Gold Partner KSA (Huawei directory)</td><td>KSA</td></tr>
+      <tr><td>Dimension Data</td><td>Premier</td><td>Huawei Enterprise Premier Partner MEA</td><td>UAE, KSA, Africa</td></tr>
+      <tr><td>Meeza (STC)</td><td>Premier</td><td>Huawei Cloud KSA (STC partnership)</td><td>KSA</td></tr>
+      <tr><td>DXC Technology</td><td>Gold</td><td>Huawei OceanStor enterprise storage</td><td>UAE, KSA</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box">
+      <h4>Authorized (Entry)</h4>
+      <ul>
+        <li>Huawei Partner Network registration</li>
+        <li>HCIA (Huawei Certified ICT Associate)</li>
+        <li>No revenue floor at Authorized</li>
+        <li>Egypt entity: apply via Huawei Egypt office</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>Gold / Premier</h4>
+      <ul>
+        <li>HCIP (Professional) + HCIE (Expert)</li>
+        <li>$1M+ Huawei revenue</li>
+        <li>Dedicated Huawei partner BD support</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Products NOT Selling + Reason</div>
+  <div class="gap-list">
+    <span class="gap-item">Huawei for KSA Government — US contractor restrictions on Huawei equipment</span>
+    <span class="gap-item">Huawei 5G / Telecom infra — telco practice, not enterprise IT</span>
+    <span class="gap-item">Huawei Cloud (outside Egypt/Morocco) — low mindshare vs Azure/AWS in Gulf</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Entry Opportunity</h4>
+    <p>Egypt domestic: Huawei OceanStor storage and FusionServer compute are dominant in Egyptian enterprises. Apply via Huawei Egypt office first. Morocco: Huawei Cloud is growing in Casablanca financial sector. Morocco entity invoices in MAD/EUR. Avoid Huawei for KSA government (US contract risk).</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://e.huawei.com/en/partner/partnerprogram" target="_blank">Huawei Partner Program — official</a>
+    <a href="https://e.huawei.com/en/partner/find-a-partner" target="_blank">Huawei Partner Finder (verify Raqmiyat, Dimension Data)</a>
+  </div>
+
+  <hr class="divider">
+
+  <!-- IVANTI -->
+  <div class="vendor-hdr">
+    <h2>Ivanti — Partner Program</h2>
+    <div class="sub">UEM · Patch Management · Zero Trust Access · Service Desk</div>
+    <div class="chips">
+      <span class="chip chip-red">⏳ Defer Y1 — Requires ITSM/UEM practice</span>
+      <span class="chip chip-amber">Priority: Y2 for large-enterprise UEM contracts</span>
+    </div>
+  </div>
+
+  <div class="section-title">Named Gulf Partners</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Partner</th><th>Tier</th><th>Notes</th><th>Coverage</th></tr>
+      <tr><td>Intertec</td><td>Gold</td><td>Ivanti UEM Gulf (Intertec ITSM page)</td><td>UAE, KSA, India</td></tr>
+      <tr><td>Dimension Data</td><td>Platinum</td><td>Ivanti Platinum Partner MEA (Ivanti directory)</td><td>UAE, KSA, Africa</td></tr>
+      <tr><td>Help AG</td><td>Gold</td><td>Ivanti Zero Trust Access (Help AG)</td><td>UAE, KSA</td></tr>
+      <tr><td>AmiViz</td><td>Distributor</td><td>Ivanti MENA distributor (official Ivanti)</td><td>UAE, KSA, Egypt</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box">
+      <h4>Authorized (Entry)</h4>
+      <ul>
+        <li>Ivanti Partner Connect registration</li>
+        <li>Via AmiViz (MENA distributor)</li>
+        <li>Ivanti Sales Certification (online)</li>
+        <li>No revenue floor at Authorized</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>Gold / Platinum</h4>
+      <ul>
+        <li>Ivanti Certified Engineer (ICE)</li>
+        <li>$500K+ annual Ivanti revenue</li>
+        <li>ITSM deployment references</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Products NOT Selling + Reason</div>
+  <div class="gap-list">
+    <span class="gap-item">Ivanti Neurons ITSM — requires dedicated service desk practice</span>
+    <span class="gap-item">Ivanti UEM — desktop management team not yet built</span>
+    <span class="gap-item">Ivanti Patch Management — bundled with UEM, same gap</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Y2 Opportunity</h4>
+    <p>When UAE mid-market clients need patch management + UEM, Ivanti Neurons is the platform. Bundle: Tenable scanning (finds vulnerabilities) + Ivanti patch (remediates them) = complete vulnerability lifecycle. Register via AmiViz in Y2.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://www.ivanti.com/partners/partner-program" target="_blank">Ivanti Partner Connect — official</a>
+    <a href="https://www.amiviz.com/vendors/ivanti/" target="_blank">AmiViz — Ivanti MENA distributor</a>
+  </div>
+
+</div><!-- /t5 -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 6 — STAFFING & PARTNERS
+═══════════════════════════════════════════════════════════ -->
+<div id="t6" class="tab-pane">
+
+  <!-- SAHARA NET -->
+  <div class="vendor-hdr">
+    <h2>Sahara Net — Saudi ICT MSP / ISP</h2>
+    <div class="sub">Founded 1989 · Saudi ICT infrastructure provider · cloudproducts@sahara.com</div>
+    <div class="chips">
+      <span class="chip chip-green">🤝 Channel Partner Opportunity</span>
+      <span class="chip chip-blue">Microsoft, Fortinet, Cisco, HPE, Veeam, Acronis, Palo Alto, Huawei Cloud, AWS, Dell, center3</span>
+    </div>
+  </div>
+
+  <div class="section-title">Company Profile</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Attribute</th><th>Detail</th></tr>
+      <tr><td>Founded</td><td>1989 — one of Saudi Arabia's oldest ICT companies</td></tr>
+      <tr><td>Type</td><td>Saudi ICT MSP and ISP (NOT a B2B marketplace)</td></tr>
+      <tr><td>Contact</td><td>cloudproducts@sahara.com</td></tr>
+      <tr><td>Website</td><td><a href="https://www.sahara.com" target="_blank">sahara.com</a></td></tr>
+      <tr><td>Vendor partnerships</td><td>Microsoft, Fortinet, Cisco, HPE, Veeam, Acronis, Palo Alto, Huawei Cloud, AWS, Dell, center3 (Saudi data center)</td></tr>
+      <tr><td>Coverage</td><td>KSA — Riyadh, Jeddah, Dammam</td></tr>
+      <tr><td>Opportunity</td><td>Sub-MSP relationship: Xceed delivers; Sahara invoices Saudi clients</td></tr>
+    </table>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Partnership Opportunity</h4>
+    <p>Sahara Net is a KSA-domiciled MSP with established Saudi client relationships. Xceed ITO can deliver managed services at 60% lower cost than local MSP rates; Sahara co-brands and invoices Saudi clients from their KSA entity. Mutual benefit: Sahara reduces cost; Xceed gets Saudi reference clients. Contact: cloudproducts@sahara.com. Lead with Tenable vulnerability management or Microsoft 365 managed service.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://www.sahara.com" target="_blank">Sahara.com — official website (verify ICT MSP positioning)</a>
+    <a href="https://www.sahara.com/cloud-products" target="_blank">Sahara Cloud Products page</a>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SUPPORTFINITY -->
+  <div class="vendor-hdr">
+    <h2>SupportFinity — IT Staffing Platform</h2>
+    <div class="sub">Tech Talent Marketplace · On-Demand IT Staffing · Contract Engineers</div>
+    <div class="chips">
+      <span class="chip chip-green">🤝 Staff Augmentation Source</span>
+      <span class="chip chip-blue">Use for: Burst capacity, specialized certs, project staffing</span>
+    </div>
+  </div>
+
+  <div class="section-title">Platform Profile</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr><th>Attribute</th><th>Detail</th></tr>
+      <tr><td>Type</td><td>On-demand IT staffing and talent marketplace</td></tr>
+      <tr><td>Website</td><td><a href="https://supportfinity.com" target="_blank">supportfinity.com</a></td></tr>
+      <tr><td>Coverage</td><td>Global — strong MENA + Egypt talent pool</td></tr>
+      <tr><td>Use case for Xceed</td><td>Hire NSE 4, NCP, or RHCSA certified contractors for client projects before full-time hiring</td></tr>
+      <tr><td>Pricing model</td><td>Subscription + per-hire fee (contract-to-hire model available)</td></tr>
+    </table>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Use for Xceed ITO</h4>
+    <p>When Xceed wins a Fortinet or Nutanix deal before in-house certification is complete, SupportFinity provides certified contract engineers (NSE 4, NCP) sourced from Egypt talent pool. Avoid dependency on expensive Gulf-based contractors. Use SupportFinity for project delivery; convert to full-time hire after first reference is secured.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://supportfinity.com/partners" target="_blank">SupportFinity Partner/Employer page</a>
+  </div>
+
+</div><!-- /t6 -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 7 — IS MSP WORTH IT?
+═══════════════════════════════════════════════════════════ -->
+<div id="t7" class="tab-pane">
+
+  <div class="final-verdict">
+    <h3>🟢 TODAY — Pursue Immediately (5 Vendors)</h3>
+    <p>These vendors are registered or near-registered, have clear Gulf demand, and require no additional certifications to begin selling.</p>
+  </div>
+
+  <div class="msp-verdict">
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">Fortinet</div>
+      <div class="note">Apply this week — largest Gulf firewall vendor</div>
+    </div>
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">Nutanix</div>
+      <div class="note">VMware shock = live demand; paperwork in progress</div>
+    </div>
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">Microsoft CSP</div>
+      <div class="note">Already via Ingram Micro; first revenue path</div>
+    </div>
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">Barracuda</div>
+      <div class="note">MSP-first, no cert needed, via Spire Solutions</div>
+    </div>
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">SOCRadar</div>
+      <div class="note">Egypt first-mover; via SCOPE Middle East</div>
+    </div>
+  </div>
+
+  <div class="final-verdict amber-border">
+    <h3>🟡 ACTIVE-GROW — Already Registered, Scale Now (1 Vendor)</h3>
+    <p>Registered and operational — focus on upselling and reference building.</p>
+  </div>
+
+  <div class="msp-verdict">
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">Tenable</div>
+      <div class="note">Registered ✅ — NCA ECC mandate = recurring MRR</div>
+    </div>
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">Acronis (existing)</div>
+      <div class="note">Already active — grow Backup-as-a-Service</div>
+    </div>
+  </div>
+
+  <div class="final-verdict amber-border">
+    <h3>🟡 SOON — Apply Y1 H2 (5 Vendors)</h3>
+    <p>Require 1 additional cert or first reference client before meaningful pipeline. Apply after Fortinet/Nutanix base is established.</p>
+  </div>
+
+  <div class="msp-verdict">
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">AWS APN</div>
+      <div class="note">Register (free) now; first AWS deal → Select tier</div>
+    </div>
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">Check Point</div>
+      <div class="note">After Fortinet base; via AmiViz CCSA cert</div>
+    </div>
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">Kaspersky</div>
+      <div class="note">UAE SMB + Morocco + Egypt; avoid KSA gov</div>
+    </div>
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">ThinScale</div>
+      <div class="note">Internal BPO ref first → sell to Gulf call centers</div>
+    </div>
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">BlueCat</div>
+      <div class="note">Awaiting signature — apply this week</div>
+    </div>
+  </div>
+
+  <div class="final-verdict red-border">
+    <h3>🔴 DEFER Y1 — Not Yet (8 Vendors)</h3>
+    <p>Require major practice builds, $1M+ revenue milestones, or face significant market barriers in Y1.</p>
+  </div>
+
+  <div class="msp-verdict">
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">Darktrace</div>
+      <div class="note">$50K min deal; enterprise pipeline needed first</div>
+    </div>
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">Cequence</div>
+      <div class="note">API security niche; KSA banking Y2</div>
+    </div>
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">Anomali</div>
+      <div class="note">SOC analyst team required first</div>
+    </div>
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">Huawei</div>
+      <div class="note">Egypt/Morocco only Y1; avoid KSA gov</div>
+    </div>
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">Ivanti</div>
+      <div class="note">UEM practice not yet built</div>
+    </div>
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">Google Cloud</div>
+      <div class="note">Low Gulf mindshare vs Azure/AWS in Y1</div>
+    </div>
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">Red Hat</div>
+      <div class="note">Linux practice not built; Y2 with Nutanix</div>
+    </div>
+    <div class="msp-card">
+      <div class="label">Vendor</div>
+      <div class="value">Sahara Net</div>
+      <div class="note">Sub-MSP channel play; not a product vendor</div>
+    </div>
+  </div>
+
+</div><!-- /t7 -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 8 — MAURITIUS & INDIA
+═══════════════════════════════════════════════════════════ -->
+<div id="t8" class="tab-pane">
+
+  <div class="entity-card">
+    <h3>🇲🇺 Mauritius Entity — DR Hub &amp; Sub-Saharan Africa Gateway</h3>
+    <table class="mau-table">
+      <tr><th>Vendor</th><th>Opportunity</th><th>Mauritius Angle</th><th>Invoice Currency</th></tr>
+      <tr><td>Veeam (hold)</td><td>DR-as-a-Service to UAE/KSA clients</td><td>Mauritius = legally accepted offshore DR site for Gulf regulators</td><td>USD</td></tr>
+      <tr><td>Acronis</td><td>Cloud backup to Mauritius DC</td><td>Zero data sovereignty restrictions; GDPR-adjacent jurisdiction</td><td>USD</td></tr>
+      <tr><td>Fortinet</td><td>FortiGate management for Mauritius-based companies</td><td>Mauritius fintech (offshore banking sector) uses Fortinet perimeter</td><td>USD</td></tr>
+      <tr><td>Tenable</td><td>Vulnerability scanning managed service</td><td>Mauritius FSC-regulated entities require vulnerability management</td><td>USD</td></tr>
+      <tr><td>Microsoft CSP</td><td>M365 for Sub-Saharan Africa companies via Mauritius entity</td><td>Mauritius = clean procurement for African companies avoiding complexity</td><td>USD</td></tr>
+      <tr><td>Barracuda</td><td>Email security for Mauritius offshore entities</td><td>Low entry cost; bundled with M365 managed service</td><td>USD</td></tr>
+    </table>
+    <div style="margin-top:12px;padding:12px;background:var(--green-light);border-radius:6px;font-size:13px;color:var(--green)">
+      <strong>Key Mauritius Insight:</strong> Gulf regulators (UAE CBUAE, KSA SAMA) accept Mauritius as an approved offshore DR jurisdiction. This makes Xceed's Mauritius entity the invoicing vehicle for DR-as-a-Service sold to UAE and KSA banks. No other entity combination allows this.
+    </div>
+  </div>
+
+  <div class="entity-card">
+    <h3>🇮🇳 India Entity — Multinational IT Procurement Gateway</h3>
+    <table class="mau-table">
+      <tr><th>Vendor</th><th>Opportunity</th><th>India Angle</th><th>Invoice Currency</th></tr>
+      <tr><td>Microsoft CSP</td><td>M365 + Azure for Indian-registered multinationals</td><td>Indian procurement requires Indian-registered vendor; Xceed India entity qualifies</td><td>USD or INR</td></tr>
+      <tr><td>AWS APN</td><td>AWS managed services for Indian multinationals with Gulf operations</td><td>India entity = Indian GST-compliant invoicing</td><td>USD or INR</td></tr>
+      <tr><td>Fortinet</td><td>FortiGate management for Indian companies with UAE/KSA branches</td><td>Deliver from Cairo; invoice from India entity; Indian procurement approved</td><td>USD</td></tr>
+      <tr><td>Tenable</td><td>Vulnerability scanning for Indian IT companies serving Gulf clients</td><td>Indian IT outsourcers (Infosys, Wipro vendors) need certified Gulf-compliant scanning</td><td>USD</td></tr>
+      <tr><td>ThinScale</td><td>Secure Remote Worker for Indian BPO companies with Gulf delivery</td><td>Indian BPOs serving Gulf clients = natural ThinScale + Cairo delivery overlap</td><td>USD or INR</td></tr>
+    </table>
+    <div style="margin-top:12px;padding:12px;background:var(--accent-light);border-radius:6px;font-size:13px;color:var(--accent)">
+      <strong>Key India Insight:</strong> Intertec — Xceed's main competitor — currently wins deals because of their India entity. Xceed's India entity neutralizes this advantage. Lead message: "Gulf delivery capability from an Indian-registered company" — same as Intertec's pitch, but with 60% lower cost from Cairo delivery.
+    </div>
+  </div>
+
+</div><!-- /t8 -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 9 — SUMMARY MATRIX
+═══════════════════════════════════════════════════════════ -->
+<div id="t9" class="tab-pane">
+
+  <div class="ptable-wrap">
+    <table class="matrix-table">
+      <tr>
+        <th>Vendor</th>
+        <th>Category</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>Distributor (MENA)</th>
+        <th>Entry Requirement</th>
+        <th>Xceed Opportunity</th>
+        <th>Egypt First-Mover?</th>
+      </tr>
+      <tr>
+        <td><strong>Microsoft CSP</strong></td><td>Cloud</td>
+        <td><span class="chip chip-green">TODAY</span></td>
+        <td>✅ Registered (Ingram)</td>
+        <td>Ingram Micro</td>
+        <td>MPN ID, 2 certs</td>
+        <td>M365 + Barracuda bundle for UAE SMB</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>AWS APN</strong></td><td>Cloud</td>
+        <td><span class="chip chip-amber">SOON</span></td>
+        <td>Not applied</td>
+        <td>Direct APN</td>
+        <td>AWS Cloud Practitioner</td>
+        <td>Hybrid backup to S3; first AWS customer</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>Google Cloud</strong></td><td>Cloud</td>
+        <td><span class="chip chip-red">DEFER Y1</span></td>
+        <td>Not applied</td>
+        <td>Direct</td>
+        <td>Google Cloud cert</td>
+        <td>Morocco Workspace for nearshore BPOs</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>Nutanix</strong></td><td>HCI</td>
+        <td><span class="chip chip-green">TODAY</span></td>
+        <td>🚧 In progress</td>
+        <td>Direct Elevate</td>
+        <td>1 NCP cert</td>
+        <td>VMware migration assessment → AHV deal</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>Red Hat</strong></td><td>Linux</td>
+        <td><span class="chip chip-red">DEFER Y1</span></td>
+        <td>Not applied</td>
+        <td>Direct Connect</td>
+        <td>RHCSA cert</td>
+        <td>RHEL on AHV (Y2 Nutanix add-on)</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>Fortinet</strong></td><td>Network Sec</td>
+        <td><span class="chip chip-green">TODAY 🚨</span></td>
+        <td>⚠️ Not applied</td>
+        <td>Spire Solutions</td>
+        <td>1 NSE 4 cert</td>
+        <td>FortiGate managed firewall UAE Freezone / KSA bank</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>Barracuda</strong></td><td>Network Sec</td>
+        <td><span class="chip chip-green">TODAY</span></td>
+        <td>Not applied (easy)</td>
+        <td>Spire Solutions</td>
+        <td>No cert required</td>
+        <td>Email security add-on to M365 bundle</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>BlueCat</strong></td><td>Network</td>
+        <td><span class="chip chip-amber">SOON</span></td>
+        <td>🖊️ Awaiting signature</td>
+        <td>Spire Solutions</td>
+        <td>BCA cert</td>
+        <td>KSA DDI compliance + NCA ECC-7</td>
+        <td>✅ Yes</td>
+      </tr>
+      <tr>
+        <td><strong>Check Point</strong></td><td>Network Sec</td>
+        <td><span class="chip chip-amber">SOON</span></td>
+        <td>Not applied</td>
+        <td>AmiViz / Spire</td>
+        <td>CCSA cert</td>
+        <td>KSA bank perimeter + Harmony Endpoint UAE</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>Tenable</strong></td><td>Cyber / Vuln</td>
+        <td><span class="chip chip-green">ACTIVE-GROW</span></td>
+        <td>✅ Registered</td>
+        <td>AmiViz DMCC</td>
+        <td>TCSA cert</td>
+        <td>Monthly NCA ECC compliance scanning = MRR</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>Kaspersky</strong></td><td>Endpoint Sec</td>
+        <td><span class="chip chip-amber">SOON</span></td>
+        <td>Not applied</td>
+        <td>Spire Solutions</td>
+        <td>No cert at entry</td>
+        <td>UAE SMB endpoint; Morocco; Egypt domestic</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>Darktrace</strong></td><td>Cyber / NDR</td>
+        <td><span class="chip chip-red">DEFER Y1</span></td>
+        <td>Not applied</td>
+        <td>Spire Solutions</td>
+        <td>DCP training, $50K min deal</td>
+        <td>UAE mid-market AI security (Y2)</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>SOCRadar</strong></td><td>Threat Intel</td>
+        <td><span class="chip chip-green">TODAY 🎯</span></td>
+        <td>Not applied</td>
+        <td>SCOPE Middle East</td>
+        <td>Technical onboarding</td>
+        <td>Dark Web monitoring managed service KSA banks</td>
+        <td>✅ Yes</td>
+      </tr>
+      <tr>
+        <td><strong>Cequence</strong></td><td>API Security</td>
+        <td><span class="chip chip-red">DEFER Y1</span></td>
+        <td>Not applied</td>
+        <td>Spire Solutions</td>
+        <td>Technical cert</td>
+        <td>KSA banking API security (Y2)</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>Anomali</strong></td><td>Threat Intel</td>
+        <td><span class="chip chip-red">DEFER Y1</span></td>
+        <td>Not applied</td>
+        <td>Spire Solutions</td>
+        <td>SOC analyst team required</td>
+        <td>SOCRadar upgrade path (Y2)</td>
+        <td>✅ Yes (Egypt + Morocco)</td>
+      </tr>
+      <tr>
+        <td><strong>ThinScale</strong></td><td>EUC</td>
+        <td><span class="chip chip-amber">SOON</span></td>
+        <td>Not applied</td>
+        <td>Direct</td>
+        <td>No cert at entry</td>
+        <td>Xceed BPO internal ref → sell to Gulf call centers</td>
+        <td>✅ Yes</td>
+      </tr>
+      <tr>
+        <td><strong>Huawei</strong></td><td>Hardware</td>
+        <td><span class="chip chip-red">DEFER Y1</span></td>
+        <td>Not applied</td>
+        <td>Direct HPN Egypt</td>
+        <td>HCIA cert</td>
+        <td>Egypt domestic + Morocco only; avoid KSA gov</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>Ivanti</strong></td><td>UEM / ITSM</td>
+        <td><span class="chip chip-red">DEFER Y1</span></td>
+        <td>Not applied</td>
+        <td>AmiViz</td>
+        <td>ICE cert, UEM practice</td>
+        <td>Tenable+Ivanti patch lifecycle (Y2)</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>Sahara Net</strong></td><td>Channel Partner</td>
+        <td><span class="chip chip-green">TODAY</span></td>
+        <td>Contact pending</td>
+        <td>N/A (Saudi MSP)</td>
+        <td>Business proposal</td>
+        <td>Sub-MSP for KSA clients; Xceed delivers</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>SupportFinity</strong></td><td>Staffing</td>
+        <td><span class="chip chip-green">TODAY</span></td>
+        <td>Register platform</td>
+        <td>N/A (platform)</td>
+        <td>Subscription</td>
+        <td>Certified contractors for project delivery gaps</td>
+        <td>—</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="margin-top:20px;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:8px">
+    <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--fg)">📊 Portfolio Summary</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px">
+      <div style="text-align:center;padding:12px;background:var(--green-light);border-radius:6px">
+        <div style="font-size:22px;font-weight:800;color:var(--green)">6</div>
+        <div style="font-size:11px;color:var(--green)">TODAY Vendors</div>
       </div>
-
-      <div class="mt24 card-title">Top 5 Quick-Start Recommendations for Xceed ITO</div>
-      <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
-        <div class="opp-strip">
-          <div class="opp-icon">1️⃣</div>
-          <div class="opp-body"><strong>Veeam Silver + VCSP:</strong> 2 free exams (VMSP + VMTSP), no revenue requirement. Largest ME backup market. Egypt top partner award is a real milestone to target within 12 months.</div>
-        </div>
-        <div class="opp-strip">
-          <div class="opp-icon">2️⃣</div>
-          <div class="opp-body"><strong>Microsoft CSP Indirect:</strong> Sign up via Ingram Micro ME. M365 + Azure are already in every client conversation. Security designation builds fastest with existing security clients. Zero upfront.</div>
-        </div>
-        <div class="opp-strip">
-          <div class="opp-icon">3️⃣</div>
-          <div class="opp-body"><strong>Fortinet Authorized:</strong> 1 NSE 1&amp;2 exam (free online). Dominant in GCC SMB NGFW. FortiSASE is the fastest-growing product and maps directly to Egypt BPO distributed-workforce use case.</div>
-        </div>
-        <div class="opp-strip">
-          <div class="opp-icon">4️⃣</div>
-          <div class="opp-body"><strong>Huawei Cloud Standard:</strong> Zero revenue requirement, $5,000 MDF from day one. Egyptian government alignment is a competitive advantage. HCIA-Cloud certification provided free via exam vouchers.</div>
-        </div>
-        <div class="opp-strip">
-          <div class="opp-icon">5️⃣</div>
-          <div class="opp-body"><strong>Cequence Security Authorized:</strong> Only 20 global partners. API security is mandatory under SAMA Cyber Framework. Channel-first model protects margins. First ME partner positioned as regional expert will own this market segment.</div>
-        </div>
+      <div style="text-align:center;padding:12px;background:var(--amber-light);border-radius:6px">
+        <div style="font-size:22px;font-weight:800;color:var(--amber)">5</div>
+        <div style="font-size:11px;color:var(--amber)">SOON Vendors</div>
+      </div>
+      <div style="text-align:center;padding:12px;background:var(--red-light);border-radius:6px">
+        <div style="font-size:22px;font-weight:800;color:var(--red)">8</div>
+        <div style="font-size:11px;color:var(--red)">DEFER Y1 Vendors</div>
+      </div>
+      <div style="text-align:center;padding:12px;background:var(--green-light);border-radius:6px">
+        <div style="font-size:22px;font-weight:800;color:var(--green)">4</div>
+        <div style="font-size:11px;color:var(--green)">Egypt First-Mover</div>
+      </div>
+      <div style="text-align:center;padding:12px;background:var(--accent-light);border-radius:6px">
+        <div style="font-size:22px;font-weight:800;color:var(--accent)">19</div>
+        <div style="font-size:11px;color:var(--accent)">Total Vendors</div>
       </div>
     </div>
   </div>
 
-</div><!-- /page-wrap -->
+</div><!-- /t9 -->
 
 <script>
-// Sector filter
-document.querySelectorAll('.sector-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const sector = btn.dataset.sector;
-    document.querySelectorAll('.sector-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const allTabs = document.querySelectorAll('.tab-btn[data-sector]');
-    allTabs.forEach(tb => {
-      if (sector === 'all' || tb.dataset.sector === sector) {
-        tb.classList.remove('hidden');
-      } else {
-        tb.classList.add('hidden');
-      }
-    });
-    // If current active tab is hidden, switch to first visible
-    const activePanelId = document.querySelector('.tab-btn.active')?.dataset?.tab;
-    const activeBtn = document.querySelector(`.tab-btn[data-tab="${activePanelId}"]`);
-    if (activeBtn && activeBtn.classList.contains('hidden')) {
-      const firstVisible = document.querySelector('.tab-btn[data-sector]:not(.hidden)');
-      if (firstVisible) switchTab(firstVisible.dataset.tab);
-    }
-  });
-});
-
-// Tab switching
-function switchTab(tabId) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  const btn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
-  const panel = document.getElementById(`tab-${tabId}`);
-  if (btn) btn.classList.add('active');
-  if (panel) panel.classList.add('active');
+function showTab(id,btn){
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
 }
-
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => switchTab(btn.dataset.tab));
-});
 </script>
 </body>
 </html>
