@@ -2608,11 +2608,9 @@ document.getElementById('btn-modal-save').addEventListener('click', async () => 
 // ── START ──────────────────────────────
 init();
 
-// Register service worker
+// Unregister any old service workers — no longer needed
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/xceed-ito-dashboard/service-worker.js').catch(() => {});
-  });
+  navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
 }
 
 })(); // end IIFE
