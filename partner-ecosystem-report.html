@@ -134,7 +134,7 @@ a:hover{text-decoration:underline}
 
 <div class="top-bar">
   <h1>🤝 Partner Ecosystem Report — Xceed ITO</h1>
-  <span>19 Vendors · Evidence-Based · Updated Nov 2026</span>
+  <span>24 Vendors · Evidence-Based · Updated Nov 2026</span>
 </div>
 
 <div class="tabs-nav">
@@ -148,6 +148,7 @@ a:hover{text-decoration:underline}
   <span class="tab-btn" onclick="showTab('t8',this)">🌍 Mauritius & India</span>
   <span class="tab-btn" onclick="showTab('t10',this)">💾 Data Management</span>
   <span class="tab-btn" onclick="showTab('t9',this)">📊 Summary Matrix</span>
+  <span class="tab-btn" onclick="showTab('t11',this)">🎯 Conclusion</span>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════
@@ -1763,15 +1764,15 @@ a:hover{text-decoration:underline}
 
   <!-- RESELLER vs MSP TABLE -->
   <div style="margin-top:24px">
-    <div style="font-size:15px;font-weight:700;margin-bottom:4px;color:var(--fg)">💼 Reseller vs MSP — وأنهي موديل يناسب كل vendor؟</div>
-    <div style="font-size:12px;color:var(--fg3);margin-bottom:14px"><strong>Reseller</strong> = بتبيع license وبتاخد margin لمرة واحدة &nbsp;|&nbsp; <strong>MSP</strong> = بتدير الخدمة شهرياً وبتاخد recurring revenue &nbsp;|&nbsp; <strong>Hybrid</strong> = الاتنين</div>
+    <div style="font-size:15px;font-weight:700;margin-bottom:4px;color:var(--fg)">💼 Reseller vs MSP — Which Model Fits Each Vendor?</div>
+    <div style="font-size:12px;color:var(--fg3);margin-bottom:14px"><strong>Reseller</strong> = sell a license and earn a one-time margin &nbsp;|&nbsp; <strong>MSP</strong> = manage the service monthly and earn recurring revenue &nbsp;|&nbsp; <strong>Hybrid</strong> = both models</div>
     <div class="ptable-wrap">
       <table class="matrix-table">
         <tr>
           <th>Vendor</th>
           <th>Model</th>
-          <th>ليه؟</th>
-          <th>تكلفة البداية (USD)</th>
+          <th>Why MSP / Reseller?</th>
+          <th>Cost to Start (USD)</th>
           <th>Margin تقريبي</th>
           <th>First Deal Path</th>
         </tr>
@@ -1780,23 +1781,23 @@ a:hover{text-decoration:underline}
         <tr>
           <td><strong>Microsoft CSP</strong></td>
           <td><span class="chip chip-green">MSP</span></td>
-          <td>M365 لازم حد يديره شهرياً — renewal + licensing + support</td>
-          <td>~$0 (Ingram مجاني)</td>
+          <td>M365 requires monthly management — renewal + licensing + support</td>
+          <td>~$0 (Ingram Micro free)</td>
           <td>8–15%</td>
-          <td>بيع M365 لـ UAE SMB مع Barracuda bundle</td>
+          <td>Sell M365 to UAE SMB bundled with Barracuda</td>
         </tr>
         <tr>
           <td><strong>Barracuda</strong></td>
           <td><span class="chip chip-green">MSP</span></td>
-          <td>Email security = recurring monitoring مش one-time sale</td>
+          <td>Email security = recurring monitoring, not a one-time sale</td>
           <td>~$500 (NFR + training)</td>
           <td>25–35%</td>
-          <td>Upsell على M365 — "الـ email مش محمي من غير Barracuda"</td>
+          <td>Upsell on M365 — "Your email is unprotected without Barracuda"</td>
         </tr>
         <tr>
           <td><strong>AWS APN</strong></td>
           <td><span class="chip" style="background:var(--purple-light);color:var(--purple)">Hybrid</span></td>
-          <td>Project (migration) = Reseller، بعد كده managed = MSP</td>
+          <td>Migration project = Reseller, then ongoing managed = MSP</td>
           <td>~$3,000–5,000 (certs + training)</td>
           <td>3–5% (credits) + project fees</td>
           <td>Free cloud assessment → migration project → managed AWS</td>
@@ -1804,17 +1805,17 @@ a:hover{text-decoration:underline}
         <tr>
           <td><strong>Google Workspace</strong></td>
           <td><span class="chip chip-green">MSP</span></td>
-          <td>Reseller margin ضعيف — المكسب في الـ admin + migration</td>
+          <td>Reseller margin is thin — real profit is in admin + migration services</td>
           <td>~$0 (Google Partner program)</td>
           <td>8–12% + service fees</td>
-          <td>بيع لـ Morocco nearshore BPOs (French workspace)</td>
+          <td>Sell to Morocco nearshore BPOs (French-language workspace)</td>
         </tr>
         <!-- HCI & Linux -->
         <tr><td colspan="6" style="background:var(--surface2);font-weight:700;font-size:11px;color:var(--fg2);padding:6px 10px">🖥️ HCI &amp; Linux</td></tr>
         <tr>
           <td><strong>Nutanix</strong></td>
           <td><span class="chip" style="background:var(--purple-light);color:var(--purple)">Hybrid</span></td>
-          <td>Implementation = project، بعده infrastructure monitoring = MSP</td>
+          <td>Implementation = project, then infrastructure monitoring = MSP</td>
           <td>~$5,000–8,000 (NCP cert + NFR)</td>
           <td>15–25% on hardware + monthly monitoring fee</td>
           <td>VMware migration project → Nutanix managed service</td>
@@ -1822,28 +1823,28 @@ a:hover{text-decoration:underline}
         <tr>
           <td><strong>Red Hat</strong></td>
           <td><span class="chip chip-amber">Reseller</span></td>
-          <td>Subscription-based — أسهل تبيع وترنج client يدير بنفسه</td>
+          <td>Subscription-based — easier to sell; client manages their own environment</td>
           <td>~$3,000 (RHCE cert)</td>
           <td>10–20%</td>
-          <td>بيع RHEL لـ KSA government اللي بيتحول من Windows</td>
+          <td>Sell RHEL to KSA government migrating from Windows</td>
         </tr>
         <tr>
           <td><strong>SUSE</strong></td>
           <td><span class="chip chip-amber">Reseller</span></td>
-          <td>نفس Red Hat — subscription model، الـ MSP play صعب</td>
+          <td>Same as Red Hat — subscription model; MSP play is limited</td>
           <td>~$2,000 (SCA cert)</td>
           <td>10–18%</td>
-          <td>بيع SLES لـ SAP shops في KSA</td>
+          <td>Sell SLES to SAP shops in KSA</td>
         </tr>
         <!-- Network & Security -->
         <tr><td colspan="6" style="background:var(--surface2);font-weight:700;font-size:11px;color:var(--fg2);padding:6px 10px">🔒 Network &amp; Security</td></tr>
         <tr>
           <td><strong>Fortinet</strong></td>
           <td><span class="chip chip-green">MSP</span></td>
-          <td>Firewall لازم monitoring 24/7 — مش ممكن تبيعه وتمشي</td>
+          <td>Firewall requires 24/7 monitoring — you can't sell it and walk away</td>
           <td>~$3,000–5,000 (NSE4 + NFR FortiGate)</td>
           <td>20–30% + monthly managed fee</td>
-          <td>Free firewall audit → "نديرهولك بـ X$/شهر"</td>
+          <td>Free firewall audit → "We'll manage it for you at $X/month"</td>
         </tr>
         <tr>
           <td><strong>Cisco</strong></td>
@@ -1856,7 +1857,7 @@ a:hover{text-decoration:underline}
         <tr>
           <td><strong>Palo Alto</strong></td>
           <td><span class="chip chip-green">MSP</span></td>
-          <td>Prisma SASE = cloud-managed security — recurring بالطبيعة</td>
+          <td>Prisma SASE = cloud-managed security — recurring by nature</td>
           <td>~$5,000–10,000 (PCNSE + NFR)</td>
           <td>20–30%</td>
           <td>NCA ECC compliance angle لـ KSA</td>
@@ -1864,7 +1865,7 @@ a:hover{text-decoration:underline}
         <tr>
           <td><strong>BlueCat</strong></td>
           <td><span class="chip chip-green">MSP</span></td>
-          <td>DNS/IPAM = infrastructure layer — clients مش بيديروه بنفسهم</td>
+          <td>DNS/IPAM = infrastructure layer — clients don't manage it themselves</td>
           <td>~$2,000 (training)</td>
           <td>25–35%</td>
           <td>DNS managed service للـ KSA government (NCA ECC)</td>
@@ -1874,15 +1875,15 @@ a:hover{text-decoration:underline}
         <tr>
           <td><strong>Tenable</strong></td>
           <td><span class="chip chip-green">MSP</span></td>
-          <td>Vulnerability scanning = شهري — الـ report هو الـ deliverable</td>
-          <td>~$1,500 (Tenable.io training، registered ✅)</td>
+          <td>Vulnerability scanning = monthly — the report IS the deliverable</td>
+          <td>~$1,500 (Tenable.io training, registered ✅)</td>
           <td>25–35%</td>
           <td>Free NCA ECC gap scan → monthly managed scanning</td>
         </tr>
         <tr>
           <td><strong>CrowdStrike</strong></td>
           <td><span class="chip chip-green">MSP</span></td>
-          <td>EDR = agent على كل endpoint — recurring بالطبيعة</td>
+          <td>EDR = agent on every endpoint — recurring by nature</td>
           <td>~$5,000–8,000 (Falcon cert + partner fee)</td>
           <td>20–30%</td>
           <td>Endpoint protection managed service لـ UAE enterprise</td>
@@ -1893,22 +1894,22 @@ a:hover{text-decoration:underline}
           <td>Autonomous AI EDR — MSP console built-in</td>
           <td>~$3,000–5,000</td>
           <td>25–35%</td>
-          <td>بديل CrowdStrike بسعر أقل لـ SMB</td>
+          <td>Lower-cost CrowdStrike alternative for SMB</td>
         </tr>
         <tr>
           <td><strong>Recorded Future</strong></td>
           <td><span class="chip chip-amber">Reseller</span></td>
-          <td>Threat intel = platform subscription — الـ client بيستخدمه بنفسه</td>
+          <td>Threat intel = platform subscription — the client uses it themselves</td>
           <td>~$3,000 (training)</td>
           <td>15–20%</td>
-          <td>بيع لـ KSA CISO اللي عنده SOC team</td>
+          <td>Sell to KSA CISO with an in-house SOC team</td>
         </tr>
         <!-- EUC & Hardware -->
         <tr><td colspan="6" style="background:var(--surface2);font-weight:700;font-size:11px;color:var(--fg2);padding:6px 10px">💻 EUC &amp; Hardware</td></tr>
         <tr>
           <td><strong>Citrix / IGEL</strong></td>
           <td><span class="chip" style="background:var(--purple-light);color:var(--purple)">Hybrid</span></td>
-          <td>Deployment = project، VDI management = MSP</td>
+          <td>Deployment = project, then VDI management = MSP</td>
           <td>~$4,000–6,000 (CCP-V cert)</td>
           <td>15–25%</td>
           <td>VDI managed service للـ UAE Freezone remote workers</td>
@@ -1916,36 +1917,36 @@ a:hover{text-decoration:underline}
         <tr>
           <td><strong>Dell / HP / Lenovo</strong></td>
           <td><span class="chip chip-amber">Reseller</span></td>
-          <td>Hardware = one-time — MSP play محدود (warranty management فقط)</td>
+          <td>Hardware = one-time — MSP play is limited (warranty management only)</td>
           <td>~$500–1,000 (partner registration)</td>
           <td>5–12%</td>
-          <td>بيع hardware مع deployment service كـ bundle</td>
+          <td>Sell hardware bundled with a deployment service</td>
         </tr>
         <!-- Staffing -->
         <tr><td colspan="6" style="background:var(--surface2);font-weight:700;font-size:11px;color:var(--fg2);padding:6px 10px">🤝 Staffing &amp; Partners</td></tr>
         <tr>
           <td><strong>Upwork / Toptal</strong></td>
           <td><span class="chip chip-amber">Reseller</span></td>
-          <td>Platform — مش vendor تقليدي، بتاخد commission على placements</td>
+          <td>Platform — not a traditional vendor; earn commission on placements</td>
           <td>~$0</td>
           <td>5–15% markup</td>
-          <td>فلتر delivery gaps بـ certified contractors</td>
+          <td>Fill delivery gaps using certified contractors</td>
         </tr>
         <!-- Data Management -->
         <tr><td colspan="6" style="background:var(--surface2);font-weight:700;font-size:11px;color:var(--fg2);padding:6px 10px">💾 Data Management</td></tr>
         <tr>
           <td><strong>Acronis</strong></td>
           <td><span class="chip chip-green">MSP</span></td>
-          <td>Per-workload monthly billing — MSP model من اليوم الأول</td>
+          <td>Per-workload monthly billing — MSP model from day one</td>
           <td>~$0 (registered ✅)</td>
           <td>30–40%</td>
-          <td>Cyber Protect Cloud لـ UAE SMB — ابدأ بيه دلوقتي</td>
+          <td>Cyber Protect Cloud for UAE SMB — start immediately</td>
         </tr>
         <tr>
           <td><strong>Veeam</strong></td>
           <td><span class="chip chip-green">MSP</span></td>
-          <td>Backup = managed بالطبيعة — client مش بيتابع daily jobs بنفسه</td>
-          <td>~$2,000–3,000 (VMCE + NFR بعد فك الـ hold)</td>
+          <td>Backup = managed by nature — client doesn't track daily jobs themselves</td>
+          <td>~$2,000–3,000 (VMCE + NFR after hold is lifted)</td>
           <td>20–30%</td>
           <td>DR-as-a-Service via Mauritius entity</td>
         </tr>
@@ -1960,7 +1961,7 @@ a:hover{text-decoration:underline}
         <tr>
           <td><strong>Cohesity</strong></td>
           <td><span class="chip chip-green">MSP</span></td>
-          <td>AI backup platform = managed — DataHawk يحتاج expert يفسر الـ alerts</td>
+          <td>AI backup platform = managed — DataHawk requires an expert to interpret alerts</td>
           <td>~$3,000–5,000 (cert + NFR)</td>
           <td>20–30%</td>
           <td>Veritas replacement لـ KSA enterprise</td>
@@ -1968,7 +1969,7 @@ a:hover{text-decoration:underline}
         <tr>
           <td><strong>Arctera</strong></td>
           <td><span class="chip chip-green">MSP</span></td>
-          <td>Enterprise Vault = managed archiving — clients مش بيديروه</td>
+          <td>Enterprise Vault = managed archiving — clients don't manage it themselves</td>
           <td>~$2,000–3,000 (partner reg + training)</td>
           <td>20–28%</td>
           <td>Email archive managed service لـ Gulf banking</td>
@@ -1976,7 +1977,7 @@ a:hover{text-decoration:underline}
       </table>
     </div>
     <div style="margin-top:12px;padding:12px;background:var(--accent-light);border-radius:6px;font-size:12px;color:var(--fg2)">
-      <strong style="color:var(--accent)">💡 ملاحظة على التكاليف:</strong> الأرقام دي هي الـ <em>minimum</em> عشان تبدأ — بتشمل أول cert + NFR license للـ lab. مش بتشمل engineer salary. معظم الـ vendors بيديك NFR مجاناً لو عملت الـ certification. الـ MSP vendors الأسهل في البداية هم <strong>Acronis + Tenable + Fortinet</strong> — الثلاثة دول مع بعض بـ ~$5,000–9,000 وبيديك recurring revenue من أول شهر.
+      <strong style="color:var(--accent)">💡 Note on Costs:</strong> These figures are the <em>minimum</em> to get started — covering the first cert + NFR lab license. They do not include engineer salary. Most vendors provide NFR licenses free upon certification. The easiest MSP vendors to start with are <strong>Acronis + Tenable + Fortinet</strong> — these three together cost ~$5,000–9,000 and generate recurring revenue from month one.
     </div>
   </div>
 
@@ -2013,248 +2014,529 @@ a:hover{text-decoration:underline}
 ═══════════════════════════════════════════════════════════ -->
 <div id="t10" class="tab-pane">
 
-  <div class="section-header">
-    <div class="section-icon">💾</div>
-    <div>
-      <div class="section-title">Data Management Partners</div>
-      <div class="section-sub">Backup · Recovery · Storage · Data Protection — 5 vendors</div>
-    </div>
-  </div>
-
-  <!-- VEEAM -->
-  <div class="vendor-card">
-    <div class="vendor-header">
-      <div class="vendor-logo-box" style="background:var(--green-light);color:var(--green)">V</div>
-      <div class="vendor-info">
-        <div class="vendor-name">Veeam Software</div>
-        <div class="vendor-cat">Backup &amp; Recovery · Data Replication</div>
-      </div>
-      <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap">
-        <span class="chip chip-amber">ON HOLD</span>
-        <span class="chip chip-green">TOP PRIORITY</span>
-      </div>
-    </div>
-    <div class="vendor-body">
-      <div class="kv-grid">
-        <div class="kv-item"><div class="kv-label">Program</div><div class="kv-val">Veeam ProPartner Network</div></div>
-        <div class="kv-item"><div class="kv-label">Entry Tier</div><div class="kv-val">Silver (entry level)</div></div>
-        <div class="kv-item"><div class="kv-label">MENA Distributor</div><div class="kv-val">Mindware, Redington, Ingram Micro</div></div>
-        <div class="kv-item"><div class="kv-label">Cert Required</div><div class="kv-val">VMCE (Veeam Certified Engineer)</div></div>
-        <div class="kv-item"><div class="kv-label">NFR Licenses</div><div class="kv-val">Available at Silver tier</div></div>
-        <div class="kv-item"><div class="kv-label">Market Fit</div><div class="kv-val">UAE SMB, KSA banking DR, Mauritius DR-as-a-Service</div></div>
-      </div>
-      <div class="highlight-box" style="background:var(--green-light);border-color:var(--green)">
-        <div class="highlight-title" style="color:var(--green)">🚀 Xceed Opportunity</div>
-        <div class="highlight-body">Veeam is the #1 enterprise backup brand in the GCC. Xceed's Mauritius entity enables legally-accepted offshore DR replication — a unique positioning no local MSP offers. Once the hold is lifted, combine with Mauritius entity invoicing to pitch DR-as-a-Service to UAE/KSA clients needing cross-border DR compliance.</div>
-      </div>
-      <div class="highlight-box" style="background:var(--red-light);border-color:var(--red)">
-        <div class="highlight-title" style="color:var(--red)">⚠️ Current Status</div>
-        <div class="highlight-body">Registration on hold — resolve the hold as the single most urgent action for the data management practice. Without Veeam, the DR-as-a-Service narrative is incomplete.</div>
-      </div>
-      <div class="highlight-box" style="background:var(--accent-light);border-color:var(--accent)">
-        <div class="highlight-title" style="color:var(--accent)">💡 Why Clients Care Now</div>
-        <div class="highlight-body">Veeam v12 supports immutable backups on-prem and cloud, directly addressing ransomware demands. Gulf enterprises are replacing legacy tape and Veritas with Veeam at scale. The pitch: "One VMCE-certified engineer, managing your entire backup environment from Cairo, invoiced from your country."</div>
-      </div>
-    </div>
-  </div>
+  <div class="section-title">💾 Data Management Partners — Backup · Recovery · Storage · Data Protection</div>
 
   <!-- ACRONIS -->
-  <div class="vendor-card">
-    <div class="vendor-header">
-      <div class="vendor-logo-box" style="background:var(--red-light);color:var(--red)">A</div>
-      <div class="vendor-info">
-        <div class="vendor-name">Acronis</div>
-        <div class="vendor-cat">Cyber Protection · Cloud Backup · Endpoint Security</div>
-      </div>
-      <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap">
-        <span class="chip chip-green">✅ REGISTERED</span>
-        <span class="chip chip-green">TODAY</span>
-      </div>
-    </div>
-    <div class="vendor-body">
-      <div class="kv-grid">
-        <div class="kv-item"><div class="kv-label">Program</div><div class="kv-val">Acronis Partner Program (MSP)</div></div>
-        <div class="kv-item"><div class="kv-label">Tier</div><div class="kv-val">Service Provider (registered)</div></div>
-        <div class="kv-item"><div class="kv-label">Platform</div><div class="kv-val">Acronis Cyber Protect Cloud</div></div>
-        <div class="kv-item"><div class="kv-label">Billing Model</div><div class="kv-val">Per-workload monthly — MSP-friendly</div></div>
-        <div class="kv-item"><div class="kv-label">Morocco Fit</div><div class="kv-val">Strong — nearshore BPOs, local procurement via Morocco entity</div></div>
-        <div class="kv-item"><div class="kv-label">Differentiator</div><div class="kv-val">Backup + AV + EDR in one agent — single pane of glass</div></div>
-      </div>
-      <div class="highlight-box" style="background:var(--green-light);border-color:var(--green)">
-        <div class="highlight-title" style="color:var(--green)">🚀 Xceed Opportunity — Lead Product for Quick Wins</div>
-        <div class="highlight-body">Acronis is Xceed's most deployable product right now. The MSP billing model (monthly per-workload) means no large upfront cost for the client and predictable revenue for Xceed. Lead with Acronis for UAE Freezone SMBs and Morocco nearshore BPOs where backup is the entry conversation. One ransomware story closes the deal.</div>
-      </div>
-      <div class="highlight-box" style="background:var(--accent-light);border-color:var(--accent)">
-        <div class="highlight-title" style="color:var(--accent)">📊 MSP Economics</div>
-        <div class="highlight-body">Acronis Cyber Protect Cloud allows white-labeling under "Xceed Backup" branding. Margins are healthy at 30–40% over list price. A client with 50 workloads generates predictable monthly revenue that covers 1–2 engineers. Stack 10 such clients → sustainable data management practice with zero capex.</div>
-      </div>
+  <div class="vendor-hdr">
+    <h2>Acronis</h2>
+    <div class="sub">Cyber Protection · Cloud Backup · Endpoint Security</div>
+    <div class="chips">
+      <span class="chip chip-green">✅ Registered</span>
+      <span class="chip chip-green">Start TODAY</span>
+      <span class="chip chip-blue">MSP — Monthly Billing</span>
     </div>
   </div>
+
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box"><h4>Program</h4><ul><li>Acronis Partner Program (MSP / Service Provider)</li></ul></div>
+    <div class="req-box"><h4>Platform</h4><ul><li>Acronis Cyber Protect Cloud</li><li>White-label as "Xceed Backup"</li></ul></div>
+    <div class="req-box"><h4>Billing</h4><ul><li>Per-workload monthly — zero upfront for client</li><li>30–40% margin</li></ul></div>
+    <div class="req-box"><h4>Market Fit</h4><ul><li>UAE Freezone SMBs</li><li>Morocco nearshore BPOs</li><li>Any client with ransomware fear</li></ul></div>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🚀 Lead Product for Quick Wins — Start Immediately</h4>
+    <p>Acronis is Xceed's most deployable product right now. Already registered. Monthly per-workload billing means no large upfront cost for the client and predictable revenue for Xceed. Lead with Acronis for UAE Freezone SMBs and Morocco BPOs. Stack 10 clients → sustainable recurring practice with zero capex. White-label as "Xceed Backup" for brand stickiness.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://www.acronis.com/en-us/partners/" target="_blank">Acronis Partner Program — official page</a>
+    <a href="https://www.acronis.com/en-us/products/cloud/cyber-protect/" target="_blank">Acronis Cyber Protect Cloud — MSP platform</a>
+  </div>
+
+  <hr class="divider">
+
+  <!-- VEEAM -->
+  <div class="vendor-hdr">
+    <h2>Veeam Software</h2>
+    <div class="sub">Backup &amp; Recovery · Data Replication · Immutable Backup</div>
+    <div class="chips">
+      <span class="chip chip-red">⚠️ Registration On Hold</span>
+      <span class="chip chip-amber">Unblock — Top Priority</span>
+      <span class="chip chip-green">MSP — Recurring Revenue</span>
+    </div>
+  </div>
+
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box"><h4>Program</h4><ul><li>Veeam ProPartner Network</li><li>Entry tier: Silver</li></ul></div>
+    <div class="req-box"><h4>Cert Required</h4><ul><li>VMCE (Veeam Certified Engineer)</li><li>NFR licenses available at Silver tier</li></ul></div>
+    <div class="req-box"><h4>MENA Distributors</h4><ul><li>Mindware</li><li>Redington</li><li>Ingram Micro</li></ul></div>
+    <div class="req-box"><h4>Market Fit</h4><ul><li>UAE SMB + KSA banking DR</li><li>Mauritius DR-as-a-Service</li><li>Any Veritas replacement cycle</li></ul></div>
+  </div>
+
+  <div class="section-title">Why Clients Need This Now</div>
+  <div class="gap-list">
+    <span class="gap-item">Veeam v12 = immutable backups — direct ransomware answer</span>
+    <span class="gap-item">Gulf enterprises replacing legacy Veritas at scale</span>
+    <span class="gap-item">Most RFPs in KSA banking specify Veeam + NetApp</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Unique Angle: DR-as-a-Service via Mauritius Entity</h4>
+    <p>Veeam is the #1 enterprise backup brand in GCC. Xceed's Mauritius entity enables legally-accepted offshore DR replication — a positioning no local MSP offers. Pitch: "One VMCE-certified engineer, managing your entire backup from Cairo, DR site in Mauritius, invoiced from your country." Resolve the hold immediately — without Veeam, the DR-as-a-Service narrative is incomplete.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://www.veeam.com/partnerprogram.html" target="_blank">Veeam ProPartner Network — partner program</a>
+    <a href="https://www.veeam.com/products/veeam-backup-replication.html" target="_blank">Veeam Backup &amp; Replication v12 — product page</a>
+  </div>
+
+  <hr class="divider">
 
   <!-- COHESITY -->
-  <div class="vendor-card">
-    <div class="vendor-header">
-      <div class="vendor-logo-box" style="background:var(--purple-light);color:var(--purple)">C</div>
-      <div class="vendor-info">
-        <div class="vendor-name">Cohesity</div>
-        <div class="vendor-cat">Data Security · Backup · AI-Powered Data Management</div>
-      </div>
-      <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap">
-        <span class="chip chip-amber">SOON — YEAR 1</span>
-        <span class="chip chip-purple">ENTERPRISE</span>
-      </div>
-    </div>
-    <div class="vendor-body">
-      <div class="kv-grid">
-        <div class="kv-item"><div class="kv-label">Program</div><div class="kv-val">Cohesity PartnerConnect</div></div>
-        <div class="kv-item"><div class="kv-label">Entry Tier</div><div class="kv-val">Registered Partner</div></div>
-        <div class="kv-item"><div class="kv-label">MENA Presence</div><div class="kv-val">Established — UAE, KSA, Egypt offices</div></div>
-        <div class="kv-item"><div class="kv-label">Platform</div><div class="kv-val">Cohesity DataProtect + DataHawk (AI security)</div></div>
-        <div class="kv-item"><div class="kv-label">Target Segment</div><div class="kv-val">KSA government, UAE enterprise 500+ seats</div></div>
-        <div class="kv-item"><div class="kv-label">Key Differentiator</div><div class="kv-val">AI-powered ransomware detection + clean room recovery</div></div>
-      </div>
-      <div class="highlight-box" style="background:var(--purple-light);border-color:var(--purple)">
-        <div class="highlight-title" style="color:var(--purple)">🚀 Xceed Opportunity</div>
-        <div class="highlight-body">Cohesity competes directly with Veeam and NetBackup in the enterprise space. Its AI-powered DataHawk detects ransomware before it completes encryption — a compelling story for KSA banking clients who faced NCA ECC gaps. Position as "next-generation backup with built-in threat intelligence."</div>
-      </div>
-      <div class="highlight-box" style="background:var(--amber-light);border-color:var(--amber)">
-        <div class="highlight-title" style="color:var(--amber)">⚡ 2025 Context — Veritas Merger</div>
-        <div class="highlight-body">Cohesity merged with Veritas in 2024 to form a data security powerhouse. Many Gulf enterprises running Veritas NetBackup are evaluating migration paths — Cohesity offers native migration tools. Xceed can position as the migration specialist, turning Veritas refresh cycles into Cohesity managed service contracts.</div>
-      </div>
+  <div class="vendor-hdr">
+    <h2>Cohesity</h2>
+    <div class="sub">Data Security · Backup · AI-Powered Data Management</div>
+    <div class="chips">
+      <span class="chip chip-amber">Not Applied Yet — Year 1</span>
+      <span class="chip chip-purple">Enterprise Only</span>
+      <span class="chip chip-green">MSP — Managed Platform</span>
     </div>
   </div>
+
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box"><h4>Program</h4><ul><li>Cohesity PartnerConnect</li><li>Registered Partner tier</li></ul></div>
+    <div class="req-box"><h4>Platform</h4><ul><li>Cohesity DataProtect (backup)</li><li>DataHawk (AI ransomware detection)</li></ul></div>
+    <div class="req-box"><h4>MENA Presence</h4><ul><li>UAE, KSA, Egypt offices established</li></ul></div>
+    <div class="req-box"><h4>Target Segment</h4><ul><li>KSA government + banking</li><li>UAE enterprise 500+ seats</li></ul></div>
+  </div>
+
+  <div class="section-title">Why This, Not Veeam?</div>
+  <div class="gap-list">
+    <span class="gap-item">AI-powered ransomware detection (DataHawk) — Veeam doesn't have this</span>
+    <span class="gap-item">Veritas merger 2024 — Cohesity absorbed NetBackup customer base</span>
+    <span class="gap-item">Clean room recovery — restores to isolated environment for forensics</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Veritas Replacement Wave = Cohesity Entry Point</h4>
+    <p>Cohesity merged with Veritas in 2024. Many Gulf enterprises running Veritas NetBackup are now forced to evaluate. Xceed can position as the migration specialist — turning Veritas refresh cycles into Cohesity managed service contracts. DataHawk's AI threat detection is a compelling NCA ECC story for KSA banking.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://www.cohesity.com/partners/" target="_blank">Cohesity PartnerConnect — program overview</a>
+    <a href="https://www.cohesity.com/products/datahawk/" target="_blank">Cohesity DataHawk — AI threat detection</a>
+  </div>
+
+  <hr class="divider">
 
   <!-- ARCTERA -->
-  <div class="vendor-card">
-    <div class="vendor-header">
-      <div class="vendor-logo-box" style="background:var(--teal-light);color:var(--teal)">Ar</div>
-      <div class="vendor-info">
-        <div class="vendor-name">Arctera (formerly Veritas)</div>
-        <div class="vendor-cat">Data Resilience · Compliance Archiving · eDiscovery</div>
-      </div>
-      <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap">
-        <span class="chip chip-amber">EVALUATE — YEAR 1</span>
-        <span class="chip chip-teal">COMPLIANCE</span>
-      </div>
-    </div>
-    <div class="vendor-body">
-      <div class="kv-grid">
-        <div class="kv-item"><div class="kv-label">Program</div><div class="kv-val">Arctera Partner Program</div></div>
-        <div class="kv-item"><div class="kv-label">Origin</div><div class="kv-val">Spun off from Veritas in 2024 — data resilience division</div></div>
-        <div class="kv-item"><div class="kv-label">Products</div><div class="kv-val">Arctera Data Insight, Compliance Accelerator, Enterprise Vault</div></div>
-        <div class="kv-item"><div class="kv-label">Target Segment</div><div class="kv-val">Regulated industries: banking, insurance, government</div></div>
-        <div class="kv-item"><div class="kv-label">Compliance Fit</div><div class="kv-val">NCA, CBUAE, SAMA email archiving requirements</div></div>
-        <div class="kv-item"><div class="kv-label">Egypt Installed Base</div><div class="kv-val">Large — Veritas had strong Egypt presence pre-split</div></div>
-      </div>
-      <div class="highlight-box" style="background:var(--teal-light);border-color:var(--teal)">
-        <div class="highlight-title" style="color:var(--teal)">🚀 Xceed Opportunity</div>
-        <div class="highlight-body">Arctera's Enterprise Vault is the email archiving standard in Gulf banking and insurance. CBUAE and SAMA require email retention for 7–10 years — most banks are running aging on-prem Enterprise Vault deployments that need managed services. Xceed can offer "Vault-as-a-managed-service" migrating on-prem to cloud archive, managed from Cairo.</div>
-      </div>
-      <div class="highlight-box" style="background:var(--amber-light);border-color:var(--amber)">
-        <div class="highlight-title" style="color:var(--amber)">⚡ Strategic Angle</div>
-        <div class="highlight-body">Arctera is a newly independent brand still building its partner ecosystem. Early partners get better margins and direct support — an advantage Xceed can capture before larger MSSPs move in. The Veritas-to-Arctera migration wave creates natural touchpoints with existing Gulf clients.</div>
-      </div>
+  <div class="vendor-hdr">
+    <h2>Arctera (formerly Veritas — Compliance Division)</h2>
+    <div class="sub">Data Resilience · Compliance Archiving · eDiscovery</div>
+    <div class="chips">
+      <span class="chip chip-amber">Evaluate — Year 1</span>
+      <span class="chip chip-teal">Compliance Angle</span>
+      <span class="chip chip-green">MSP — Managed Archiving</span>
     </div>
   </div>
+
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box"><h4>Program</h4><ul><li>Arctera Partner Program</li><li>Spun off from Veritas 2024</li></ul></div>
+    <div class="req-box"><h4>Key Products</h4><ul><li>Enterprise Vault (email archiving)</li><li>Arctera Data Insight</li><li>Compliance Accelerator</li></ul></div>
+    <div class="req-box"><h4>Compliance Fit</h4><ul><li>NCA, CBUAE, SAMA email retention (7–10 years)</li><li>eDiscovery for banking litigation</li></ul></div>
+    <div class="req-box"><h4>Target Segment</h4><ul><li>Gulf banking + insurance</li><li>Regulated government entities</li></ul></div>
+  </div>
+
+  <div class="section-title">Why This Matters for Gulf Banking</div>
+  <div class="gap-list">
+    <span class="gap-item">CBUAE / SAMA require 7–10 year email retention</span>
+    <span class="gap-item">Most Gulf banks run aging on-prem Enterprise Vault</span>
+    <span class="gap-item">Arctera is newly independent = early partners get better margins</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 "Vault-as-a-Managed-Service" for Gulf Banks</h4>
+    <p>Arctera Enterprise Vault is the email archiving standard in Gulf banking. Banks are running on-prem deployments that need migration to cloud-managed archive. Xceed can offer "managed Enterprise Vault" migrating to cloud, managed from Cairo. Early entry in Arctera's new partner program means better margins before larger MSSPs move in.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://www.arctera.io/partners" target="_blank">Arctera Partner Program — official page</a>
+    <a href="https://www.arctera.io/products/enterprise-vault" target="_blank">Enterprise Vault — email archiving product</a>
+  </div>
+
+  <hr class="divider">
 
   <!-- NETAPP -->
-  <div class="vendor-card">
-    <div class="vendor-header">
-      <div class="vendor-logo-box" style="background:var(--accent-light);color:var(--accent)">N</div>
-      <div class="vendor-info">
-        <div class="vendor-name">NetApp</div>
-        <div class="vendor-cat">Intelligent Data Infrastructure · Cloud Storage · NAS/SAN</div>
-      </div>
-      <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap">
-        <span class="chip chip-amber">YEAR 1–2</span>
-        <span class="chip chip-green">HIGH VALUE</span>
-      </div>
-    </div>
-    <div class="vendor-body">
-      <div class="kv-grid">
-        <div class="kv-item"><div class="kv-label">Program</div><div class="kv-val">NetApp Partner Program (Solution Provider)</div></div>
-        <div class="kv-item"><div class="kv-label">MENA Distributor</div><div class="kv-val">Logicom, Westcon, Ingram Micro</div></div>
-        <div class="kv-item"><div class="kv-label">Key Products</div><div class="kv-val">ONTAP (NAS/SAN), StorageGRID, Cloud Volumes ONTAP</div></div>
-        <div class="kv-item"><div class="kv-label">Cert Required</div><div class="kv-val">NetApp Certified Storage Associate (NCSA)</div></div>
-        <div class="kv-item"><div class="kv-label">Cloud Integration</div><div class="kv-val">AWS, Azure, GCP — hybrid cloud native</div></div>
-        <div class="kv-item"><div class="kv-label">Egypt Installed Base</div><div class="kv-val">Strong — financial sector, telco, government</div></div>
-      </div>
-      <div class="highlight-box" style="background:var(--green-light);border-color:var(--green)">
-        <div class="highlight-title" style="color:var(--green)">🚀 Xceed Opportunity</div>
-        <div class="highlight-body">NetApp ONTAP is deeply embedded in Gulf banking infrastructure. As banks modernize to hybrid cloud (ONTAP on-prem + Cloud Volumes in Azure/AWS), they need certified engineers to manage the transition. Xceed can position as the hybrid ONTAP managed service partner — especially valuable for KSA banks balancing data residency with cloud efficiency.</div>
-      </div>
-      <div class="highlight-box" style="background:var(--accent-light);border-color:var(--accent)">
-        <div class="highlight-title" style="color:var(--accent)">💡 Practical Entry Point</div>
-        <div class="highlight-body">NetApp's BlueXP (unified control plane) is increasingly used by Gulf enterprises managing multi-cloud storage. A "BlueXP managed service" offering — monitoring, optimization, cost management — requires NCSA certification and is a natural upsell to any client running ONTAP. Training cost is manageable; deal sizes are enterprise-grade.</div>
-      </div>
-      <div class="highlight-box" style="background:var(--purple-light);border-color:var(--purple)">
-        <div class="highlight-title" style="color:var(--purple)">📐 Stacking With Other Vendors</div>
-        <div class="highlight-body">NetApp + Veeam is the gold standard data protection stack in Gulf enterprise. Many RFPs specify both. Xceed being certified on both creates a "single-vendor managed service" for the full data infrastructure layer — storage + backup + recovery — an angle no single-vendor MSP can match.</div>
-      </div>
+  <div class="vendor-hdr">
+    <h2>NetApp</h2>
+    <div class="sub">Intelligent Data Infrastructure · Cloud Storage · NAS/SAN · ONTAP</div>
+    <div class="chips">
+      <span class="chip chip-amber">Not Applied Yet — Year 1–2</span>
+      <span class="chip chip-green">High Value Deals</span>
+      <span class="chip chip-blue">Hybrid (Storage + Managed Ops)</span>
     </div>
   </div>
 
-  <!-- Summary comparison -->
-  <div class="vendor-card">
-    <div class="vendor-header">
-      <div class="vendor-logo-box" style="background:var(--surface2);color:var(--fg2)">📊</div>
-      <div class="vendor-info">
-        <div class="vendor-name">Data Management — Vendor Comparison</div>
-        <div class="vendor-cat">Priority · Fit · Recommended Sequencing</div>
-      </div>
-    </div>
-    <div class="vendor-body">
-      <div class="ptable-wrap">
-        <table class="matrix-table">
-          <tr>
-            <th>Vendor</th><th>Status</th><th>Best Market</th><th>Entry Product</th><th>When</th><th>Stacks With</th>
-          </tr>
-          <tr>
-            <td><strong>Acronis</strong></td>
-            <td><span class="chip chip-green">✅ Registered</span></td>
-            <td>UAE SMB, Morocco</td>
-            <td>Cyber Protect Cloud (MSP)</td>
-            <td><span class="chip chip-green">TODAY</span></td>
-            <td>Microsoft 365</td>
-          </tr>
-          <tr>
-            <td><strong>Veeam</strong></td>
-            <td><span class="chip chip-amber">On Hold</span></td>
-            <td>UAE/KSA Enterprise, Mauritius DR</td>
-            <td>Veeam Backup &amp; Replication</td>
-            <td><span class="chip chip-red">Unblock First</span></td>
-            <td>NetApp, Nutanix</td>
-          </tr>
-          <tr>
-            <td><strong>NetApp</strong></td>
-            <td><span class="chip chip-amber">Not Applied</span></td>
-            <td>KSA Banking, UAE Enterprise</td>
-            <td>ONTAP Managed Service</td>
-            <td><span class="chip chip-amber">Year 1–2</span></td>
-            <td>Veeam, AWS/Azure</td>
-          </tr>
-          <tr>
-            <td><strong>Cohesity</strong></td>
-            <td><span class="chip chip-amber">Not Applied</span></td>
-            <td>KSA Gov/Banking</td>
-            <td>DataProtect + DataHawk</td>
-            <td><span class="chip chip-amber">Year 1</span></td>
-            <td>Nutanix, Fortinet</td>
-          </tr>
-          <tr>
-            <td><strong>Arctera</strong></td>
-            <td><span class="chip chip-amber">Evaluate</span></td>
-            <td>KSA/UAE Banking/Insurance</td>
-            <td>Enterprise Vault (managed)</td>
-            <td><span class="chip chip-amber">Year 1</span></td>
-            <td>Microsoft 365</td>
-          </tr>
-        </table>
-      </div>
-    </div>
+  <div class="section-title">Entry Requirements</div>
+  <div class="req-grid">
+    <div class="req-box"><h4>Program</h4><ul><li>NetApp Partner Program (Solution Provider)</li></ul></div>
+    <div class="req-box"><h4>Cert Required</h4><ul><li>NCSA (NetApp Certified Storage Associate)</li></ul></div>
+    <div class="req-box"><h4>MENA Distributors</h4><ul><li>Logicom, Westcon, Ingram Micro</li></ul></div>
+    <div class="req-box"><h4>Key Products</h4><ul><li>ONTAP (NAS/SAN)</li><li>Cloud Volumes ONTAP (AWS/Azure/GCP)</li><li>BlueXP (unified control plane)</li></ul></div>
+  </div>
+
+  <div class="section-title">Why NetApp + Veeam = Gold Standard Stack</div>
+  <div class="gap-list">
+    <span class="gap-item">Most KSA banking RFPs specify Veeam + NetApp together</span>
+    <span class="gap-item">Banks moving ONTAP on-prem → hybrid cloud need certified migration partner</span>
+    <span class="gap-item">BlueXP managed service = recurring monitoring for multi-cloud storage</span>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 Hybrid ONTAP Managed Service for KSA Banking</h4>
+    <p>NetApp ONTAP is deeply embedded in Gulf banking infrastructure. As banks modernize to hybrid cloud, they need certified engineers to manage the transition. Xceed being certified on both NetApp + Veeam creates a "single-vendor managed service" for the full data layer — storage + backup + recovery — an angle no single-vendor MSP can match. Egypt installed base (financial sector, telco) is a natural entry reference.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Evidence Sources</h4>
+    <a href="https://www.netapp.com/partners/partner-with-netapp/" target="_blank">NetApp Partner Program — official page</a>
+    <a href="https://www.netapp.com/cloud-storage/cloud-volumes-ontap/" target="_blank">Cloud Volumes ONTAP — hybrid cloud storage</a>
+    <a href="https://bluexp.netapp.com/" target="_blank">NetApp BlueXP — unified control plane</a>
+  </div>
+
+  <hr class="divider">
+
+  <!-- COMPARISON TABLE -->
+  <div class="section-title">📊 Data Management — Vendor Comparison & Sequencing</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr>
+        <th>Vendor</th><th>Status</th><th>Best Market</th><th>Entry Product</th><th>When</th><th>Stacks With</th>
+      </tr>
+      <tr>
+        <td><strong>Acronis</strong></td>
+        <td><span class="chip chip-green">✅ Registered</span></td>
+        <td>UAE SMB, Morocco BPOs</td>
+        <td>Cyber Protect Cloud (MSP)</td>
+        <td><span class="chip chip-green">TODAY</span></td>
+        <td>Microsoft 365</td>
+      </tr>
+      <tr>
+        <td><strong>Veeam</strong></td>
+        <td><span class="chip chip-red">On Hold — Unblock</span></td>
+        <td>UAE/KSA Enterprise, Mauritius DR</td>
+        <td>Veeam Backup &amp; Replication</td>
+        <td><span class="chip chip-red">Unblock First</span></td>
+        <td>NetApp, Nutanix</td>
+      </tr>
+      <tr>
+        <td><strong>Cohesity</strong></td>
+        <td><span class="chip chip-amber">Not Applied Yet</span></td>
+        <td>KSA Gov/Banking Enterprise</td>
+        <td>DataProtect + DataHawk</td>
+        <td><span class="chip chip-amber">Year 1</span></td>
+        <td>Nutanix, Fortinet</td>
+      </tr>
+      <tr>
+        <td><strong>Arctera</strong></td>
+        <td><span class="chip chip-amber">Evaluate</span></td>
+        <td>KSA/UAE Banking/Insurance</td>
+        <td>Enterprise Vault (managed)</td>
+        <td><span class="chip chip-amber">Year 1</span></td>
+        <td>Microsoft 365</td>
+      </tr>
+      <tr>
+        <td><strong>NetApp</strong></td>
+        <td><span class="chip chip-amber">Not Applied Yet</span></td>
+        <td>KSA Banking, UAE Enterprise</td>
+        <td>ONTAP Managed Service</td>
+        <td><span class="chip chip-amber">Year 1–2</span></td>
+        <td>Veeam, AWS/Azure</td>
+      </tr>
+    </table>
   </div>
 
 </div><!-- /t10 -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 11 — CONCLUSION: Phase-Based Recommendations for All 24 Vendors
+═══════════════════════════════════════════════════════════ -->
+<div id="t11" class="tab-pane">
+
+  <div class="section-title">🎯 Strategic Conclusion — Phase-Based Vendor Roadmap</div>
+
+  <div class="opp-strip">
+    <h4>How to Read This</h4>
+    <p>Every vendor is assigned a phase: <strong>Phase 0 — TODAY</strong> (start this week), <strong>Phase 1 — Year 1</strong> (months 1–12), <strong>Phase 2 — Year 2+</strong>, or <strong>Skip / Deprioritized</strong> with an explicit reason. For each vendor: phase, model (MSP / Reseller / Hybrid), and the single most important first action.</p>
+  </div>
+
+  <!-- PHASE 0 — TODAY -->
+  <div class="section-title">⚡ Phase 0 — Start TODAY (This Week)</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr>
+        <th>Vendor</th><th>Category</th><th>Model</th><th>Why Now</th><th>First Action</th>
+      </tr>
+      <tr>
+        <td><strong>Acronis</strong></td>
+        <td>Data Management</td>
+        <td><span class="chip chip-blue">MSP</span></td>
+        <td>Already registered. Monthly billing, zero capex. Easiest first revenue.</td>
+        <td>Activate Cyber Protect Cloud MSP portal — white-label as "Xceed Backup"</td>
+      </tr>
+      <tr>
+        <td><strong>Tenable</strong></td>
+        <td>Cyber &amp; Threat Intel</td>
+        <td><span class="chip chip-blue">MSP</span></td>
+        <td>Already registered. NCA ECC compliance angle — KSA banking's #1 pain point.</td>
+        <td>Book first NCA ECC gap assessment meeting with a KSA prospect</td>
+      </tr>
+      <tr>
+        <td><strong>Microsoft CSP</strong></td>
+        <td>Cloud &amp; Productivity</td>
+        <td><span class="chip chip-blue">MSP</span></td>
+        <td>Via Ingram Micro. M365 is in every prospect's environment. Immediate attach.</td>
+        <td>Resolve Ingram Micro CSP registration — confirm indirect reseller status</td>
+      </tr>
+      <tr>
+        <td><strong>Barracuda</strong></td>
+        <td>Network &amp; Security</td>
+        <td><span class="chip chip-blue">MSP</span></td>
+        <td>MSP-first vendor. Email security + firewall. Quick attach to M365 clients.</td>
+        <td>Apply to Barracuda MSP Program — no large upfront requirement</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- PHASE 1 — YEAR 1 -->
+  <div class="section-title">🚀 Phase 1 — Year 1 (Months 1–12)</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr>
+        <th>Vendor</th><th>Category</th><th>Model</th><th>Why This Phase</th><th>First Action</th>
+      </tr>
+      <tr>
+        <td><strong>Veeam</strong></td>
+        <td>Data Management</td>
+        <td><span class="chip chip-green">MSP</span></td>
+        <td>On hold — resolve first. #1 backup brand in GCC. DR-as-a-Service via Mauritius entity.</td>
+        <td>Contact Veeam MENA channel team directly to lift hold — via Mindware or Redington</td>
+      </tr>
+      <tr>
+        <td><strong>Fortinet</strong></td>
+        <td>Network &amp; Security</td>
+        <td><span class="chip chip-green">MSP</span></td>
+        <td>Critical gap. Required for NCA ECC stack. KSA government won't proceed without it.</td>
+        <td>Apply to FortiPartner program immediately — this is the most urgent unstarted action</td>
+      </tr>
+      <tr>
+        <td><strong>BlueCat</strong></td>
+        <td>Network &amp; Security</td>
+        <td><span class="chip chip-green">Reseller</span></td>
+        <td>Awaiting signature. DNS/IPAM niche — no competitor in GCC MSP space. High margin.</td>
+        <td>Sign pending agreement — confirm with BlueCat MENA partner team</td>
+      </tr>
+      <tr>
+        <td><strong>Nutanix</strong></td>
+        <td>HCI &amp; Linux</td>
+        <td><span class="chip chip-purple">Hybrid</span></td>
+        <td>VMware Broadcom shock is real. 35% of GCC evaluating HCI alternatives in 2025.</td>
+        <td>Complete Nutanix paperwork — complete pending registration documents</td>
+      </tr>
+      <tr>
+        <td><strong>Red Hat</strong></td>
+        <td>HCI &amp; Linux</td>
+        <td><span class="chip chip-purple">Hybrid</span></td>
+        <td>OpenShift + RHEL. KSA Vision 2030 entities standardizing on Red Hat for cloud-native.</td>
+        <td>Apply via Ingram Micro MENA — Red Hat Partner Program (Registered tier)</td>
+      </tr>
+      <tr>
+        <td><strong>CrowdStrike</strong></td>
+        <td>Cyber &amp; Threat Intel</td>
+        <td><span class="chip chip-green">MSP</span></td>
+        <td>EDR market leader. Complements Tenable. KSA CISOs know the brand — easier to sell.</td>
+        <td>Apply to CrowdStrike Accelerate partner program — Registered tier</td>
+      </tr>
+      <tr>
+        <td><strong>SentinelOne</strong></td>
+        <td>Cyber &amp; Threat Intel</td>
+        <td><span class="chip chip-green">MSP</span></td>
+        <td>AI-native EDR. Strong alternative to CrowdStrike where pricing is the objection.</td>
+        <td>Apply to SentinelOne Singularity partner program</td>
+      </tr>
+      <tr>
+        <td><strong>Cohesity</strong></td>
+        <td>Data Management</td>
+        <td><span class="chip chip-green">MSP</span></td>
+        <td>Veritas replacement wave. AI-powered ransomware detection. KSA banking is the target.</td>
+        <td>Apply to Cohesity PartnerConnect — Registered tier</td>
+      </tr>
+      <tr>
+        <td><strong>Arctera</strong></td>
+        <td>Data Management</td>
+        <td><span class="chip chip-green">MSP</span></td>
+        <td>Email archiving = CBUAE/SAMA compliance requirement. Many Gulf banks on aging Enterprise Vault.</td>
+        <td>Apply to Arctera Partner Program — early mover advantage in new ecosystem</td>
+      </tr>
+      <tr>
+        <td><strong>Google Workspace</strong></td>
+        <td>Cloud &amp; Productivity</td>
+        <td><span class="chip chip-green">Reseller</span></td>
+        <td>Morocco nearshore BPOs often run Google Workspace. Natural attach to Acronis backup.</td>
+        <td>Apply as Google Workspace reseller via Ingram Micro or direct</td>
+      </tr>
+      <tr>
+        <td><strong>Palo Alto Networks</strong></td>
+        <td>Network &amp; Security</td>
+        <td><span class="chip chip-purple">Hybrid</span></td>
+        <td>Premium brand for UAE enterprise. NGFW + Prisma Cloud. Needed for large deal credibility.</td>
+        <td>Apply to Palo Alto NextWave Partner Program — Registered tier</td>
+      </tr>
+      <tr>
+        <td><strong>Citrix / IGEL</strong></td>
+        <td>EUC &amp; Hardware</td>
+        <td><span class="chip chip-purple">Hybrid</span></td>
+        <td>VDI/DaaS for Gulf banks running remote branches. Morocco BPOs need thin client solutions.</td>
+        <td>Apply to Citrix Service Provider program — register IGEL separately via MENA distributor</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- PHASE 2 — YEAR 2+ -->
+  <div class="section-title">📅 Phase 2 — Year 2+ (After First Reference Clients)</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr>
+        <th>Vendor</th><th>Category</th><th>Model</th><th>Why Year 2</th><th>Prerequisite</th>
+      </tr>
+      <tr>
+        <td><strong>AWS APN</strong></td>
+        <td>Cloud &amp; Productivity</td>
+        <td><span class="chip chip-purple">Hybrid</span></td>
+        <td>High value but requires significant investment (certs, revenue commitment). Year 1 clients create the reference cases AWS needs to progress tiers.</td>
+        <td>2 AWS-certified engineers + 1 active AWS workload in production</td>
+      </tr>
+      <tr>
+        <td><strong>Cisco</strong></td>
+        <td>Network &amp; Security</td>
+        <td><span class="chip chip-purple">Hybrid</span></td>
+        <td>Large installed base in GCC but high certification bar (CCNP minimum). Start Fortinet first — then add Cisco as the enterprise upsell once Xceed has network credibility.</td>
+        <td>At least 1 Fortinet MSP client + CCNP-certified engineer on team</td>
+      </tr>
+      <tr>
+        <td><strong>SUSE</strong></td>
+        <td>HCI &amp; Linux</td>
+        <td><span class="chip chip-purple">Hybrid</span></td>
+        <td>Niche Linux enterprise (SUSE Linux, Rancher). Smaller GCC market than Red Hat. Add once Red Hat practice is established to offer "Linux choice" positioning.</td>
+        <td>Red Hat practice established with at least 1 reference client</td>
+      </tr>
+      <tr>
+        <td><strong>Recorded Future</strong></td>
+        <td>Cyber &amp; Threat Intel</td>
+        <td><span class="chip chip-green">MSP</span></td>
+        <td>Intelligence-as-a-Service. High price point ($50K+/year). Only viable once Xceed has CISO-level relationships from CrowdStrike/SentinelOne work.</td>
+        <td>At least 2 active EDR MSP clients + CISO relationship in target account</td>
+      </tr>
+      <tr>
+        <td><strong>Dell / HP / Lenovo</strong></td>
+        <td>EUC &amp; Hardware</td>
+        <td><span class="chip chip-amber">Reseller</span></td>
+        <td>Hardware reselling is low-margin and logistics-heavy from Cairo. Add only as an attach to managed service clients who prefer one vendor for everything.</td>
+        <td>Existing managed service client requesting hardware sourcing</td>
+      </tr>
+      <tr>
+        <td><strong>NetApp</strong></td>
+        <td>Data Management</td>
+        <td><span class="chip chip-purple">Hybrid</span></td>
+        <td>High value but NCSA certification required and deal sizes require enterprise relationships. Build the data management practice on Veeam + Acronis first.</td>
+        <td>Veeam hold lifted + 1 active backup MSP client + NCSA-certified engineer</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- SKIP / DEPRIORITIZED -->
+  <div class="section-title">❌ Skip or Deprioritized — With Reasons</div>
+  <div class="ptable-wrap">
+    <table class="ptable">
+      <tr>
+        <th>Vendor</th><th>Category</th><th>Reason Skipped</th><th>Revisit When?</th>
+      </tr>
+      <tr>
+        <td><strong>Upwork / Toptal</strong></td>
+        <td>Staffing &amp; Partners</td>
+        <td>Staffing platforms, not vendor partnerships. They are a talent sourcing channel for Xceed's own engineers — not a resellable product to clients. No MSP or reseller program applies.</td>
+        <td>Not applicable — use as internal hiring tool, not a sales channel</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- MASTER PRIORITY SEQUENCE -->
+  <div class="section-title">🗺️ Master Sequence — The 5 Moves That Unlock Everything Else</div>
+  <div class="req-grid">
+    <div class="req-box">
+      <h4>Move 1 — This Week</h4>
+      <ul>
+        <li>Activate Acronis MSP portal</li>
+        <li>Apply to FortiPartner (most critical unstarted action)</li>
+        <li>Contact Veeam MENA to lift hold</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>Move 2 — Month 1</h4>
+      <ul>
+        <li>Sign BlueCat agreement</li>
+        <li>Complete Nutanix paperwork</li>
+        <li>Book first Tenable NCA ECC meeting</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>Move 3 — Month 2–3</h4>
+      <ul>
+        <li>Apply CrowdStrike + SentinelOne (once Tenable in motion)</li>
+        <li>Apply Cohesity + Arctera (once Veeam hold lifted)</li>
+        <li>First paid client — even one Acronis deal counts</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>Move 4 — Month 4–6</h4>
+      <ul>
+        <li>First reference case study published</li>
+        <li>Apply Red Hat + Palo Alto (credibility now exists)</li>
+        <li>Citrix/IGEL for Morocco BPO angle</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>Move 5 — Month 7–12</h4>
+      <ul>
+        <li>AWS APN first workload in production</li>
+        <li>NCSA exam booked (for NetApp Year 2)</li>
+        <li>CCNP path started (for Cisco Year 2)</li>
+      </ul>
+    </div>
+    <div class="req-box">
+      <h4>The Logic</h4>
+      <ul>
+        <li>Acronis + Tenable = first revenue, no prerequisites</li>
+        <li>Fortinet + Veeam = unlock KSA banking RFPs</li>
+        <li>BlueCat = highest margin niche with no competition</li>
+        <li>Reference client = unlocks every enterprise conversation</li>
+        <li>AWS + Cisco = Year 2 scale plays, not Year 1 priorities</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="opp-strip">
+    <h4>🎯 The Single Most Important Insight</h4>
+    <p>Xceed ITO's most powerful positioning is not any one vendor — it is the <strong>stack</strong>. The vendors that win in GCC enterprise are almost always specified together: Fortinet + Tenable (NCA ECC compliance), Veeam + NetApp (data protection), Nutanix + Veeam (VMware migration). Being certified on both sides of each pair creates a "complete stack" MSP narrative that no single-vendor partner can match. The sequence above is designed to capture both sides of the three highest-value pairs — start with one, then add the other — before competitors notice the gap.</p>
+  </div>
+
+  <div class="evidence">
+    <h4>Framework Basis</h4>
+    <a href="https://www.nca.gov.sa/en/pages/ecc.aspx" target="_blank">NCA ECC — Saudi Arabia Essential Cybersecurity Controls</a>
+    <a href="https://www.cbuae.gov.ae/en/regulatory-framework" target="_blank">CBUAE Regulatory Framework — UAE banking compliance</a>
+    <a href="https://www.sama.gov.sa/en-US/RulesInstructions/Pages/Cybersecurity.aspx" target="_blank">SAMA Cybersecurity Framework — KSA banking</a>
+  </div>
+
+</div><!-- /t11 -->
 
 <script>
 function showTab(id,btn){
