@@ -1761,6 +1761,225 @@ a:hover{text-decoration:underline}
     </table>
   </div>
 
+  <!-- RESELLER vs MSP TABLE -->
+  <div style="margin-top:24px">
+    <div style="font-size:15px;font-weight:700;margin-bottom:4px;color:var(--fg)">💼 Reseller vs MSP — وأنهي موديل يناسب كل vendor؟</div>
+    <div style="font-size:12px;color:var(--fg3);margin-bottom:14px"><strong>Reseller</strong> = بتبيع license وبتاخد margin لمرة واحدة &nbsp;|&nbsp; <strong>MSP</strong> = بتدير الخدمة شهرياً وبتاخد recurring revenue &nbsp;|&nbsp; <strong>Hybrid</strong> = الاتنين</div>
+    <div class="ptable-wrap">
+      <table class="matrix-table">
+        <tr>
+          <th>Vendor</th>
+          <th>Model</th>
+          <th>ليه؟</th>
+          <th>تكلفة البداية (USD)</th>
+          <th>Margin تقريبي</th>
+          <th>First Deal Path</th>
+        </tr>
+        <!-- Cloud & Productivity -->
+        <tr><td colspan="6" style="background:var(--surface2);font-weight:700;font-size:11px;color:var(--fg2);padding:6px 10px">☁️ Cloud &amp; Productivity</td></tr>
+        <tr>
+          <td><strong>Microsoft CSP</strong></td>
+          <td><span class="chip chip-green">MSP</span></td>
+          <td>M365 لازم حد يديره شهرياً — renewal + licensing + support</td>
+          <td>~$0 (Ingram مجاني)</td>
+          <td>8–15%</td>
+          <td>بيع M365 لـ UAE SMB مع Barracuda bundle</td>
+        </tr>
+        <tr>
+          <td><strong>Barracuda</strong></td>
+          <td><span class="chip chip-green">MSP</span></td>
+          <td>Email security = recurring monitoring مش one-time sale</td>
+          <td>~$500 (NFR + training)</td>
+          <td>25–35%</td>
+          <td>Upsell على M365 — "الـ email مش محمي من غير Barracuda"</td>
+        </tr>
+        <tr>
+          <td><strong>AWS APN</strong></td>
+          <td><span class="chip" style="background:var(--purple-light);color:var(--purple)">Hybrid</span></td>
+          <td>Project (migration) = Reseller، بعد كده managed = MSP</td>
+          <td>~$3,000–5,000 (certs + training)</td>
+          <td>3–5% (credits) + project fees</td>
+          <td>Free cloud assessment → migration project → managed AWS</td>
+        </tr>
+        <tr>
+          <td><strong>Google Workspace</strong></td>
+          <td><span class="chip chip-green">MSP</span></td>
+          <td>Reseller margin ضعيف — المكسب في الـ admin + migration</td>
+          <td>~$0 (Google Partner program)</td>
+          <td>8–12% + service fees</td>
+          <td>بيع لـ Morocco nearshore BPOs (French workspace)</td>
+        </tr>
+        <!-- HCI & Linux -->
+        <tr><td colspan="6" style="background:var(--surface2);font-weight:700;font-size:11px;color:var(--fg2);padding:6px 10px">🖥️ HCI &amp; Linux</td></tr>
+        <tr>
+          <td><strong>Nutanix</strong></td>
+          <td><span class="chip" style="background:var(--purple-light);color:var(--purple)">Hybrid</span></td>
+          <td>Implementation = project، بعده infrastructure monitoring = MSP</td>
+          <td>~$5,000–8,000 (NCP cert + NFR)</td>
+          <td>15–25% on hardware + monthly monitoring fee</td>
+          <td>VMware migration project → Nutanix managed service</td>
+        </tr>
+        <tr>
+          <td><strong>Red Hat</strong></td>
+          <td><span class="chip chip-amber">Reseller</span></td>
+          <td>Subscription-based — أسهل تبيع وترنج client يدير بنفسه</td>
+          <td>~$3,000 (RHCE cert)</td>
+          <td>10–20%</td>
+          <td>بيع RHEL لـ KSA government اللي بيتحول من Windows</td>
+        </tr>
+        <tr>
+          <td><strong>SUSE</strong></td>
+          <td><span class="chip chip-amber">Reseller</span></td>
+          <td>نفس Red Hat — subscription model، الـ MSP play صعب</td>
+          <td>~$2,000 (SCA cert)</td>
+          <td>10–18%</td>
+          <td>بيع SLES لـ SAP shops في KSA</td>
+        </tr>
+        <!-- Network & Security -->
+        <tr><td colspan="6" style="background:var(--surface2);font-weight:700;font-size:11px;color:var(--fg2);padding:6px 10px">🔒 Network &amp; Security</td></tr>
+        <tr>
+          <td><strong>Fortinet</strong></td>
+          <td><span class="chip chip-green">MSP</span></td>
+          <td>Firewall لازم monitoring 24/7 — مش ممكن تبيعه وتمشي</td>
+          <td>~$3,000–5,000 (NSE4 + NFR FortiGate)</td>
+          <td>20–30% + monthly managed fee</td>
+          <td>Free firewall audit → "نديرهولك بـ X$/شهر"</td>
+        </tr>
+        <tr>
+          <td><strong>Cisco</strong></td>
+          <td><span class="chip" style="background:var(--purple-light);color:var(--purple)">Hybrid</span></td>
+          <td>Switching/routing = project، Meraki + DNA = managed</td>
+          <td>~$8,000–15,000 (CCNP + partner fee)</td>
+          <td>10–20%</td>
+          <td>Meraki managed service لـ UAE SMB — simple dashboard</td>
+        </tr>
+        <tr>
+          <td><strong>Palo Alto</strong></td>
+          <td><span class="chip chip-green">MSP</span></td>
+          <td>Prisma SASE = cloud-managed security — recurring بالطبيعة</td>
+          <td>~$5,000–10,000 (PCNSE + NFR)</td>
+          <td>20–30%</td>
+          <td>NCA ECC compliance angle لـ KSA</td>
+        </tr>
+        <tr>
+          <td><strong>BlueCat</strong></td>
+          <td><span class="chip chip-green">MSP</span></td>
+          <td>DNS/IPAM = infrastructure layer — clients مش بيديروه بنفسهم</td>
+          <td>~$2,000 (training)</td>
+          <td>25–35%</td>
+          <td>DNS managed service للـ KSA government (NCA ECC)</td>
+        </tr>
+        <!-- Cyber & Threat Intel -->
+        <tr><td colspan="6" style="background:var(--surface2);font-weight:700;font-size:11px;color:var(--fg2);padding:6px 10px">🛡️ Cyber &amp; Threat Intel</td></tr>
+        <tr>
+          <td><strong>Tenable</strong></td>
+          <td><span class="chip chip-green">MSP</span></td>
+          <td>Vulnerability scanning = شهري — الـ report هو الـ deliverable</td>
+          <td>~$1,500 (Tenable.io training، registered ✅)</td>
+          <td>25–35%</td>
+          <td>Free NCA ECC gap scan → monthly managed scanning</td>
+        </tr>
+        <tr>
+          <td><strong>CrowdStrike</strong></td>
+          <td><span class="chip chip-green">MSP</span></td>
+          <td>EDR = agent على كل endpoint — recurring بالطبيعة</td>
+          <td>~$5,000–8,000 (Falcon cert + partner fee)</td>
+          <td>20–30%</td>
+          <td>Endpoint protection managed service لـ UAE enterprise</td>
+        </tr>
+        <tr>
+          <td><strong>SentinelOne</strong></td>
+          <td><span class="chip chip-green">MSP</span></td>
+          <td>Autonomous AI EDR — MSP console built-in</td>
+          <td>~$3,000–5,000</td>
+          <td>25–35%</td>
+          <td>بديل CrowdStrike بسعر أقل لـ SMB</td>
+        </tr>
+        <tr>
+          <td><strong>Recorded Future</strong></td>
+          <td><span class="chip chip-amber">Reseller</span></td>
+          <td>Threat intel = platform subscription — الـ client بيستخدمه بنفسه</td>
+          <td>~$3,000 (training)</td>
+          <td>15–20%</td>
+          <td>بيع لـ KSA CISO اللي عنده SOC team</td>
+        </tr>
+        <!-- EUC & Hardware -->
+        <tr><td colspan="6" style="background:var(--surface2);font-weight:700;font-size:11px;color:var(--fg2);padding:6px 10px">💻 EUC &amp; Hardware</td></tr>
+        <tr>
+          <td><strong>Citrix / IGEL</strong></td>
+          <td><span class="chip" style="background:var(--purple-light);color:var(--purple)">Hybrid</span></td>
+          <td>Deployment = project، VDI management = MSP</td>
+          <td>~$4,000–6,000 (CCP-V cert)</td>
+          <td>15–25%</td>
+          <td>VDI managed service للـ UAE Freezone remote workers</td>
+        </tr>
+        <tr>
+          <td><strong>Dell / HP / Lenovo</strong></td>
+          <td><span class="chip chip-amber">Reseller</span></td>
+          <td>Hardware = one-time — MSP play محدود (warranty management فقط)</td>
+          <td>~$500–1,000 (partner registration)</td>
+          <td>5–12%</td>
+          <td>بيع hardware مع deployment service كـ bundle</td>
+        </tr>
+        <!-- Staffing -->
+        <tr><td colspan="6" style="background:var(--surface2);font-weight:700;font-size:11px;color:var(--fg2);padding:6px 10px">🤝 Staffing &amp; Partners</td></tr>
+        <tr>
+          <td><strong>Upwork / Toptal</strong></td>
+          <td><span class="chip chip-amber">Reseller</span></td>
+          <td>Platform — مش vendor تقليدي، بتاخد commission على placements</td>
+          <td>~$0</td>
+          <td>5–15% markup</td>
+          <td>فلتر delivery gaps بـ certified contractors</td>
+        </tr>
+        <!-- Data Management -->
+        <tr><td colspan="6" style="background:var(--surface2);font-weight:700;font-size:11px;color:var(--fg2);padding:6px 10px">💾 Data Management</td></tr>
+        <tr>
+          <td><strong>Acronis</strong></td>
+          <td><span class="chip chip-green">MSP</span></td>
+          <td>Per-workload monthly billing — MSP model من اليوم الأول</td>
+          <td>~$0 (registered ✅)</td>
+          <td>30–40%</td>
+          <td>Cyber Protect Cloud لـ UAE SMB — ابدأ بيه دلوقتي</td>
+        </tr>
+        <tr>
+          <td><strong>Veeam</strong></td>
+          <td><span class="chip chip-green">MSP</span></td>
+          <td>Backup = managed بالطبيعة — client مش بيتابع daily jobs بنفسه</td>
+          <td>~$2,000–3,000 (VMCE + NFR بعد فك الـ hold)</td>
+          <td>20–30%</td>
+          <td>DR-as-a-Service via Mauritius entity</td>
+        </tr>
+        <tr>
+          <td><strong>NetApp</strong></td>
+          <td><span class="chip" style="background:var(--purple-light);color:var(--purple)">Hybrid</span></td>
+          <td>Storage = Reseller، ONTAP operations = MSP</td>
+          <td>~$3,000–5,000 (NCSA cert)</td>
+          <td>12–20% hardware + monthly ops fee</td>
+          <td>BlueXP managed service لـ KSA banking</td>
+        </tr>
+        <tr>
+          <td><strong>Cohesity</strong></td>
+          <td><span class="chip chip-green">MSP</span></td>
+          <td>AI backup platform = managed — DataHawk يحتاج expert يفسر الـ alerts</td>
+          <td>~$3,000–5,000 (cert + NFR)</td>
+          <td>20–30%</td>
+          <td>Veritas replacement لـ KSA enterprise</td>
+        </tr>
+        <tr>
+          <td><strong>Arctera</strong></td>
+          <td><span class="chip chip-green">MSP</span></td>
+          <td>Enterprise Vault = managed archiving — clients مش بيديروه</td>
+          <td>~$2,000–3,000 (partner reg + training)</td>
+          <td>20–28%</td>
+          <td>Email archive managed service لـ Gulf banking</td>
+        </tr>
+      </table>
+    </div>
+    <div style="margin-top:12px;padding:12px;background:var(--accent-light);border-radius:6px;font-size:12px;color:var(--fg2)">
+      <strong style="color:var(--accent)">💡 ملاحظة على التكاليف:</strong> الأرقام دي هي الـ <em>minimum</em> عشان تبدأ — بتشمل أول cert + NFR license للـ lab. مش بتشمل engineer salary. معظم الـ vendors بيديك NFR مجاناً لو عملت الـ certification. الـ MSP vendors الأسهل في البداية هم <strong>Acronis + Tenable + Fortinet</strong> — الثلاثة دول مع بعض بـ ~$5,000–9,000 وبيديك recurring revenue من أول شهر.
+    </div>
+  </div>
+
   <div style="margin-top:20px;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:8px">
     <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--fg)">📊 Portfolio Summary</div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px">

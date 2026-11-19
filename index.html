@@ -1167,6 +1167,7 @@ td {
   <div class="main-tabs">
     <button class="main-tab-btn active" onclick="showMainTab(this,'section-vendors')">🏢 Vendor Tracker</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-market-study')">📊 Market Study</button>
+    <button class="main-tab-btn" onclick="showMainTab(this,'section-partner-report')">🤝 Partner Ecosystem</button>
   </div>
 
   <div id="section-vendors">
@@ -1831,6 +1832,10 @@ td {
 
   </div><!-- /section-market-study -->
 
+  <div id="section-partner-report" style="display:none;padding:0;margin:0">
+    <iframe src="partner-ecosystem-report.html" style="width:100%;height:calc(100vh - 120px);border:none;display:block" title="Partner Ecosystem Report"></iframe>
+  </div><!-- /section-partner-report -->
+
 </div>
 
 <!-- Edit Modal -->
@@ -1951,6 +1956,7 @@ function showMainTab(btn, sectionId) {
   btn.classList.add('active');
   document.getElementById('section-vendors').style.display = 'none';
   document.getElementById('section-market-study').style.display = 'none';
+  document.getElementById('section-partner-report').style.display = 'none';
   document.getElementById(sectionId).style.display = 'block';
 }
 function msShowPage(btn, id) {
