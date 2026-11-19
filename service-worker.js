@@ -1,4 +1,4 @@
-const CACHE = 'xceed-ito-v1';
+const CACHE = 'xceed-ito-v3';
 const STATIC = [
   '/xceed-ito-dashboard/',
   '/xceed-ito-dashboard/index.html',
