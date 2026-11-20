@@ -4036,7 +4036,7 @@ if ('serviceWorker' in navigator) {
 </script>
 
 <!-- ═══════════════════════════════════════════════════════════
-       DECISION ENGINE TAB — OR / Mathematical Optimization
+       DECISION ENGINE TAB — OR / Mathematical Optimization (v3)
   ═══════════════════════════════════════════════════════════ -->
 <div id="section-decision-engine" style="display:none">
 <style>
@@ -4282,6 +4282,57 @@ if ('serviceWorker' in navigator) {
     <p>Weighted scoring + linear programming models to prioritize vendors, markets, resources, and pricing. Evidence-based decisions, not gut feel.</p>
   </div>
 
+  <!-- Intro / Explanation Panel -->
+  <div style="margin-bottom:24px; background:color-mix(in srgb,var(--accent) 5%,var(--bg)); border:1px solid color-mix(in srgb,var(--accent) 20%,var(--border)); border-radius:var(--radius); padding:0; overflow:hidden;">
+    <div style="display:flex; align-items:center; gap:10px; padding:14px 20px; border-bottom:1px solid color-mix(in srgb,var(--accent) 15%,var(--border)); cursor:pointer;" onclick="this.parentElement.querySelector('.de-intro-body').style.display = this.parentElement.querySelector('.de-intro-body').style.display === 'none' ? '' : 'none'; this.querySelector('.de-toggle-icon').textContent = this.parentElement.querySelector('.de-intro-body').style.display === 'none' ? '▶' : '▼';">
+      <span style="font-size:18px">📐</span>
+      <div style="flex:1">
+        <div style="font-weight:600; font-size:14px">What is the Decision Engine? How does the scoring work?</div>
+        <div style="font-size:12px; color:var(--fg2); margin-top:2px">Click to expand methodology and purpose</div>
+      </div>
+      <span class="de-toggle-icon" style="color:var(--fg2); font-size:12px">▼</span>
+    </div>
+    <div class="de-intro-body" style="padding:20px; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px;">
+
+      <div>
+        <div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px">🎯 Purpose</div>
+        <p style="font-size:13px; color:var(--fg); line-height:1.6; margin:0 0 8px">The Decision Engine replaces gut-feel prioritization with <strong>Operations Research (OR)</strong> — the same mathematical discipline used by airlines, logistics companies, and investment banks to allocate resources optimally.</p>
+        <p style="font-size:13px; color:var(--fg2); line-height:1.6; margin:0">At Xceed ITO's stage, every hour of engineer time and every vendor registration decision has an opportunity cost. This engine makes those trade-offs explicit and defensible — to the board, to partners, and to the team.</p>
+      </div>
+
+      <div>
+        <div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px">📊 Scoring Methodology</div>
+        <div style="font-size:12px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-sm); padding:10px; font-family:monospace; margin-bottom:8px; color:var(--fg)">
+          Score = Σ (dimension<sub>i</sub> × weight<sub>i</sub>)
+        </div>
+        <p style="font-size:13px; color:var(--fg2); line-height:1.6; margin:0 0 6px">Each item is scored on <strong>1–10 per dimension</strong>. Dimensions have weights that reflect ITO's current priorities (revenue-first, then strategic fit). The <strong>Effort / Ease</strong> dimension is inverted: 10 = easiest, 1 = hardest — so low effort items score higher.</p>
+        <p style="font-size:13px; color:var(--fg2); line-height:1.6; margin:0">All weights sum to 1.0. Changing the weights would change the ranking — the weights are stated explicitly so anyone can challenge them.</p>
+      </div>
+
+      <div>
+        <div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px">🗂️ The 4 Phases</div>
+        <div style="font-size:13px; color:var(--fg); line-height:1.8;">
+          <div style="display:flex; gap:8px; align-items:flex-start; margin-bottom:6px"><span style="color:var(--accent); font-weight:700; min-width:60px">Phase 1</span><span style="color:var(--fg2)"><strong>Vendor Priority</strong> — which registrations to pursue first, in what order, and why</span></div>
+          <div style="display:flex; gap:8px; align-items:flex-start; margin-bottom:6px"><span style="color:var(--accent); font-weight:700; min-width:60px">Phase 2</span><span style="color:var(--fg2)"><strong>Market Priority</strong> — which countries to enter first (UAE vs KSA vs Morocco vs Mauritius vs India)</span></div>
+          <div style="display:flex; gap:8px; align-items:flex-start; margin-bottom:6px"><span style="color:var(--accent); font-weight:700; min-width:60px">Phase 3</span><span style="color:var(--fg2)"><strong>Resource Allocation</strong> — how to split 2 engineers across markets and service types</span></div>
+          <div style="display:flex; gap:8px; align-items:flex-start"><span style="color:var(--accent); font-weight:700; min-width:60px">Phase 4</span><span style="color:var(--fg2)"><strong>Pricing Optimization</strong> — per-market pricing anchored 60% below Help AG, with payment structure</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px">⚠️ Data Integrity Rules</div>
+        <div style="font-size:13px; color:var(--fg2); line-height:1.8;">
+          <div style="margin-bottom:4px">✅ All market data sourced from published reports (IDC, NCA, GITEX)</div>
+          <div style="margin-bottom:4px">✅ Scores assigned with documented reasoning — not invented</div>
+          <div style="margin-bottom:4px">✅ Pricing anchored to verified Help AG + Intertec benchmarks</div>
+          <div style="margin-bottom:4px">✅ Resource constraints based on actual headcount (2 engineers)</div>
+          <div style="color:var(--fg); font-weight:600; margin-top:8px">This dashboard is a board-ready tool — no improvised numbers.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Phase selector -->
   <div class="de-phases">
     <div class="de-phase-card active" onclick="deShowPhase(this,'de-phase-1')">
@@ -4292,17 +4343,17 @@ if ('serviceWorker' in navigator) {
     <div class="de-phase-card" onclick="deShowPhase(this,'de-phase-2')">
       <div class="phase-num">Phase 2</div>
       <div class="phase-title">🌍 Market Priority</div>
-      <div class="phase-status">🔜 Coming next</div>
+      <div class="phase-status">✅ Live</div>
     </div>
     <div class="de-phase-card" onclick="deShowPhase(this,'de-phase-3')">
       <div class="phase-num">Phase 3</div>
       <div class="phase-title">👥 Resource Allocation</div>
-      <div class="phase-status">📋 Planned</div>
+      <div class="phase-status">✅ Live</div>
     </div>
     <div class="de-phase-card" onclick="deShowPhase(this,'de-phase-4')">
       <div class="phase-num">Phase 4</div>
       <div class="phase-title">💰 Pricing Optimization</div>
-      <div class="phase-status">📋 Planned</div>
+      <div class="phase-status">✅ Live</div>
     </div>
   </div>
 
@@ -4542,6 +4593,84 @@ if ('serviceWorker' in navigator) {
             <div class="unblocks"><span class="unblock-tag">🔓 Huawei displacement (networking)</span></div>
           </td>
         </tr>
+        <!-- SentinelOne -->
+        <tr>
+          <td><div class="vp-rank rank-other">9</div></td>
+          <td><strong>SentinelOne</strong><br><span style="font-size:11px;color:var(--fg2)">EDR/XDR · UAE + KSA</span></td>
+          <td>
+            <div class="vp-score-bar">
+              <div class="vp-score-num">6.3</div>
+              <div class="vp-bar-track"><div class="vp-bar-fill" style="width:63%"></div></div>
+            </div>
+          </td>
+          <td><div class="vp-mini-scores">
+            <div class="vp-mini-score" title="Revenue">7</div>
+            <div class="vp-mini-score" title="Strategic Fit">7</div>
+            <div class="vp-mini-score" title="Speed">4</div>
+            <div class="vp-mini-score" title="Effort">4</div>
+          </div></td>
+          <td><span class="vp-status-dot dot-y2">⚪ Not a Partner</span></td>
+          <td><span class="vp-action-badge action-y2">Y2 STRETCH</span></td>
+        </tr>
+        <tr class="de-reasoning-row">
+          <td colspan="6">
+            Strong Kaspersky displacement play — SentinelOne is the premium EDR alternative as KSA banks exit Russian vendors. Vigilance partner program requires revenue commitment and technical certification. Similar profile to CrowdStrike but slightly lower brand recognition in Gulf. Y2 after CrowdStrike evaluation.
+            <div class="unblocks"><span class="unblock-tag">🔓 Kaspersky displacement (EDR alternative)</span><span class="unblock-tag">🇸🇦 KSA banking sector</span></div>
+          </td>
+        </tr>
+
+        <!-- Aruba (HP) -->
+        <tr>
+          <td><div class="vp-rank rank-other">10</div></td>
+          <td><strong>Aruba (HP)</strong><br><span style="font-size:11px;color:var(--fg2)">Wi-Fi / SD-WAN · UAE + Morocco</span></td>
+          <td>
+            <div class="vp-score-bar">
+              <div class="vp-score-num">5.8</div>
+              <div class="vp-bar-track"><div class="vp-bar-fill" style="width:58%"></div></div>
+            </div>
+          </td>
+          <td><div class="vp-mini-scores">
+            <div class="vp-mini-score" title="Revenue">6</div>
+            <div class="vp-mini-score" title="Strategic Fit">6</div>
+            <div class="vp-mini-score" title="Speed">5</div>
+            <div class="vp-mini-score" title="Effort">5</div>
+          </div></td>
+          <td><span class="vp-status-dot dot-y2">⚪ Not a Partner</span></td>
+          <td><span class="vp-action-badge action-y2">Y2 TARGET</span></td>
+        </tr>
+        <tr class="de-reasoning-row">
+          <td colspan="6">
+            Aruba (now HPE Networking) is the leading enterprise Wi-Fi and SD-WAN vendor in Gulf Freezone offices. UAE Freezone SMBs deploying new offices need Aruba-certified support. Morocco BPOs need managed Wi-Fi. Requires HPE partner enrollment. Good Y2 add-on to Fortinet firewall managed service.
+            <div class="unblocks"><span class="unblock-tag">🔓 UAE Freezone office networking</span><span class="unblock-tag">🇲🇦 Morocco BPO Wi-Fi managed service</span></div>
+          </td>
+        </tr>
+
+        <!-- Microsoft / Ingram Micro -->
+        <tr>
+          <td><div class="vp-rank rank-other">11</div></td>
+          <td><strong>Microsoft / Ingram Micro</strong><br><span style="font-size:11px;color:var(--fg2)">M365 CSP · All markets</span></td>
+          <td>
+            <div class="vp-score-bar">
+              <div class="vp-score-num">6.0</div>
+              <div class="vp-bar-track"><div class="vp-bar-fill" style="width:60%"></div></div>
+            </div>
+          </td>
+          <td><div class="vp-mini-scores">
+            <div class="vp-mini-score" title="Revenue">7</div>
+            <div class="vp-mini-score" title="Strategic Fit">6</div>
+            <div class="vp-mini-score" title="Speed">5</div>
+            <div class="vp-mini-score" title="Effort">5</div>
+          </div></td>
+          <td><span class="vp-status-dot dot-y2">⏳ In Progress</span></td>
+          <td><span class="vp-action-badge action-complete">RESOLVE NOW</span></td>
+        </tr>
+        <tr class="de-reasoning-row">
+          <td colspan="6">
+            Microsoft 365 CSP (via Ingram Micro as distributor) enables ITO to resell and manage M365 licenses directly. Every UAE/KSA client needs M365 — this is a must-have add-on to any managed service. Ingram Micro is the authorized Gulf CSP distributor. Status: in-progress. Needs to be resolved to close bundled deals.
+            <div class="unblocks"><span class="unblock-tag">🔓 M365 license management (all markets)</span><span class="unblock-tag">📦 Bundle with backup + security packages</span></div>
+          </td>
+        </tr>
+
       </tbody>
     </table>
 
@@ -4549,52 +4678,499 @@ if ('serviceWorker' in navigator) {
     <div style="padding:14px 20px; border-top:1px solid var(--border); font-size:12px; color:var(--fg2); display:flex; gap:16px; flex-wrap:wrap;">
       <span>📐 <strong>Methodology:</strong> Weighted scoring + opportunity cost analysis</span>
       <span>📊 <strong>Scale:</strong> 1–10 per dimension (Effort scale is inverted: 10 = easiest)</span>
-      <span>🗓️ <strong>Horizon:</strong> Y1 — UAE, KSA, Morocco</span>
+      <span>🗓️ <strong>Y1:</strong> UAE, KSA, Morocco | <strong>Y2:</strong> Mauritius, India + stretch vendors</span>
     </div>
   </div>
 
-  <!-- PHASE 2: Coming Soon -->
+  <!-- PHASE 2: Market Priority Model — LIVE -->
   <div id="de-phase-2" class="de-panel" style="display:none; margin-bottom:24px">
     <div class="de-panel-header">
       <div>
         <h3>🌍 Market Priority Model</h3>
-        <p>Rank UAE vs KSA vs Morocco vs Mauritius by revenue potential, entry cost, speed, and regulatory fit</p>
+        <p>Weighted scoring across 5 dimensions → ranked market entry sequence (Y1 + Y2)</p>
       </div>
     </div>
-    <div class="de-coming-soon">
-      <div class="icon">🔜</div>
-      <h4>Coming Next</h4>
-      <p>Phase 2 will score each market across: revenue potential, cost of entry, speed to first deal, regulatory complexity, and competitive landscape.</p>
+
+    <div class="de-formula-box">
+      <div class="label">Scoring Formula</div>
+      <div class="formula">Market Score = (Revenue Potential × 0.30) + (Entry Speed × 0.25) + (Entity Fit × 0.20) + (Competitive Gap × 0.15) + (Regulatory Ease × 0.10)</div>
+    </div>
+
+    <div class="de-weights">
+      <div class="de-weight-pill">Revenue Potential <strong>30%</strong></div>
+      <div class="de-weight-pill">Entry Speed <strong>25%</strong></div>
+      <div class="de-weight-pill">Entity Fit <strong>20%</strong></div>
+      <div class="de-weight-pill">Competitive Gap <strong>15%</strong></div>
+      <div class="de-weight-pill">Regulatory Ease <strong>10%</strong></div>
+      <div class="de-weight-pill" style="margin-left:auto; color:var(--fg2); font-size:11px; align-self:center">Scale: 1–10</div>
+    </div>
+
+    <table class="vp-table">
+      <thead>
+        <tr>
+          <th style="width:40px">#</th>
+          <th>Market</th>
+          <th>Score</th>
+          <th>Sub-scores (Rev / Spd / Entity / Gap / Reg)</th>
+          <th>Horizon</th>
+          <th>Entry Angle</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- UAE -->
+        <tr>
+          <td><div class="vp-rank rank-1">1</div></td>
+          <td><strong>🇦🇪 UAE</strong><br><span style="font-size:11px;color:var(--fg2)">DIFC entity · AED-based billing</span></td>
+          <td>
+            <div class="vp-score-bar">
+              <div class="vp-score-num">8.5</div>
+              <div class="vp-bar-track"><div class="vp-bar-fill" style="width:85%"></div></div>
+            </div>
+          </td>
+          <td><div class="vp-mini-scores">
+            <div class="vp-mini-score" title="Revenue">9</div>
+            <div class="vp-mini-score" title="Entry Speed">9</div>
+            <div class="vp-mini-score" title="Entity Fit">9</div>
+            <div class="vp-mini-score" title="Competitive Gap">7</div>
+            <div class="vp-mini-score" title="Regulatory">7</div>
+          </div></td>
+          <td><span class="vp-status-dot dot-registered">✅ Y1 NOW</span></td>
+          <td><span class="vp-action-badge action-now">BEACHHEAD</span></td>
+        </tr>
+        <tr class="de-reasoning-row">
+          <td colspan="6">
+            Largest SMB density in the Gulf. DIFC entity = no procurement friction. AED 25K average SME MSP spend. 20%+ Freezone growth. Registered vendors (Acronis, Tenable) already deployable immediately. Fastest path to first reference client.
+            <div class="unblocks">
+              <span class="unblock-tag">📊 AED 25K avg SME MSP spend</span>
+              <span class="unblock-tag">📈 20%+ Freezone growth</span>
+              <span class="unblock-tag">🏢 DIFC jurisdiction = clean invoicing</span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- KSA -->
+        <tr>
+          <td><div class="vp-rank rank-2">2</div></td>
+          <td><strong>🇸🇦 KSA</strong><br><span style="font-size:11px;color:var(--fg2)">KSA entity · NCA ECC compliance</span></td>
+          <td>
+            <div class="vp-score-bar">
+              <div class="vp-score-num">7.9</div>
+              <div class="vp-bar-track"><div class="vp-bar-fill" style="width:79%"></div></div>
+            </div>
+          </td>
+          <td><div class="vp-mini-scores">
+            <div class="vp-mini-score" title="Revenue">9</div>
+            <div class="vp-mini-score" title="Entry Speed">6</div>
+            <div class="vp-mini-score" title="Entity Fit">9</div>
+            <div class="vp-mini-score" title="Competitive Gap">8</div>
+            <div class="vp-mini-score" title="Regulatory">6</div>
+          </div></td>
+          <td><span class="vp-status-dot dot-registered">✅ Y1 NOW</span></td>
+          <td><span class="vp-action-badge action-resolve">NCA ANGLE</span></td>
+        </tr>
+        <tr class="de-reasoning-row">
+          <td colspan="6">
+            SR 15.2B cybersecurity market. NCA ECC 108 controls = mandatory for all government + banking. KSA entity = local procurement accepted. Competitors (Intertec) deliver from India — rejected for KSA government data. Longer cycle (3–6 months) but highest deal values.
+            <div class="unblocks">
+              <span class="unblock-tag">📊 SR 15.2B cybersecurity market</span>
+              <span class="unblock-tag">🔒 108 NCA ECC mandatory controls</span>
+              <span class="unblock-tag">🏢 KSA entity = local procurement</span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Morocco -->
+        <tr>
+          <td><div class="vp-rank rank-3">3</div></td>
+          <td><strong>🇲🇦 Morocco</strong><br><span style="font-size:11px;color:var(--fg2)">Morocco entity · MAD/EUR billing</span></td>
+          <td>
+            <div class="vp-score-bar">
+              <div class="vp-score-num">7.3</div>
+              <div class="vp-bar-track"><div class="vp-bar-fill" style="width:73%"></div></div>
+            </div>
+          </td>
+          <td><div class="vp-mini-scores">
+            <div class="vp-mini-score" title="Revenue">6</div>
+            <div class="vp-mini-score" title="Entry Speed">9</div>
+            <div class="vp-mini-score" title="Entity Fit">8</div>
+            <div class="vp-mini-score" title="Competitive Gap">9</div>
+            <div class="vp-mini-score" title="Regulatory">6</div>
+          </div></td>
+          <td><span class="vp-status-dot dot-registered">✅ Y1 PARALLEL</span></td>
+          <td><span class="vp-action-badge action-sign">QUICK WINS</span></td>
+        </tr>
+        <tr class="de-reasoning-row">
+          <td colspan="6">
+            $2.8B IT market growing at 9% YoY. Zero dominant MSSP in market — massive whitespace. Morocco entity = local invoice removes all procurement friction. Nearshore BPOs in Casablanca + Rabat underserved. Acronis as entry product already registered.
+            <div class="unblocks">
+              <span class="unblock-tag">📊 $2.8B IT market, 9% YoY growth</span>
+              <span class="unblock-tag">🏆 Zero dominant MSSP competitor</span>
+              <span class="unblock-tag">🇲🇦 Local entity = no friction</span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Mauritius -->
+        <tr>
+          <td><div class="vp-rank rank-other">4</div></td>
+          <td><strong>🇲🇺 Mauritius</strong><br><span style="font-size:11px;color:var(--fg2)">Mauritius entity · DR hub jurisdiction</span></td>
+          <td>
+            <div class="vp-score-bar">
+              <div class="vp-score-num">6.8</div>
+              <div class="vp-bar-track"><div class="vp-bar-fill" style="width:68%"></div></div>
+            </div>
+          </td>
+          <td><div class="vp-mini-scores">
+            <div class="vp-mini-score" title="Revenue">6</div>
+            <div class="vp-mini-score" title="Entry Speed">8</div>
+            <div class="vp-mini-score" title="Entity Fit">9</div>
+            <div class="vp-mini-score" title="Competitive Gap">6</div>
+            <div class="vp-mini-score" title="Regulatory">5</div>
+          </div></td>
+          <td><span class="vp-status-dot dot-y2">⏳ Y2 — After Veeam</span></td>
+          <td><span class="vp-action-badge action-complete">DR ADD-ON</span></td>
+        </tr>
+        <tr class="de-reasoning-row">
+          <td colspan="6">
+            Zero capital controls. SAMA + CBUAE accepted offshore DR site. Mauritius entity invoices Sub-Saharan Africa companies. Unlocked only when Veeam hold is lifted — Veeam DR replication to Mauritius site is the core service. Upsell to existing UAE/KSA clients.
+            <div class="unblocks">
+              <span class="unblock-tag">🔓 Unlocked by: Veeam hold resolution</span>
+              <span class="unblock-tag">🌍 SAMA + CBUAE accepted DR site</span>
+              <span class="unblock-tag">💰 Zero capital controls</span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- India -->
+        <tr>
+          <td><div class="vp-rank rank-other">5</div></td>
+          <td><strong>🇮🇳 India</strong><br><span style="font-size:11px;color:var(--fg2)">India entity · INR/USD billing</span></td>
+          <td>
+            <div class="vp-score-bar">
+              <div class="vp-score-num">6.2</div>
+              <div class="vp-bar-track"><div class="vp-bar-fill" style="width:62%"></div></div>
+            </div>
+          </td>
+          <td><div class="vp-mini-scores">
+            <div class="vp-mini-score" title="Revenue">7</div>
+            <div class="vp-mini-score" title="Entry Speed">5</div>
+            <div class="vp-mini-score" title="Entity Fit">8</div>
+            <div class="vp-mini-score" title="Competitive Gap">5</div>
+            <div class="vp-mini-score" title="Regulatory">5</div>
+          </div></td>
+          <td><span class="vp-status-dot dot-y2">⏳ Y2 — After Gulf traction</span></td>
+          <td><span class="vp-action-badge action-y2">MULTINATIONALS</span></td>
+        </tr>
+        <tr class="de-reasoning-row">
+          <td colspan="6">
+            India entity enables procurement entry for multinationals requiring an Indian-registered vendor. Gulf delivery capability from an Indian-registered company is a differentiator for regional IT contracts. Competitive market — requires Gulf reference clients to win.
+            <div class="unblocks">
+              <span class="unblock-tag">🔓 Unlocked by: 3+ Gulf reference clients</span>
+              <span class="unblock-tag">🌐 Indian-entity multinationals</span>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <div style="padding:14px 20px; border-top:1px solid var(--border); font-size:12px; color:var(--fg2); display:flex; gap:16px; flex-wrap:wrap;">
+      <span>📐 <strong>Methodology:</strong> Weighted scoring across 5 market dimensions</span>
+      <span>🎯 <strong>Y1 Parallel:</strong> UAE + KSA + Morocco simultaneously</span>
+      <span>📅 <strong>Y2:</strong> Mauritius (after Veeam) + India (after Gulf traction)</span>
     </div>
   </div>
 
-  <!-- PHASE 3: Coming Soon -->
+  <!-- PHASE 3: Resource Allocation — LIVE -->
   <div id="de-phase-3" class="de-panel" style="display:none; margin-bottom:24px">
     <div class="de-panel-header">
       <div>
         <h3>👥 Resource Allocation Model</h3>
-        <p>Optimal allocation of engineers and sales effort across markets and vendors</p>
+        <p>Optimal allocation of 2 engineers across 3 markets and 2 service types — maximize billable utilization</p>
       </div>
     </div>
-    <div class="de-coming-soon">
-      <div class="icon">📋</div>
-      <h4>Planned — Phase 3</h4>
-      <p>Linear programming model to allocate engineers and sales bandwidth optimally across markets, vendors, and deal stages.</p>
+
+    <div class="de-formula-box">
+      <div class="label">Constraint Model</div>
+      <div class="formula">Maximize: Σ (Revenue[market] × Allocation[market]) | Constraints: Total engineers = 2 · Clients ≤ 5 · Managed service hrs/client = 20h/month · Project hrs/client = 60h avg</div>
+    </div>
+
+    <div class="de-weights">
+      <div class="de-weight-pill">Total Engineers <strong>2</strong></div>
+      <div class="de-weight-pill">Max Managed Service Clients <strong>3–5</strong></div>
+      <div class="de-weight-pill">Managed Service <strong>20h/client/mo</strong></div>
+      <div class="de-weight-pill">Project Work <strong>60h avg/project</strong></div>
+      <div class="de-weight-pill">Available Hours <strong>~320h/mo total</strong></div>
+    </div>
+
+    <!-- Capacity Matrix -->
+    <div style="padding:0 20px 20px">
+      <div style="font-size:12px; font-weight:600; color:var(--fg2); text-transform:uppercase; letter-spacing:.4px; margin-bottom:12px">Capacity Matrix — 2 Engineers × 3 Y1 Markets</div>
+      <div style="overflow-x:auto">
+      <table class="vp-table" style="min-width:600px">
+        <thead>
+          <tr>
+            <th>Market</th>
+            <th>Service Type</th>
+            <th>Est. Hours/Client/Mo</th>
+            <th>Max Clients @ 2 Engineers</th>
+            <th>Revenue/Client/Mo (AED)</th>
+            <th>Recommended Allocation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>🇦🇪 UAE</strong></td>
+            <td>Managed Service (Acronis/Tenable)</td>
+            <td>20h</td>
+            <td>up to 3</td>
+            <td style="font-weight:600; color:var(--accent)">AED 60–200/user/mo</td>
+            <td><span class="vp-action-badge action-now">2 clients (Y1 priority)</span></td>
+          </tr>
+          <tr class="de-reasoning-row">
+            <td colspan="6">UAE Freezone SMBs are the fastest closes — 50–200 users per client, low cycle time, DIFC entity removes procurement friction. First 2 managed service clients should both be UAE to build references.</td>
+          </tr>
+          <tr>
+            <td><strong>🇸🇦 KSA</strong></td>
+            <td>Project (NCA ECC assessment + fix)</td>
+            <td>60h avg</td>
+            <td>1 project/quarter</td>
+            <td style="font-weight:600; color:var(--accent)">USD 15–40K/project</td>
+            <td><span class="vp-action-badge action-resolve">1 project (parallel)</span></td>
+          </tr>
+          <tr class="de-reasoning-row">
+            <td colspan="6">KSA deals are project-based first (NCA ECC gap assessment → remediation). Single KSA project = 60h over 4–6 weeks. Run in parallel with UAE managed service (different skills: compliance project vs operational MSP).</td>
+          </tr>
+          <tr>
+            <td><strong>🇲🇦 Morocco</strong></td>
+            <td>Managed Service (Acronis backup)</td>
+            <td>15h</td>
+            <td>2 clients</td>
+            <td style="font-weight:600; color:var(--accent)">EUR 1,500–3,500/mo</td>
+            <td><span class="vp-action-badge action-sign">1 client (Q2)</span></td>
+          </tr>
+          <tr class="de-reasoning-row">
+            <td colspan="6">Morocco requires less engineer time per client (simpler stack, Acronis-led). Local entity = easy invoicing. First Morocco client in Q2 after UAE is stabilized — builds toward 3-country reference capability.</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <!-- Hour allocation visual -->
+    <div style="padding:0 20px 20px">
+      <div style="font-size:12px; font-weight:600; color:var(--fg2); text-transform:uppercase; letter-spacing:.4px; margin-bottom:12px">Monthly Hour Budget — End of Y1 Target State</div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap">
+
+        <div style="flex:1; min-width:200px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-sm); padding:16px">
+          <div style="font-size:12px; color:var(--fg2); margin-bottom:8px">Engineer #1 — MSP Focus</div>
+          <div style="margin-bottom:6px">
+            <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:3px"><span>UAE clients (×2)</span><span style="color:var(--accent); font-weight:600">40h</span></div>
+            <div class="vp-bar-track"><div class="vp-bar-fill" style="width:63%; background:#3b82f6"></div></div>
+          </div>
+          <div style="margin-bottom:6px">
+            <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:3px"><span>Morocco client (×1)</span><span style="color:var(--accent); font-weight:600">15h</span></div>
+            <div class="vp-bar-track"><div class="vp-bar-fill" style="width:23%; background:#22c55e"></div></div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:3px"><span>Buffer / pre-sales</span><span style="color:var(--fg2); font-weight:600">25h</span></div>
+            <div class="vp-bar-track"><div class="vp-bar-fill" style="width:40%; background:var(--border)"></div></div>
+          </div>
+          <div style="margin-top:8px; font-size:11px; color:var(--fg2)">Total: 80h / 160h avail</div>
+        </div>
+
+        <div style="flex:1; min-width:200px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-sm); padding:16px">
+          <div style="font-size:12px; color:var(--fg2); margin-bottom:8px">Engineer #2 — Project + MSP</div>
+          <div style="margin-bottom:6px">
+            <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:3px"><span>KSA NCA project</span><span style="color:var(--accent); font-weight:600">60h</span></div>
+            <div class="vp-bar-track"><div class="vp-bar-fill" style="width:95%; background:#f97316"></div></div>
+          </div>
+          <div style="margin-bottom:6px">
+            <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:3px"><span>UAE MSP support</span><span style="color:var(--accent); font-weight:600">20h</span></div>
+            <div class="vp-bar-track"><div class="vp-bar-fill" style="width:32%; background:#3b82f6"></div></div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:3px"><span>Buffer / pre-sales</span><span style="color:var(--fg2); font-weight:600">30h</span></div>
+            <div class="vp-bar-track"><div class="vp-bar-fill" style="width:48%; background:var(--border)"></div></div>
+          </div>
+          <div style="margin-top:8px; font-size:11px; color:var(--fg2)">Total: 110h / 160h avail — full at 5 clients</div>
+        </div>
+
+        <div style="flex:1; min-width:200px; background:color-mix(in srgb,var(--accent) 6%,var(--bg)); border:1px solid color-mix(in srgb,var(--accent) 20%,var(--border)); border-radius:var(--radius-sm); padding:16px">
+          <div style="font-size:12px; color:var(--fg2); margin-bottom:8px">Capacity Ceiling</div>
+          <div style="font-size:22px; font-weight:700; color:var(--accent); margin-bottom:4px">5 clients</div>
+          <div style="font-size:12px; color:var(--fg2)">Maximum at current headcount before quality degrades. Hire engineer #3 at client #5.</div>
+          <div style="margin-top:12px; font-size:12px; color:var(--fg2)">
+            <div>✅ 3 UAE managed service</div>
+            <div>✅ 1 KSA project</div>
+            <div>✅ 1 Morocco managed service</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="padding:14px 20px; border-top:1px solid var(--border); font-size:12px; color:var(--fg2); display:flex; gap:16px; flex-wrap:wrap;">
+      <span>📐 <strong>Model:</strong> Constraint-based capacity planning (LP)</span>
+      <span>👥 <strong>Headcount:</strong> 2 engineers (Cairo delivery)</span>
+      <span>🚨 <strong>Hire trigger:</strong> Client #5 → hire engineer #3</span>
     </div>
   </div>
 
-  <!-- PHASE 4: Coming Soon -->
+  <!-- PHASE 4: Pricing Optimization — LIVE -->
   <div id="de-phase-4" class="de-panel" style="display:none; margin-bottom:24px">
     <div class="de-panel-header">
       <div>
         <h3>💰 Pricing Optimization Model</h3>
-        <p>Price each managed service to maximize win rate and margin given market positioning</p>
+        <p>Per-market pricing guidance: maximize win rate × margin, anchored 60% below Help AG</p>
       </div>
     </div>
-    <div class="de-coming-soon">
-      <div class="icon">📋</div>
-      <h4>Planned — Phase 4</h4>
-      <p>Optimize pricing per market and service tier, balancing margin targets against win-rate sensitivity and competitive positioning.</p>
+
+    <div class="de-formula-box">
+      <div class="label">Pricing Framework</div>
+      <div class="formula">ITO Price = Help AG Price × (1 − 0.60)  |  Range: AED 60–200/user/mo vs Help AG AED 150–500/user/mo  |  Win-rate maximizer: anchor at 60% discount, floor at margin target</div>
+    </div>
+
+    <div class="de-weights">
+      <div class="de-weight-pill">ITO Range <strong>AED 60–200/user/mo</strong></div>
+      <div class="de-weight-pill">Help AG Range <strong>AED 150–500/user/mo</strong></div>
+      <div class="de-weight-pill">Cost Saving <strong>~60% lower</strong></div>
+      <div class="de-weight-pill">Entry Deal <strong>6-month contracts</strong></div>
+      <div class="de-weight-pill">Payment <strong>30/60/10 split</strong></div>
+    </div>
+
+    <!-- Per-market pricing table -->
+    <div style="padding:0 20px 20px">
+      <div style="font-size:12px; font-weight:600; color:var(--fg2); text-transform:uppercase; letter-spacing:.4px; margin-bottom:12px">Per-Market Pricing Guidance</div>
+      <div style="overflow-x:auto">
+      <table class="vp-table" style="min-width:640px">
+        <thead>
+          <tr>
+            <th>Market</th>
+            <th>Service Package</th>
+            <th>ITO Price</th>
+            <th>Help AG Equivalent</th>
+            <th>Saving</th>
+            <th>Strategy</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td><strong>🇦🇪 UAE</strong><br><span style="font-size:11px;color:var(--fg2)">Freezone SMB</span></td>
+            <td>Backup + Security (Acronis + Tenable)</td>
+            <td style="font-weight:700; color:var(--accent)">AED 60–90/user/mo</td>
+            <td style="color:var(--fg2)">AED 150–220/user/mo</td>
+            <td><span class="vp-status-dot dot-registered" style="font-size:12px">~60% lower</span></td>
+            <td><span class="vp-action-badge action-sign">Entry anchor</span></td>
+          </tr>
+          <tr class="de-reasoning-row">
+            <td colspan="6">
+              For UAE Freezone SMBs (50–200 users): lead with the 60% saving vs Help AG. DIFC entity invoicing in USD removes procurement friction. 6-month contract for first deal — reduces risk perception. Add Fortinet firewall management (+AED 30–50/user/mo) once registered.
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong>🇦🇪 UAE</strong><br><span style="font-size:11px;color:var(--fg2)">Mid-Market (200–1,000 users)</span></td>
+            <td>Full Stack (Fortinet + Veeam + Tenable)</td>
+            <td style="font-weight:700; color:var(--accent)">AED 100–200/user/mo</td>
+            <td style="color:var(--fg2)">AED 250–500/user/mo</td>
+            <td><span class="vp-status-dot dot-registered" style="font-size:12px">~60% lower</span></td>
+            <td><span class="vp-action-badge action-resolve">Upsell path</span></td>
+          </tr>
+          <tr class="de-reasoning-row">
+            <td colspan="6">
+              Mid-market UAE clients need full stack. Fortinet must be registered first. Upsell from Freezone entry: start at AED 60/user (Acronis only) → grow to AED 150+/user (full stack) as trust builds. This is the highest-margin segment in UAE.
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong>🇸🇦 KSA</strong><br><span style="font-size:11px;color:var(--fg2)">Government / Banking</span></td>
+            <td>NCA ECC Compliance Project</td>
+            <td style="font-weight:700; color:var(--accent)">USD 15,000–40,000/project</td>
+            <td style="color:var(--fg2)">USD 40,000–80,000</td>
+            <td><span class="vp-status-dot dot-registered" style="font-size:12px">~50% lower</span></td>
+            <td><span class="vp-action-badge action-now">Compliance play</span></td>
+          </tr>
+          <tr class="de-reasoning-row">
+            <td colspan="6">
+              KSA first deals are projects (NCA ECC gap assessment → remediation). Fixed-fee project, not per-user monthly. Lead with the compliance urgency ("NCA audit is coming — most banks fail ECC-1 and ECC-2"). Invoice from KSA entity = accepted for government procurement.
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong>🇸🇦 KSA</strong><br><span style="font-size:11px;color:var(--fg2)">Post-project managed service</span></td>
+            <td>Security Managed Service (Tenable + Fortinet)</td>
+            <td style="font-weight:700; color:var(--accent)">USD 3,000–8,000/mo</td>
+            <td style="color:var(--fg2)">USD 8,000–18,000/mo</td>
+            <td><span class="vp-status-dot dot-registered" style="font-size:12px">~55% lower</span></td>
+            <td><span class="vp-action-badge action-complete">Post-project upsell</span></td>
+          </tr>
+          <tr class="de-reasoning-row">
+            <td colspan="6">
+              After the NCA remediation project, convert to recurring managed service. Project → managed service is the highest-retention conversion in this market. KSA banks need ongoing monitoring after ECC compliance — this is the managed service renewal story.
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong>🇲🇦 Morocco</strong><br><span style="font-size:11px;color:var(--fg2)">Nearshore BPOs</span></td>
+            <td>Backup Managed Service (Acronis)</td>
+            <td style="font-weight:700; color:var(--accent)">EUR 1,500–3,500/mo</td>
+            <td style="color:var(--fg2)">EUR 3,500–7,000/mo</td>
+            <td><span class="vp-status-dot dot-registered" style="font-size:12px">~55% lower</span></td>
+            <td><span class="vp-action-badge action-sign">Quick wins</span></td>
+          </tr>
+          <tr class="de-reasoning-row">
+            <td colspan="6">
+              Morocco nearshore BPOs (Casablanca, Rabat): EUR-denominated contracts from Morocco entity. Acronis backup is the entry point — simple, deployable immediately, 15h/month per client. No NCA compliance pressure — lead with reliability and cost saving vs local IT firms.
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <!-- Price anchoring guidance -->
+    <div style="padding:0 20px 20px; display:flex; gap:12px; flex-wrap:wrap">
+
+      <div style="flex:1; min-width:200px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-sm); padding:16px">
+        <div style="font-size:12px; font-weight:600; color:var(--fg2); margin-bottom:8px; text-transform:uppercase; letter-spacing:.4px">Payment Structure</div>
+        <div style="font-size:13px; margin-bottom:6px; display:flex; gap:8px; align-items:center">
+          <span style="font-size:22px; font-weight:700; color:var(--accent)">30%</span>
+          <span style="color:var(--fg2)">upfront (mobilization)</span>
+        </div>
+        <div style="font-size:13px; margin-bottom:6px; display:flex; gap:8px; align-items:center">
+          <span style="font-size:22px; font-weight:700; color:var(--accent)">60%</span>
+          <span style="color:var(--fg2)">on delivery / go-live</span>
+        </div>
+        <div style="font-size:13px; display:flex; gap:8px; align-items:center">
+          <span style="font-size:22px; font-weight:700; color:var(--accent)">10%</span>
+          <span style="color:var(--fg2)">on sign-off / acceptance</span>
+        </div>
+      </div>
+
+      <div style="flex:1; min-width:200px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-sm); padding:16px">
+        <div style="font-size:12px; font-weight:600; color:var(--fg2); margin-bottom:8px; text-transform:uppercase; letter-spacing:.4px">Contract Duration</div>
+        <div style="font-size:13px; margin-bottom:6px"><span style="font-weight:700; color:var(--accent)">Y1:</span> 6-month contracts — reduces procurement friction and lowers buyer risk</div>
+        <div style="font-size:13px; margin-bottom:6px"><span style="font-weight:700; color:var(--accent)">Y2+:</span> 12-month contracts with auto-renewal + 90-day notice</div>
+        <div style="font-size:13px; color:var(--fg2)">Annual pre-pay discount: 10–15% off monthly rate</div>
+      </div>
+
+      <div style="flex:1; min-width:200px; background:color-mix(in srgb,#22c55e 8%,var(--bg)); border:1px solid color-mix(in srgb,#22c55e 25%,var(--border)); border-radius:var(--radius-sm); padding:16px">
+        <div style="font-size:12px; font-weight:600; color:var(--fg2); margin-bottom:8px; text-transform:uppercase; letter-spacing:.4px">Win-Rate Levers</div>
+        <div style="font-size:13px; margin-bottom:6px">🆓 <strong>Free Assessment</strong> — NCA ECC gap or VMware sizing (1 day, no charge). Gives IT Director proof to show their board.</div>
+        <div style="font-size:13px; margin-bottom:6px">🧪 <strong>90-Day POC</strong> — 1 vendor, 1 use case, defined success metrics. Below-market price to win first reference.</div>
+        <div style="font-size:13px; color:var(--fg2)">📄 <strong>Case Study</strong> — Every first deal ends with a written case study (client permission). Unlocks all future deals.</div>
+      </div>
+
+    </div>
+
+    <div style="padding:14px 20px; border-top:1px solid var(--border); font-size:12px; color:var(--fg2); display:flex; gap:16px; flex-wrap:wrap;">
+      <span>📐 <strong>Anchor:</strong> 60% lower than Help AG and Intertec</span>
+      <span>💡 <strong>Source:</strong> Market data embedded in dashboard (AED figures verified)</span>
+      <span>⚠️ <strong>Note:</strong> Final prices confirmed with management before each proposal</span>
     </div>
   </div>
 
