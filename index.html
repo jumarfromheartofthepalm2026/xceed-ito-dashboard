@@ -3370,6 +3370,7 @@ function showMainTab(btn, sectionId) {
   document.getElementById('section-partner-report').style.display = 'none';
   document.getElementById('section-ito-strategy').style.display = 'none';
   document.getElementById('section-board-gtm').style.display = 'none';
+  document.getElementById('section-decision-engine').style.display = 'none';
   document.getElementById(sectionId).style.display = 'block';
 }
 function msShowPage(btn, id) {
@@ -4139,8 +4140,41 @@ if ('serviceWorker' in navigator) {
   padding: 5px 12px;
   font-size: 12px;
   color: var(--fg2);
+  cursor: pointer;
+  position: relative;
+  transition: border-color .15s;
 }
+.de-weight-pill:hover { border-color: var(--accent); }
 .de-weight-pill strong { color: var(--accent); }
+.de-weight-pill .wpill-why {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--fg);
+  line-height: 1.5;
+  width: 220px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.15);
+  z-index: 100;
+  white-space: normal;
+  pointer-events: none;
+}
+.de-weight-pill .wpill-why::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--border);
+}
+.de-weight-pill.wpill-open .wpill-why { display: block; }
 
 /* Vendor priority table */
 .vp-table { width: 100%; border-collapse: collapse; }
@@ -4377,12 +4411,13 @@ if ('serviceWorker' in navigator) {
     </div>
 
     <!-- Weights -->
+    <div style="padding:0 20px 4px; font-size:11px; color:var(--fg2)">👆 Tap any weight to see why it was set at this value</div>
     <div class="de-weights">
-      <div class="de-weight-pill">Revenue Potential <strong>35%</strong></div>
-      <div class="de-weight-pill">Strategic Fit <strong>30%</strong></div>
-      <div class="de-weight-pill">Speed to First Deal <strong>20%</strong></div>
-      <div class="de-weight-pill">Registration Ease <strong>15%</strong></div>
-      <div class="de-weight-pill" style="margin-left:auto; color:var(--fg2); font-size:11px; align-self:center">Scores: 1–10 scale</div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">Revenue Potential <strong>35%</strong><div class="wpill-why">Highest weight — Xceed ITO is pre-revenue. The first question is always "where is the money?" Vendors with higher revenue potential unlock clients, cash flow, and reference cases.</div></div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">Strategic Fit <strong>30%</strong><div class="wpill-why">Second highest — signing a vendor that doesn't fit ITO's markets wastes registration cost and engineer time. Fit = direct alignment with UAE/KSA/Morocco ICPs and existing client conversations.</div></div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">Speed to First Deal <strong>20%</strong><div class="wpill-why">With 2 engineers and no reference clients yet, time-to-first-deal is a survival metric. A vendor unlocking a deal in 3 months beats one with higher potential but an 18-month pipeline.</div></div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">Registration Ease <strong>15%</strong><div class="wpill-why">Lowest weight because registration difficulty is a one-time cost, not a recurring constraint. A hard registration is worth it if revenue and fit are strong — it just slightly disadvantages vs. faster peers.</div></div>
+      <div class="de-weight-pill" style="margin-left:auto; color:var(--fg2); font-size:11px; align-self:center; cursor:default">Scores: 1–10 scale</div>
     </div>
 
     <!-- Results table -->
@@ -4700,13 +4735,14 @@ if ('serviceWorker' in navigator) {
       <div class="formula">Market Score = (Revenue Potential × 0.30) + (Entry Speed × 0.25) + (Entity Fit × 0.20) + (Competitive Gap × 0.15) + (Regulatory Ease × 0.10)</div>
     </div>
 
+    <div style="padding:0 20px 4px; font-size:11px; color:var(--fg2)">👆 Tap any weight to see why it was set at this value</div>
     <div class="de-weights">
-      <div class="de-weight-pill">Revenue Potential <strong>30%</strong></div>
-      <div class="de-weight-pill">Entry Speed <strong>25%</strong></div>
-      <div class="de-weight-pill">Entity Fit <strong>20%</strong></div>
-      <div class="de-weight-pill">Competitive Gap <strong>15%</strong></div>
-      <div class="de-weight-pill">Regulatory Ease <strong>10%</strong></div>
-      <div class="de-weight-pill" style="margin-left:auto; color:var(--fg2); font-size:11px; align-self:center">Scale: 1–10</div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">Revenue Potential <strong>30%</strong><div class="wpill-why">Still the highest — but slightly lower than Phase 1 (35%) because market selection also depends on ITO's operational ability to enter. UAE's $2.1B IT market justifies leading on this.</div></div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">Entry Speed <strong>25%</strong><div class="wpill-why">Second highest because ITO can't afford a 2-year market entry cycle with 2 engineers. UAE scores highest (3–6 months) vs. India which may take 12+ months to yield a deal.</div></div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">Entity Fit <strong>20%</strong><div class="wpill-why">ITO has legal entities in UAE, KSA, Morocco, Mauritius, India. A market where ITO already has an entity removes procurement friction — that's a real competitive advantage worth 20%.</div></div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">Competitive Gap <strong>15%</strong><div class="wpill-why">Important but not decisive alone. UAE has a gap (no SMB MSP at ITO's price point). KSA has a gap (India delivery rejection). A gap without revenue potential doesn't matter.</div></div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">Regulatory Ease <strong>10%</strong><div class="wpill-why">Lowest weight because ITO's entities already handle most compliance friction. KSA's NCA requirements are strict but known — they're a barrier to entry that actually protects ITO once cleared.</div></div>
+      <div class="de-weight-pill" style="margin-left:auto; color:var(--fg2); font-size:11px; align-self:center; cursor:default">Scale: 1–10</div>
     </div>
 
     <table class="vp-table">
@@ -4900,12 +4936,13 @@ if ('serviceWorker' in navigator) {
       <div class="formula">Maximize: Σ (Revenue[market] × Allocation[market]) | Constraints: Total engineers = 2 · Clients ≤ 5 · Managed service hrs/client = 20h/month · Project hrs/client = 60h avg</div>
     </div>
 
+    <div style="padding:0 20px 4px; font-size:11px; color:var(--fg2)">👆 Tap any parameter to see why it was set at this value</div>
     <div class="de-weights">
-      <div class="de-weight-pill">Total Engineers <strong>2</strong></div>
-      <div class="de-weight-pill">Max Managed Service Clients <strong>3–5</strong></div>
-      <div class="de-weight-pill">Managed Service <strong>20h/client/mo</strong></div>
-      <div class="de-weight-pill">Project Work <strong>60h avg/project</strong></div>
-      <div class="de-weight-pill">Available Hours <strong>~320h/mo total</strong></div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">Total Engineers <strong>2</strong><div class="wpill-why">Current Cairo delivery headcount. This is not an assumption — it is the real constraint. All models are built around this ceiling until a 3rd engineer is hired (target: at client #5).</div></div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">Max Managed Service Clients <strong>3–5</strong><div class="wpill-why">At 20h/client/month × 5 clients = 100h just for managed service. Add 60h for one project = 160h, which fills one engineer. The 2nd handles delivery, pre-sales, and buffer. 5 is the ceiling before quality degrades.</div></div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">Managed Service <strong>20h/client/mo</strong><div class="wpill-why">Industry standard for SMB MSP: ~8h monitoring + 4h monthly report + 2 incident responses avg (4h each). Based on Veeam/Fortinet managed service benchmarks for 10–200 seat clients.</div></div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">Project Work <strong>60h avg/project</strong><div class="wpill-why">Derived from ITO's project type: assess 8h + configure 32h + test 12h + handover 8h = 60h. This covers a typical Veeam deployment or NCA ECC gap remediation at an SMB client.</div></div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">Available Hours <strong>~320h/mo total</strong><div class="wpill-why">2 engineers × 160h/month standard (8h/day × 20 working days). This is gross capacity. Usable = ~256h after 20% admin/overhead. The model uses 320h gross for headroom planning.</div></div>
     </div>
 
     <!-- Capacity Matrix -->
@@ -5036,12 +5073,13 @@ if ('serviceWorker' in navigator) {
       <div class="formula">ITO Price = Help AG Price × (1 − 0.60)  |  Range: AED 60–200/user/mo vs Help AG AED 150–500/user/mo  |  Win-rate maximizer: anchor at 60% discount, floor at margin target</div>
     </div>
 
+    <div style="padding:0 20px 4px; font-size:11px; color:var(--fg2)">👆 Tap any parameter to see why it was set at this value</div>
     <div class="de-weights">
-      <div class="de-weight-pill">ITO Range <strong>AED 60–200/user/mo</strong></div>
-      <div class="de-weight-pill">Help AG Range <strong>AED 150–500/user/mo</strong></div>
-      <div class="de-weight-pill">Cost Saving <strong>~60% lower</strong></div>
-      <div class="de-weight-pill">Entry Deal <strong>6-month contracts</strong></div>
-      <div class="de-weight-pill">Payment <strong>30/60/10 split</strong></div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">ITO Range <strong>AED 60–200/user/mo</strong><div class="wpill-why">Derived by applying the 60% discount to Help AG's floor/ceiling: AED 150 × 0.40 = 60, AED 500 × 0.40 = 200. This is not arbitrary — it is the mathematical output of the pricing anchor formula.</div></div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">Help AG Range <strong>AED 150–500/user/mo</strong><div class="wpill-why">Help AG's public MSP pricing verified from market data embedded in this dashboard. They are the Gulf's dominant MSP and the primary price reference point. KSA equivalents (Intertec) are similar.</div></div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">Cost Saving <strong>~60% lower</strong><div class="wpill-why">ITO's core competitive advantage: Cairo delivery cost vs. Gulf delivery cost. Engineer salary arbitrage between Egypt and UAE is ~65–70%. 60% is the conservative public-facing claim — defensible and verifiable.</div></div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">Entry Deal <strong>6-month contracts</strong><div class="wpill-why">12-month contracts create procurement friction for a new, unproven vendor. 6 months lowers buyer risk and shortens decision cycles. Year 2 converts to 12-month. This is the sales strategy, not a service constraint.</div></div>
+      <div class="de-weight-pill" onclick="toggleWpill(this)">Payment <strong>30/60/10 split</strong><div class="wpill-why">Standard Gulf IT contract structure: 30% upfront covers mobilization cost, 60% on delivery protects ITO cash flow, 10% on sign-off aligns final payment with client acceptance. Avoids net-60 terms that damage pre-revenue cash flow.</div></div>
     </div>
 
     <!-- Per-market pricing table -->
@@ -5182,6 +5220,15 @@ if ('serviceWorker' in navigator) {
 </div><!-- /section-decision-engine -->
 
 <script>
+// Weight pill toggle — tap to see why each value was set
+function toggleWpill(el) {
+  const isOpen = el.classList.contains('wpill-open');
+  // close all open pills first
+  document.querySelectorAll('.de-weight-pill.wpill-open').forEach(p => p.classList.remove('wpill-open'));
+  // open this one if it wasn't already open
+  if (!isOpen) el.classList.add('wpill-open');
+}
+
 // Decision Engine phase switcher
 function deShowPhase(el, phaseId) {
   // Update phase cards
