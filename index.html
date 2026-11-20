@@ -4108,6 +4108,7 @@ if ('serviceWorker' in navigator) {
   border-radius: var(--radius);
   overflow: hidden;
 }
+.vp-table-wrap { border-radius: 0; }
 .de-panel-header {
   padding: 16px 20px;
   border-bottom: 1px solid var(--border);
@@ -4177,7 +4178,8 @@ if ('serviceWorker' in navigator) {
 .de-weight-pill.wpill-open .wpill-why { display: block; }
 
 /* Vendor priority table */
-.vp-table { width: 100%; border-collapse: collapse; }
+.vp-table-wrap { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; max-width: 100%; }
+.vp-table { width: 100%; border-collapse: collapse; min-width: 520px; }
 .vp-table th {
   font-size: 11px;
   font-weight: 600;
@@ -4421,6 +4423,7 @@ if ('serviceWorker' in navigator) {
     </div>
 
     <!-- Results table -->
+    <div class="vp-table-wrap">
     <table class="vp-table">
       <thead>
         <tr>
@@ -4712,6 +4715,7 @@ if ('serviceWorker' in navigator) {
 
       </tbody>
     </table>
+    </div>
 
     <!-- Methodology note -->
     <div style="padding:14px 20px; border-top:1px solid var(--border); font-size:12px; color:var(--fg2); display:flex; gap:16px; flex-wrap:wrap;">
@@ -4745,6 +4749,7 @@ if ('serviceWorker' in navigator) {
       <div class="de-weight-pill" style="margin-left:auto; color:var(--fg2); font-size:11px; align-self:center; cursor:default">Scale: 1–10</div>
     </div>
 
+    <div class="vp-table-wrap">
     <table class="vp-table">
       <thead>
         <tr>
@@ -4914,6 +4919,7 @@ if ('serviceWorker' in navigator) {
 
       </tbody>
     </table>
+    </div>
 
     <div style="padding:14px 20px; border-top:1px solid var(--border); font-size:12px; color:var(--fg2); display:flex; gap:16px; flex-wrap:wrap;">
       <span>📐 <strong>Methodology:</strong> Weighted scoring across 5 market dimensions</span>
