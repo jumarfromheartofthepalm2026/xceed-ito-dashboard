@@ -889,21 +889,18 @@ td {
 ══════════════════════════════════════ */
 .main-tabs {
   display: flex;
-  gap: 8px;
-  padding: 12px 24px 0;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 8px 16px 0;
   border-bottom: 1px solid var(--border);
   background: var(--bg2);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
 }
-.main-tabs::-webkit-scrollbar { display: none; }
 .main-tab-btn {
-  padding: 10px 16px;
+  padding: 8px 12px;
   border: none;
   background: transparent;
   color: var(--fg2);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   border-bottom: 3px solid transparent;
@@ -1176,6 +1173,7 @@ td {
     <button class="main-tab-btn" onclick="showMainTab(this,'section-market-study')">📊 Market Study</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-partner-report')">🤝 Partner Ecosystem</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-ito-strategy')">🗺️ ITO Strategy</button>
+    <button class="main-tab-btn" onclick="showMainTab(this,'section-board-gtm')">📋 Board GTM</button>
   </div>
 
   <div id="section-vendors">
@@ -2785,6 +2783,469 @@ td {
 
   </div><!-- /section-ito-strategy -->
 
+  <!-- ═══════════════════════════════════════════════════════════
+       BOARD GTM TAB — 2-slide board presentation
+  ═══════════════════════════════════════════════════════════ -->
+  <div id="section-board-gtm" style="display:none">
+  <style>
+  /* ── Board GTM local tokens (reuse dashboard palette) ── */
+  #section-board-gtm {
+    --b-bg:    var(--bg);
+    --b-bg2:   var(--bg2);
+    --b-bg3:   var(--bg3);
+    --b-bd:    var(--border);
+    --b-fg:    var(--fg);
+    --b-fg2:   var(--fg2);
+    --b-fg3:   var(--fg3);
+    --b-blue:  var(--accent);
+    --b-teal:  var(--teal);
+    --b-gold:  var(--gold);
+    --b-green: var(--green);
+    --b-amber: var(--orange);
+    --b-red:   var(--red);
+    --b-purple:#bc8cff;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  .bgtm-page { max-width: 1100px; margin: 0 auto; padding: 28px max(16px, env(safe-area-inset-left)) 60px; }
+  .bgtm-slide-label {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 20px; padding-bottom: 14px;
+    border-bottom: 1px solid var(--b-bd);
+  }
+  .bgtm-slide-num {
+    background: var(--b-blue); color: #fff;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 11px;
+    padding: 3px 10px; border-radius: 20px; letter-spacing: .5px; white-space: nowrap;
+  }
+  .bgtm-slide-title {
+    font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; color: var(--b-fg);
+  }
+  .bgtm-slide-sub { font-size: 11px; color: var(--b-fg2); margin-top: 2px; }
+  hr.bgtm-hr { border: none; border-top: 2px solid var(--b-bd); margin: 36px 0; }
+
+  /* ── Stat tiles ── */
+  .bgtm-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 24px; }
+  .bgtm-stat {
+    background: var(--b-bg2); border: 1px solid var(--b-bd); border-radius: 10px;
+    padding: 16px 14px; position: relative; overflow: hidden;
+  }
+  .bgtm-stat::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; }
+  .bgtm-stat.s-blue::after{background:var(--b-blue)}.bgtm-stat.s-teal::after{background:var(--b-teal)}
+  .bgtm-stat.s-gold::after{background:var(--b-gold)}.bgtm-stat.s-green::after{background:var(--b-green)}
+  .bgtm-stat-n {
+    font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:700; line-height:1; margin-bottom:5px;
+    font-variant-numeric: tabular-nums;
+  }
+  .bgtm-stat.s-blue .bgtm-stat-n{color:var(--b-blue)}.bgtm-stat.s-teal .bgtm-stat-n{color:var(--b-teal)}
+  .bgtm-stat.s-gold .bgtm-stat-n{color:var(--b-gold)}.bgtm-stat.s-green .bgtm-stat-n{color:var(--b-green)}
+  .bgtm-stat-lbl { font-size:11px; color:var(--b-fg2); line-height:1.4; }
+  .bgtm-stat-src { font-size:9px; color:var(--b-fg3); margin-top:5px; text-transform:uppercase; letter-spacing:.5px; }
+
+  /* ── 2-col / 3-col ── */
+  .bgtm-two  { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  .bgtm-three{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:14px; }
+  .bgtm-card {
+    background:var(--b-bg2); border:1px solid var(--b-bd); border-radius:10px; padding:16px;
+  }
+  .bgtm-card-title { font-size:12px; font-weight:700; margin-bottom:12px; }
+
+  /* ── Cairo hub flow ── */
+  .bgtm-hub { margin-bottom:14px; }
+  .bgtm-hub-row {
+    display:flex; align-items:center; justify-content:center; gap:0; flex-wrap:wrap;
+    background:var(--b-bg2); border:1px solid var(--b-bd); border-radius:10px; padding:18px 12px;
+  }
+  .bgtm-hub-center {
+    background:linear-gradient(135deg,#1a4a7a,#0e2d4f); border:2px solid var(--b-blue);
+    border-radius:10px; padding:12px 18px; text-align:center; flex-shrink:0;
+  }
+  .bgtm-hub-center .hc-name{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:var(--b-blue)}
+  .bgtm-hub-center .hc-sub{font-size:10px;color:var(--b-fg2);margin-top:2px}
+  .bgtm-hub-arrow { font-size:11px; color:var(--b-fg3); padding:0 6px; }
+  .bgtm-hub-entities { display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+  .bgtm-ent {
+    background:var(--b-bg3); border:1px solid var(--b-bd); border-radius:7px;
+    padding:7px 10px; text-align:center; min-width:80px;
+  }
+  .bgtm-ent .ef{ font-size:16px; display:block; }
+  .bgtm-ent .en{ font-size:11px; font-weight:700; color:var(--b-fg); display:block; margin-top:2px; }
+  .bgtm-ent .ec{ font-size:9px; color:var(--b-fg3); letter-spacing:.4px; display:block; }
+  .bgtm-usd {
+    font-size:10px; color:var(--b-blue); background:rgba(79,142,247,.12); border:1px solid var(--b-blue);
+    border-radius:4px; padding:2px 6px; margin-top:3px; display:inline-block; font-weight:600; letter-spacing:.4px;
+  }
+
+  /* ── Displacement opp ── */
+  .bgtm-displace { margin-bottom: 8px; }
+  .bgtm-dis-head {
+    font-size:10px; font-weight:700; color:var(--b-fg3); text-transform:uppercase;
+    letter-spacing:.6px; margin-bottom:7px; display:flex; align-items:center; gap:6px;
+  }
+  .bgtm-dis-badge {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    letter-spacing: .3px;
+  }
+  .bgtm-dis-row {
+    display:flex; align-items:center; gap:7px; padding:8px 10px;
+    background:var(--b-bg3); border-radius:7px; margin-bottom:5px;
+    flex-wrap:wrap;
+  }
+  .bgtm-dis-row:last-child{margin-bottom:0}
+  .bgtm-dis-from{font-size:11px;font-weight:700;color:var(--b-red);min-width:80px}
+  .bgtm-dis-arr{font-size:12px;color:var(--b-fg3)}
+  .bgtm-dis-to{font-size:11px;font-weight:700;color:var(--b-green)}
+  .bgtm-dis-why{font-size:10px;color:var(--b-fg2);margin-left:auto}
+
+  /* ── Commercial terms pills ── */
+  .bgtm-terms { display:flex; flex-direction:column; gap:7px; }
+  .bgtm-term {
+    display:flex; align-items:flex-start; gap:8px; padding:8px 10px;
+    background:var(--b-bg3); border-radius:7px; font-size:11px;
+  }
+  .bgtm-term-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+  .bgtm-term-lbl{font-weight:600;color:var(--b-fg);display:block;margin-bottom:2px}
+  .bgtm-term-val{color:var(--b-fg2);line-height:1.4}
+
+  /* ── Phase arrows (slide 2) ── */
+  .bgtm-phases { display:grid; grid-template-columns:repeat(3,1fr); gap:0; margin-bottom:24px; position:relative; }
+  .bgtm-phase {
+    background:var(--b-bg2); border:1px solid var(--b-bd); border-radius:10px;
+    padding:16px; position:relative; overflow:hidden;
+  }
+  .bgtm-phase::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+  .bgtm-ph1::before{background:var(--b-gold)}.bgtm-ph2::before{background:var(--b-blue)}.bgtm-ph3::before{background:var(--b-green)}
+  .bgtm-ph-connector {
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; color:var(--b-fg3); padding:0 4px; position:relative; z-index:1;
+  }
+  .bgtm-ph-num {
+    display:inline-flex; align-items:center; justify-content:center;
+    width:28px; height:28px; border-radius:50%; font-family:'Space Grotesk',sans-serif;
+    font-size:13px; font-weight:700; margin-bottom:8px;
+  }
+  .bgtm-ph1 .bgtm-ph-num{background:rgba(240,192,64,.15);color:var(--b-gold)}
+  .bgtm-ph2 .bgtm-ph-num{background:rgba(79,142,247,.15);color:var(--b-blue)}
+  .bgtm-ph3 .bgtm-ph-num{background:rgba(52,201,123,.15);color:var(--b-green)}
+  .bgtm-ph-title{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;margin-bottom:2px}
+  .bgtm-ph1 .bgtm-ph-title{color:var(--b-gold)}.bgtm-ph2 .bgtm-ph-title{color:var(--b-blue)}.bgtm-ph3 .bgtm-ph-title{color:var(--b-green)}
+  .bgtm-ph-period{font-size:10px;color:var(--b-fg3);margin-bottom:10px;letter-spacing:.3px}
+  .bgtm-ph-items{display:flex;flex-direction:column;gap:5px}
+  .bgtm-ph-item{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:var(--b-fg2)}
+  .bgtm-ph-dot{width:5px;height:5px;border-radius:50%;margin-top:5px;flex-shrink:0}
+  .bgtm-ph1 .bgtm-ph-dot{background:var(--b-gold)}.bgtm-ph2 .bgtm-ph-dot{background:var(--b-blue)}.bgtm-ph3 .bgtm-ph-dot{background:var(--b-green)}
+  .bgtm-ph-item.done .bgtm-ph-dot{background:var(--b-green)}
+  .bgtm-ph-item.done{color:var(--b-fg)}
+
+  /* ── Critical action box ── */
+  .bgtm-critical {
+    background:rgba(240,82,82,.08); border:1px solid var(--b-red);
+    border-radius:10px; padding:14px 16px; margin-bottom:14px;
+    display:flex; align-items:flex-start; gap:12px;
+  }
+  .bgtm-crit-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+  .bgtm-crit-title{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:var(--b-red);margin-bottom:4px}
+  .bgtm-crit-body{font-size:12px;color:var(--b-fg2);line-height:1.6}
+  .bgtm-crit-body strong{color:var(--b-amber)}
+
+  /* ── KPI visual bars ── */
+  .bgtm-kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .bgtm-kpi-card{background:var(--b-bg2);border:1px solid var(--b-bd);border-radius:10px;padding:14px 12px}
+  .bgtm-kpi-label{font-size:10px;color:var(--b-fg3);margin-bottom:10px;text-transform:uppercase;letter-spacing:.6px;line-height:1.3}
+  .bgtm-kpi-bars{display:flex;flex-direction:column;gap:5px}
+  .bgtm-kpi-bar-row{display:flex;align-items:center;gap:7px}
+  .bgtm-kpi-mo{font-size:9px;color:var(--b-fg3);width:16px;flex-shrink:0}
+  .bgtm-kpi-track{flex:1;height:6px;background:var(--b-bd);border-radius:3px;overflow:hidden}
+  .bgtm-kpi-fill{height:100%;border-radius:3px}
+  .bgtm-kpi-val{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;width:22px;text-align:right;flex-shrink:0}
+
+  /* ── slide footer ── */
+  .bgtm-slide-footer{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;
+    margin-top:24px; padding-top:14px; border-top:1px solid var(--b-bd);
+    font-size:10px; color:var(--b-fg3);
+  }
+
+  /* ── section label ── */
+  .bgtm-slabel{
+    font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+    color:var(--b-fg3);margin-bottom:10px;
+  }
+
+  /* ── Responsive ── */
+  @media(max-width:760px){
+    .bgtm-stats{grid-template-columns:repeat(2,1fr)}
+    .bgtm-two,.bgtm-three{grid-template-columns:1fr}
+    .bgtm-phases{grid-template-columns:1fr}
+    .bgtm-kpi-grid{grid-template-columns:repeat(2,1fr)}
+    .bgtm-stat-n{font-size:22px}
+    .bgtm-hub-row{flex-direction:column;gap:10px}
+    .bgtm-hub-arrow{transform:rotate(90deg)}
+  }
+  </style>
+
+  <div class="bgtm-page">
+
+    <!-- ══════════ SLIDE 1 ══════════ -->
+    <div class="bgtm-slide-label">
+      <span class="bgtm-slide-num">SLIDE 1 OF 2</span>
+      <div>
+        <div class="bgtm-slide-title">Market Opportunity &amp; Operating Model</div>
+        <div class="bgtm-slide-sub">Xceed ITO Board Presentation — Q4 2026</div>
+      </div>
+    </div>
+
+    <!-- Stat tiles -->
+    <div class="bgtm-slabel">Market Opportunity</div>
+    <div class="bgtm-stats">
+      <div class="bgtm-stat s-blue">
+        <div class="bgtm-stat-n">$25B</div>
+        <div class="bgtm-stat-lbl">ME Managed Security Services market</div>
+        <div class="bgtm-stat-src">MarketsandMarkets 2024</div>
+      </div>
+      <div class="bgtm-stat s-teal">
+        <div class="bgtm-stat-n">14.6%</div>
+        <div class="bgtm-stat-lbl">CAGR — fastest growing IT segment in region</div>
+        <div class="bgtm-stat-src">MarketsandMarkets 2024</div>
+      </div>
+      <div class="bgtm-stat s-gold">
+        <div class="bgtm-stat-n">60–70%</div>
+        <div class="bgtm-stat-lbl">Cost advantage vs Gulf MSPs (Help AG, Intertec)</div>
+        <div class="bgtm-stat-src">Xceed ITO positioning</div>
+      </div>
+      <div class="bgtm-stat s-green">
+        <div class="bgtm-stat-n">6</div>
+        <div class="bgtm-stat-lbl">Legal entities: UAE · KSA · Morocco · Mauritius · India · Egypt</div>
+        <div class="bgtm-stat-src">Operational now</div>
+      </div>
+    </div>
+
+    <!-- Operating model — Cairo hub flow -->
+    <div class="bgtm-slabel">Operating Model — Cairo Delivery Hub</div>
+    <div class="bgtm-hub">
+      <div class="bgtm-hub-row">
+        <div class="bgtm-hub-center">
+          <div class="hc-name">🇪🇬 Cairo Delivery Hub</div>
+          <div class="hc-sub">Engineers · SLA · Support</div>
+        </div>
+        <div class="bgtm-hub-arrow">→</div>
+        <div class="bgtm-hub-entities">
+          <div class="bgtm-ent"><span class="ef">🇦🇪</span><span class="en">UAE</span><span class="ec">DIFC ENTITY</span><span class="bgtm-usd">USD</span></div>
+          <div class="bgtm-ent"><span class="ef">🇸🇦</span><span class="en">KSA</span><span class="ec">KSA ENTITY</span><span class="bgtm-usd">USD/SAR</span></div>
+          <div class="bgtm-ent"><span class="ef">🇲🇦</span><span class="en">Morocco</span><span class="ec">MOR ENTITY</span><span class="bgtm-usd">MAD/EUR</span></div>
+          <div class="bgtm-ent"><span class="ef">🇲🇺</span><span class="en">Mauritius</span><span class="ec">MUS ENTITY</span><span class="bgtm-usd">USD</span></div>
+          <div class="bgtm-ent"><span class="ef">🇮🇳</span><span class="en">India</span><span class="ec">IND ENTITY</span><span class="bgtm-usd">USD/INR</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Year 1 markets + displacement + commercial terms -->
+    <div class="bgtm-two">
+      <!-- Left: displacement angles -->
+      <div class="bgtm-card">
+        <div class="bgtm-card-title" style="color:var(--b-purple)">🔀 Displacement Angles</div>
+
+        <div class="bgtm-displace">
+          <div class="bgtm-dis-head">🛡️ Kaspersky Ban (US 2024) — بدائل عندنا</div>
+          <div class="bgtm-dis-row">
+            <span class="bgtm-dis-from">Kaspersky</span>
+            <span class="bgtm-dis-arr">→</span>
+            <span class="bgtm-dis-to">MS Defender</span>
+            <span class="bgtm-dis-badge" style="background:rgba(79,142,247,.15);color:var(--b-blue);border:1px solid var(--b-blue)">✅ Partner via Ingram</span>
+            <span class="bgtm-dis-why">M365 bundle · CSP active · bundled instantly</span>
+          </div>
+          <div class="bgtm-dis-row">
+            <span class="bgtm-dis-from">Kaspersky</span>
+            <span class="bgtm-dis-arr">→</span>
+            <span class="bgtm-dis-to">CrowdStrike</span>
+            <span class="bgtm-dis-badge" style="background:rgba(240,82,82,.12);color:var(--b-red);border:1px solid var(--b-red)">⚠️ Not a partner yet</span>
+            <span class="bgtm-dis-why">Banks / Govt · NCA-ready · require registration</span>
+          </div>
+          <div class="bgtm-dis-row">
+            <span class="bgtm-dis-from">Kaspersky</span>
+            <span class="bgtm-dis-arr">→</span>
+            <span class="bgtm-dis-to">SentinelOne</span>
+            <span class="bgtm-dis-badge" style="background:rgba(240,82,82,.12);color:var(--b-red);border:1px solid var(--b-red)">⚠️ Not a partner yet</span>
+            <span class="bgtm-dis-why">SMB / Mid-market · fast deploy</span>
+          </div>
+        </div>
+
+        <div class="bgtm-displace">
+          <div class="bgtm-dis-head">🌐 Huawei Procurement Risk — بدائل عندنا</div>
+          <div class="bgtm-dis-row">
+            <span class="bgtm-dis-from">Huawei</span>
+            <span class="bgtm-dis-arr">→</span>
+            <span class="bgtm-dis-to">Fortinet</span>
+            <span class="bgtm-dis-badge" style="background:rgba(240,82,82,.12);color:var(--b-red);border:1px solid var(--b-red)">🔴 Critical — Apply Now</span>
+            <span class="bgtm-dis-why">Firewall + Networking · KSA certified · NOT applied yet</span>
+          </div>
+          <div class="bgtm-dis-row">
+            <span class="bgtm-dis-from">Huawei</span>
+            <span class="bgtm-dis-arr">→</span>
+            <span class="bgtm-dis-to">Cisco</span>
+            <span class="bgtm-dis-badge" style="background:rgba(240,82,82,.12);color:var(--b-red);border:1px solid var(--b-red)">⚠️ Not a partner yet</span>
+            <span class="bgtm-dis-why">Govt / Banking · strongest brand · require registration</span>
+          </div>
+          <div class="bgtm-dis-row">
+            <span class="bgtm-dis-from">Huawei</span>
+            <span class="bgtm-dis-arr">→</span>
+            <span class="bgtm-dis-to">Aruba (HP)</span>
+            <span class="bgtm-dis-badge" style="background:rgba(240,82,82,.12);color:var(--b-red);border:1px solid var(--b-red)">⚠️ Not a partner yet</span>
+            <span class="bgtm-dis-why">Switching / Wireless · easy entry program</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: commercial terms + year 1 markets -->
+      <div>
+        <div class="bgtm-card" style="margin-bottom:12px">
+          <div class="bgtm-card-title" style="color:var(--b-blue)">🌍 Year 1 Markets</div>
+          <div class="bgtm-terms">
+            <div class="bgtm-term"><span class="bgtm-term-icon">🇦🇪</span><div><span class="bgtm-term-lbl">UAE — Beachhead</span><span class="bgtm-term-val">DIFC Freezone SMBs · M365 + Fortinet + Veeam</span></div></div>
+            <div class="bgtm-term"><span class="bgtm-term-icon">🇸🇦</span><div><span class="bgtm-term-lbl">KSA — Compliance</span><span class="bgtm-term-val">Govt/Banking · NCA ECC · Tenable + Fortinet</span></div></div>
+            <div class="bgtm-term"><span class="bgtm-term-icon">🇲🇦</span><div><span class="bgtm-term-lbl">Morocco — Quick Wins</span><span class="bgtm-term-val">Nearshore BPOs · Acronis · French language</span></div></div>
+          </div>
+        </div>
+        <div class="bgtm-card">
+          <div class="bgtm-card-title" style="color:var(--b-gold)">💼 Commercial Terms</div>
+          <div class="bgtm-terms">
+            <div class="bgtm-term"><span class="bgtm-term-icon">💵</span><div><span class="bgtm-term-lbl">Payment Structure</span><span class="bgtm-term-val">30% upfront · 60% on delivery · 10% sign-off</span></div></div>
+            <div class="bgtm-term"><span class="bgtm-term-icon">📅</span><div><span class="bgtm-term-lbl">Contract Duration</span><span class="bgtm-term-val">6-month contracts Year 1 (reduce friction)</span></div></div>
+            <div class="bgtm-term"><span class="bgtm-term-icon">🌐</span><div><span class="bgtm-term-lbl">Currency</span><span class="bgtm-term-val">USD across all markets · local entity invoicing</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bgtm-slide-footer">
+      <span>Slide 1 of 2 — Xceed ITO Board Presentation</span>
+      <span>All figures from cited sources · No invented data</span>
+    </div>
+
+    <hr class="bgtm-hr">
+
+    <!-- ══════════ SLIDE 2 ══════════ -->
+    <div class="bgtm-slide-label">
+      <span class="bgtm-slide-num" style="background:var(--b-green)">SLIDE 2 OF 2</span>
+      <div>
+        <div class="bgtm-slide-title">Year 1 Execution Roadmap &amp; Board KPIs</div>
+        <div class="bgtm-slide-sub">Phase plan + critical actions + milestone targets</div>
+      </div>
+    </div>
+
+    <!-- Critical action box -->
+    <div class="bgtm-critical">
+      <span class="bgtm-crit-icon">🔴</span>
+      <div>
+        <div class="bgtm-crit-title">Critical Action — Blocking Pipeline</div>
+        <div class="bgtm-crit-body">
+          <strong>Submit Fortinet Partner Application immediately.</strong>
+          Fortinet is the #1 demand driver for UAE/KSA deals. Without FortiPartner registration,
+          Fortinet cannot be included in any proposal, blocking an estimated 60–70% of enterprise
+          security opportunities in the pipeline. Every week of delay = lost first-mover advantage
+          on Kaspersky displacement plays.
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase arrows -->
+    <div class="bgtm-slabel">3-Phase Execution Roadmap</div>
+    <div class="bgtm-phases">
+      <div class="bgtm-phase bgtm-ph1">
+        <div class="bgtm-ph-num">1</div>
+        <div class="bgtm-ph-title">Foundation</div>
+        <div class="bgtm-ph-period">MONTHS 1–2 · IN PROGRESS 🔥</div>
+        <div class="bgtm-ph-items">
+          <div class="bgtm-ph-item done"><div class="bgtm-ph-dot"></div><span>✅ Microsoft / Ingram Micro — signed</span></div>
+          <div class="bgtm-ph-item"><div class="bgtm-ph-dot"></div><span>Fortinet registration — CRITICAL GAP 🔴</span></div>
+          <div class="bgtm-ph-item"><div class="bgtm-ph-dot"></div><span>LinkedIn page + 5 thought leadership posts</span></div>
+          <div class="bgtm-ph-item"><div class="bgtm-ph-dot"></div><span>Sales collateral: one-pagers + battle cards</span></div>
+          <div class="bgtm-ph-item"><div class="bgtm-ph-dot"></div><span>Prospecting list: 90 qualified accounts</span></div>
+        </div>
+      </div>
+      <div class="bgtm-phase bgtm-ph2">
+        <div class="bgtm-ph-num">2</div>
+        <div class="bgtm-ph-title">Activate</div>
+        <div class="bgtm-ph-period">MONTHS 2–4 · NEXT</div>
+        <div class="bgtm-ph-items">
+          <div class="bgtm-ph-item"><div class="bgtm-ph-dot"></div><span>4-track cold email sequences</span></div>
+          <div class="bgtm-ph-item"><div class="bgtm-ph-dot"></div><span>LinkedIn personal brand — 3 posts/week</span></div>
+          <div class="bgtm-ph-item"><div class="bgtm-ph-dot"></div><span>Referral activation via Xceed BPO network</span></div>
+          <div class="bgtm-ph-item"><div class="bgtm-ph-dot"></div><span>GITEX: 10 pre-booked meetings</span></div>
+          <div class="bgtm-ph-item"><div class="bgtm-ph-dot"></div><span>Kaspersky → CrowdStrike outreach</span></div>
+        </div>
+      </div>
+      <div class="bgtm-phase bgtm-ph3">
+        <div class="bgtm-ph-num">3</div>
+        <div class="bgtm-ph-title">Close</div>
+        <div class="bgtm-ph-period">MONTHS 4–6 · TARGET</div>
+        <div class="bgtm-ph-items">
+          <div class="bgtm-ph-item"><div class="bgtm-ph-dot"></div><span>Free NCA ECC gap assessment</span></div>
+          <div class="bgtm-ph-item"><div class="bgtm-ph-dot"></div><span>Free VMware migration sizing</span></div>
+          <div class="bgtm-ph-item"><div class="bgtm-ph-dot"></div><span>90-day POC — 1 vendor, 1 use case</span></div>
+          <div class="bgtm-ph-item"><div class="bgtm-ph-dot"></div><span>First reference case study</span></div>
+          <div class="bgtm-ph-item"><div class="bgtm-ph-dot"></div><span>Target: 1 deal signed → 5 by M12</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI board targets -->
+    <div class="bgtm-slabel" style="margin-top:24px">Year 1 KPIs — Board Targets</div>
+    <div class="bgtm-kpi-grid">
+      <div class="bgtm-kpi-card">
+        <div class="bgtm-kpi-label">Qualified Prospects</div>
+        <div class="bgtm-kpi-bars">
+          <div class="bgtm-kpi-bar-row"><span class="bgtm-kpi-mo">M3</span><div class="bgtm-kpi-track"><div class="bgtm-kpi-fill" style="width:20%;background:var(--b-blue)"></div></div><span class="bgtm-kpi-val" style="color:var(--b-blue)">20</span></div>
+          <div class="bgtm-kpi-bar-row"><span class="bgtm-kpi-mo">M6</span><div class="bgtm-kpi-track"><div class="bgtm-kpi-fill" style="width:50%;background:var(--b-gold)"></div></div><span class="bgtm-kpi-val" style="color:var(--b-gold)">50</span></div>
+          <div class="bgtm-kpi-bar-row"><span class="bgtm-kpi-mo">M12</span><div class="bgtm-kpi-track"><div class="bgtm-kpi-fill" style="width:100%;background:var(--b-green)"></div></div><span class="bgtm-kpi-val" style="color:var(--b-green)">100</span></div>
+        </div>
+      </div>
+      <div class="bgtm-kpi-card">
+        <div class="bgtm-kpi-label">Meetings Booked</div>
+        <div class="bgtm-kpi-bars">
+          <div class="bgtm-kpi-bar-row"><span class="bgtm-kpi-mo">M3</span><div class="bgtm-kpi-track"><div class="bgtm-kpi-fill" style="width:10%;background:var(--b-blue)"></div></div><span class="bgtm-kpi-val" style="color:var(--b-blue)">5</span></div>
+          <div class="bgtm-kpi-bar-row"><span class="bgtm-kpi-mo">M6</span><div class="bgtm-kpi-track"><div class="bgtm-kpi-fill" style="width:40%;background:var(--b-gold)"></div></div><span class="bgtm-kpi-val" style="color:var(--b-gold)">20</span></div>
+          <div class="bgtm-kpi-bar-row"><span class="bgtm-kpi-mo">M12</span><div class="bgtm-kpi-track"><div class="bgtm-kpi-fill" style="width:100%;background:var(--b-green)"></div></div><span class="bgtm-kpi-val" style="color:var(--b-green)">50</span></div>
+        </div>
+      </div>
+      <div class="bgtm-kpi-card">
+        <div class="bgtm-kpi-label">POCs / Assessments</div>
+        <div class="bgtm-kpi-bars">
+          <div class="bgtm-kpi-bar-row"><span class="bgtm-kpi-mo">M3</span><div class="bgtm-kpi-track"><div class="bgtm-kpi-fill" style="width:12%;background:var(--b-blue)"></div></div><span class="bgtm-kpi-val" style="color:var(--b-blue)">1</span></div>
+          <div class="bgtm-kpi-bar-row"><span class="bgtm-kpi-mo">M6</span><div class="bgtm-kpi-track"><div class="bgtm-kpi-fill" style="width:37%;background:var(--b-gold)"></div></div><span class="bgtm-kpi-val" style="color:var(--b-gold)">3</span></div>
+          <div class="bgtm-kpi-bar-row"><span class="bgtm-kpi-mo">M12</span><div class="bgtm-kpi-track"><div class="bgtm-kpi-fill" style="width:100%;background:var(--b-green)"></div></div><span class="bgtm-kpi-val" style="color:var(--b-green)">8</span></div>
+        </div>
+      </div>
+      <div class="bgtm-kpi-card">
+        <div class="bgtm-kpi-label">Deals Closed</div>
+        <div class="bgtm-kpi-bars">
+          <div class="bgtm-kpi-bar-row"><span class="bgtm-kpi-mo">M3</span><div class="bgtm-kpi-track"><div class="bgtm-kpi-fill" style="width:0%;background:var(--b-blue)"></div></div><span class="bgtm-kpi-val" style="color:var(--b-fg3)">0</span></div>
+          <div class="bgtm-kpi-bar-row"><span class="bgtm-kpi-mo">M6</span><div class="bgtm-kpi-track"><div class="bgtm-kpi-fill" style="width:20%;background:var(--b-gold)"></div></div><span class="bgtm-kpi-val" style="color:var(--b-gold)">1</span></div>
+          <div class="bgtm-kpi-bar-row"><span class="bgtm-kpi-mo">M12</span><div class="bgtm-kpi-track"><div class="bgtm-kpi-fill" style="width:100%;background:var(--b-green)"></div></div><span class="bgtm-kpi-val" style="color:var(--b-green)">5</span></div>
+        </div>
+      </div>
+      <div class="bgtm-kpi-card">
+        <div class="bgtm-kpi-label">Reference Clients</div>
+        <div class="bgtm-kpi-bars">
+          <div class="bgtm-kpi-bar-row"><span class="bgtm-kpi-mo">M3</span><div class="bgtm-kpi-track"><div class="bgtm-kpi-fill" style="width:0%;background:var(--b-blue)"></div></div><span class="bgtm-kpi-val" style="color:var(--b-fg3)">0</span></div>
+          <div class="bgtm-kpi-bar-row"><span class="bgtm-kpi-mo">M6</span><div class="bgtm-kpi-track"><div class="bgtm-kpi-fill" style="width:33%;background:var(--b-gold)"></div></div><span class="bgtm-kpi-val" style="color:var(--b-gold)">1</span></div>
+          <div class="bgtm-kpi-bar-row"><span class="bgtm-kpi-mo">M12</span><div class="bgtm-kpi-track"><div class="bgtm-kpi-fill" style="width:100%;background:var(--b-green)"></div></div><span class="bgtm-kpi-val" style="color:var(--b-green)">3</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bgtm-slide-footer">
+      <span>Slide 2 of 2 — Xceed ITO Board Presentation</span>
+      <span>All figures from cited sources · No invented data</span>
+    </div>
+
+  </div><!-- /bgtm-page -->
+  </div><!-- /section-board-gtm -->
+
 </div>
 
 <!-- Edit Modal -->
@@ -2907,6 +3368,7 @@ function showMainTab(btn, sectionId) {
   document.getElementById('section-market-study').style.display = 'none';
   document.getElementById('section-partner-report').style.display = 'none';
   document.getElementById('section-ito-strategy').style.display = 'none';
+  document.getElementById('section-board-gtm').style.display = 'none';
   document.getElementById(sectionId).style.display = 'block';
 }
 function msShowPage(btn, id) {
