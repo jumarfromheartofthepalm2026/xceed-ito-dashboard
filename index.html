@@ -1174,6 +1174,7 @@ td {
     <button class="main-tab-btn" onclick="showMainTab(this,'section-partner-report')">🤝 Partner Ecosystem</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-ito-strategy')">🗺️ ITO Strategy</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-board-gtm')">📋 Board GTM</button>
+    <button class="main-tab-btn" onclick="showMainTab(this,'section-decision-engine')">⚙️ Decision Engine</button>
   </div>
 
   <div id="section-vendors">
@@ -4030,6 +4031,589 @@ init();
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
 }
+
+})(); // end IIFE
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════
+       DECISION ENGINE TAB — OR / Mathematical Optimization
+  ═══════════════════════════════════════════════════════════ -->
+<div id="section-decision-engine" style="display:none">
+<style>
+/* ── Decision Engine local styles ── */
+.de-header {
+  background: linear-gradient(135deg, var(--accent) 0%, #1a4f8a 100%);
+  color: #fff;
+  padding: 28px 32px 24px;
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+}
+.de-header h2 { font-size: 22px; font-weight: 700; margin: 0 0 6px; }
+.de-header p { font-size: 13px; opacity: .85; margin: 0; }
+.de-header .de-badge {
+  display: inline-block;
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.35);
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  margin-right: 8px;
+  letter-spacing: .3px;
+}
+.de-phases {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.de-phase-card {
+  flex: 1;
+  min-width: 160px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: border-color .15s, box-shadow .15s;
+}
+.de-phase-card.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent);
+}
+.de-phase-card .phase-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 4px;
+}
+.de-phase-card .phase-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg);
+  margin-bottom: 2px;
+}
+.de-phase-card .phase-status {
+  font-size: 11px;
+  color: var(--fg2);
+}
+.de-panel {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.de-panel-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.de-panel-header h3 { font-size: 15px; font-weight: 700; margin: 0; color: var(--fg); }
+.de-panel-header p { font-size: 12px; color: var(--fg2); margin: 0; }
+.de-formula-box {
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg2));
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--border));
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin: 16px 20px;
+  font-size: 12px;
+}
+.de-formula-box .label { color: var(--fg2); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 6px; }
+.de-formula-box .formula { font-family: 'Courier New', monospace; font-size: 13px; color: var(--fg); }
+.de-weights {
+  display: flex;
+  gap: 8px;
+  padding: 0 20px 16px;
+  flex-wrap: wrap;
+}
+.de-weight-pill {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px;
+  color: var(--fg2);
+}
+.de-weight-pill strong { color: var(--accent); }
+
+/* Vendor priority table */
+.vp-table { width: 100%; border-collapse: collapse; }
+.vp-table th {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  color: var(--fg2);
+  padding: 10px 16px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+.vp-table td {
+  padding: 12px 16px;
+  font-size: 13px;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  vertical-align: middle;
+}
+.vp-table tr:last-child td { border-bottom: none; }
+.vp-table tr:hover td { background: color-mix(in srgb, var(--accent) 4%, transparent); }
+.vp-rank {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+.rank-1 { background: #FFD700; color: #7a6400; }
+.rank-2 { background: #C0C0C0; color: #555; }
+.rank-3 { background: #CD7F32; color: #fff; }
+.rank-other { background: var(--bg); border: 1px solid var(--border); color: var(--fg2); }
+.vp-score-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.vp-score-num {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--fg);
+  min-width: 36px;
+}
+.vp-bar-track {
+  flex: 1;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.vp-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--accent);
+  transition: width .4s ease;
+}
+.vp-status-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+.dot-registered  { background: color-mix(in srgb,#22c55e 15%,transparent); color: #16a34a; }
+.dot-applied     { background: color-mix(in srgb,#f97316 15%,transparent); color: #c2410c; }
+.dot-hold        { background: color-mix(in srgb,#eab308 15%,transparent); color: #a16207; }
+.dot-pending     { background: color-mix(in srgb,#3b82f6 15%,transparent); color: #1d4ed8; }
+.dot-docs        { background: color-mix(in srgb,#a855f7 15%,transparent); color: #7e22ce; }
+.dot-y2          { background: var(--bg); border:1px solid var(--border); color: var(--fg2); }
+.vp-mini-scores {
+  display: flex;
+  gap: 4px;
+}
+.vp-mini-score {
+  font-size: 11px;
+  color: var(--fg2);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 5px;
+  min-width: 28px;
+  text-align: center;
+}
+.vp-action-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.action-now     { background: color-mix(in srgb,#ef4444 15%,transparent); color: #b91c1c; }
+.action-resolve { background: color-mix(in srgb,#f97316 15%,transparent); color: #c2410c; }
+.action-sign    { background: color-mix(in srgb,#3b82f6 15%,transparent); color: #1d4ed8; }
+.action-complete{ background: color-mix(in srgb,#a855f7 15%,transparent); color: #7e22ce; }
+.action-maximize{ background: color-mix(in srgb,#22c55e 15%,transparent); color: #16a34a; }
+.action-y2      { background: var(--bg); border:1px solid var(--border); color: var(--fg2); }
+.de-reasoning-row {
+  background: color-mix(in srgb, var(--accent) 4%, var(--bg));
+  font-size: 12px;
+  color: var(--fg2);
+  line-height: 1.5;
+}
+.de-reasoning-row td { padding: 8px 16px 12px 60px !important; }
+.de-reasoning-row td .unblocks {
+  margin-top: 4px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.unblock-tag {
+  font-size: 11px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent);
+  border-radius: 20px;
+  padding: 2px 8px;
+}
+.de-coming-soon {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--fg2);
+}
+.de-coming-soon .icon { font-size: 36px; margin-bottom: 12px; }
+.de-coming-soon h4 { font-size: 15px; font-weight: 600; color: var(--fg); margin: 0 0 6px; }
+.de-coming-soon p { font-size: 13px; margin: 0; }
+</style>
+
+<!-- Header -->
+<div style="padding:24px 24px 0">
+  <div class="de-header">
+    <div>
+      <span class="de-badge">⚙️ Decision Engine</span>
+      <span class="de-badge">OR / Mathematical Optimization</span>
+    </div>
+    <h2 style="margin-top:10px">Xceed ITO Decision Engine</h2>
+    <p>Weighted scoring + linear programming models to prioritize vendors, markets, resources, and pricing. Evidence-based decisions, not gut feel.</p>
+  </div>
+
+  <!-- Phase selector -->
+  <div class="de-phases">
+    <div class="de-phase-card active" onclick="deShowPhase(this,'de-phase-1')">
+      <div class="phase-num">Phase 1</div>
+      <div class="phase-title">🏭 Vendor Priority</div>
+      <div class="phase-status">✅ Live</div>
+    </div>
+    <div class="de-phase-card" onclick="deShowPhase(this,'de-phase-2')">
+      <div class="phase-num">Phase 2</div>
+      <div class="phase-title">🌍 Market Priority</div>
+      <div class="phase-status">🔜 Coming next</div>
+    </div>
+    <div class="de-phase-card" onclick="deShowPhase(this,'de-phase-3')">
+      <div class="phase-num">Phase 3</div>
+      <div class="phase-title">👥 Resource Allocation</div>
+      <div class="phase-status">📋 Planned</div>
+    </div>
+    <div class="de-phase-card" onclick="deShowPhase(this,'de-phase-4')">
+      <div class="phase-num">Phase 4</div>
+      <div class="phase-title">💰 Pricing Optimization</div>
+      <div class="phase-status">📋 Planned</div>
+    </div>
+  </div>
+
+  <!-- PHASE 1: Vendor Priority Model -->
+  <div id="de-phase-1" class="de-panel" style="margin-bottom:24px">
+    <div class="de-panel-header">
+      <div>
+        <h3>🏭 Vendor Registration Priority Model</h3>
+        <p>Weighted scoring across 4 dimensions → ranked action sequence for Y1 (UAE + KSA + Morocco)</p>
+      </div>
+    </div>
+
+    <!-- Formula -->
+    <div class="de-formula-box">
+      <div class="label">Scoring Formula</div>
+      <div class="formula">Priority Score = (Revenue × 0.35) + (Strategic Fit × 0.30) + (Speed to Deal × 0.20) + (Ease of Registration × 0.15)</div>
+    </div>
+
+    <!-- Weights -->
+    <div class="de-weights">
+      <div class="de-weight-pill">Revenue Potential <strong>35%</strong></div>
+      <div class="de-weight-pill">Strategic Fit <strong>30%</strong></div>
+      <div class="de-weight-pill">Speed to First Deal <strong>20%</strong></div>
+      <div class="de-weight-pill">Registration Ease <strong>15%</strong></div>
+      <div class="de-weight-pill" style="margin-left:auto; color:var(--fg2); font-size:11px; align-self:center">Scores: 1–10 scale</div>
+    </div>
+
+    <!-- Results table -->
+    <table class="vp-table">
+      <thead>
+        <tr>
+          <th style="width:40px">#</th>
+          <th>Vendor</th>
+          <th>Score</th>
+          <th>Sub-scores (Rev / Fit / Spd / Eff)</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Row template: rank, vendor, score, sub-scores, status, action, then reasoning row -->
+        <tr>
+          <td><div class="vp-rank rank-1">1</div></td>
+          <td><strong>Fortinet</strong><br><span style="font-size:11px;color:var(--fg2)">NGFW · UAE + KSA + Morocco</span></td>
+          <td>
+            <div class="vp-score-bar">
+              <div class="vp-score-num">8.7</div>
+              <div class="vp-bar-track"><div class="vp-bar-fill" style="width:87%"></div></div>
+            </div>
+          </td>
+          <td><div class="vp-mini-scores">
+            <div class="vp-mini-score" title="Revenue">9</div>
+            <div class="vp-mini-score" title="Strategic Fit">10</div>
+            <div class="vp-mini-score" title="Speed">8</div>
+            <div class="vp-mini-score" title="Effort">6</div>
+          </div></td>
+          <td><span class="vp-status-dot dot-applied">🔴 Not Applied</span></td>
+          <td><span class="vp-action-badge action-now">APPLY NOW</span></td>
+        </tr>
+        <tr class="de-reasoning-row">
+          <td colspan="6">
+            Single biggest revenue unlocker. Every UAE firewall deal and every KSA NCA ECC pitch is blocked without it. Free Engage program — NSE4 cert is the only gate (~4 weeks).
+            <div class="unblocks">
+              <span class="unblock-tag">🔓 UAE mid-market package</span>
+              <span class="unblock-tag">🔓 NCA ECC pitch (KSA)</span>
+              <span class="unblock-tag">🔓 Kaspersky displacement</span>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td><div class="vp-rank rank-2">2</div></td>
+          <td><strong>Tenable</strong><br><span style="font-size:11px;color:var(--fg2)">Vulnerability Mgmt · UAE + KSA</span></td>
+          <td>
+            <div class="vp-score-bar">
+              <div class="vp-score-num">8.3</div>
+              <div class="vp-bar-track"><div class="vp-bar-fill" style="width:83%"></div></div>
+            </div>
+          </td>
+          <td><div class="vp-mini-scores">
+            <div class="vp-mini-score">7</div>
+            <div class="vp-mini-score">8</div>
+            <div class="vp-mini-score">10</div>
+            <div class="vp-mini-score">10</div>
+          </div></td>
+          <td><span class="vp-status-dot dot-registered">✅ Registered</span></td>
+          <td><span class="vp-action-badge action-maximize">MAXIMIZE DEALS</span></td>
+        </tr>
+        <tr class="de-reasoning-row">
+          <td colspan="6">Already registered and deployable immediately. Full value as a Fortinet+Tenable bundle for KSA NCA ECC compliance. Each deal unlocked by Fortinet is also a Tenable upsell opportunity.</td>
+        </tr>
+
+        <tr>
+          <td><div class="vp-rank rank-3">3</div></td>
+          <td><strong>Acronis</strong><br><span style="font-size:11px;color:var(--fg2)">Backup/DR · UAE + KSA + Morocco</span></td>
+          <td>
+            <div class="vp-score-bar">
+              <div class="vp-score-num">7.7</div>
+              <div class="vp-bar-track"><div class="vp-bar-fill" style="width:77%"></div></div>
+            </div>
+          </td>
+          <td><div class="vp-mini-scores">
+            <div class="vp-mini-score">6</div>
+            <div class="vp-mini-score">7</div>
+            <div class="vp-mini-score">10</div>
+            <div class="vp-mini-score">10</div>
+          </div></td>
+          <td><span class="vp-status-dot dot-registered">✅ Registered</span></td>
+          <td><span class="vp-action-badge action-maximize">MAXIMIZE DEALS</span></td>
+        </tr>
+        <tr class="de-reasoning-row">
+          <td colspan="6">Already registered and selling. Morocco is the highest-upside market right now — Acronis as the entry product for Casablanca nearshore BPOs. UAE Freezone SMB backup is the other active lane.</td>
+        </tr>
+
+        <tr>
+          <td><div class="vp-rank rank-other">4</div></td>
+          <td><strong>Veeam</strong><br><span style="font-size:11px;color:var(--fg2)">DR-as-a-Service · UAE + KSA + Mauritius</span></td>
+          <td>
+            <div class="vp-score-bar">
+              <div class="vp-score-num">7.5</div>
+              <div class="vp-bar-track"><div class="vp-bar-fill" style="width:75%"></div></div>
+            </div>
+          </td>
+          <td><div class="vp-mini-scores">
+            <div class="vp-mini-score">8</div>
+            <div class="vp-mini-score">8</div>
+            <div class="vp-mini-score">6</div>
+            <div class="vp-mini-score">7</div>
+          </div></td>
+          <td><span class="vp-status-dot dot-hold">🟡 On Hold</span></td>
+          <td><span class="vp-action-badge action-resolve">RESOLVE HOLD</span></td>
+        </tr>
+        <tr class="de-reasoning-row">
+          <td colspan="6">
+            High value but internal hold must be resolved first. Second unregistered priority after Fortinet. Lifting the hold unlocks Mauritius entirely.
+            <div class="unblocks">
+              <span class="unblock-tag">🔓 DR-as-a-Service</span>
+              <span class="unblock-tag">🔓 Mauritius DR hub</span>
+              <span class="unblock-tag">🔓 SAMA bank DR requirement</span>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td><div class="vp-rank rank-other">5</div></td>
+          <td><strong>BlueCat</strong><br><span style="font-size:11px;color:var(--fg2)">DNS/DHCP/IPAM · UAE + KSA</span></td>
+          <td>
+            <div class="vp-score-bar">
+              <div class="vp-score-num">6.7</div>
+              <div class="vp-bar-track"><div class="vp-bar-fill" style="width:67%"></div></div>
+            </div>
+          </td>
+          <td><div class="vp-mini-scores">
+            <div class="vp-mini-score">5</div>
+            <div class="vp-mini-score">6</div>
+            <div class="vp-mini-score">9</div>
+            <div class="vp-mini-score">9</div>
+          </div></td>
+          <td><span class="vp-status-dot dot-pending">🔵 Pending Signature</span></td>
+          <td><span class="vp-action-badge action-sign">SIGN THIS WEEK</span></td>
+        </tr>
+        <tr class="de-reasoning-row">
+          <td colspan="6">Agreement already ready — just needs signature. Easiest win: low effort, fast to sell. Revenue potential is smaller but it's a quick momentum builder while Fortinet registration is in progress.</td>
+        </tr>
+
+        <tr>
+          <td><div class="vp-rank rank-other">6</div></td>
+          <td><strong>Nutanix</strong><br><span style="font-size:11px;color:var(--fg2)">HCI / VMware Migration · UAE + KSA</span></td>
+          <td>
+            <div class="vp-score-bar">
+              <div class="vp-score-num">6.3</div>
+              <div class="vp-bar-track"><div class="vp-bar-fill" style="width:63%"></div></div>
+            </div>
+          </td>
+          <td><div class="vp-mini-scores">
+            <div class="vp-mini-score">7</div>
+            <div class="vp-mini-score">7</div>
+            <div class="vp-mini-score">5</div>
+            <div class="vp-mini-score">5</div>
+          </div></td>
+          <td><span class="vp-status-dot dot-docs">🟣 Docs Pending</span></td>
+          <td><span class="vp-action-badge action-complete">COMPLETE DOCS</span></td>
+        </tr>
+        <tr class="de-reasoning-row">
+          <td colspan="6">
+            VMware Broadcom shock creates real urgency — 35% of Gulf companies evaluating alternatives. High deal value but longer enterprise sales cycle (3–4 months post-registration). Complete docs after Fortinet + Veeam.
+            <div class="unblocks"><span class="unblock-tag">🔓 VMware migration play</span></div>
+          </td>
+        </tr>
+
+        <tr>
+          <td><div class="vp-rank rank-other">7</div></td>
+          <td><strong>CrowdStrike</strong><br><span style="font-size:11px;color:var(--fg2)">EDR · UAE + KSA (Y1 stretch)</span></td>
+          <td>
+            <div class="vp-score-bar">
+              <div class="vp-score-num">6.0</div>
+              <div class="vp-bar-track"><div class="vp-bar-fill" style="width:60%"></div></div>
+            </div>
+          </td>
+          <td><div class="vp-mini-scores">
+            <div class="vp-mini-score">7</div>
+            <div class="vp-mini-score">7</div>
+            <div class="vp-mini-score">4</div>
+            <div class="vp-mini-score">4</div>
+          </div></td>
+          <td><span class="vp-status-dot dot-y2">⚪ Not a Partner</span></td>
+          <td><span class="vp-action-badge action-y2">Y1 STRETCH</span></td>
+        </tr>
+        <tr class="de-reasoning-row">
+          <td colspan="6">
+            Strong Kaspersky displacement narrative. Partner requirements are strict (revenue commitment + technical validation). Start application after Fortinet is confirmed.
+            <div class="unblocks"><span class="unblock-tag">🔓 Kaspersky displacement (banks/govt)</span></div>
+          </td>
+        </tr>
+
+        <tr>
+          <td><div class="vp-rank rank-other">8</div></td>
+          <td><strong>Cisco</strong><br><span style="font-size:11px;color:var(--fg2)">Networking · UAE + KSA (Y2)</span></td>
+          <td>
+            <div class="vp-score-bar">
+              <div class="vp-score-num">5.6</div>
+              <div class="vp-bar-track"><div class="vp-bar-fill" style="width:56%"></div></div>
+            </div>
+          </td>
+          <td><div class="vp-mini-scores">
+            <div class="vp-mini-score">8</div>
+            <div class="vp-mini-score">6</div>
+            <div class="vp-mini-score">3</div>
+            <div class="vp-mini-score">3</div>
+          </div></td>
+          <td><span class="vp-status-dot dot-y2">⚪ Not a Partner</span></td>
+          <td><span class="vp-action-badge action-y2">Y2 TARGET</span></td>
+        </tr>
+        <tr class="de-reasoning-row">
+          <td colspan="6">
+            Huge brand and Huawei displacement play. Heaviest partner program requirements (certifications + revenue commitments). Y2 target — build toward it after Fortinet establishes security credibility.
+            <div class="unblocks"><span class="unblock-tag">🔓 Huawei displacement (networking)</span></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Methodology note -->
+    <div style="padding:14px 20px; border-top:1px solid var(--border); font-size:12px; color:var(--fg2); display:flex; gap:16px; flex-wrap:wrap;">
+      <span>📐 <strong>Methodology:</strong> Weighted scoring + opportunity cost analysis</span>
+      <span>📊 <strong>Scale:</strong> 1–10 per dimension (Effort scale is inverted: 10 = easiest)</span>
+      <span>🗓️ <strong>Horizon:</strong> Y1 — UAE, KSA, Morocco</span>
+    </div>
+  </div>
+
+  <!-- PHASE 2: Coming Soon -->
+  <div id="de-phase-2" class="de-panel" style="display:none; margin-bottom:24px">
+    <div class="de-panel-header">
+      <div>
+        <h3>🌍 Market Priority Model</h3>
+        <p>Rank UAE vs KSA vs Morocco vs Mauritius by revenue potential, entry cost, speed, and regulatory fit</p>
+      </div>
+    </div>
+    <div class="de-coming-soon">
+      <div class="icon">🔜</div>
+      <h4>Coming Next</h4>
+      <p>Phase 2 will score each market across: revenue potential, cost of entry, speed to first deal, regulatory complexity, and competitive landscape.</p>
+    </div>
+  </div>
+
+  <!-- PHASE 3: Coming Soon -->
+  <div id="de-phase-3" class="de-panel" style="display:none; margin-bottom:24px">
+    <div class="de-panel-header">
+      <div>
+        <h3>👥 Resource Allocation Model</h3>
+        <p>Optimal allocation of engineers and sales effort across markets and vendors</p>
+      </div>
+    </div>
+    <div class="de-coming-soon">
+      <div class="icon">📋</div>
+      <h4>Planned — Phase 3</h4>
+      <p>Linear programming model to allocate engineers and sales bandwidth optimally across markets, vendors, and deal stages.</p>
+    </div>
+  </div>
+
+  <!-- PHASE 4: Coming Soon -->
+  <div id="de-phase-4" class="de-panel" style="display:none; margin-bottom:24px">
+    <div class="de-panel-header">
+      <div>
+        <h3>💰 Pricing Optimization Model</h3>
+        <p>Price each managed service to maximize win rate and margin given market positioning</p>
+      </div>
+    </div>
+    <div class="de-coming-soon">
+      <div class="icon">📋</div>
+      <h4>Planned — Phase 4</h4>
+      <p>Optimize pricing per market and service tier, balancing margin targets against win-rate sensitivity and competitive positioning.</p>
+    </div>
+  </div>
+
+</div><!-- /padding wrapper -->
+</div><!-- /section-decision-engine -->
+
+<script>
+// Decision Engine phase switcher
+function deShowPhase(el, phaseId) {
+  // Update phase cards
+  el.closest('.de-phases').querySelectorAll('.de-phase-card').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  // Show/hide panels
+  ['de-phase-1','de-phase-2','de-phase-3','de-phase-4'].forEach(id => {
+    const panel = document.getElementById(id);
+    if (panel) panel.style.display = id === phaseId ? '' : 'none';
+  });
+}
+</script>
 
 })(); // end IIFE
 </script>
