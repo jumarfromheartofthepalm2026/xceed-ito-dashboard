@@ -3247,795 +3247,6 @@ td {
   </div><!-- /bgtm-page -->
   </div><!-- /section-board-gtm -->
 
-</div>
-
-<!-- Edit Modal -->
-<!-- Import Modal -->
-<div class="modal-overlay" id="import-modal">
-  <div class="modal">
-    <div class="modal-header">
-      <h3>Import Vendors from CSV</h3>
-      <button class="btn-close" id="btn-import-close">✕</button>
-    </div>
-
-    <div id="import-step-upload">
-      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:12px;">
-        Upload a CSV file using the exact same column headers as the vendor table.<br>
-        Any file with missing or extra columns will be rejected.
-      </p>
-      <div id="import-dropzone">
-        <div id="import-dropzone-label">
-          <span style="font-size:1.5rem">📄</span><br>
-          Drop CSV here or <label for="import-file-input" style="color:var(--blue);cursor:pointer;text-decoration:underline">browse</label>
-        </div>
-        <input type="file" id="import-file-input" accept=".csv" style="display:none">
-      </div>
-      <div id="import-error" style="display:none;color:var(--red);font-size:0.85rem;margin-top:8px;"></div>
-    </div>
-
-    <div id="import-step-preview" style="display:none">
-      <div id="import-summary" style="font-size:0.85rem;margin-bottom:10px;color:var(--muted);"></div>
-      <div style="max-height:260px;overflow-y:auto;border:1px solid var(--border);border-radius:6px;">
-        <table style="width:100%;border-collapse:collapse;font-size:0.78rem;" id="import-preview-table">
-          <thead id="import-preview-head"></thead>
-          <tbody id="import-preview-body"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="modal-footer">
-      <span class="save-status" id="import-status"></span>
-      <button class="btn-cancel" id="btn-import-cancel">Cancel</button>
-      <button class="btn-save" id="btn-import-confirm" style="display:none">Import</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="edit-modal">
-  <div class="modal">
-    <div class="modal-header">
-      <h3>Edit — <span id="modal-company-name">Vendor</span></h3>
-      <button class="btn-close" id="btn-modal-close">✕</button>
-    </div>
-
-    <input type="hidden" id="edit-vendor-id">
-
-    <div class="form-group">
-      <label>Status</label>
-      <select id="edit-status">
-        <option value="registered-testing">🟢 Registered — Testing</option>
-        <option value="waiting-vendor-feedback">🔵 Waiting for Vendor Feedback</option>
-        <option value="waiting-vendor-issue">🟡 Waiting for Vendor — Issue</option>
-        <option value="waiting-xceed">🔴 Waiting for Xceed</option>
-        <option value="not-applied-urgent">🔴 Not Applied — Urgent</option>
-        <option value="on-hold">⚪ On Hold</option>
-        <option value="dropped">⚫ Dropped</option>
-        <option value="not-contacted">🔵 Not Contacted</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Details</label>
-      <textarea id="edit-details" rows="3" placeholder="Current situation details…"></textarea>
-    </div>
-
-    <div class="form-group">
-      <label>Commitment / Next Step</label>
-      <textarea id="edit-commitment" rows="2" placeholder="What needs to happen next…"></textarea>
-    </div>
-
-    <div class="form-group">
-      <label>Requirements</label>
-      <textarea id="edit-requirements" rows="2" placeholder="Partner program requirements…"></textarea>
-    </div>
-
-    <div class="form-group">
-      <label>Scope of Services</label>
-      <textarea id="edit-scope" rows="2" placeholder="Services in scope…"></textarea>
-    </div>
-
-    <div class="form-group">
-      <label>Target Audience</label>
-      <textarea id="edit-target-audience" rows="2" placeholder="Target audience…"></textarea>
-    </div>
-
-    <div class="form-group">
-      <label>Leads Generation</label>
-      <textarea id="edit-leads-generation" rows="2" placeholder="Leads generation notes…"></textarea>
-    </div>
-
-    <div class="form-group">
-      <label>Phase Priority</label>
-      <input type="text" id="edit-phase" placeholder="e.g. Phase 1, Phase 2…">
-    </div>
-
-    <div class="modal-footer">
-      <span class="save-status" id="save-status"></span>
-      <button class="btn-cancel" id="btn-modal-cancel">Cancel</button>
-      <button class="btn-save" id="btn-modal-save">Save Changes</button>
-    </div>
-  </div>
-</div>
-
-<!-- Toast -->
-<div id="toast"></div>
-
-<script>
-// ── UI FUNCTIONS (global scope — called from inline onclick) ──
-function showMainTab(btn, sectionId) {
-  document.querySelectorAll('.main-tab-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('section-vendors').style.display = 'none';
-  document.getElementById('section-market-study').style.display = 'none';
-  document.getElementById('section-partner-report').style.display = 'none';
-  document.getElementById('section-ito-strategy').style.display = 'none';
-  document.getElementById('section-board-gtm').style.display = 'none';
-  document.getElementById('section-decision-engine').style.display = 'none';
-  document.getElementById(sectionId).style.display = 'block';
-}
-function msShowPage(btn, id) {
-  document.querySelectorAll('.ms-wrapper .nav-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.ms-wrapper .page').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-function msShowC(btn, country) {
-  const panel = btn.closest('.ms-wrapper');
-  panel.querySelectorAll('.ctab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  panel.querySelectorAll('.cpanel').forEach(p => p.classList.remove('active'));
-  const cp = document.getElementById('ms-cpanel-' + country);
-  if (cp) cp.classList.add('active');
-}
-function msShowComp(btn, id) {
-  document.querySelectorAll('#ms-comp-tabs .ctab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  ['ms-comp-uae','ms-comp-ksa','ms-comp-ma','ms-comp-mu','ms-comp-in'].forEach(cid => {
-    const el = document.getElementById(cid);
-    if (el) el.classList.remove('active');
-  });
-  const el = document.getElementById(id);
-  if (el) el.classList.add('active');
-}
-function exportToExcel() {
-  const vendors = window._allVendors || [];
-  if (!vendors.length) { if(window._showToast) window._showToast('No data to export','error'); return; }
-  const headers = ['Company','Category','Countries','Scope of Services','Status','Details','Commitment','Requirements','Target Audience','Leads','Phase'];
-  const rows = vendors.map(v => [
-    v.company||'', v.category||'', (v.countries||[]).join(', '),
-    v.scope||v.scope_of_services||'', v.status||'', v.details||'',
-    v.commitment||'', v.requirements||'', v.target_audience||'',
-    v.leads_generation||'', v.phase_priority||''
-  ]);
-  const csv = [headers,...rows].map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
-  const blob = new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8;'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href=url; a.download='xceed-ito-vendors-'+new Date().toISOString().slice(0,10)+'.csv';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  if(window._showToast) window._showToast('Exported successfully ✓','success');
-}
-</script>
-
-<script>
-(function() {
-// ── CONFIG ─────────────────────────────
-const SUPABASE_URL = 'https://wmmqymlbamrwbdthfbdd.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtbXF5bWxiYW1yd2JkdGhmYmRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ3MjM5NzksImV4cCI6MjExMDI5OTk3OX0.GcUuoaDuEUAAUpOazf81Bt177q3sRgAZUQypEKLKxoc';
-
-// Timeout: if still loading after 8 seconds, show error
-setTimeout(() => {
-  const el = document.getElementById('loading');
-  if (el && el.style.display !== 'none') {
-    el.innerHTML = '<p style="color:#f05252;padding:2rem;text-align:center">❌ Could not connect. Check your internet and <a href="" style="color:#4f8ef7">refresh</a>.</p>';
-  }
-}, 8000);
-
-if (typeof supabase === 'undefined') {
-  document.getElementById('loading').innerHTML = '<p style="color:#f05252;padding:2rem;text-align:center">❌ Failed to load library. Please refresh.</p>';
-  throw new Error('Supabase library not loaded');
-}
-
-const { createClient } = supabase;
-const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-// ── STATE ──────────────────────────────
-let currentUser = null;
-let currentRole = 'viewer';
-let allVendors = [];
-let filteredVendors = [];
-
-// ── STATUS CONFIG ──────────────────────
-const STATUS_CONFIG = {
-  'registered-testing':     { label: 'Registered — Testing',           icon: '🟢', cls: 'status-registered-testing',     badge: 'badge-green'  },
-  'waiting-vendor-feedback':{ label: 'Waiting for Vendor Feedback',     icon: '🔵', cls: 'status-waiting-vendor-feedback', badge: 'badge-blue'   },
-  'waiting-vendor-issue':   { label: 'Waiting for Vendor — Issue',      icon: '🟡', cls: 'status-waiting-vendor-issue',   badge: 'badge-orange' },
-  'waiting-xceed':          { label: 'Waiting for Xceed',               icon: '🔴', cls: 'status-waiting-xceed',          badge: 'badge-pink'   },
-  'not-applied-urgent':     { label: 'Not Applied — Urgent',            icon: '🔴', cls: 'status-not-applied-urgent',     badge: 'badge-red'    },
-  'on-hold':                { label: 'On Hold',                         icon: '⚪', cls: 'status-on-hold',                badge: 'badge-grey'   },
-  'dropped':                { label: 'Dropped',                         icon: '⚫', cls: 'status-dropped',               badge: 'badge-grey'   },
-  'not-contacted':          { label: 'Not Contacted',                   icon: '🔵', cls: 'status-not-contacted',         badge: 'badge-teal'   }
-};
-
-// ── TOAST ──────────────────────────────
-let toastTimer;
-  function showToast(msg, type = '') {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'show ' + type;
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.className = '', 2800);
-}
-window._showToast = showToast;
-
-// ── SCREENS ────────────────────────────
-function show(id) {
-  ['loading','login-screen','change-password-screen','app'].forEach(s => {
-    const el = document.getElementById(s);
-    el.style.display = s === id ? (s === 'change-password-screen' ? 'flex' : s === 'login-screen' ? 'flex' : s === 'app' ? 'block' : 'flex') : 'none';
-  });
-}
-
-// ── AUTH ───────────────────────────────
-async function init() {
-  show('loading');
-  const { data: { session } } = await sb.auth.getSession();
-  if (session) {
-    await onSignedIn(session.user);
-  } else {
-    show('login-screen');
-  }
-}
-
-async function onSignedIn(user) {
-  currentUser = user;
-
-  // Fetch role from ito_user_profiles — also validates user is in the system
-  try {
-    const { data: d1 } = await sb.from('ito_user_profiles').select('role').eq('id', user.id).maybeSingle();
-    if (d1?.role) {
-      currentRole = (d1.role || 'viewer').trim().toLowerCase();
-    } else {
-      const { data: d2 } = await sb.from('ito_user_profiles').select('role').eq('email', user.email).maybeSingle();
-      if (!d2) {
-        // User authenticated but not in profiles table — sign them out
-        await sb.auth.signOut();
-        show('login-screen');
-        document.getElementById('login-error').textContent = 'This email is not authorized.';
-        return;
-      }
-      currentRole = (d2.role || 'viewer').trim().toLowerCase();
-    }
-  } catch(e) {
-    currentRole = 'viewer';
-  }
-
-  // Update UI
-  const email = user.email || '';
-  const initials = email.split('@')[0].slice(0,2).toUpperCase();
-  document.getElementById('user-avatar').textContent = initials;
-  document.getElementById('user-name-display').textContent = email.split('@')[0];
-  const rb = document.getElementById('role-badge');
-  rb.textContent = currentRole;
-  rb.className = 'role-badge ' + currentRole;
-
-  const isPrivileged = (currentRole === 'admin' || currentRole === 'editor');
-  document.getElementById('actions-header').style.display = isPrivileged ? '' : 'none';
-  document.getElementById('btn-template').style.display = isPrivileged ? '' : 'none';
-  document.getElementById('btn-import').style.display = isPrivileged ? '' : 'none';
-
-  await loadVendors();
-  show('app');
-}
-
-// Allowed emails (role fetched from ito_user_profiles after login)
-const ALLOWED_EMAILS = new Set([
-  'wael.kamel@xceedcc.com',
-  'mohamed.mahdy@xceedcc.com',
-  'omar.zaher@xceedcc.com',
-  'mohamed.sayed@xceedcc.com',
-  'islam.yassin@xceedcc.com',
-  'amr.nashaat@xceedcc.com',
-  'tarek.amin@xceedcc.com',
-  'haitham.gaber@xceedcc.com',
-]);
-
-// Login
-document.getElementById('btn-login').addEventListener('click', async () => {
-  const email = document.getElementById('login-email').value.trim().toLowerCase();
-  const pw = document.getElementById('login-password').value;
-  const errEl = document.getElementById('login-error');
-  const btn = document.getElementById('btn-login');
-
-  errEl.textContent = '';
-  if (!email) { errEl.textContent = 'Please enter your email.'; return; }
-
-  // Check allowed email
-  if (!ALLOWED_EMAILS.has(email)) {
-    errEl.textContent = 'This email is not authorized.';
-    return;
-  }
-
-  // First-time flow: no password entered → set new password
-  if (!pw) {
-    errEl.textContent = 'Please enter your password. First time? Enter a new password below.';
-    document.getElementById('login-password').focus();
-    return;
-  }
-
-  btn.disabled = true;
-  btn.textContent = 'Signing in…';
-
-  // Try sign in
-  const { data, error } = await sb.auth.signInWithPassword({ email, password: pw });
-
-  btn.disabled = false;
-  btn.textContent = 'Sign In';
-
-  if (error) {
-    errEl.textContent = 'Invalid email or password.';
-    return;
-  }
-
-  await onSignedIn(data.user);
-});
-
-// Enter key on password field
-document.getElementById('login-password').addEventListener('keydown', e => {
-  if (e.key === 'Enter') document.getElementById('btn-login').click();
-});
-
-// Change password
-document.getElementById('btn-change-pw').addEventListener('click', async () => {
-  const np = document.getElementById('new-password').value;
-  const cp = document.getElementById('confirm-password').value;
-  const errEl = document.getElementById('pw-error');
-  const btn = document.getElementById('btn-change-pw');
-
-  errEl.textContent = '';
-
-  if (np.length < 8) { errEl.textContent = 'Password must be at least 8 characters.'; return; }
-  if (np !== cp) { errEl.textContent = 'Passwords do not match.'; return; }
-
-  btn.disabled = true;
-  btn.textContent = 'Saving…';
-
-  const { error } = await sb.auth.updateUser({ password: np });
-
-  btn.disabled = false;
-  btn.textContent = 'Save Password';
-
-  if (error) { errEl.textContent = 'Error saving password. Try again.'; return; }
-
-  showToast('✅ Password saved!', 'success');
-
-  // Now load the app
-  const { data: { user } } = await sb.auth.getUser();
-  if (user) {
-    // Load role
-    const { data: profile } = await sb.from('ito_user_profiles')
-      .select('role')
-      .eq('id', user.id)
-      .single();
-    currentRole = (profile?.role || 'viewer').trim().toLowerCase();
-    currentUser = user;
-
-    const email = user.email || '';
-    const initials = email.split('@')[0].slice(0,2).toUpperCase();
-    document.getElementById('user-avatar').textContent = initials;
-    document.getElementById('user-name-display').textContent = email.split('@')[0];
-    const rb = document.getElementById('role-badge');
-    rb.textContent = currentRole;
-    rb.className = 'role-badge ' + currentRole;
-
-    const isPrivileged2 = (currentRole === 'admin' || currentRole === 'editor');
-    document.getElementById('actions-header').style.display = isPrivileged2 ? '' : 'none';
-    document.getElementById('btn-template').style.display = isPrivileged2 ? '' : 'none';
-    document.getElementById('btn-import').style.display = isPrivileged2 ? '' : 'none';
-
-    await loadVendors();
-    show('app');
-  }
-});
-
-// Logout
-document.getElementById('btn-logout').addEventListener('click', async () => {
-  await sb.auth.signOut();
-  currentUser = null;
-  currentRole = 'viewer';
-  allVendors = [];
-  document.getElementById('btn-template').style.display = 'none';
-  document.getElementById('btn-import').style.display = 'none';
-  document.getElementById('actions-header').style.display = 'none';
-  show('login-screen');
-});
-
-// ── LOAD VENDORS ───────────────────────
-async function loadVendors() {
-  const { data, error } = await sb
-    .from('ito_vendors')
-    .select('*')
-    .order('sort_order', { ascending: true });
-
-  if (error) { showToast('Error loading vendors', 'error'); return; }
-
-  allVendors = data || [];
-  window._allVendors = allVendors;
-
-  // Build category filter dynamically from live data
-  const catSel = document.getElementById('filter-category');
-  const cats = [...new Set(allVendors.map(v => v.category).filter(Boolean))].sort();
-  catSel.innerHTML = '<option value="">All Categories</option>' +
-    cats.map(c => `<option value="${c}">${c}</option>`).join('');
-
-  // Header date
-  const today = new Date().toISOString().slice(0,10);
-  document.getElementById('header-date').textContent = today;
-  document.getElementById('last-updated-label').textContent = 'Updated: ' + today;
-
-  applyFilters();
-}
-
-
-// ── FILTERS ────────────────────────────
-document.getElementById('search-input').addEventListener('input', applyFilters);
-document.getElementById('filter-status').addEventListener('change', applyFilters);
-document.getElementById('filter-category').addEventListener('change', applyFilters);
-
-function applyFilters() {
-  const q = document.getElementById('search-input').value.toLowerCase();
-  const statusF = document.getElementById('filter-status').value;
-  const catF = document.getElementById('filter-category').value;
-
-  filteredVendors = allVendors.filter(v => {
-    const matchQ = !q ||
-      (v.company || '').toLowerCase().includes(q) ||
-      (v.category || '').toLowerCase().includes(q) ||
-      (v.countries || []).some(c => c.toLowerCase().includes(q)) ||
-      (v.status || '').toLowerCase().includes(q) ||
-      (v.details || '').toLowerCase().includes(q);
-    const matchStatus = !statusF || v.status_key === statusF;
-    const matchCat = !catF || v.category === catF;
-    return matchQ && matchStatus && matchCat;
-  });
-
-  renderTable();
-}
-
-// ── RENDER TABLE ───────────────────────
-function renderTable() {
-  const tbody = document.getElementById('vendors-body');
-  if (!filteredVendors.length) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="13">No vendors match the current filters.</td></tr>';
-    return;
-  }
-
-  tbody.innerHTML = filteredVendors.map((v, i) => {
-    const cfg = STATUS_CONFIG[v.status_key] || { label: v.status, icon: '⚪', cls: 'status-not-contacted' };
-    const countries = (v.countries || []).map(c => `<span class="country-tag">${c}</span>`).join('');
-    const editBtn = (currentRole === 'admin' || currentRole === 'editor')
-      ? `<button class="btn-edit" onclick="openEdit('${v.id}')">✏️</button>`
-      : '';
-
-    const leadsVal = v.leads_generation;
-    const leadsHtml = leadsVal === true || leadsVal === 'Yes' || leadsVal === 'yes'
-      ? '<span class="leads-yes">✓ Yes</span>'
-      : leadsVal === false || leadsVal === 'No' || leadsVal === 'no'
-        ? '<span class="leads-no">✗ No</span>'
-        : leadsVal
-          ? esc(leadsVal)
-          : '—';
-
-    return `<tr>
-      <td class="td-num">${i + 1}</td>
-      <td class="td-company" data-label="Company">${esc(v.company)}</td>
-      <td class="td-category" data-label="Category">${esc(v.category)}</td>
-      <td class="td-countries" data-label="Countries">${countries}</td>
-      <td class="td-scope" data-label="Scope">${esc(v.scope || v.scope_of_services || '—')}</td>
-      <td class="td-status" data-label="Status"><span class="status-pill ${cfg.cls}">${cfg.icon} ${esc(cfg.label)}</span></td>
-      <td class="td-details" data-label="Details">${esc(v.details || '—')}</td>
-      <td class="td-commitment" data-label="Commitment">${esc(v.commitment || '—')}</td>
-      <td class="td-requirements" data-label="Requirements">${esc(v.requirements || '—')}</td>
-      <td class="td-audience" data-label="Target">${esc(v.target_audience || '—')}</td>
-      <td class="td-leads" data-label="Leads">${leadsHtml}</td>
-      <td class="td-phase" data-label="Phase">${esc(v.phase_priority || '—')}</td>
-      <td class="td-actions">${editBtn}</td>
-    </tr>`;
-  }).join('');
-}
-
-function esc(s) {
-  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-// ── EDIT MODAL ─────────────────────────
-window.openEdit = function openEdit(vendorId) {
-  if (currentRole !== 'admin' && currentRole !== 'editor') return;
-  const v = allVendors.find(x => x.id === vendorId);
-  if (!v) return;
-
-  document.getElementById('edit-vendor-id').value = v.id;
-  document.getElementById('modal-company-name').textContent = v.company;
-  document.getElementById('edit-status').value = v.status_key || 'not-contacted';
-  document.getElementById('edit-details').value = v.details || '';
-  document.getElementById('edit-commitment').value = v.commitment || '';
-  document.getElementById('edit-requirements').value = v.requirements || '';
-  document.getElementById('edit-scope').value = v.scope || '';
-  document.getElementById('edit-target-audience').value = v.target_audience || '';
-  document.getElementById('edit-leads-generation').value = v.leads_generation || '';
-  document.getElementById('edit-phase').value = v.phase_priority || '';
-  document.getElementById('save-status').textContent = '';
-
-  document.getElementById('edit-modal').classList.add('open');
-}
-
-function closeModal() {
-  document.getElementById('edit-modal').classList.remove('open');
-}
-
-document.getElementById('btn-modal-close').addEventListener('click', closeModal);
-document.getElementById('btn-modal-cancel').addEventListener('click', closeModal);
-document.getElementById('edit-modal').addEventListener('click', e => {
-  if (e.target === e.currentTarget) closeModal();
-});
-
-// ── CSV Template download ──────────────────────────────────────────────
-const IMPORT_HEADERS = [
-  'company','category','countries','scope','status','details',
-  'commitment','requirements','target_audience','leads_generation','phase_priority'
-];
-
-document.getElementById('btn-template').addEventListener('click', () => {
-  const exampleRow = [
-    'Acme Corp','Cybersecurity','UAE, KSA','Managed Firewall',
-    'Not Contacted','','','','SMBs','','Phase 1'
-  ];
-  const csv = [IMPORT_HEADERS, exampleRow]
-    .map(r => r.map(c => '"' + String(c).replace(/"/g,'""') + '"').join(','))
-    .join('\n');
-  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = 'xceed-ito-import-template.csv';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  showToast('Template downloaded ✓', 'success');
-});
-
-// ── Import Modal ───────────────────────────────────────────────────────
-let importRows = [];
-
-function openImportModal() {
-  importRows = [];
-  document.getElementById('import-step-upload').style.display = '';
-  document.getElementById('import-step-preview').style.display = 'none';
-  document.getElementById('btn-import-confirm').style.display = 'none';
-  document.getElementById('import-error').style.display = 'none';
-  document.getElementById('import-error').textContent = '';
-  document.getElementById('import-status').textContent = '';
-  document.getElementById('import-file-input').value = '';
-  document.getElementById('import-modal').classList.add('open');
-}
-
-function closeImportModal() {
-  document.getElementById('import-modal').classList.remove('open');
-}
-
-document.getElementById('btn-import').addEventListener('click', openImportModal);
-document.getElementById('btn-import-close').addEventListener('click', closeImportModal);
-document.getElementById('btn-import-cancel').addEventListener('click', closeImportModal);
-document.getElementById('import-modal').addEventListener('click', e => {
-  if (e.target === e.currentTarget) closeImportModal();
-});
-
-function parseCSV(text) {
-  const lines = text.trim().split(/\r?\n/);
-  if (lines.length < 2) return { error: 'File has no data rows.' };
-  const parseRow = line => {
-    const cols = []; let cur = ''; let inQ = false;
-    for (let i = 0; i < line.length; i++) {
-      const ch = line[i];
-      if (ch === '"') { if (inQ && line[i+1] === '"') { cur += '"'; i++; } else inQ = !inQ; }
-      else if (ch === ',' && !inQ) { cols.push(cur); cur = ''; }
-      else cur += ch;
-    }
-    cols.push(cur);
-    return cols.map(c => c.trim());
-  };
-  const headers = parseRow(lines[0]).map(h => h.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,''));
-  // validate headers match exactly
-  const missing = IMPORT_HEADERS.filter(h => !headers.includes(h));
-  const extra   = headers.filter(h => !IMPORT_HEADERS.includes(h));
-  if (missing.length) return { error: 'Missing columns: ' + missing.join(', ') };
-  if (extra.length)   return { error: 'Unknown columns: ' + extra.join(', ') + '. Use the Template exactly.' };
-  const rows = lines.slice(1).map(line => {
-    const vals = parseRow(line);
-    const obj = {};
-    headers.forEach((h, i) => obj[h] = vals[i] || '');
-    return obj;
-  }).filter(r => r.company); // skip empty rows
-  if (rows.length === 0) return { error: 'No data rows found (company column is required).' };
-  return { headers, rows };
-}
-
-function showImportPreview(headers, rows) {
-  document.getElementById('import-step-upload').style.display = 'none';
-  document.getElementById('import-step-preview').style.display = '';
-  document.getElementById('btn-import-confirm').style.display = '';
-  document.getElementById('import-summary').textContent =
-    rows.length + ' row' + (rows.length !== 1 ? 's' : '') + ' ready to import.';
-  const thead = document.getElementById('import-preview-head');
-  const tbody = document.getElementById('import-preview-body');
-  thead.innerHTML = '<tr>' + IMPORT_HEADERS.map(h => '<th>' + h + '</th>').join('') + '</tr>';
-  tbody.innerHTML = rows.slice(0, 10).map(r =>
-    '<tr>' + IMPORT_HEADERS.map(h => '<td title="' + (r[h]||'') + '">' + (r[h]||'') + '</td>').join('') + '</tr>'
-  ).join('');
-  if (rows.length > 10) {
-    tbody.innerHTML += '<tr><td colspan="' + IMPORT_HEADERS.length + '" style="text-align:center;color:var(--muted);padding:6px;">… and ' + (rows.length - 10) + ' more rows</td></tr>';
-  }
-}
-
-function handleImportFile(file) {
-  if (!file) return;
-  if (!file.name.endsWith('.csv')) {
-    document.getElementById('import-error').textContent = 'Only .csv files are accepted.';
-    document.getElementById('import-error').style.display = '';
-    return;
-  }
-  const reader = new FileReader();
-  reader.onload = e => {
-    const result = parseCSV(e.target.result);
-    if (result.error) {
-      document.getElementById('import-error').textContent = '✕ ' + result.error;
-      document.getElementById('import-error').style.display = '';
-      return;
-    }
-    importRows = result.rows;
-    showImportPreview(result.headers, result.rows);
-  };
-  reader.readAsText(file, 'utf-8');
-}
-
-document.getElementById('import-file-input').addEventListener('change', e => {
-  handleImportFile(e.target.files[0]);
-});
-
-const dz = document.getElementById('import-dropzone');
-dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
-dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
-dz.addEventListener('drop', e => {
-  e.preventDefault(); dz.classList.remove('drag-over');
-  handleImportFile(e.dataTransfer.files[0]);
-});
-dz.addEventListener('click', () => document.getElementById('import-file-input').click());
-
-document.getElementById('btn-import-confirm').addEventListener('click', async () => {
-  if (currentRole !== 'admin' && currentRole !== 'editor') {
-    showToast('⛔ Not authorized', 'error');
-    return;
-  }
-  if (!importRows.length) return;
-  const btn = document.getElementById('btn-import-confirm');
-  const status = document.getElementById('import-status');
-  btn.disabled = true; btn.textContent = 'Importing…'; status.textContent = '';
-
-  // Build each record with only non-empty fields so existing data isn't wiped
-  const records = importRows.map(r => {
-    const rec = {
-      company:    r.company,
-      updated_by: currentUser?.email || 'import',
-      updated_at: new Date().toISOString()
-    };
-    if (r.category)        rec.category         = r.category;
-    if (r.countries)       rec.countries        = r.countries.split(',').map(c => c.trim()).filter(Boolean);
-    if (r.scope)           rec.scope            = r.scope;
-    if (r.status)          rec.status           = r.status;
-    if (r.details)         rec.details          = r.details;
-    if (r.commitment)      rec.commitment       = r.commitment;
-    if (r.requirements)    rec.requirements     = r.requirements;
-    if (r.target_audience) rec.target_audience  = r.target_audience;
-    if (r.leads_generation)rec.leads_generation = r.leads_generation;
-    if (r.phase_priority)  rec.phase_priority   = r.phase_priority;
-    return rec;
-  });
-
-  const { error } = await sb.from('ito_vendors').upsert(records, { onConflict: 'company', ignoreDuplicates: false });
-
-  btn.disabled = false; btn.textContent = 'Import';
-  if (error) {
-    status.style.color = 'var(--red)';
-    status.textContent = '✕ Error: ' + error.message;
-  } else {
-    closeImportModal();
-    showToast(importRows.length + ' vendors imported ✓', 'success');
-    await loadVendors();
-  }
-});
-
-document.getElementById('btn-modal-save').addEventListener('click', async () => {
-  if (currentRole !== 'admin' && currentRole !== 'editor') {
-    showToast('⛔ Not authorized', 'error');
-    return;
-  }
-  const id = document.getElementById('edit-vendor-id').value;
-  const statusKey = document.getElementById('edit-status').value;
-  const statusLabel = STATUS_CONFIG[statusKey]?.label || statusKey;
-  const details = document.getElementById('edit-details').value.trim();
-  const commitment = document.getElementById('edit-commitment').value.trim();
-  const requirements = document.getElementById('edit-requirements').value.trim();
-  const scope = document.getElementById('edit-scope').value.trim();
-  const targetAudience = document.getElementById('edit-target-audience').value.trim();
-  const leadsGeneration = document.getElementById('edit-leads-generation').value.trim();
-  const phase = document.getElementById('edit-phase').value.trim();
-
-  const saveBtn = document.getElementById('btn-modal-save');
-  const saveStatus = document.getElementById('save-status');
-
-  saveBtn.disabled = true;
-  saveBtn.textContent = 'Saving…';
-  saveStatus.textContent = '';
-
-  // Find old values for audit
-  const old = allVendors.find(v => v.id === id);
-
-  const { error } = await sb.from('ito_vendors').update({
-    status_key: statusKey,
-    status: statusLabel,
-    details,
-    commitment,
-    requirements,
-    scope,
-    target_audience: targetAudience,
-    leads_generation: leadsGeneration,
-    phase_priority: phase,
-    updated_at: new Date().toISOString(),
-    updated_by: currentUser?.email || 'unknown'
-  }).eq('id', id);
-
-  saveBtn.disabled = false;
-  saveBtn.textContent = 'Save Changes';
-
-  if (error) {
-    saveStatus.style.color = 'var(--red)';
-    saveStatus.textContent = '✕ Error saving';
-    return;
-  }
-
-  // Log to audit if status changed
-  if (old && old.status_key !== statusKey) {
-    await sb.from('ito_audit_log').insert({
-      vendor_id: id,
-      vendor_name: old.company,
-      field_changed: 'status',
-      old_value: old.status,
-      new_value: statusLabel,
-      changed_by: currentUser?.email || 'unknown'
-    });
-  }
-
-  // Update local state
-  const idx = allVendors.findIndex(v => v.id === id);
-  if (idx !== -1) {
-    allVendors[idx] = { ...allVendors[idx], status_key: statusKey, status: statusLabel, details, commitment, requirements };
-  }
-
-  applyFilters();
-  closeModal();
-  showToast('✅ Saved!', 'success');
-});
-
-// ── START ──────────────────────────────
-init();
-
-// Unregister any old service workers — no longer needed
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
-}
-
-})(); // end IIFE
-</script>
-
 <!-- ═══════════════════════════════════════════════════════════
        DECISION ENGINE TAB — OR / Mathematical Optimization (v3)
   ═══════════════════════════════════════════════════════════ -->
@@ -5224,6 +4435,795 @@ if ('serviceWorker' in navigator) {
 
 </div><!-- /padding wrapper -->
 </div><!-- /section-decision-engine -->
+
+</div>
+
+<!-- Edit Modal -->
+<!-- Import Modal -->
+<div class="modal-overlay" id="import-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Import Vendors from CSV</h3>
+      <button class="btn-close" id="btn-import-close">✕</button>
+    </div>
+
+    <div id="import-step-upload">
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:12px;">
+        Upload a CSV file using the exact same column headers as the vendor table.<br>
+        Any file with missing or extra columns will be rejected.
+      </p>
+      <div id="import-dropzone">
+        <div id="import-dropzone-label">
+          <span style="font-size:1.5rem">📄</span><br>
+          Drop CSV here or <label for="import-file-input" style="color:var(--blue);cursor:pointer;text-decoration:underline">browse</label>
+        </div>
+        <input type="file" id="import-file-input" accept=".csv" style="display:none">
+      </div>
+      <div id="import-error" style="display:none;color:var(--red);font-size:0.85rem;margin-top:8px;"></div>
+    </div>
+
+    <div id="import-step-preview" style="display:none">
+      <div id="import-summary" style="font-size:0.85rem;margin-bottom:10px;color:var(--muted);"></div>
+      <div style="max-height:260px;overflow-y:auto;border:1px solid var(--border);border-radius:6px;">
+        <table style="width:100%;border-collapse:collapse;font-size:0.78rem;" id="import-preview-table">
+          <thead id="import-preview-head"></thead>
+          <tbody id="import-preview-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <span class="save-status" id="import-status"></span>
+      <button class="btn-cancel" id="btn-import-cancel">Cancel</button>
+      <button class="btn-save" id="btn-import-confirm" style="display:none">Import</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="edit-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Edit — <span id="modal-company-name">Vendor</span></h3>
+      <button class="btn-close" id="btn-modal-close">✕</button>
+    </div>
+
+    <input type="hidden" id="edit-vendor-id">
+
+    <div class="form-group">
+      <label>Status</label>
+      <select id="edit-status">
+        <option value="registered-testing">🟢 Registered — Testing</option>
+        <option value="waiting-vendor-feedback">🔵 Waiting for Vendor Feedback</option>
+        <option value="waiting-vendor-issue">🟡 Waiting for Vendor — Issue</option>
+        <option value="waiting-xceed">🔴 Waiting for Xceed</option>
+        <option value="not-applied-urgent">🔴 Not Applied — Urgent</option>
+        <option value="on-hold">⚪ On Hold</option>
+        <option value="dropped">⚫ Dropped</option>
+        <option value="not-contacted">🔵 Not Contacted</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Details</label>
+      <textarea id="edit-details" rows="3" placeholder="Current situation details…"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Commitment / Next Step</label>
+      <textarea id="edit-commitment" rows="2" placeholder="What needs to happen next…"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Requirements</label>
+      <textarea id="edit-requirements" rows="2" placeholder="Partner program requirements…"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Scope of Services</label>
+      <textarea id="edit-scope" rows="2" placeholder="Services in scope…"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Target Audience</label>
+      <textarea id="edit-target-audience" rows="2" placeholder="Target audience…"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Leads Generation</label>
+      <textarea id="edit-leads-generation" rows="2" placeholder="Leads generation notes…"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Phase Priority</label>
+      <input type="text" id="edit-phase" placeholder="e.g. Phase 1, Phase 2…">
+    </div>
+
+    <div class="modal-footer">
+      <span class="save-status" id="save-status"></span>
+      <button class="btn-cancel" id="btn-modal-cancel">Cancel</button>
+      <button class="btn-save" id="btn-modal-save">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<script>
+// ── UI FUNCTIONS (global scope — called from inline onclick) ──
+function showMainTab(btn, sectionId) {
+  document.querySelectorAll('.main-tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('section-vendors').style.display = 'none';
+  document.getElementById('section-market-study').style.display = 'none';
+  document.getElementById('section-partner-report').style.display = 'none';
+  document.getElementById('section-ito-strategy').style.display = 'none';
+  document.getElementById('section-board-gtm').style.display = 'none';
+  document.getElementById('section-decision-engine').style.display = 'none';
+  document.getElementById(sectionId).style.display = 'block';
+}
+function msShowPage(btn, id) {
+  document.querySelectorAll('.ms-wrapper .nav-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.ms-wrapper .page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function msShowC(btn, country) {
+  const panel = btn.closest('.ms-wrapper');
+  panel.querySelectorAll('.ctab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  panel.querySelectorAll('.cpanel').forEach(p => p.classList.remove('active'));
+  const cp = document.getElementById('ms-cpanel-' + country);
+  if (cp) cp.classList.add('active');
+}
+function msShowComp(btn, id) {
+  document.querySelectorAll('#ms-comp-tabs .ctab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  ['ms-comp-uae','ms-comp-ksa','ms-comp-ma','ms-comp-mu','ms-comp-in'].forEach(cid => {
+    const el = document.getElementById(cid);
+    if (el) el.classList.remove('active');
+  });
+  const el = document.getElementById(id);
+  if (el) el.classList.add('active');
+}
+function exportToExcel() {
+  const vendors = window._allVendors || [];
+  if (!vendors.length) { if(window._showToast) window._showToast('No data to export','error'); return; }
+  const headers = ['Company','Category','Countries','Scope of Services','Status','Details','Commitment','Requirements','Target Audience','Leads','Phase'];
+  const rows = vendors.map(v => [
+    v.company||'', v.category||'', (v.countries||[]).join(', '),
+    v.scope||v.scope_of_services||'', v.status||'', v.details||'',
+    v.commitment||'', v.requirements||'', v.target_audience||'',
+    v.leads_generation||'', v.phase_priority||''
+  ]);
+  const csv = [headers,...rows].map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const blob = new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download='xceed-ito-vendors-'+new Date().toISOString().slice(0,10)+'.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  if(window._showToast) window._showToast('Exported successfully ✓','success');
+}
+</script>
+
+<script>
+(function() {
+// ── CONFIG ─────────────────────────────
+const SUPABASE_URL = 'https://wmmqymlbamrwbdthfbdd.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtbXF5bWxiYW1yd2JkdGhmYmRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ3MjM5NzksImV4cCI6MjExMDI5OTk3OX0.GcUuoaDuEUAAUpOazf81Bt177q3sRgAZUQypEKLKxoc';
+
+// Timeout: if still loading after 8 seconds, show error
+setTimeout(() => {
+  const el = document.getElementById('loading');
+  if (el && el.style.display !== 'none') {
+    el.innerHTML = '<p style="color:#f05252;padding:2rem;text-align:center">❌ Could not connect. Check your internet and <a href="" style="color:#4f8ef7">refresh</a>.</p>';
+  }
+}, 8000);
+
+if (typeof supabase === 'undefined') {
+  document.getElementById('loading').innerHTML = '<p style="color:#f05252;padding:2rem;text-align:center">❌ Failed to load library. Please refresh.</p>';
+  throw new Error('Supabase library not loaded');
+}
+
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ── STATE ──────────────────────────────
+let currentUser = null;
+let currentRole = 'viewer';
+let allVendors = [];
+let filteredVendors = [];
+
+// ── STATUS CONFIG ──────────────────────
+const STATUS_CONFIG = {
+  'registered-testing':     { label: 'Registered — Testing',           icon: '🟢', cls: 'status-registered-testing',     badge: 'badge-green'  },
+  'waiting-vendor-feedback':{ label: 'Waiting for Vendor Feedback',     icon: '🔵', cls: 'status-waiting-vendor-feedback', badge: 'badge-blue'   },
+  'waiting-vendor-issue':   { label: 'Waiting for Vendor — Issue',      icon: '🟡', cls: 'status-waiting-vendor-issue',   badge: 'badge-orange' },
+  'waiting-xceed':          { label: 'Waiting for Xceed',               icon: '🔴', cls: 'status-waiting-xceed',          badge: 'badge-pink'   },
+  'not-applied-urgent':     { label: 'Not Applied — Urgent',            icon: '🔴', cls: 'status-not-applied-urgent',     badge: 'badge-red'    },
+  'on-hold':                { label: 'On Hold',                         icon: '⚪', cls: 'status-on-hold',                badge: 'badge-grey'   },
+  'dropped':                { label: 'Dropped',                         icon: '⚫', cls: 'status-dropped',               badge: 'badge-grey'   },
+  'not-contacted':          { label: 'Not Contacted',                   icon: '🔵', cls: 'status-not-contacted',         badge: 'badge-teal'   }
+};
+
+// ── TOAST ──────────────────────────────
+let toastTimer;
+  function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'show ' + type;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.className = '', 2800);
+}
+window._showToast = showToast;
+
+// ── SCREENS ────────────────────────────
+function show(id) {
+  ['loading','login-screen','change-password-screen','app'].forEach(s => {
+    const el = document.getElementById(s);
+    el.style.display = s === id ? (s === 'change-password-screen' ? 'flex' : s === 'login-screen' ? 'flex' : s === 'app' ? 'block' : 'flex') : 'none';
+  });
+}
+
+// ── AUTH ───────────────────────────────
+async function init() {
+  show('loading');
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) {
+    await onSignedIn(session.user);
+  } else {
+    show('login-screen');
+  }
+}
+
+async function onSignedIn(user) {
+  currentUser = user;
+
+  // Fetch role from ito_user_profiles — also validates user is in the system
+  try {
+    const { data: d1 } = await sb.from('ito_user_profiles').select('role').eq('id', user.id).maybeSingle();
+    if (d1?.role) {
+      currentRole = (d1.role || 'viewer').trim().toLowerCase();
+    } else {
+      const { data: d2 } = await sb.from('ito_user_profiles').select('role').eq('email', user.email).maybeSingle();
+      if (!d2) {
+        // User authenticated but not in profiles table — sign them out
+        await sb.auth.signOut();
+        show('login-screen');
+        document.getElementById('login-error').textContent = 'This email is not authorized.';
+        return;
+      }
+      currentRole = (d2.role || 'viewer').trim().toLowerCase();
+    }
+  } catch(e) {
+    currentRole = 'viewer';
+  }
+
+  // Update UI
+  const email = user.email || '';
+  const initials = email.split('@')[0].slice(0,2).toUpperCase();
+  document.getElementById('user-avatar').textContent = initials;
+  document.getElementById('user-name-display').textContent = email.split('@')[0];
+  const rb = document.getElementById('role-badge');
+  rb.textContent = currentRole;
+  rb.className = 'role-badge ' + currentRole;
+
+  const isPrivileged = (currentRole === 'admin' || currentRole === 'editor');
+  document.getElementById('actions-header').style.display = isPrivileged ? '' : 'none';
+  document.getElementById('btn-template').style.display = isPrivileged ? '' : 'none';
+  document.getElementById('btn-import').style.display = isPrivileged ? '' : 'none';
+
+  await loadVendors();
+  show('app');
+}
+
+// Allowed emails (role fetched from ito_user_profiles after login)
+const ALLOWED_EMAILS = new Set([
+  'wael.kamel@xceedcc.com',
+  'mohamed.mahdy@xceedcc.com',
+  'omar.zaher@xceedcc.com',
+  'mohamed.sayed@xceedcc.com',
+  'islam.yassin@xceedcc.com',
+  'amr.nashaat@xceedcc.com',
+  'tarek.amin@xceedcc.com',
+  'haitham.gaber@xceedcc.com',
+]);
+
+// Login
+document.getElementById('btn-login').addEventListener('click', async () => {
+  const email = document.getElementById('login-email').value.trim().toLowerCase();
+  const pw = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  const btn = document.getElementById('btn-login');
+
+  errEl.textContent = '';
+  if (!email) { errEl.textContent = 'Please enter your email.'; return; }
+
+  // Check allowed email
+  if (!ALLOWED_EMAILS.has(email)) {
+    errEl.textContent = 'This email is not authorized.';
+    return;
+  }
+
+  // First-time flow: no password entered → set new password
+  if (!pw) {
+    errEl.textContent = 'Please enter your password. First time? Enter a new password below.';
+    document.getElementById('login-password').focus();
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Signing in…';
+
+  // Try sign in
+  const { data, error } = await sb.auth.signInWithPassword({ email, password: pw });
+
+  btn.disabled = false;
+  btn.textContent = 'Sign In';
+
+  if (error) {
+    errEl.textContent = 'Invalid email or password.';
+    return;
+  }
+
+  await onSignedIn(data.user);
+});
+
+// Enter key on password field
+document.getElementById('login-password').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('btn-login').click();
+});
+
+// Change password
+document.getElementById('btn-change-pw').addEventListener('click', async () => {
+  const np = document.getElementById('new-password').value;
+  const cp = document.getElementById('confirm-password').value;
+  const errEl = document.getElementById('pw-error');
+  const btn = document.getElementById('btn-change-pw');
+
+  errEl.textContent = '';
+
+  if (np.length < 8) { errEl.textContent = 'Password must be at least 8 characters.'; return; }
+  if (np !== cp) { errEl.textContent = 'Passwords do not match.'; return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+
+  const { error } = await sb.auth.updateUser({ password: np });
+
+  btn.disabled = false;
+  btn.textContent = 'Save Password';
+
+  if (error) { errEl.textContent = 'Error saving password. Try again.'; return; }
+
+  showToast('✅ Password saved!', 'success');
+
+  // Now load the app
+  const { data: { user } } = await sb.auth.getUser();
+  if (user) {
+    // Load role
+    const { data: profile } = await sb.from('ito_user_profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single();
+    currentRole = (profile?.role || 'viewer').trim().toLowerCase();
+    currentUser = user;
+
+    const email = user.email || '';
+    const initials = email.split('@')[0].slice(0,2).toUpperCase();
+    document.getElementById('user-avatar').textContent = initials;
+    document.getElementById('user-name-display').textContent = email.split('@')[0];
+    const rb = document.getElementById('role-badge');
+    rb.textContent = currentRole;
+    rb.className = 'role-badge ' + currentRole;
+
+    const isPrivileged2 = (currentRole === 'admin' || currentRole === 'editor');
+    document.getElementById('actions-header').style.display = isPrivileged2 ? '' : 'none';
+    document.getElementById('btn-template').style.display = isPrivileged2 ? '' : 'none';
+    document.getElementById('btn-import').style.display = isPrivileged2 ? '' : 'none';
+
+    await loadVendors();
+    show('app');
+  }
+});
+
+// Logout
+document.getElementById('btn-logout').addEventListener('click', async () => {
+  await sb.auth.signOut();
+  currentUser = null;
+  currentRole = 'viewer';
+  allVendors = [];
+  document.getElementById('btn-template').style.display = 'none';
+  document.getElementById('btn-import').style.display = 'none';
+  document.getElementById('actions-header').style.display = 'none';
+  show('login-screen');
+});
+
+// ── LOAD VENDORS ───────────────────────
+async function loadVendors() {
+  const { data, error } = await sb
+    .from('ito_vendors')
+    .select('*')
+    .order('sort_order', { ascending: true });
+
+  if (error) { showToast('Error loading vendors', 'error'); return; }
+
+  allVendors = data || [];
+  window._allVendors = allVendors;
+
+  // Build category filter dynamically from live data
+  const catSel = document.getElementById('filter-category');
+  const cats = [...new Set(allVendors.map(v => v.category).filter(Boolean))].sort();
+  catSel.innerHTML = '<option value="">All Categories</option>' +
+    cats.map(c => `<option value="${c}">${c}</option>`).join('');
+
+  // Header date
+  const today = new Date().toISOString().slice(0,10);
+  document.getElementById('header-date').textContent = today;
+  document.getElementById('last-updated-label').textContent = 'Updated: ' + today;
+
+  applyFilters();
+}
+
+
+// ── FILTERS ────────────────────────────
+document.getElementById('search-input').addEventListener('input', applyFilters);
+document.getElementById('filter-status').addEventListener('change', applyFilters);
+document.getElementById('filter-category').addEventListener('change', applyFilters);
+
+function applyFilters() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  const statusF = document.getElementById('filter-status').value;
+  const catF = document.getElementById('filter-category').value;
+
+  filteredVendors = allVendors.filter(v => {
+    const matchQ = !q ||
+      (v.company || '').toLowerCase().includes(q) ||
+      (v.category || '').toLowerCase().includes(q) ||
+      (v.countries || []).some(c => c.toLowerCase().includes(q)) ||
+      (v.status || '').toLowerCase().includes(q) ||
+      (v.details || '').toLowerCase().includes(q);
+    const matchStatus = !statusF || v.status_key === statusF;
+    const matchCat = !catF || v.category === catF;
+    return matchQ && matchStatus && matchCat;
+  });
+
+  renderTable();
+}
+
+// ── RENDER TABLE ───────────────────────
+function renderTable() {
+  const tbody = document.getElementById('vendors-body');
+  if (!filteredVendors.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="13">No vendors match the current filters.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filteredVendors.map((v, i) => {
+    const cfg = STATUS_CONFIG[v.status_key] || { label: v.status, icon: '⚪', cls: 'status-not-contacted' };
+    const countries = (v.countries || []).map(c => `<span class="country-tag">${c}</span>`).join('');
+    const editBtn = (currentRole === 'admin' || currentRole === 'editor')
+      ? `<button class="btn-edit" onclick="openEdit('${v.id}')">✏️</button>`
+      : '';
+
+    const leadsVal = v.leads_generation;
+    const leadsHtml = leadsVal === true || leadsVal === 'Yes' || leadsVal === 'yes'
+      ? '<span class="leads-yes">✓ Yes</span>'
+      : leadsVal === false || leadsVal === 'No' || leadsVal === 'no'
+        ? '<span class="leads-no">✗ No</span>'
+        : leadsVal
+          ? esc(leadsVal)
+          : '—';
+
+    return `<tr>
+      <td class="td-num">${i + 1}</td>
+      <td class="td-company" data-label="Company">${esc(v.company)}</td>
+      <td class="td-category" data-label="Category">${esc(v.category)}</td>
+      <td class="td-countries" data-label="Countries">${countries}</td>
+      <td class="td-scope" data-label="Scope">${esc(v.scope || v.scope_of_services || '—')}</td>
+      <td class="td-status" data-label="Status"><span class="status-pill ${cfg.cls}">${cfg.icon} ${esc(cfg.label)}</span></td>
+      <td class="td-details" data-label="Details">${esc(v.details || '—')}</td>
+      <td class="td-commitment" data-label="Commitment">${esc(v.commitment || '—')}</td>
+      <td class="td-requirements" data-label="Requirements">${esc(v.requirements || '—')}</td>
+      <td class="td-audience" data-label="Target">${esc(v.target_audience || '—')}</td>
+      <td class="td-leads" data-label="Leads">${leadsHtml}</td>
+      <td class="td-phase" data-label="Phase">${esc(v.phase_priority || '—')}</td>
+      <td class="td-actions">${editBtn}</td>
+    </tr>`;
+  }).join('');
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── EDIT MODAL ─────────────────────────
+window.openEdit = function openEdit(vendorId) {
+  if (currentRole !== 'admin' && currentRole !== 'editor') return;
+  const v = allVendors.find(x => x.id === vendorId);
+  if (!v) return;
+
+  document.getElementById('edit-vendor-id').value = v.id;
+  document.getElementById('modal-company-name').textContent = v.company;
+  document.getElementById('edit-status').value = v.status_key || 'not-contacted';
+  document.getElementById('edit-details').value = v.details || '';
+  document.getElementById('edit-commitment').value = v.commitment || '';
+  document.getElementById('edit-requirements').value = v.requirements || '';
+  document.getElementById('edit-scope').value = v.scope || '';
+  document.getElementById('edit-target-audience').value = v.target_audience || '';
+  document.getElementById('edit-leads-generation').value = v.leads_generation || '';
+  document.getElementById('edit-phase').value = v.phase_priority || '';
+  document.getElementById('save-status').textContent = '';
+
+  document.getElementById('edit-modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('edit-modal').classList.remove('open');
+}
+
+document.getElementById('btn-modal-close').addEventListener('click', closeModal);
+document.getElementById('btn-modal-cancel').addEventListener('click', closeModal);
+document.getElementById('edit-modal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+
+// ── CSV Template download ──────────────────────────────────────────────
+const IMPORT_HEADERS = [
+  'company','category','countries','scope','status','details',
+  'commitment','requirements','target_audience','leads_generation','phase_priority'
+];
+
+document.getElementById('btn-template').addEventListener('click', () => {
+  const exampleRow = [
+    'Acme Corp','Cybersecurity','UAE, KSA','Managed Firewall',
+    'Not Contacted','','','','SMBs','','Phase 1'
+  ];
+  const csv = [IMPORT_HEADERS, exampleRow]
+    .map(r => r.map(c => '"' + String(c).replace(/"/g,'""') + '"').join(','))
+    .join('\n');
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'xceed-ito-import-template.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('Template downloaded ✓', 'success');
+});
+
+// ── Import Modal ───────────────────────────────────────────────────────
+let importRows = [];
+
+function openImportModal() {
+  importRows = [];
+  document.getElementById('import-step-upload').style.display = '';
+  document.getElementById('import-step-preview').style.display = 'none';
+  document.getElementById('btn-import-confirm').style.display = 'none';
+  document.getElementById('import-error').style.display = 'none';
+  document.getElementById('import-error').textContent = '';
+  document.getElementById('import-status').textContent = '';
+  document.getElementById('import-file-input').value = '';
+  document.getElementById('import-modal').classList.add('open');
+}
+
+function closeImportModal() {
+  document.getElementById('import-modal').classList.remove('open');
+}
+
+document.getElementById('btn-import').addEventListener('click', openImportModal);
+document.getElementById('btn-import-close').addEventListener('click', closeImportModal);
+document.getElementById('btn-import-cancel').addEventListener('click', closeImportModal);
+document.getElementById('import-modal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeImportModal();
+});
+
+function parseCSV(text) {
+  const lines = text.trim().split(/\r?\n/);
+  if (lines.length < 2) return { error: 'File has no data rows.' };
+  const parseRow = line => {
+    const cols = []; let cur = ''; let inQ = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') { if (inQ && line[i+1] === '"') { cur += '"'; i++; } else inQ = !inQ; }
+      else if (ch === ',' && !inQ) { cols.push(cur); cur = ''; }
+      else cur += ch;
+    }
+    cols.push(cur);
+    return cols.map(c => c.trim());
+  };
+  const headers = parseRow(lines[0]).map(h => h.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,''));
+  // validate headers match exactly
+  const missing = IMPORT_HEADERS.filter(h => !headers.includes(h));
+  const extra   = headers.filter(h => !IMPORT_HEADERS.includes(h));
+  if (missing.length) return { error: 'Missing columns: ' + missing.join(', ') };
+  if (extra.length)   return { error: 'Unknown columns: ' + extra.join(', ') + '. Use the Template exactly.' };
+  const rows = lines.slice(1).map(line => {
+    const vals = parseRow(line);
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = vals[i] || '');
+    return obj;
+  }).filter(r => r.company); // skip empty rows
+  if (rows.length === 0) return { error: 'No data rows found (company column is required).' };
+  return { headers, rows };
+}
+
+function showImportPreview(headers, rows) {
+  document.getElementById('import-step-upload').style.display = 'none';
+  document.getElementById('import-step-preview').style.display = '';
+  document.getElementById('btn-import-confirm').style.display = '';
+  document.getElementById('import-summary').textContent =
+    rows.length + ' row' + (rows.length !== 1 ? 's' : '') + ' ready to import.';
+  const thead = document.getElementById('import-preview-head');
+  const tbody = document.getElementById('import-preview-body');
+  thead.innerHTML = '<tr>' + IMPORT_HEADERS.map(h => '<th>' + h + '</th>').join('') + '</tr>';
+  tbody.innerHTML = rows.slice(0, 10).map(r =>
+    '<tr>' + IMPORT_HEADERS.map(h => '<td title="' + (r[h]||'') + '">' + (r[h]||'') + '</td>').join('') + '</tr>'
+  ).join('');
+  if (rows.length > 10) {
+    tbody.innerHTML += '<tr><td colspan="' + IMPORT_HEADERS.length + '" style="text-align:center;color:var(--muted);padding:6px;">… and ' + (rows.length - 10) + ' more rows</td></tr>';
+  }
+}
+
+function handleImportFile(file) {
+  if (!file) return;
+  if (!file.name.endsWith('.csv')) {
+    document.getElementById('import-error').textContent = 'Only .csv files are accepted.';
+    document.getElementById('import-error').style.display = '';
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    const result = parseCSV(e.target.result);
+    if (result.error) {
+      document.getElementById('import-error').textContent = '✕ ' + result.error;
+      document.getElementById('import-error').style.display = '';
+      return;
+    }
+    importRows = result.rows;
+    showImportPreview(result.headers, result.rows);
+  };
+  reader.readAsText(file, 'utf-8');
+}
+
+document.getElementById('import-file-input').addEventListener('change', e => {
+  handleImportFile(e.target.files[0]);
+});
+
+const dz = document.getElementById('import-dropzone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+dz.addEventListener('drop', e => {
+  e.preventDefault(); dz.classList.remove('drag-over');
+  handleImportFile(e.dataTransfer.files[0]);
+});
+dz.addEventListener('click', () => document.getElementById('import-file-input').click());
+
+document.getElementById('btn-import-confirm').addEventListener('click', async () => {
+  if (currentRole !== 'admin' && currentRole !== 'editor') {
+    showToast('⛔ Not authorized', 'error');
+    return;
+  }
+  if (!importRows.length) return;
+  const btn = document.getElementById('btn-import-confirm');
+  const status = document.getElementById('import-status');
+  btn.disabled = true; btn.textContent = 'Importing…'; status.textContent = '';
+
+  // Build each record with only non-empty fields so existing data isn't wiped
+  const records = importRows.map(r => {
+    const rec = {
+      company:    r.company,
+      updated_by: currentUser?.email || 'import',
+      updated_at: new Date().toISOString()
+    };
+    if (r.category)        rec.category         = r.category;
+    if (r.countries)       rec.countries        = r.countries.split(',').map(c => c.trim()).filter(Boolean);
+    if (r.scope)           rec.scope            = r.scope;
+    if (r.status)          rec.status           = r.status;
+    if (r.details)         rec.details          = r.details;
+    if (r.commitment)      rec.commitment       = r.commitment;
+    if (r.requirements)    rec.requirements     = r.requirements;
+    if (r.target_audience) rec.target_audience  = r.target_audience;
+    if (r.leads_generation)rec.leads_generation = r.leads_generation;
+    if (r.phase_priority)  rec.phase_priority   = r.phase_priority;
+    return rec;
+  });
+
+  const { error } = await sb.from('ito_vendors').upsert(records, { onConflict: 'company', ignoreDuplicates: false });
+
+  btn.disabled = false; btn.textContent = 'Import';
+  if (error) {
+    status.style.color = 'var(--red)';
+    status.textContent = '✕ Error: ' + error.message;
+  } else {
+    closeImportModal();
+    showToast(importRows.length + ' vendors imported ✓', 'success');
+    await loadVendors();
+  }
+});
+
+document.getElementById('btn-modal-save').addEventListener('click', async () => {
+  if (currentRole !== 'admin' && currentRole !== 'editor') {
+    showToast('⛔ Not authorized', 'error');
+    return;
+  }
+  const id = document.getElementById('edit-vendor-id').value;
+  const statusKey = document.getElementById('edit-status').value;
+  const statusLabel = STATUS_CONFIG[statusKey]?.label || statusKey;
+  const details = document.getElementById('edit-details').value.trim();
+  const commitment = document.getElementById('edit-commitment').value.trim();
+  const requirements = document.getElementById('edit-requirements').value.trim();
+  const scope = document.getElementById('edit-scope').value.trim();
+  const targetAudience = document.getElementById('edit-target-audience').value.trim();
+  const leadsGeneration = document.getElementById('edit-leads-generation').value.trim();
+  const phase = document.getElementById('edit-phase').value.trim();
+
+  const saveBtn = document.getElementById('btn-modal-save');
+  const saveStatus = document.getElementById('save-status');
+
+  saveBtn.disabled = true;
+  saveBtn.textContent = 'Saving…';
+  saveStatus.textContent = '';
+
+  // Find old values for audit
+  const old = allVendors.find(v => v.id === id);
+
+  const { error } = await sb.from('ito_vendors').update({
+    status_key: statusKey,
+    status: statusLabel,
+    details,
+    commitment,
+    requirements,
+    scope,
+    target_audience: targetAudience,
+    leads_generation: leadsGeneration,
+    phase_priority: phase,
+    updated_at: new Date().toISOString(),
+    updated_by: currentUser?.email || 'unknown'
+  }).eq('id', id);
+
+  saveBtn.disabled = false;
+  saveBtn.textContent = 'Save Changes';
+
+  if (error) {
+    saveStatus.style.color = 'var(--red)';
+    saveStatus.textContent = '✕ Error saving';
+    return;
+  }
+
+  // Log to audit if status changed
+  if (old && old.status_key !== statusKey) {
+    await sb.from('ito_audit_log').insert({
+      vendor_id: id,
+      vendor_name: old.company,
+      field_changed: 'status',
+      old_value: old.status,
+      new_value: statusLabel,
+      changed_by: currentUser?.email || 'unknown'
+    });
+  }
+
+  // Update local state
+  const idx = allVendors.findIndex(v => v.id === id);
+  if (idx !== -1) {
+    allVendors[idx] = { ...allVendors[idx], status_key: statusKey, status: statusLabel, details, commitment, requirements };
+  }
+
+  applyFilters();
+  closeModal();
+  showToast('✅ Saved!', 'success');
+});
+
+// ── START ──────────────────────────────
+init();
+
+// Unregister any old service workers — no longer needed
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
+}
+
+})(); // end IIFE
+</script>
 
 <script>
 // Weight pill toggle — tap to see why each value was set
