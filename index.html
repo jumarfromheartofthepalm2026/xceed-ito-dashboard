@@ -4038,7 +4038,6 @@ if ('serviceWorker' in navigator) {
 <!-- ═══════════════════════════════════════════════════════════
        DECISION ENGINE TAB — OR / Mathematical Optimization (v3)
   ═══════════════════════════════════════════════════════════ -->
-<div id="section-decision-engine" style="display:none">
 <style>
 /* ── Decision Engine local styles ── */
 .de-header {
@@ -4066,10 +4065,13 @@ if ('serviceWorker' in navigator) {
   gap: 10px;
   margin-bottom: 24px;
   flex-wrap: wrap;
+  overflow-x: hidden;
 }
 .de-phase-card {
-  flex: 1;
-  min-width: 160px;
+  flex: 1 1 140px;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
   background: var(--bg2);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -4271,8 +4273,10 @@ if ('serviceWorker' in navigator) {
 .de-coming-soon p { font-size: 13px; margin: 0; }
 </style>
 
+<div id="section-decision-engine" style="display:none">
+
 <!-- Header -->
-<div style="padding:24px 24px 0">
+<div style="padding:24px 20px 0; overflow-x:hidden">
   <div class="de-header">
     <div>
       <span class="de-badge">⚙️ Decision Engine</span>
