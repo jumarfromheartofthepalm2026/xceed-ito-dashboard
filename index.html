@@ -4648,10 +4648,15 @@ td {
     container.style.display = 'none';
 
     try {
-      /* make sure we have an active session before querying */
-      const { data: { session } } = await sb.auth.getSession();
+      /* make sure we have an active session — retry up to 3× with 800ms gap */
+      let session = null;
+      for (let i = 0; i < 3; i++) {
+        const { data: { session: s } } = await sb.auth.getSession();
+        if (s) { session = s; break; }
+        await new Promise(r => setTimeout(r, 800));
+      }
       if (!session) {
-        loadMsg.textContent = '❌ Not signed in. Please refresh.';
+        loadMsg.textContent = '❌ No active session. Please sign out and sign in again.';
         return;
       }
 
@@ -4668,7 +4673,7 @@ td {
       updateStats(data);
       renderTable(data);
     } catch(e){
-      loadMsg.textContent = '❌ Failed to load vendor data. Error: ' + (e?.message || JSON.stringify(e));
+      loadMsg.textContent = '❌ Error: ' + (e?.message || JSON.stringify(e));
       console.error('vreg load error', e);
     }
   };
