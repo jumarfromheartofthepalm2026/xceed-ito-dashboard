@@ -5889,7 +5889,7 @@ window.sb = sb;
 
 // ── STATE ──────────────────────────────
 var currentUser = null;
-var currentRole = 'viewer';
+var currentRole = 'viewer'; window.currentRole = 'viewer';
 let allVendors = [];
 let filteredVendors = [];
 
@@ -5942,7 +5942,7 @@ async function onSignedIn(user) {
   try {
     const { data: d1 } = await sb.from('ito_user_profiles').select('role').eq('id', user.id).maybeSingle();
     if (d1?.role) {
-      currentRole = (d1.role || 'viewer').trim().toLowerCase();
+      currentRole = window.currentRole = (d1.role || 'viewer').trim().toLowerCase();
     } else {
       const { data: d2 } = await sb.from('ito_user_profiles').select('role').eq('email', user.email).maybeSingle();
       if (!d2) {
@@ -5952,10 +5952,10 @@ async function onSignedIn(user) {
         document.getElementById('login-error').textContent = 'This email is not authorized.';
         return;
       }
-      currentRole = (d2.role || 'viewer').trim().toLowerCase();
+      currentRole = window.currentRole = (d2.role || 'viewer').trim().toLowerCase();
     }
   } catch(e) {
-    currentRole = 'viewer';
+    currentRole = window.currentRole = 'viewer';
   }
 
   // Update UI
@@ -6071,7 +6071,7 @@ document.getElementById('btn-change-pw').addEventListener('click', async () => {
       .select('role')
       .eq('id', user.id)
       .single();
-    currentRole = (profile?.role || 'viewer').trim().toLowerCase();
+    currentRole = window.currentRole = (profile?.role || 'viewer').trim().toLowerCase();
     currentUser = user;
 
     const email = user.email || '';
@@ -6096,7 +6096,7 @@ document.getElementById('btn-change-pw').addEventListener('click', async () => {
 document.getElementById('btn-logout').addEventListener('click', async () => {
   await sb.auth.signOut();
   currentUser = null;
-  currentRole = 'viewer';
+  currentRole = window.currentRole = 'viewer';
   allVendors = [];
   document.getElementById('btn-template').style.display = 'none';
   document.getElementById('btn-import').style.display = 'none';
