@@ -4438,19 +4438,42 @@ td {
     const tr = document.createElement('tr');
     tr.dataset.id = row.id;
 
-    // Vendor
+    // 1. Vendor (editable)
     const tdV = document.createElement('td');
-    tdV.style.cssText='font-weight:700;white-space:nowrap';
-    tdV.textContent = row.vendor || '';
+    tdV.style.cssText='white-space:nowrap;min-width:140px';
+    if(editable){
+      const inpV = document.createElement('input');
+      inpV.type = 'text';
+      inpV.className = 'vr-notes vr-vendor-inp';
+      inpV.style.minHeight = '32px';
+      inpV.style.fontWeight = '700';
+      inpV.value = row.vendor || '';
+      inpV.addEventListener('input', ()=>showSaveBtn(row.id));
+      tdV.appendChild(inpV);
+    } else {
+      tdV.style.fontWeight = '700';
+      tdV.textContent = row.vendor || '';
+    }
     tr.appendChild(tdV);
 
-    // Cluster
+    // 2. Cluster (editable)
     const tdC = document.createElement('td');
-    tdC.style.cssText='color:var(--fg3);white-space:nowrap';
-    tdC.textContent = row.cluster || '';
+    tdC.style.cssText='white-space:nowrap;min-width:160px';
+    if(editable){
+      const inpC = document.createElement('input');
+      inpC.type = 'text';
+      inpC.className = 'vr-notes vr-cluster-inp';
+      inpC.style.minHeight = '32px';
+      inpC.value = row.cluster || '';
+      inpC.addEventListener('input', ()=>showSaveBtn(row.id));
+      tdC.appendChild(inpC);
+    } else {
+      tdC.style.color = 'var(--fg3)';
+      tdC.textContent = row.cluster || '';
+    }
     tr.appendChild(tdC);
 
-    // Status
+    // 3. Status
     const tdS = document.createElement('td');
     if(editable){
       const sel = document.createElement('select');
@@ -4471,9 +4494,9 @@ td {
     }
     tr.appendChild(tdS);
 
-    // Notes
+    // 4. Notes
     const tdN = document.createElement('td');
-    tdN.style.minWidth='200px';
+    tdN.style.minWidth='220px';
     if(editable){
       const ta=document.createElement('textarea');
       ta.className='vr-notes';
@@ -4486,16 +4509,33 @@ td {
     }
     tr.appendChild(tdN);
 
-    // Priority
+    // 5. Priority (editable)
     const tdP = document.createElement('td');
-    tdP.style.cssText='font-weight:700;font-size:12px;white-space:nowrap';
-    tdP.style.color = row.priority_level===1?'var(--red)':row.priority_level===2?'var(--orange)':'var(--fg3)';
-    tdP.textContent = row.priority_level||'';
+    tdP.style.cssText='white-space:nowrap;min-width:75px';
+    if(editable){
+      const inpP = document.createElement('input');
+      inpP.type = 'number';
+      inpP.min = '1';
+      inpP.max = '99';
+      inpP.className = 'vr-notes vr-pri-inp';
+      inpP.style.minHeight = '32px';
+      inpP.style.width = '64px';
+      inpP.style.fontWeight = '700';
+      inpP.style.color = row.priority_level===1?'var(--red)':row.priority_level===2?'var(--orange)':'var(--fg)';
+      inpP.value = row.priority_level ?? '';
+      inpP.addEventListener('input', ()=>showSaveBtn(row.id));
+      tdP.appendChild(inpP);
+    } else {
+      tdP.style.cssText='font-weight:700;font-size:12px;white-space:nowrap';
+      tdP.style.color = row.priority_level===1?'var(--red)':row.priority_level===2?'var(--orange)':'var(--fg3)';
+      tdP.textContent = row.priority_level||'';
+    }
     tr.appendChild(tdP);
 
-    // Save btn
+    // 6. Save btn
     if(editable){
       const tdA=document.createElement('td');
+      tdA.style.whiteSpace='nowrap';
       const btn=document.createElement('button');
       btn.className='vr-savebtn'; btn.id='vsave-'+row.id; btn.textContent='Save';
       btn.addEventListener('click',()=>doSave(tr,row.id));
@@ -4516,12 +4556,25 @@ td {
   async function doSave(tr,id){
     const btn=document.getElementById('vsave-'+id);
     const flash=document.getElementById('vflash-'+id);
+    const vendorInp=tr.querySelector('.vr-vendor-inp');
+    const clusterInp=tr.querySelector('.vr-cluster-inp');
     const sel=tr.querySelector('.vr-sel');
-    const ta=tr.querySelector('.vr-notes');
+    const ta=tr.querySelector('.vr-notes:not(.vr-vendor-inp):not(.vr-cluster-inp):not(.vr-pri-inp)');
+    const priInp=tr.querySelector('.vr-pri-inp');
+
+    const payload = {
+      vendor: vendorInp ? vendorInp.value.trim() : undefined,
+      cluster: clusterInp ? clusterInp.value.trim() : undefined,
+      status: sel.value,
+      notes: ta.value,
+      priority_level: priInp && priInp.value !== '' ? Number(priInp.value) : null,
+      updated_at: new Date().toISOString()
+    };
+
     btn.disabled=true; btn.textContent='Saving…'; flash.textContent='';
     try{
       const {error}=await window.sb.from('vendor_registrations')
-        .update({status:sel.value,notes:ta.value,updated_at:new Date().toISOString()})
+        .update(payload)
         .eq('id',id);
       if(error) throw error;
       btn.style.display='none'; btn.disabled=false; btn.textContent='Save';
