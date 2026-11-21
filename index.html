@@ -4666,7 +4666,9 @@ td {
       updateStats(data);
       renderTable(data);
     } catch(e){
-      loadMsg.textContent = '❌ Error: ' + (e?.message || JSON.stringify(e));
+      const errMsg = e?.message || e?.code || JSON.stringify(e) || 'unknown';
+      loadMsg.textContent = '❌ Error: ' + errMsg;
+      alert('Vendor Reg Error: ' + errMsg);
       console.error('vreg load error', e);
     }
   };
