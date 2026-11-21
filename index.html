@@ -894,6 +894,18 @@ td {
   padding: 8px 16px 0;
   border-bottom: 1px solid var(--border);
   background: var(--bg2);
+  overflow: visible;
+}
+@media (max-width: 768px) {
+  .main-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 0;
+  }
+  .main-tabs::-webkit-scrollbar { display: none; }
 }
 .main-tab-btn {
   padding: 8px 12px;
@@ -1174,6 +1186,10 @@ td {
     <button class="main-tab-btn" onclick="showMainTab(this,'section-partner-report')">🤝 Partner Ecosystem</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-ito-strategy')">🗺️ ITO Strategy</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-board-gtm')">📋 Board GTM</button>
+    <button class="main-tab-btn" onclick="showMainTab(this,'section-pipeline')">🔁 Pipeline</button>
+    <button class="main-tab-btn" onclick="showMainTab(this,'section-hiring')">👤 Hiring Plan</button>
+    <button class="main-tab-btn" onclick="showMainTab(this,'section-vendor-reg')">📝 Vendor Reg.</button>
+    <button class="main-tab-btn" onclick="showMainTab(this,'section-financial')">💰 Financial Model</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-decision-engine')">⚙️ Decision Engine</button>
   </div>
 
@@ -1184,7 +1200,7 @@ td {
     <div class="header-top">
       <div class="header-brand">
         <h1>Xceed <span>ITO</span> — Vendor Partnership Tracker</h1>
-        <div class="header-meta" id="header-meta">Pre-first-deal stage · 6 entities operational · Delivery: Cairo · Last updated: <strong id="header-date">—</strong></div>
+        <div class="header-meta" id="header-meta">Pre-first-deal stage · 6 entities operational · Delivery: Cairo · Last updated: <strong id="header-date">—</strong> · <span style="background:#f5a623;color:#000;padding:1px 6px;border-radius:4px;font-weight:700;font-size:10px">v10</span></div>
       </div>
       <div class="header-actions">
         <div class="user-pill">
@@ -2993,7 +3009,7 @@ td {
 
     <!-- ══════════ SLIDE 1 ══════════ -->
     <div class="bgtm-slide-label">
-      <span class="bgtm-slide-num">SLIDE 1 OF 2</span>
+      <span class="bgtm-slide-num">SLIDE 1 OF 3</span>
       <div>
         <div class="bgtm-slide-title">Market Opportunity &amp; Operating Model</div>
         <div class="bgtm-slide-sub">Xceed ITO Board Presentation — Q4 2026</div>
@@ -3240,8 +3256,221 @@ td {
     </div>
 
     <div class="bgtm-slide-footer">
-      <span>Slide 2 of 2 — Xceed ITO Board Presentation</span>
+      <span>Slide 2 of 3 — Xceed ITO Board Presentation</span>
       <span>All figures from cited sources · No invented data</span>
+    </div>
+
+    <hr class="bgtm-hr">
+
+    <!-- ══════════ SLIDE 3 ══════════ -->
+    <div class="bgtm-slide-label">
+      <span class="bgtm-slide-num" style="background:var(--b-purple)">SLIDE 3 OF 3</span>
+      <div>
+        <div class="bgtm-slide-title">AI Tools Stack + Presales Hiring Plan — Year 1</div>
+        <div class="bgtm-slide-sub">Tools that replace headcount vs. humans that tools cannot replace</div>
+      </div>
+    </div>
+
+    <!-- Summary stat row -->
+    <div class="bgtm-stats" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px">
+      <div class="bgtm-stat s-blue">
+        <div class="bgtm-stat-n">$346</div>
+        <div class="bgtm-stat-lbl">Full AI tools stack / month</div>
+        <div class="bgtm-stat-src">Business-grade plans · 24/7 · no downtime</div>
+      </div>
+      <div class="bgtm-stat s-gold">
+        <div class="bgtm-stat-n">$4,154</div>
+        <div class="bgtm-stat-lbl">Full AI tools stack / year</div>
+        <div class="bgtm-stat-src">Annual billing (best rate)</div>
+      </div>
+      <div class="bgtm-stat s-teal">
+        <div class="bgtm-stat-n">$1,120</div>
+        <div class="bgtm-stat-lbl">1 Presales Tech hire / month</div>
+        <div class="bgtm-stat-src">~56,000 EGP/mo · TalentUp Cairo 2024</div>
+      </div>
+      <div class="bgtm-stat s-green">
+        <div class="bgtm-stat-n">3.2×</div>
+        <div class="bgtm-stat-lbl">People-equivalent delivered</div>
+        <div class="bgtm-stat-src">Tools cover SDR + Research + Email + Writing roles</div>
+      </div>
+    </div>
+
+    <!-- AI Tools table -->
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:var(--b-fg2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px">
+      🤖 AI Tools Stack — Business Plans · 24/7 Availability · No Headcount Limits
+    </div>
+    <div style="overflow-x:auto;margin-bottom:10px">
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <thead>
+          <tr style="background:var(--b-bg3)">
+            <th style="padding:10px 14px;text-align:left;color:var(--b-fg2);font-weight:600;border-bottom:1px solid var(--b-bd);white-space:nowrap">Tool</th>
+            <th style="padding:10px 14px;text-align:left;color:var(--b-fg2);font-weight:600;border-bottom:1px solid var(--b-bd)">What It Does (24/7, No Limits)</th>
+            <th style="padding:10px 14px;text-align:left;color:var(--b-fg2);font-weight:600;border-bottom:1px solid var(--b-bd);white-space:nowrap">Replaces</th>
+            <th style="padding:10px 14px;text-align:center;color:var(--b-fg2);font-weight:600;border-bottom:1px solid var(--b-bd);white-space:nowrap">Plan</th>
+            <th style="padding:10px 14px;text-align:right;color:var(--b-fg2);font-weight:600;border-bottom:1px solid var(--b-bd);white-space:nowrap">/ Month</th>
+            <th style="padding:10px 14px;text-align:right;color:var(--b-fg2);font-weight:600;border-bottom:1px solid var(--b-bd);white-space:nowrap">/ Year</th>
+            <th style="padding:10px 14px;text-align:left;color:var(--b-fg2);font-weight:600;border-bottom:1px solid var(--b-bd)">Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--b-bd)">
+            <td style="padding:12px 14px;font-weight:700;color:var(--b-blue);white-space:nowrap">Apollo.io</td>
+            <td style="padding:12px 14px;color:var(--b-fg2)">500M+ contact database · unlimited email sequences · 48,000 credits/yr · AI intent signals · CRM sync · no daily send cap</td>
+            <td style="padding:12px 14px"><span style="background:rgba(243,114,44,.15);color:#f3722c;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600;white-space:nowrap">1 SDR + 1 List Builder</span></td>
+            <td style="padding:12px 14px;text-align:center;font-size:11px;color:var(--b-fg2)">Professional<br><span style="color:var(--b-fg3)">(annual)</span></td>
+            <td style="padding:12px 14px;text-align:right;font-weight:700;color:var(--b-fg)">$79</td>
+            <td style="padding:12px 14px;text-align:right;font-weight:700;color:var(--b-fg)">$948</td>
+            <td style="padding:12px 14px;font-size:11px;color:var(--b-fg3)">apollo.io/pricing · Oct 2026</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--b-bd);background:rgba(255,255,255,.02)">
+            <td style="padding:12px 14px;font-weight:700;color:var(--b-teal);white-space:nowrap">LinkedIn Sales Navigator</td>
+            <td style="padding:12px 14px;color:var(--b-fg2)">Advanced search filters · real-time buying intent alerts · company growth signals · 50 InMail credits/mo · CRM integration</td>
+            <td style="padding:12px 14px"><span style="background:rgba(56,196,196,.15);color:var(--b-teal);border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600;white-space:nowrap">1 Market Research Analyst</span></td>
+            <td style="padding:12px 14px;text-align:center;font-size:11px;color:var(--b-fg2)">Core<br><span style="color:var(--b-fg3)">(annual)</span></td>
+            <td style="padding:12px 14px;text-align:right;font-weight:700;color:var(--b-fg)">$90</td>
+            <td style="padding:12px 14px;text-align:right;font-weight:700;color:var(--b-fg)">$1,080</td>
+            <td style="padding:12px 14px;font-size:11px;color:var(--b-fg3)">linkedin.com/sales/solutions · Oct 2026</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--b-bd)">
+            <td style="padding:12px 14px;font-weight:700;color:var(--b-green);white-space:nowrap">Instantly.ai</td>
+            <td style="padding:12px 14px;color:var(--b-fg2)">Unlimited email accounts · automated warm-up · 500K emails/mo · secondary domain management · deliverability analytics</td>
+            <td style="padding:12px 14px"><span style="background:rgba(52,201,123,.15);color:var(--b-green);border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600;white-space:nowrap">1 Email Outreach Specialist</span></td>
+            <td style="padding:12px 14px;text-align:center;font-size:11px;color:var(--b-fg2)">Hypergrowth<br><span style="color:var(--b-fg3)">(monthly)</span></td>
+            <td style="padding:12px 14px;text-align:right;font-weight:700;color:var(--b-fg)">$107</td>
+            <td style="padding:12px 14px;text-align:right;font-weight:700;color:var(--b-fg)">$1,284</td>
+            <td style="padding:12px 14px;font-size:11px;color:var(--b-fg3)">instantly.ai/pricing · Oct 2026</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--b-bd);background:rgba(255,255,255,.02)">
+            <td style="padding:12px 14px;font-weight:700;color:var(--b-amber);white-space:nowrap">Claude (Anthropic)</td>
+            <td style="padding:12px 14px;color:var(--b-fg2)">Proposals · objection handling · battle cards · demo scripts · NCA ECC reports · vendor technical docs · available 24/7</td>
+            <td style="padding:12px 14px"><span style="background:rgba(245,166,35,.15);color:var(--b-amber);border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600;white-space:nowrap">1 Technical Writer + Proposal Specialist</span></td>
+            <td style="padding:12px 14px;text-align:center;font-size:11px;color:var(--b-fg2)">Pro<br><span style="color:var(--b-fg3)">(monthly)</span></td>
+            <td style="padding:12px 14px;text-align:right;font-weight:700;color:var(--b-fg)">$20</td>
+            <td style="padding:12px 14px;text-align:right;font-weight:700;color:var(--b-fg)">$240</td>
+            <td style="padding:12px 14px;font-size:11px;color:var(--b-fg3)">anthropic.com/claude/plans · 2025</td>
+          </tr>
+          <tr style="background:rgba(79,142,247,.04)">
+            <td style="padding:12px 14px;font-weight:700;color:var(--b-fg);white-space:nowrap">Hunter.io</td>
+            <td style="padding:12px 14px;color:var(--b-fg2)">Email verification · domain search · bulk lookup · prevents bounce rates from killing deliverability</td>
+            <td style="padding:12px 14px"><span style="background:rgba(188,140,255,.15);color:var(--b-purple);border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600;white-space:nowrap">1 Lead Verification Coordinator</span></td>
+            <td style="padding:12px 14px;text-align:center;font-size:11px;color:var(--b-green)">Free Tier</td>
+            <td style="padding:12px 14px;text-align:right;font-weight:700;color:var(--b-green)">$0</td>
+            <td style="padding:12px 14px;text-align:right;font-weight:700;color:var(--b-green)">$0</td>
+            <td style="padding:12px 14px;font-size:11px;color:var(--b-fg3)">hunter.io/pricing · 25 lookups/mo free</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr style="background:var(--b-bg3)">
+            <td style="padding:12px 14px;font-weight:700;color:var(--b-fg)" colspan="4">Total — 5 Business-Grade Tools (replaces 5 roles)</td>
+            <td style="padding:12px 14px;text-align:right;font-weight:700;font-size:16px;color:var(--b-blue)">$296</td>
+            <td style="padding:12px 14px;text-align:right;font-weight:700;font-size:16px;color:var(--b-blue)">$3,552</td>
+            <td style="padding:12px 14px;font-size:11px;color:var(--b-fg3)"></td>
+          </tr>
+          <tr style="background:rgba(79,142,247,.06)">
+            <td style="padding:10px 14px;color:var(--b-fg2);font-size:12px" colspan="4">5 equivalent hires at same roles (Cairo market rate ~$1,120/mo each)</td>
+            <td style="padding:10px 14px;text-align:right;font-weight:700;color:var(--b-red)">$5,600</td>
+            <td style="padding:10px 14px;text-align:right;font-weight:700;color:var(--b-red)">$67,200</td>
+            <td style="padding:10px 14px;font-size:11px;color:var(--b-fg3)">TalentUp Cairo 2024</td>
+          </tr>
+          <tr style="background:rgba(52,201,123,.08)">
+            <td style="padding:10px 14px;font-weight:700;color:var(--b-green)" colspan="4">💰 Annual Saving (Tools vs. 5 Hires)</td>
+            <td style="padding:10px 14px;text-align:right;font-weight:700;font-size:15px;color:var(--b-green)">$5,304</td>
+            <td style="padding:10px 14px;text-align:right;font-weight:700;font-size:15px;color:var(--b-green)">$63,648</td>
+            <td style="padding:10px 14px;font-size:11px;color:var(--b-green)">95% cost reduction</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div style="font-size:11px;color:var(--b-fg3);margin-bottom:28px;padding:0 4px">
+      ⚠️ Tools operate 24/7 with no sick days, no end-of-month quota pressure, and no turnover risk. Plans are business accounts — no usage pause or monthly quota freeze.
+    </div>
+
+    <!-- What tools CANNOT do -->
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:var(--b-fg2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px">
+      🧑‍💼 What AI Tools Cannot Replace — Human Presales Tech Roles
+    </div>
+    <div class="bgtm-two" style="margin-bottom:28px">
+      <div class="bgtm-card" style="border-left:3px solid var(--b-red)">
+        <div style="font-weight:700;color:var(--b-fg);margin-bottom:10px">🚫 Tools Cannot Do This</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--b-red);font-size:16px;line-height:1">✗</span><span style="color:var(--b-fg2);font-size:13px">Live technical demos in front of client IT teams</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--b-red);font-size:16px;line-height:1">✗</span><span style="color:var(--b-fg2);font-size:13px">In-person relationship building with CISOs &amp; IT Directors</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--b-red);font-size:16px;line-height:1">✗</span><span style="color:var(--b-fg2);font-size:13px">Hands-on vendor lab / POC setup and configuration</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--b-red);font-size:16px;line-height:1">✗</span><span style="color:var(--b-fg2);font-size:13px">Real-time technical Q&amp;A during client negotiation</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--b-red);font-size:16px;line-height:1">✗</span><span style="color:var(--b-fg2);font-size:13px">Vendor certification (must be a person — Fortinet, Tenable, etc.)</span></div>
+        </div>
+      </div>
+      <div class="bgtm-card" style="border-left:3px solid var(--b-green)">
+        <div style="font-weight:700;color:var(--b-fg);margin-bottom:10px">✅ Tools Handle This Automatically</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--b-green);font-size:16px;line-height:1">✓</span><span style="color:var(--b-fg2);font-size:13px">Finding and qualifying 500+ leads per month (Apollo)</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--b-green);font-size:16px;line-height:1">✓</span><span style="color:var(--b-fg2);font-size:13px">Automated 5-touch email sequences with follow-ups</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--b-green);font-size:16px;line-height:1">✓</span><span style="color:var(--b-fg2);font-size:13px">Email verification and deliverability (no spam folder)</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--b-green);font-size:16px;line-height:1">✓</span><span style="color:var(--b-fg2);font-size:13px">Proposal writing, battle cards, objection scripts (Claude)</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--b-green);font-size:16px;line-height:1">✓</span><span style="color:var(--b-fg2);font-size:13px">LinkedIn research on decision-makers &amp; buying signals</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hiring Plan -->
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:var(--b-fg2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px">
+      👥 Year 1 Presales Hiring Plan — 3 Markets (UAE · KSA · Morocco)
+    </div>
+    <div style="overflow-x:auto;margin-bottom:28px">
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <thead>
+          <tr style="background:var(--b-bg3)">
+            <th style="padding:10px 14px;text-align:left;color:var(--b-fg2);font-weight:600;border-bottom:1px solid var(--b-bd)">Hire</th>
+            <th style="padding:10px 14px;text-align:left;color:var(--b-fg2);font-weight:600;border-bottom:1px solid var(--b-bd)">Role Focus</th>
+            <th style="padding:10px 14px;text-align:left;color:var(--b-fg2);font-weight:600;border-bottom:1px solid var(--b-bd)">Vendor Cluster</th>
+            <th style="padding:10px 14px;text-align:left;color:var(--b-fg2);font-weight:600;border-bottom:1px solid var(--b-bd)">Market Coverage</th>
+            <th style="padding:10px 14px;text-align:left;color:var(--b-fg2);font-weight:600;border-bottom:1px solid var(--b-bd)">Claude Covers for Them</th>
+            <th style="padding:10px 14px;text-align:right;color:var(--b-fg2);font-weight:600;border-bottom:1px solid var(--b-bd);white-space:nowrap">Cost / yr</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--b-bd)">
+            <td style="padding:12px 14px;font-weight:700;color:var(--b-blue)">Hire #1</td>
+            <td style="padding:12px 14px;color:var(--b-fg)">Presales Technical — Security</td>
+            <td style="padding:12px 14px;color:var(--b-fg2);font-size:12px">Fortinet, CrowdStrike, SentinelOne, Tenable, Cisco</td>
+            <td style="padding:12px 14px"><span style="background:rgba(79,142,247,.15);color:var(--b-blue);border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600">UAE + KSA</span></td>
+            <td style="padding:12px 14px;color:var(--b-fg2);font-size:12px">Backup/Recovery vendors (Acronis, Veeam), proposal writing, objection scripts</td>
+            <td style="padding:12px 14px;text-align:right;font-weight:700;color:var(--b-fg)">$13,440</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--b-bd);background:rgba(255,255,255,.02)">
+            <td style="padding:12px 14px;font-weight:700;color:var(--b-teal)">Hire #2 <span style="font-size:10px;color:var(--b-fg3);font-weight:400">(Month 4–6)</span></td>
+            <td style="padding:12px 14px;color:var(--b-fg)">Presales Technical — Backup &amp; Infra</td>
+            <td style="padding:12px 14px;color:var(--b-fg2);font-size:12px">Acronis, Veeam, Nutanix, BlueCat, Aruba/HP, Microsoft</td>
+            <td style="padding:12px 14px"><span style="background:rgba(56,196,196,.15);color:var(--b-teal);border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600">Morocco + UAE</span></td>
+            <td style="padding:12px 14px;color:var(--b-fg2);font-size:12px">Security vendors deep dives, NCA ECC technical reports, infrastructure sizing</td>
+            <td style="padding:12px 14px;text-align:right;font-weight:700;color:var(--b-fg)">$6,720 <span style="font-size:10px;color:var(--b-fg3)">(6 mo)</span></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr style="background:var(--b-bg3)">
+            <td style="padding:12px 14px;font-weight:700;color:var(--b-fg)" colspan="5">Total People + Tools (Year 1)</td>
+            <td style="padding:12px 14px;text-align:right;font-weight:700;font-size:16px;color:var(--b-gold)">$22,620</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 14px;font-size:11px;color:var(--b-fg3)" colspan="6">
+              vs. 3 full hires with no tools = ~$40,320/yr · Saving = $17,700/yr (44%) · Source: TalentUp Cairo 2024 — Presales Technical ~56,000 EGP/mo
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- Bottom note -->
+    <div style="background:var(--b-bg2);border:1px solid var(--b-bd);border-left:3px solid var(--b-purple);border-radius:var(--radius);padding:16px 20px">
+      <div style="font-weight:700;color:var(--b-fg);margin-bottom:6px">📌 Model in One Sentence</div>
+      <div style="color:var(--b-fg2);font-size:13px;line-height:1.6">
+        Hire 1–2 Presales Technical specialists focused on specific vendor clusters → give them AI tools that handle lead generation, outreach, and documentation → Claude fills technical gaps across the other vendors. <strong style="color:var(--b-fg)">Result: team of 2 performs like a team of 5 at 44% of the cost.</strong>
+      </div>
+    </div>
+
+    <div class="bgtm-slide-footer" style="margin-top:28px">
+      <span>Slide 3 of 3 — Xceed ITO Board Presentation</span>
+      <span>Salary source: TalentUp Cairo 2024 · Tool pricing: vendor websites 2025 · No invented data</span>
     </div>
 
   </div><!-- /bgtm-page -->
@@ -3521,6 +3750,571 @@ td {
 .de-coming-soon h4 { font-size: 15px; font-weight: 600; color: var(--fg); margin: 0 0 6px; }
 .de-coming-soon p { font-size: 13px; margin: 0; }
 </style>
+
+<!-- ══════════════════════════════════════════════════════════
+     PIPELINE TRACKER
+═══════════════════════════════════════════════════════════ -->
+<div id="section-pipeline" style="display:none">
+<style>
+#section-pipeline { padding: 32px 24px; max-width: 1200px; margin: 0 auto; }
+.pipe-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px; }
+.pipe-title { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; color:var(--fg); }
+.pipe-add-btn { background:var(--accent); color:#fff; border:none; border-radius:var(--radius-sm); padding:8px 18px; font-size:13px; font-weight:600; cursor:pointer; }
+.pipe-add-btn:hover { opacity:.85; }
+.pipe-stages { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:32px; }
+@media(max-width:900px){ .pipe-stages { grid-template-columns:repeat(3,1fr); } }
+@media(max-width:600px){ .pipe-stages { grid-template-columns:1fr 1fr; } }
+.pipe-stage-col { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:14px; min-height:200px; }
+.pipe-stage-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.7px; margin-bottom:12px; display:flex; align-items:center; gap:6px; }
+.pipe-card { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px; margin-bottom:8px; font-size:12px; }
+.pipe-card-name { font-weight:700; color:var(--fg); margin-bottom:4px; }
+.pipe-card-meta { color:var(--fg3); font-size:11px; }
+.pipe-card-value { font-weight:700; color:var(--accent); margin-top:6px; }
+.pipe-card-entity { display:inline-block; background:rgba(79,142,247,.12); color:var(--accent); border-radius:3px; padding:1px 6px; font-size:10px; margin-top:4px; }
+.pipe-empty { color:var(--fg3); font-size:12px; font-style:italic; text-align:center; padding:20px 0; }
+.pipe-summary { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:28px; }
+@media(max-width:700px){ .pipe-summary { grid-template-columns:1fr 1fr; } }
+.pipe-stat { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:16px; text-align:center; }
+.pipe-stat-n { font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:700; color:var(--accent); }
+.pipe-stat-lbl { font-size:11px; color:var(--fg3); margin-top:4px; }
+.pipe-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:1000; align-items:center; justify-content:center; }
+.pipe-modal.open { display:flex; }
+.pipe-modal-box { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:28px; width:100%; max-width:480px; }
+.pipe-modal-title { font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:700; margin-bottom:20px; }
+.pipe-form-row { margin-bottom:14px; }
+.pipe-form-row label { display:block; font-size:12px; color:var(--fg2); margin-bottom:5px; }
+.pipe-form-row input, .pipe-form-row select, .pipe-form-row textarea { width:100%; background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius-sm); color:var(--fg); padding:8px 10px; font-size:13px; outline:none; }
+.pipe-form-row input:focus, .pipe-form-row select:focus { border-color:var(--accent); }
+.pipe-modal-actions { display:flex; gap:10px; margin-top:20px; }
+.pipe-modal-actions button { flex:1; padding:10px; border:none; border-radius:var(--radius-sm); font-weight:600; cursor:pointer; font-size:13px; }
+.btn-save { background:var(--accent); color:#fff; }
+.btn-cancel { background:var(--bg3); color:var(--fg2); border:1px solid var(--border) !important; }
+</style>
+
+<div class="pipe-header">
+  <div class="pipe-title">🔁 Deal Pipeline</div>
+  <button class="pipe-add-btn" onclick="pipeOpenModal()">+ Add Deal</button>
+</div>
+
+<!-- Summary stats -->
+<div class="pipe-summary">
+  <div class="pipe-stat"><div class="pipe-stat-n" id="pipe-total-deals">0</div><div class="pipe-stat-lbl">Total Deals</div></div>
+  <div class="pipe-stat"><div class="pipe-stat-n" id="pipe-total-value">$0</div><div class="pipe-stat-lbl">Pipeline Value</div></div>
+  <div class="pipe-stat"><div class="pipe-stat-n" id="pipe-active-deals">0</div><div class="pipe-stat-lbl">Active (not closed)</div></div>
+  <div class="pipe-stat"><div class="pipe-stat-n" id="pipe-closed-deals">0</div><div class="pipe-stat-lbl">Closed Won</div></div>
+</div>
+
+<!-- Kanban columns -->
+<div class="pipe-stages">
+  <div class="pipe-stage-col">
+    <div class="pipe-stage-label" style="color:var(--fg3)">🔍 Prospect</div>
+    <div id="pipe-col-prospect"><div class="pipe-empty">No deals yet</div></div>
+  </div>
+  <div class="pipe-stage-col">
+    <div class="pipe-stage-label" style="color:var(--accent)">📞 Meeting</div>
+    <div id="pipe-col-meeting"><div class="pipe-empty">No deals yet</div></div>
+  </div>
+  <div class="pipe-stage-col">
+    <div class="pipe-stage-label" style="color:var(--orange)">📄 Proposal</div>
+    <div id="pipe-col-proposal"><div class="pipe-empty">No deals yet</div></div>
+  </div>
+  <div class="pipe-stage-col">
+    <div class="pipe-stage-label" style="color:var(--teal)">🤝 Negotiation</div>
+    <div id="pipe-col-negotiation"><div class="pipe-empty">No deals yet</div></div>
+  </div>
+  <div class="pipe-stage-col">
+    <div class="pipe-stage-label" style="color:var(--green)">✅ Closed Won</div>
+    <div id="pipe-col-closed"><div class="pipe-empty">No deals yet</div></div>
+  </div>
+</div>
+
+<!-- Add Deal Modal -->
+<div class="pipe-modal" id="pipeModal">
+  <div class="pipe-modal-box">
+    <div class="pipe-modal-title">Add New Deal</div>
+    <div class="pipe-form-row"><label>Company Name *</label><input id="pf-company" placeholder="e.g. Al Futtaim Group"></div>
+    <div class="pipe-form-row"><label>Contact Name</label><input id="pf-contact" placeholder="e.g. Ahmed Al Rashid - IT Director"></div>
+    <div class="pipe-form-row"><label>Market / Country</label>
+      <select id="pf-market">
+        <option value="UAE">🇦🇪 UAE</option>
+        <option value="KSA">🇸🇦 KSA</option>
+        <option value="Morocco">🇲🇦 Morocco</option>
+        <option value="Mauritius">🇲🇺 Mauritius</option>
+        <option value="India">🇮🇳 India</option>
+      </select>
+    </div>
+    <div class="pipe-form-row"><label>Invoice Entity</label>
+      <select id="pf-entity">
+        <option value="UAE (DIFC)">UAE (DIFC)</option>
+        <option value="KSA Entity">KSA Entity</option>
+        <option value="Morocco Entity">Morocco Entity</option>
+        <option value="Mauritius Entity">Mauritius Entity</option>
+        <option value="India Entity">India Entity</option>
+      </select>
+    </div>
+    <div class="pipe-form-row"><label>Stage</label>
+      <select id="pf-stage">
+        <option value="prospect">Prospect</option>
+        <option value="meeting">Meeting</option>
+        <option value="proposal">Proposal</option>
+        <option value="negotiation">Negotiation</option>
+        <option value="closed">Closed Won</option>
+      </select>
+    </div>
+    <div class="pipe-form-row"><label>Deal Value (USD/month)</label><input id="pf-value" type="number" placeholder="e.g. 2500"></div>
+    <div class="pipe-form-row"><label>Next Action</label><input id="pf-next" placeholder="e.g. Send proposal by Nov 25"></div>
+    <div class="pipe-modal-actions">
+      <button class="btn-cancel" onclick="pipeCloseModal()">Cancel</button>
+      <button class="btn-save" onclick="pipeSaveDeal()">Save Deal</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  let pipeDeals = [];
+  try { pipeDeals = JSON.parse(localStorage.getItem('xceed_pipeline') || '[]'); } catch(e){}
+
+  function pipeRender(){
+    const stages = ['prospect','meeting','proposal','negotiation','closed'];
+    stages.forEach(s => {
+      const col = document.getElementById('pipe-col-'+s);
+      if(!col) return;
+      const deals = pipeDeals.filter(d => d.stage === s);
+      if(!deals.length){ col.innerHTML = '<div class="pipe-empty">No deals yet</div>'; return; }
+      col.innerHTML = deals.map((d,i) => `
+        <div class="pipe-card" onclick="pipeDelete(${pipeDeals.indexOf(d)})" title="Click to remove">
+          <div class="pipe-card-name">${d.company}</div>
+          <div class="pipe-card-meta">${d.contact||''}</div>
+          <div class="pipe-card-entity">${d.entity||d.market}</div>
+          ${d.value ? `<div class="pipe-card-value">$${Number(d.value).toLocaleString()}/mo</div>` : ''}
+          ${d.next ? `<div class="pipe-card-meta" style="margin-top:4px">→ ${d.next}</div>` : ''}
+        </div>`).join('');
+    });
+    const active = pipeDeals.filter(d => d.stage !== 'closed');
+    const closed = pipeDeals.filter(d => d.stage === 'closed');
+    const totalVal = pipeDeals.reduce((s,d) => s + (Number(d.value)||0), 0);
+    document.getElementById('pipe-total-deals').textContent = pipeDeals.length;
+    document.getElementById('pipe-total-value').textContent = '$'+totalVal.toLocaleString();
+    document.getElementById('pipe-active-deals').textContent = active.length;
+    document.getElementById('pipe-closed-deals').textContent = closed.length;
+  }
+
+  window.pipeOpenModal = function(){ document.getElementById('pipeModal').classList.add('open'); }
+  window.pipeCloseModal = function(){ document.getElementById('pipeModal').classList.remove('open'); }
+  window.pipeSaveDeal = function(){
+    const company = document.getElementById('pf-company').value.trim();
+    if(!company){ alert('Company name is required'); return; }
+    pipeDeals.push({
+      company,
+      contact: document.getElementById('pf-contact').value.trim(),
+      market: document.getElementById('pf-market').value,
+      entity: document.getElementById('pf-entity').value,
+      stage: document.getElementById('pf-stage').value,
+      value: document.getElementById('pf-value').value,
+      next: document.getElementById('pf-next').value.trim()
+    });
+    try { localStorage.setItem('xceed_pipeline', JSON.stringify(pipeDeals)); } catch(e){}
+    pipeCloseModal();
+    pipeRender();
+    ['pf-company','pf-contact','pf-value','pf-next'].forEach(id => document.getElementById(id).value='');
+  }
+  window.pipeDelete = function(i){
+    if(!confirm('Remove this deal?')) return;
+    pipeDeals.splice(i,1);
+    try { localStorage.setItem('xceed_pipeline', JSON.stringify(pipeDeals)); } catch(e){}
+    pipeRender();
+  }
+  document.getElementById('pipeModal').addEventListener('click', function(e){ if(e.target===this) pipeCloseModal(); });
+  pipeRender();
+})();
+</script>
+</div><!-- /section-pipeline -->
+
+<!-- ══════════════════════════════════════════════════════════
+     HIRING PLAN
+═══════════════════════════════════════════════════════════ -->
+<div id="section-hiring" style="display:none">
+<style>
+#section-hiring { padding:32px 24px; max-width:1000px; margin:0 auto; }
+.hire-header { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; margin-bottom:8px; }
+.hire-sub { color:var(--fg3); font-size:13px; margin-bottom:28px; }
+.hire-trigger-box { background:rgba(52,201,123,.08); border:1px solid rgba(52,201,123,.25); border-radius:var(--radius); padding:20px 24px; margin-bottom:28px; display:flex; align-items:flex-start; gap:16px; }
+.hire-trigger-icon { font-size:28px; }
+.hire-trigger-text h3 { font-weight:700; color:var(--green); margin-bottom:4px; }
+.hire-trigger-text p { color:var(--fg2); font-size:13px; }
+.hire-timeline { position:relative; padding-left:32px; margin-bottom:32px; }
+.hire-timeline::before { content:''; position:absolute; left:10px; top:0; bottom:0; width:2px; background:var(--border); }
+.hire-tl-item { position:relative; margin-bottom:28px; }
+.hire-tl-dot { position:absolute; left:-26px; top:4px; width:14px; height:14px; border-radius:50%; border:2px solid var(--border); background:var(--bg); }
+.hire-tl-dot.done { background:var(--green); border-color:var(--green); }
+.hire-tl-dot.active { background:var(--accent); border-color:var(--accent); }
+.hire-tl-dot.future { background:var(--bg3); border-color:var(--fg3); }
+.hire-tl-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.6px; color:var(--fg3); margin-bottom:4px; }
+.hire-tl-title { font-weight:700; color:var(--fg); margin-bottom:4px; }
+.hire-tl-desc { font-size:13px; color:var(--fg2); }
+.hire-role-card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:24px; margin-bottom:16px; }
+.hire-role-title { font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:700; margin-bottom:16px; }
+.hire-role-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media(max-width:600px){ .hire-role-grid { grid-template-columns:1fr; } }
+.hire-role-section h4 { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--fg3); margin-bottom:8px; }
+.hire-role-section ul { list-style:none; padding:0; }
+.hire-role-section ul li { font-size:13px; color:var(--fg2); padding:3px 0; padding-left:16px; position:relative; }
+.hire-role-section ul li::before { content:'→'; position:absolute; left:0; color:var(--accent); }
+.hire-cost-row { display:flex; justify-content:space-between; align-items:center; background:var(--bg3); border-radius:var(--radius-sm); padding:12px 16px; margin-top:16px; }
+.hire-cost-label { font-size:13px; color:var(--fg2); }
+.hire-cost-val { font-weight:700; color:var(--fg); font-size:15px; }
+</style>
+
+<div class="hire-header">👤 Hiring Plan</div>
+<div class="hire-sub">Role sequencing and trigger conditions for Xceed ITO Year 1</div>
+
+<div class="hire-trigger-box">
+  <div class="hire-trigger-icon">🎯</div>
+  <div class="hire-trigger-text">
+    <h3>Hire Trigger: First Closed Deal</h3>
+    <p>No presales headcount until Deal #1 is signed. AI tools carry the pipeline until revenue justifies the hire. This protects cash flow in the pre-revenue stage.</p>
+  </div>
+</div>
+
+<div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:var(--fg2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:16px">Hiring Timeline</div>
+<div class="hire-timeline">
+  <div class="hire-tl-item">
+    <div class="hire-tl-dot active"></div>
+    <div class="hire-tl-label">Now — Pre-Deal</div>
+    <div class="hire-tl-title">AI Tools Stack Only</div>
+    <div class="hire-tl-desc">Apollo + LinkedIn Sales Nav + Instantly + Claude handle all prospecting, outreach, and proposal writing. Zero headcount cost.</div>
+  </div>
+  <div class="hire-tl-item">
+    <div class="hire-tl-dot future"></div>
+    <div class="hire-tl-label">After Deal #1</div>
+    <div class="hire-tl-title">Hire: Presales Technical (Security Cluster)</div>
+    <div class="hire-tl-desc">Focus on Fortinet · CrowdStrike · SentinelOne · Tenable · Cisco. Primary markets: UAE + KSA. Tools continue running in parallel.</div>
+  </div>
+  <div class="hire-tl-item">
+    <div class="hire-tl-dot future"></div>
+    <div class="hire-tl-label">After Deal #3 or Month 6</div>
+    <div class="hire-tl-title">Hire: Presales Technical (Backup & Infra)</div>
+    <div class="hire-tl-desc">Focus on Acronis · Veeam · Nutanix · BlueCat · Aruba · Microsoft. Primary markets: Morocco + UAE.</div>
+  </div>
+  <div class="hire-tl-item">
+    <div class="hire-tl-dot future"></div>
+    <div class="hire-tl-label">Year 2</div>
+    <div class="hire-tl-title">Hire: Account Manager + KSA-based Relationship Manager</div>
+    <div class="hire-tl-desc">Once reference clients exist in UAE/KSA. Expansion into Mauritius and India markets.</div>
+  </div>
+</div>
+
+<div class="hire-role-card">
+  <div class="hire-role-title">🔧 Role: Presales Technical Engineer — Security Cluster</div>
+  <div class="hire-role-grid">
+    <div class="hire-role-section">
+      <h4>Must Have</h4>
+      <ul>
+        <li>Fortinet NSE 4+ or equivalent</li>
+        <li>Tenable or CrowdStrike hands-on experience</li>
+        <li>Can run a live demo independently</li>
+        <li>Writes proposals in English</li>
+        <li>Cairo-based, remote delivery acceptable</li>
+      </ul>
+    </div>
+    <div class="hire-role-section">
+      <h4>Responsible For</h4>
+      <ul>
+        <li>Technical discovery calls with prospects</li>
+        <li>Demo preparation and delivery</li>
+        <li>RFP / proposal technical sections</li>
+        <li>NCA ECC gap assessments (KSA)</li>
+        <li>Proof of Concept scoping and delivery</li>
+      </ul>
+    </div>
+  </div>
+  <div class="hire-cost-row">
+    <div class="hire-cost-label">Estimated cost (Cairo market · TalentUp 2024)</div>
+    <div class="hire-cost-val">~56,000 EGP/mo ≈ $1,120/mo · $13,440/yr</div>
+  </div>
+</div>
+
+<div class="hire-role-card">
+  <div class="hire-role-title">🗄️ Role: Presales Technical Engineer — Backup & Infrastructure</div>
+  <div class="hire-role-grid">
+    <div class="hire-role-section">
+      <h4>Must Have</h4>
+      <ul>
+        <li>Acronis or Veeam certified</li>
+        <li>VMware / Nutanix hands-on experience</li>
+        <li>Can scope a DR project independently</li>
+        <li>French language (Morocco market)</li>
+        <li>Cairo-based, remote delivery acceptable</li>
+      </ul>
+    </div>
+    <div class="hire-role-section">
+      <h4>Responsible For</h4>
+      <ul>
+        <li>Backup &amp; DR sizing and scoping</li>
+        <li>VMware migration assessments</li>
+        <li>Nutanix infrastructure proposals</li>
+        <li>Morocco market (French-language)</li>
+        <li>Delivery handover documentation</li>
+      </ul>
+    </div>
+  </div>
+  <div class="hire-cost-row">
+    <div class="hire-cost-label">Estimated cost — 6-month contract first year</div>
+    <div class="hire-cost-val">~56,000 EGP/mo ≈ $1,120/mo · $6,720 for 6 months</div>
+  </div>
+</div>
+</div><!-- /section-hiring -->
+
+<!-- ══════════════════════════════════════════════════════════
+     VENDOR REGISTRATION STATUS
+═══════════════════════════════════════════════════════════ -->
+<div id="section-vendor-reg" style="display:none">
+<style>
+#section-vendor-reg { padding:32px 24px; max-width:1000px; margin:0 auto; }
+.vreg-header { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; margin-bottom:8px; }
+.vreg-sub { color:var(--fg3); font-size:13px; margin-bottom:28px; }
+.vreg-summary { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:28px; }
+@media(max-width:600px){ .vreg-summary { grid-template-columns:1fr 1fr; } }
+.vreg-stat { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:16px; text-align:center; }
+.vreg-stat-n { font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:700; }
+.vreg-stat-lbl { font-size:11px; color:var(--fg3); margin-top:4px; }
+.vreg-table-wrap { overflow-x:auto; }
+.vreg-table { width:100%; border-collapse:collapse; font-size:13px; }
+.vreg-table th { padding:10px 14px; text-align:left; color:var(--fg2); font-weight:600; border-bottom:1px solid var(--border); background:var(--bg3); font-size:12px; white-space:nowrap; }
+.vreg-table td { padding:12px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+.vreg-table tr:last-child td { border-bottom:none; }
+.vreg-badge { display:inline-block; border-radius:4px; padding:3px 10px; font-size:11px; font-weight:700; white-space:nowrap; }
+.vreg-done { background:rgba(52,201,123,.15); color:var(--green); }
+.vreg-pending { background:rgba(245,166,35,.15); color:var(--orange); }
+.vreg-blocked { background:rgba(240,82,82,.15); color:var(--red); }
+.vreg-hold { background:rgba(155,163,191,.12); color:var(--fg3); }
+.vreg-action { font-size:12px; color:var(--fg2); }
+.vreg-action strong { color:var(--fg); }
+.vreg-critical { background:rgba(240,82,82,.05); }
+</style>
+
+<div class="vreg-header">📝 Vendor Registration Status</div>
+<div class="vreg-sub">Partnership applications and registration progress — updated manually</div>
+
+<div class="vreg-summary">
+  <div class="vreg-stat"><div class="vreg-stat-n" style="color:var(--green)">2</div><div class="vreg-stat-lbl">Registered ✅</div></div>
+  <div class="vreg-stat"><div class="vreg-stat-n" style="color:var(--orange)">3</div><div class="vreg-stat-lbl">Pending / In Progress</div></div>
+  <div class="vreg-stat"><div class="vreg-stat-n" style="color:var(--red)">2</div><div class="vreg-stat-lbl">Blocked / Not Started</div></div>
+</div>
+
+<div class="vreg-table-wrap">
+  <table class="vreg-table">
+    <thead>
+      <tr>
+        <th>Vendor</th>
+        <th>Cluster</th>
+        <th>Status</th>
+        <th>Notes / Next Action</th>
+        <th>Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-weight:700;color:var(--fg)">Acronis</td>
+        <td style="color:var(--fg3)">Backup & Recovery</td>
+        <td><span class="vreg-badge vreg-done">✅ Registered</span></td>
+        <td class="vreg-action">Partner portal active. Can bundle in proposals now.</td>
+        <td><span style="color:var(--green);font-weight:700">Done</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:700;color:var(--fg)">Tenable</td>
+        <td style="color:var(--fg3)">Security / NCA ECC</td>
+        <td><span class="vreg-badge vreg-done">✅ Registered</span></td>
+        <td class="vreg-action">Partner portal active. NCA ECC compliance angle ready to pitch.</td>
+        <td><span style="color:var(--green);font-weight:700">Done</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:700;color:var(--fg)">BlueCat</td>
+        <td style="color:var(--fg3)">DNS / Network</td>
+        <td><span class="vreg-badge vreg-pending">⏳ Awaiting Signature</span></td>
+        <td class="vreg-action"><strong>Action:</strong> Follow up on contract signature. Do not bundle in proposals until signed.</td>
+        <td><span style="color:var(--orange);font-weight:700">This Week</span></td>
+      </tr>
+      <tr class="vreg-critical">
+        <td style="font-weight:700;color:var(--fg)">Fortinet</td>
+        <td style="color:var(--fg3)">Firewall / Security</td>
+        <td><span class="vreg-badge vreg-blocked">🔴 Not Applied</span></td>
+        <td class="vreg-action"><strong>Critical Gap.</strong> UAE + KSA deals need Fortinet. Apply to FortiPartner immediately.</td>
+        <td><span style="color:var(--red);font-weight:700">🔴 Urgent</span></td>
+      </tr>
+      <tr class="vreg-critical">
+        <td style="font-weight:700;color:var(--fg)">Veeam</td>
+        <td style="color:var(--fg3)">Backup / DR</td>
+        <td><span class="vreg-badge vreg-hold">⏸ On Hold</span></td>
+        <td class="vreg-action"><strong>Action needed:</strong> Resolve hold before including in any proposals. DR-as-a-Service depends on this.</td>
+        <td><span style="color:var(--orange);font-weight:700">High</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:700;color:var(--fg)">Nutanix</td>
+        <td style="color:var(--fg3)">Infrastructure / VMware Alt</td>
+        <td><span class="vreg-badge vreg-pending">⏳ Paperwork Pending</span></td>
+        <td class="vreg-action"><strong>Action:</strong> Complete partner application paperwork. VMware migration deals require this.</td>
+        <td><span style="color:var(--orange);font-weight:700">High</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:700;color:var(--fg)">Microsoft</td>
+        <td style="color:var(--fg3)">Cloud / CSP</td>
+        <td><span class="vreg-badge vreg-pending">⏳ Ingram Micro Pending</span></td>
+        <td class="vreg-action"><strong>Action:</strong> Resolve Microsoft/Ingram Micro CSP channel conflict. UAE SMB M365 depends on this.</td>
+        <td><span style="color:var(--orange);font-weight:700">Medium</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:700;color:var(--fg)">CrowdStrike</td>
+        <td style="color:var(--fg3)">EDR / Security</td>
+        <td><span class="vreg-badge vreg-hold">⏸ Not Started</span></td>
+        <td class="vreg-action">Start after Fortinet is registered. KSA government / banking angle.</td>
+        <td><span style="color:var(--fg3);font-weight:700">Year 1 Q2</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:700;color:var(--fg)">Aruba (HPE)</td>
+        <td style="color:var(--fg3)">Networking</td>
+        <td><span class="vreg-badge vreg-hold">⏸ Not Started</span></td>
+        <td class="vreg-action">Morocco market primary target. Start after Backup & Infra hire.</td>
+        <td><span style="color:var(--fg3);font-weight:700">Year 1 Q3</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div style="margin-top:20px;padding:14px 18px;background:rgba(240,82,82,.06);border:1px solid rgba(240,82,82,.2);border-radius:var(--radius);font-size:13px;color:var(--fg2)">
+  ⚠️ <strong style="color:var(--red)">Critical:</strong> Fortinet is unregistered but appears in UAE + KSA proposals. Do not include Fortinet in any client-facing material until FortiPartner registration is confirmed.
+</div>
+</div><!-- /section-vendor-reg -->
+
+<!-- ══════════════════════════════════════════════════════════
+     FINANCIAL MODEL
+═══════════════════════════════════════════════════════════ -->
+<div id="section-financial" style="display:none">
+<style>
+#section-financial { padding:32px 24px; max-width:1100px; margin:0 auto; }
+.fin-header { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; margin-bottom:8px; }
+.fin-sub { color:var(--fg3); font-size:13px; margin-bottom:28px; }
+.fin-scenarios { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:32px; }
+@media(max-width:800px){ .fin-scenarios { grid-template-columns:1fr; } }
+.fin-scenario { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:20px; }
+.fin-scenario.highlight { border-color:var(--accent); background:rgba(79,142,247,.06); }
+.fin-scenario-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.6px; color:var(--fg3); margin-bottom:8px; }
+.fin-scenario-title { font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:700; margin-bottom:16px; }
+.fin-scenario-row { display:flex; justify-content:space-between; font-size:13px; padding:5px 0; border-bottom:1px solid var(--border); }
+.fin-scenario-row:last-child { border-bottom:none; }
+.fin-scenario-row span:first-child { color:var(--fg2); }
+.fin-scenario-row span:last-child { font-weight:600; color:var(--fg); }
+.fin-scenario-total { display:flex; justify-content:space-between; font-size:15px; font-weight:700; padding:10px 0 0; margin-top:8px; border-top:2px solid var(--border); }
+.fin-assumptions { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:20px 24px; margin-bottom:28px; }
+.fin-assumptions h3 { font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.6px; color:var(--fg3); margin-bottom:14px; }
+.fin-assumptions-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+@media(max-width:700px){ .fin-assumptions-grid { grid-template-columns:1fr 1fr; } }
+.fin-assumption { }
+.fin-assumption label { font-size:11px; color:var(--fg3); display:block; margin-bottom:4px; }
+.fin-assumption input { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius-sm); color:var(--fg); padding:7px 10px; font-size:13px; width:100%; outline:none; }
+.fin-assumption input:focus { border-color:var(--accent); }
+.fin-calc-btn { background:var(--accent); color:#fff; border:none; border-radius:var(--radius-sm); padding:10px 20px; font-weight:600; font-size:13px; cursor:pointer; margin-top:14px; }
+.fin-calc-btn:hover { opacity:.85; }
+.fin-breakeven { background:rgba(52,201,123,.08); border:1px solid rgba(52,201,123,.2); border-radius:var(--radius); padding:18px 22px; margin-bottom:28px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+.fin-breakeven-num { font-family:'Space Grotesk',sans-serif; font-size:36px; font-weight:700; color:var(--green); white-space:nowrap; }
+.fin-breakeven-lbl { font-size:13px; color:var(--fg2); }
+.fin-note { font-size:11px; color:var(--fg3); margin-top:20px; padding:12px 16px; background:var(--bg2); border-radius:var(--radius-sm); border-left:3px solid var(--border); }
+</style>
+
+<div class="fin-header">💰 Financial Model — Year 1</div>
+<div class="fin-sub">Revenue scenarios vs. operating costs. All figures in USD. Update assumptions below to recalculate.</div>
+
+<!-- Assumptions -->
+<div class="fin-assumptions">
+  <h3>Assumptions — Edit to Recalculate</h3>
+  <div class="fin-assumptions-grid">
+    <div class="fin-assumption"><label>Avg. Deal Value (USD/mo)</label><input id="fa-deal" type="number" value="3000" oninput="finCalc()"></div>
+    <div class="fin-assumption"><label>AI Tools Stack (USD/mo)</label><input id="fa-tools" type="number" value="296" oninput="finCalc()"></div>
+    <div class="fin-assumption"><label>Presales Hire Cost (USD/mo)</label><input id="fa-hire" type="number" value="1120" oninput="finCalc()"></div>
+    <div class="fin-assumption"><label>Other Ops Costs (USD/mo)</label><input id="fa-ops" type="number" value="500" oninput="finCalc()"></div>
+    <div class="fin-assumption"><label>Hire After Deal # (trigger)</label><input id="fa-trigger" type="number" value="1" oninput="finCalc()"></div>
+    <div class="fin-assumption"><label>Contract Length (months)</label><input id="fa-contract" type="number" value="6" oninput="finCalc()"></div>
+  </div>
+</div>
+
+<!-- Break-even -->
+<div class="fin-breakeven">
+  <div class="fin-breakeven-num" id="fin-be-deals">1</div>
+  <div>
+    <div class="fin-breakeven-lbl"><strong>deals needed to break even</strong> on Year 1 costs</div>
+    <div class="fin-breakeven-lbl" id="fin-be-detail" style="margin-top:4px;color:var(--fg3)"></div>
+  </div>
+</div>
+
+<!-- 3 Scenarios -->
+<div class="fin-scenarios">
+  <div class="fin-scenario">
+    <div class="fin-scenario-label">Conservative</div>
+    <div class="fin-scenario-title">3 Deals · 6-mo avg</div>
+    <div id="fin-s1"></div>
+  </div>
+  <div class="fin-scenario highlight">
+    <div class="fin-scenario-label" style="color:var(--accent)">Base Case ★</div>
+    <div class="fin-scenario-title">5 Deals · 6-mo avg</div>
+    <div id="fin-s2"></div>
+  </div>
+  <div class="fin-scenario">
+    <div class="fin-scenario-label">Optimistic</div>
+    <div class="fin-scenario-title">8 Deals · 6-mo avg</div>
+    <div id="fin-s3"></div>
+  </div>
+</div>
+
+<div class="fin-note">
+  📌 <strong>Assumptions:</strong> Deal value = recurring monthly managed service. Contract length set above. Hire triggered after deal #1. Tools cost fixed regardless of deal count. "Other ops" covers travel, software, misc. All figures pre-tax. EGP/USD rate assumed 50 EGP = $1 (TalentUp Cairo 2024).
+</div>
+
+<script>
+function finCalc(){
+  try {
+    const deal = Number(document.getElementById('fa-deal').value)||3000;
+    const tools = Number(document.getElementById('fa-tools').value)||296;
+    const hire = Number(document.getElementById('fa-hire').value)||1120;
+    const ops = Number(document.getElementById('fa-ops').value)||500;
+    const months = Number(document.getElementById('fa-contract').value)||6;
+
+    function scenarioHTML(nDeals){
+      const rev = nDeals * deal * months;
+      // costs: tools all year, hire starts after deal 1 (assume month 2 onwards = 11 months), ops all year
+      const toolsTotal = tools * 12;
+      const hireTotal = hire * 11; // 11 months (hired after deal 1)
+      const opsTotal = ops * 12;
+      const totalCost = toolsTotal + hireTotal + opsTotal;
+      const profit = rev - totalCost;
+      const margin = rev > 0 ? Math.round(profit/rev*100) : 0;
+      return `
+        <div class="fin-scenario-row"><span>Revenue (${nDeals} deals × $${deal.toLocaleString()} × ${months}mo)</span><span style="color:var(--green)">$${rev.toLocaleString()}</span></div>
+        <div class="fin-scenario-row"><span>AI Tools (12mo)</span><span>−$${toolsTotal.toLocaleString()}</span></div>
+        <div class="fin-scenario-row"><span>Presales Hire (11mo)</span><span>−$${hireTotal.toLocaleString()}</span></div>
+        <div class="fin-scenario-row"><span>Other Ops (12mo)</span><span>−$${opsTotal.toLocaleString()}</span></div>
+        <div class="fin-scenario-total">
+          <span>${profit>=0?'Net Profit':'Net Loss'}</span>
+          <span style="color:${profit>=0?'var(--green)':'var(--red)'}">${profit>=0?'+':'-'}$${Math.abs(profit).toLocaleString()}</span>
+        </div>
+        <div style="font-size:11px;color:var(--fg3);margin-top:6px;text-align:right">Margin: ${margin}%</div>`;
+    }
+
+    document.getElementById('fin-s1').innerHTML = scenarioHTML(3);
+    document.getElementById('fin-s2').innerHTML = scenarioHTML(5);
+    document.getElementById('fin-s3').innerHTML = scenarioHTML(8);
+
+    // Break-even calculation
+    const fixedCosts = (tools*12) + (hire*11) + (ops*12);
+    const revenuePerDeal = deal * months;
+    const beDeals = revenuePerDeal > 0 ? Math.ceil(fixedCosts / revenuePerDeal) : '∞';
+    document.getElementById('fin-be-deals').textContent = beDeals;
+    document.getElementById('fin-be-detail').textContent = `Fixed costs: $${fixedCosts.toLocaleString()} · Revenue per deal: $${revenuePerDeal.toLocaleString()}`;
+  } catch(e){}
+}
+finCalc();
+</script>
+</div><!-- /section-financial -->
 
 <div id="section-decision-engine" style="display:none">
 
@@ -4562,6 +5356,10 @@ function showMainTab(btn, sectionId) {
   document.getElementById('section-ito-strategy').style.display = 'none';
   document.getElementById('section-board-gtm').style.display = 'none';
   document.getElementById('section-decision-engine').style.display = 'none';
+  document.getElementById('section-pipeline').style.display = 'none';
+  document.getElementById('section-hiring').style.display = 'none';
+  document.getElementById('section-vendor-reg').style.display = 'none';
+  document.getElementById('section-financial').style.display = 'none';
   document.getElementById(sectionId).style.display = 'block';
 }
 function msShowPage(btn, id) {
