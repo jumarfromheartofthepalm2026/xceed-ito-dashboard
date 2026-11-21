@@ -4312,7 +4312,7 @@ td {
 ═══════════════════════════════════════════════════════════ -->
 <div id="section-vendor-reg" style="display:none">
 <style>
-#section-vendor-reg { padding:32px 24px; max-width:1000px; margin:0 auto; }
+#section-vendor-reg { padding:32px 24px; max-width:1060px; margin:0 auto; }
 .vreg-header { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; margin-bottom:8px; }
 .vreg-sub { color:var(--fg3); font-size:13px; margin-bottom:28px; }
 .vreg-summary { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:28px; }
@@ -4323,28 +4323,37 @@ td {
 .vreg-table-wrap { overflow-x:auto; }
 .vreg-table { width:100%; border-collapse:collapse; font-size:13px; }
 .vreg-table th { padding:10px 14px; text-align:left; color:var(--fg2); font-weight:600; border-bottom:1px solid var(--border); background:var(--bg3); font-size:12px; white-space:nowrap; }
-.vreg-table td { padding:12px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+.vreg-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:middle; }
 .vreg-table tr:last-child td { border-bottom:none; }
-.vreg-badge { display:inline-block; border-radius:4px; padding:3px 10px; font-size:11px; font-weight:700; white-space:nowrap; }
-.vreg-done { background:rgba(52,201,123,.15); color:var(--green); }
-.vreg-pending { background:rgba(245,166,35,.15); color:var(--orange); }
-.vreg-blocked { background:rgba(240,82,82,.15); color:var(--red); }
-.vreg-hold { background:rgba(155,163,191,.12); color:var(--fg3); }
-.vreg-action { font-size:12px; color:var(--fg2); }
-.vreg-action strong { color:var(--fg); }
-.vreg-critical { background:rgba(240,82,82,.05); }
+.vreg-badge { display:inline-block; border-radius:4px; padding:3px 10px; font-size:11px; font-weight:700; white-space:nowrap; cursor:default; }
+.vreg-done   { background:rgba(52,201,123,.15); color:var(--green); }
+.vreg-pending{ background:rgba(245,166,35,.15);  color:var(--orange); }
+.vreg-blocked{ background:rgba(240,82,82,.15);   color:var(--red); }
+.vreg-hold   { background:rgba(155,163,191,.12); color:var(--fg3); }
+.vreg-critical { background:rgba(240,82,82,.04); }
+/* edit controls */
+.vreg-select { font-size:12px; padding:4px 8px; border:1px solid var(--border); border-radius:6px; background:var(--bg); color:var(--fg); cursor:pointer; }
+.vreg-notes-input { font-size:12px; width:100%; padding:4px 8px; border:1px solid var(--border); border-radius:6px; background:var(--bg); color:var(--fg); resize:vertical; min-height:36px; box-sizing:border-box; }
+.vreg-save-btn { margin-top:6px; font-size:11px; padding:3px 10px; border:none; border-radius:5px; background:var(--accent); color:#fff; cursor:pointer; display:none; }
+.vreg-save-btn:hover { opacity:.85; }
+.vreg-saving { opacity:.5; pointer-events:none; }
+.vreg-saved-flash { font-size:11px; color:var(--green); margin-left:8px; }
+#vreg-load-msg { padding:40px; text-align:center; color:var(--fg3); font-size:14px; }
 </style>
 
 <div class="vreg-header">📝 Vendor Registration Status</div>
-<div class="vreg-sub">Partnership applications and registration progress — updated manually</div>
+<div class="vreg-sub" id="vreg-sub-txt">Partnership applications and registration progress — live from Supabase</div>
 
-<div class="vreg-summary">
-  <div class="vreg-stat"><div class="vreg-stat-n" style="color:var(--green)">2</div><div class="vreg-stat-lbl">Registered ✅</div></div>
-  <div class="vreg-stat"><div class="vreg-stat-n" style="color:var(--orange)">3</div><div class="vreg-stat-lbl">Pending / In Progress</div></div>
-  <div class="vreg-stat"><div class="vreg-stat-n" style="color:var(--red)">2</div><div class="vreg-stat-lbl">Blocked / Not Started</div></div>
+<!-- summary stats (computed from live data) -->
+<div class="vreg-summary" id="vreg-summary">
+  <div class="vreg-stat"><div class="vreg-stat-n" id="vstat-registered" style="color:var(--green)">—</div><div class="vreg-stat-lbl">Registered ✅</div></div>
+  <div class="vreg-stat"><div class="vreg-stat-n" id="vstat-pending"    style="color:var(--orange)">—</div><div class="vreg-stat-lbl">Pending / In Progress</div></div>
+  <div class="vreg-stat"><div class="vreg-stat-n" id="vstat-blocked"    style="color:var(--red)">—</div><div class="vreg-stat-lbl">Blocked / Not Started</div></div>
 </div>
 
-<div class="vreg-table-wrap">
+<div id="vreg-load-msg">⏳ Loading vendor data…</div>
+
+<div class="vreg-table-wrap" id="vreg-table-container" style="display:none">
   <table class="vreg-table">
     <thead>
       <tr>
@@ -4353,79 +4362,256 @@ td {
         <th>Status</th>
         <th>Notes / Next Action</th>
         <th>Priority</th>
+        <th id="vreg-th-action" style="display:none">Save</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td style="font-weight:700;color:var(--fg)">Acronis</td>
-        <td style="color:var(--fg3)">Backup & Recovery</td>
-        <td><span class="vreg-badge vreg-done">✅ Registered</span></td>
-        <td class="vreg-action">Partner portal active. Can bundle in proposals now.</td>
-        <td><span style="color:var(--green);font-weight:700">Done</span></td>
-      </tr>
-      <tr>
-        <td style="font-weight:700;color:var(--fg)">Tenable</td>
-        <td style="color:var(--fg3)">Security / NCA ECC</td>
-        <td><span class="vreg-badge vreg-done">✅ Registered</span></td>
-        <td class="vreg-action">Partner portal active. NCA ECC compliance angle ready to pitch.</td>
-        <td><span style="color:var(--green);font-weight:700">Done</span></td>
-      </tr>
-      <tr>
-        <td style="font-weight:700;color:var(--fg)">BlueCat</td>
-        <td style="color:var(--fg3)">DNS / Network</td>
-        <td><span class="vreg-badge vreg-pending">⏳ Awaiting Signature</span></td>
-        <td class="vreg-action"><strong>Action:</strong> Follow up on contract signature. Do not bundle in proposals until signed.</td>
-        <td><span style="color:var(--orange);font-weight:700">This Week</span></td>
-      </tr>
-      <tr class="vreg-critical">
-        <td style="font-weight:700;color:var(--fg)">Fortinet</td>
-        <td style="color:var(--fg3)">Firewall / Security</td>
-        <td><span class="vreg-badge vreg-blocked">🔴 Not Applied</span></td>
-        <td class="vreg-action"><strong>Critical Gap.</strong> UAE + KSA deals need Fortinet. Apply to FortiPartner immediately.</td>
-        <td><span style="color:var(--red);font-weight:700">🔴 Urgent</span></td>
-      </tr>
-      <tr class="vreg-critical">
-        <td style="font-weight:700;color:var(--fg)">Veeam</td>
-        <td style="color:var(--fg3)">Backup / DR</td>
-        <td><span class="vreg-badge vreg-hold">⏸ On Hold</span></td>
-        <td class="vreg-action"><strong>Action needed:</strong> Resolve hold before including in any proposals. DR-as-a-Service depends on this.</td>
-        <td><span style="color:var(--orange);font-weight:700">High</span></td>
-      </tr>
-      <tr>
-        <td style="font-weight:700;color:var(--fg)">Nutanix</td>
-        <td style="color:var(--fg3)">Infrastructure / VMware Alt</td>
-        <td><span class="vreg-badge vreg-pending">⏳ Paperwork Pending</span></td>
-        <td class="vreg-action"><strong>Action:</strong> Complete partner application paperwork. VMware migration deals require this.</td>
-        <td><span style="color:var(--orange);font-weight:700">High</span></td>
-      </tr>
-      <tr>
-        <td style="font-weight:700;color:var(--fg)">Microsoft</td>
-        <td style="color:var(--fg3)">Cloud / CSP</td>
-        <td><span class="vreg-badge vreg-pending">⏳ Ingram Micro Pending</span></td>
-        <td class="vreg-action"><strong>Action:</strong> Resolve Microsoft/Ingram Micro CSP channel conflict. UAE SMB M365 depends on this.</td>
-        <td><span style="color:var(--orange);font-weight:700">Medium</span></td>
-      </tr>
-      <tr>
-        <td style="font-weight:700;color:var(--fg)">CrowdStrike</td>
-        <td style="color:var(--fg3)">EDR / Security</td>
-        <td><span class="vreg-badge vreg-hold">⏸ Not Started</span></td>
-        <td class="vreg-action">Start after Fortinet is registered. KSA government / banking angle.</td>
-        <td><span style="color:var(--fg3);font-weight:700">Year 1 Q2</span></td>
-      </tr>
-      <tr>
-        <td style="font-weight:700;color:var(--fg)">Aruba (HPE)</td>
-        <td style="color:var(--fg3)">Networking</td>
-        <td><span class="vreg-badge vreg-hold">⏸ Not Started</span></td>
-        <td class="vreg-action">Morocco market primary target. Start after Backup & Infra hire.</td>
-        <td><span style="color:var(--fg3);font-weight:700">Year 1 Q3</span></td>
-      </tr>
-    </tbody>
+    <tbody id="vreg-tbody"></tbody>
   </table>
 </div>
 
-<div style="margin-top:20px;padding:14px 18px;background:rgba(240,82,82,.06);border:1px solid rgba(240,82,82,.2);border-radius:var(--radius);font-size:13px;color:var(--fg2)">
+<div id="vreg-fortinet-banner" style="display:none;margin-top:20px;padding:14px 18px;background:rgba(240,82,82,.06);border:1px solid rgba(240,82,82,.2);border-radius:var(--radius);font-size:13px;color:var(--fg2)">
   ⚠️ <strong style="color:var(--red)">Critical:</strong> Fortinet is unregistered but appears in UAE + KSA proposals. Do not include Fortinet in any client-facing material until FortiPartner registration is confirmed.
 </div>
+
+<div id="vreg-last-updated" style="margin-top:16px;font-size:11px;color:var(--fg3);text-align:right"></div>
+
+<script>
+(function(){
+  /* ── config ── */
+  const STATUS_OPTIONS = [
+    { value:'registered', label:'✅ Registered',         cls:'vreg-done'    },
+    { value:'pending',    label:'⏳ Pending',             cls:'vreg-pending'  },
+    { value:'blocked',    label:'🔴 Blocked / Not Applied',cls:'vreg-blocked' },
+    { value:'hold',       label:'⏸ On Hold / Not Started',cls:'vreg-hold'    },
+  ];
+  function statusMeta(val){
+    return STATUS_OPTIONS.find(s=>s.value===val) || STATUS_OPTIONS[3];
+  }
+
+  /* ── canEdit = admin or editor ── */
+  function canEdit(){
+    return currentRole === 'admin' || currentRole === 'editor';
+  }
+
+  /* ── update summary stats ── */
+  function updateStats(rows){
+    document.getElementById('vstat-registered').textContent = rows.filter(r=>r.status==='registered').length;
+    document.getElementById('vstat-pending').textContent    = rows.filter(r=>r.status==='pending').length;
+    document.getElementById('vstat-blocked').textContent    = rows.filter(r=>r.status==='blocked'||r.status==='hold').length;
+  }
+
+  /* ── render table ── */
+  function renderTable(rows){
+    const tbody = document.getElementById('vreg-tbody');
+    const editable = canEdit();
+    if(editable) document.getElementById('vreg-th-action').style.display='';
+
+    tbody.innerHTML = '';
+    rows.forEach(row => {
+      const meta = statusMeta(row.status);
+      const isCritical = row.status === 'blocked';
+      const tr = document.createElement('tr');
+      if(isCritical) tr.className = 'vreg-critical';
+      tr.dataset.id = row.id;
+
+      /* Vendor */
+      const tdV = document.createElement('td');
+      tdV.style.cssText = 'font-weight:700;color:var(--fg);white-space:nowrap';
+      tdV.textContent = row.vendor;
+      tr.appendChild(tdV);
+
+      /* Cluster */
+      const tdC = document.createElement('td');
+      tdC.style.color = 'var(--fg3)';
+      tdC.style.whiteSpace = 'nowrap';
+      tdC.textContent = row.cluster;
+      tr.appendChild(tdC);
+
+      /* Status */
+      const tdS = document.createElement('td');
+      if(editable){
+        const sel = document.createElement('select');
+        sel.className = 'vreg-select';
+        STATUS_OPTIONS.forEach(opt=>{
+          const o = document.createElement('option');
+          o.value = opt.value;
+          o.textContent = opt.label;
+          if(opt.value === row.status) o.selected = true;
+          sel.appendChild(o);
+        });
+        sel.addEventListener('change', ()=>{ markDirty(tr); updateBadgePreview(tr, sel.value); });
+        tdS.appendChild(sel);
+        /* live badge preview */
+        const badge = document.createElement('div');
+        badge.className = 'vreg-badge ' + meta.cls;
+        badge.style.cssText = 'margin-top:5px;font-size:10px;';
+        badge.textContent = meta.label;
+        badge.id = 'badge-' + row.id;
+        tdS.appendChild(badge);
+      } else {
+        const badge = document.createElement('span');
+        badge.className = 'vreg-badge ' + meta.cls;
+        badge.textContent = meta.label;
+        tdS.appendChild(badge);
+      }
+      tr.appendChild(tdS);
+
+      /* Notes */
+      const tdN = document.createElement('td');
+      tdN.style.minWidth = '220px';
+      if(editable){
+        const ta = document.createElement('textarea');
+        ta.className = 'vreg-notes-input';
+        ta.value = row.notes;
+        ta.addEventListener('input', ()=>markDirty(tr));
+        tdN.appendChild(ta);
+      } else {
+        tdN.style.fontSize = '12px';
+        tdN.style.color = 'var(--fg2)';
+        tdN.textContent = row.notes;
+      }
+      tr.appendChild(tdN);
+
+      /* Priority */
+      const tdP = document.createElement('td');
+      tdP.style.cssText = 'white-space:nowrap;font-weight:700;font-size:12px';
+      const pColor = row.priority_level===1 ? 'var(--red)' : row.priority_level===2 ? 'var(--orange)' : 'var(--fg3)';
+      tdP.style.color = pColor;
+      tdP.textContent = row.priority;
+      tr.appendChild(tdP);
+
+      /* Save btn column */
+      if(editable){
+        const tdA = document.createElement('td');
+        const btn = document.createElement('button');
+        btn.className = 'vreg-save-btn';
+        btn.id = 'savebtn-' + row.id;
+        btn.textContent = 'Save';
+        btn.addEventListener('click', ()=>saveRow(tr, row.id));
+        tdA.appendChild(btn);
+        const flash = document.createElement('span');
+        flash.className = 'vreg-saved-flash';
+        flash.id = 'flash-' + row.id;
+        tdA.appendChild(flash);
+        tr.appendChild(tdA);
+      }
+
+      tbody.appendChild(tr);
+    });
+
+    /* Fortinet critical banner */
+    const fortinet = rows.find(r=>r.vendor==='Fortinet');
+    document.getElementById('vreg-fortinet-banner').style.display =
+      (fortinet && fortinet.status === 'blocked') ? '' : 'none';
+
+    /* last updated */
+    const latest = rows.map(r=>r.updated_at).filter(Boolean).sort().pop();
+    if(latest){
+      const d = new Date(latest);
+      document.getElementById('vreg-last-updated').textContent =
+        'Last updated: ' + d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) +
+        ' at ' + d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    }
+  }
+
+  function updateBadgePreview(tr, val){
+    const id = tr.dataset.id;
+    const badge = document.getElementById('badge-'+id);
+    if(!badge) return;
+    const meta = statusMeta(val);
+    badge.className = 'vreg-badge ' + meta.cls;
+    badge.textContent = meta.label;
+  }
+
+  function markDirty(tr){
+    const id = tr.dataset.id;
+    const btn = document.getElementById('savebtn-'+id);
+    if(btn) btn.style.display = 'inline-block';
+    document.getElementById('flash-'+id).textContent = '';
+  }
+
+  async function saveRow(tr, id){
+    const btn = document.getElementById('savebtn-'+id);
+    const flash = document.getElementById('flash-'+id);
+    const sel = tr.querySelector('.vreg-select');
+    const ta  = tr.querySelector('.vreg-notes-input');
+    if(!sel||!ta) return;
+
+    const newStatus = sel.value;
+    const newNotes  = ta.value;
+    const meta      = statusMeta(newStatus);
+
+    btn.classList.add('vreg-saving');
+    btn.textContent = 'Saving…';
+    flash.textContent = '';
+
+    try {
+      const { error } = await sb
+        .from('vendor_registrations')
+        .update({
+          status: newStatus,
+          status_label: meta.label,
+          notes: newNotes,
+          updated_at: new Date().toISOString(),
+          updated_by: currentUser?.email || null
+        })
+        .eq('id', id);
+
+      if(error) throw error;
+
+      btn.style.display = 'none';
+      btn.classList.remove('vreg-saving');
+      btn.textContent = 'Save';
+      flash.textContent = '✓ Saved';
+      setTimeout(()=>{ flash.textContent=''; }, 2500);
+
+      /* refresh stats */
+      await loadVendorReg();
+    } catch(e){
+      btn.classList.remove('vreg-saving');
+      btn.textContent = 'Save';
+      flash.style.color = 'var(--red)';
+      flash.textContent = '✗ Error';
+      console.error('vreg save error', e);
+    }
+  }
+
+  /* ── main load ── */
+  window.loadVendorReg = async function(){
+    const loadMsg = document.getElementById('vreg-load-msg');
+    const container = document.getElementById('vreg-table-container');
+    loadMsg.style.display = '';
+    container.style.display = 'none';
+
+    try {
+      const { data, error } = await sb
+        .from('vendor_registrations')
+        .select('*')
+        .order('priority_level', { ascending: true })
+        .order('vendor', { ascending: true });
+
+      if(error) throw error;
+
+      loadMsg.style.display = 'none';
+      container.style.display = '';
+      updateStats(data);
+      renderTable(data);
+    } catch(e){
+      loadMsg.textContent = '❌ Failed to load vendor data. Please refresh.';
+      console.error('vreg load error', e);
+    }
+  };
+
+  /* load when tab is opened — hook added after DOM ready */
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.main-tab-btn').forEach(btn => {
+      if(btn.getAttribute('onclick') && btn.getAttribute('onclick').includes('section-vendor-reg')){
+        btn.addEventListener('click', function(){ window.loadVendorReg(); });
+      }
+    });
+  });
+})();
+</script>
 </div><!-- /section-vendor-reg -->
 
 <!-- ══════════════════════════════════════════════════════════
