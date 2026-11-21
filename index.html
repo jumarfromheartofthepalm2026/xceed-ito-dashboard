@@ -3793,7 +3793,7 @@ td {
 
 <div class="pipe-header">
   <div class="pipe-title">🔁 Deal Pipeline</div>
-  <button class="pipe-add-btn" onclick="pipeOpenModal()">+ Add Deal</button>
+  <button class="pipe-add-btn" id="pipe-add-btn" onclick="pipeOpenModal()" style="display:none">+ Add Deal</button>
 </div>
 
 <!-- Summary stats -->
@@ -3910,6 +3910,10 @@ td {
 
   /* ── load from Supabase ── */
   window.loadPipeline = async function(){
+    /* show/hide Add Deal button based on role */
+    const addBtn = document.getElementById('pipe-add-btn');
+    if(addBtn) addBtn.style.display = canEditPipe() ? '' : 'none';
+
     try {
       const { data, error } = await sb
         .from('pipeline_deals')
