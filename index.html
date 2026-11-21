@@ -3916,7 +3916,7 @@ td {
     if(addBtn) addBtn.style.display = canEditPipe() ? '' : 'none';
 
     try {
-      const { data, error } = await sb
+      const { data, error } = await window.sb
         .from('pipeline_deals')
         .select('*')
         .order('created_at', { ascending: false });
@@ -3930,7 +3930,7 @@ td {
   /* ── move stage (inline dropdown) ── */
   window.pipeMoveStage = async function(id, newStage){
     try {
-      await sb.from('pipeline_deals').update({
+      await window.sb.from('pipeline_deals').update({
         stage: newStage,
         updated_at: new Date().toISOString()
       }).eq('id', id);
@@ -3942,7 +3942,7 @@ td {
   window.pipeDelete = async function(id){
     if(!confirm('Remove this deal?')) return;
     try {
-      await sb.from('pipeline_deals').delete().eq('id', id);
+      await window.sb.from('pipeline_deals').delete().eq('id', id);
       await loadPipeline();
     } catch(e){ console.error('delete error', e); }
   };
@@ -3961,7 +3961,7 @@ td {
     const btn = document.querySelector('#pipeModal .btn-save');
     btn.textContent = 'Saving…'; btn.disabled = true;
     try {
-      const { error } = await sb.from('pipeline_deals').insert({
+      const { error } = await window.sb.from('pipeline_deals').insert({
         company,
         contact:     document.getElementById('pf-contact').value.trim(),
         market:      document.getElementById('pf-market').value,
