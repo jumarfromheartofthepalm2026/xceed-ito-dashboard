@@ -4455,7 +4455,7 @@ td {
   }
 
   /* ── render table ── */
-  function renderTable(rows){
+  function renderVregTable(rows){
     const tbody = document.getElementById('vreg-tbody');
     const editable = canEdit();
     if(editable) document.getElementById('vreg-th-action').style.display='';
@@ -4531,7 +4531,7 @@ td {
       tdP.style.cssText = 'white-space:nowrap;font-weight:700;font-size:12px';
       const pColor = row.priority_level===1 ? 'var(--red)' : row.priority_level===2 ? 'var(--orange)' : 'var(--fg3)';
       tdP.style.color = pColor;
-      tdP.textContent = row.priority;
+      tdP.textContent = row.priority_level;
       tr.appendChild(tdP);
 
       /* Save btn column */
@@ -4663,7 +4663,7 @@ td {
       container.classList.remove('vreg-hidden');
       container.style.display = 'block';
       updateStats(data);
-      renderTable(data);
+      renderVregTable(data);
     } catch(e){
       const errMsg = e?.message || e?.code || JSON.stringify(e) || 'unknown';
       loadMsg.textContent = '❌ Error: ' + errMsg;
