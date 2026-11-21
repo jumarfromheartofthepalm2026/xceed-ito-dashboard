@@ -3945,7 +3945,6 @@ td {
 
   /* ── modal open/close ── */
   window.pipeOpenModal = function(){
-    if(!canEditPipe()){ alert('Only admin and editor users can add deals.'); return; }
     document.getElementById('pipeModal').classList.add('open');
   };
   window.pipeCloseModal = function(){ document.getElementById('pipeModal').classList.remove('open'); };
