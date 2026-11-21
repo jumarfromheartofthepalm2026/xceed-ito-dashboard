@@ -5849,8 +5849,16 @@ function showMainTab(btn, sectionId) {
   document.getElementById('section-vendor-reg').style.display = 'none';
   document.getElementById('section-financial').style.display = 'none';
   document.getElementById(sectionId).style.display = 'block';
-  /* data is pre-loaded on login; reload only pipeline to refresh deal list on each visit */
+  /* reload pipeline on each visit; show vendor reg table if already loaded but container hidden */
   if (sectionId === 'section-pipeline' && typeof window.loadPipeline === 'function') window.loadPipeline();
+  if (sectionId === 'section-vendor-reg') {
+    const c = document.getElementById('vreg-table-container');
+    const m = document.getElementById('vreg-load-msg');
+    /* if table has rows, just show it; otherwise (re)load */
+    const hasRows = c && c.querySelector('tbody') && c.querySelector('tbody').children.length > 0;
+    if (hasRows) { if(c) c.style.display=''; if(m) m.style.display='none'; }
+    else if (typeof window.loadVendorReg === 'function') window.loadVendorReg();
+  }
 }
 function msShowPage(btn, id) {
   document.querySelectorAll('.ms-wrapper .nav-btn').forEach(b => b.classList.remove('active'));
