@@ -4365,32 +4365,45 @@ td {
 ═══════════════════════════════════════════════════════════ -->
 <div id="section-vendor-reg" style="display:none">
 <style>
-#section-vendor-reg{padding:32px 24px;max-width:1060px;margin:0 auto}
+#section-vendor-reg{padding:24px 18px;max-width:1060px;margin:0 auto;overflow-x:hidden}
 .vr-title{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin-bottom:6px}
-.vr-sub{color:var(--fg3);font-size:13px;margin-bottom:24px}
-.vr-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.vr-sub{color:var(--fg3);font-size:13px;margin-bottom:20px}
+.vr-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
 @media(max-width:600px){.vr-stats{grid-template-columns:1fr 1fr}}
 .vr-stat{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center}
 .vr-stat-n{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700}
 .vr-stat-l{font-size:11px;color:var(--fg3);margin-top:4px}
-#vr-msg{padding:40px;text-align:center;color:var(--fg3);font-size:14px}
-#vr-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%}
-.vr-tbl{width:100%;border-collapse:collapse;font-size:13px;display:table !important}
+
+.vr-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px}
+.vr-inp,.vr-sel{font-size:12px;padding:6px 10px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--fg);box-sizing:border-box}
+.vr-inp{min-width:140px}
+.vr-notes{font-size:12px;width:100%;min-width:200px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--fg);resize:vertical;min-height:36px;box-sizing:border-box}
+
+.vr-btn{font-size:12px;padding:5px 10px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);color:var(--fg);cursor:pointer;white-space:nowrap;visibility:visible !important;opacity:1 !important}
+.vr-btn:hover{filter:brightness(1.08)}
+.vr-btn-primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.vr-btn-save{background:var(--green);border-color:var(--green);color:#0b1117;font-weight:700}
+.vr-btn-del{background:rgba(240,82,82,.14);border-color:rgba(240,82,82,.4);color:var(--red);font-weight:600}
+
+#vr-msg{padding:36px;text-align:center;color:var(--fg3);font-size:14px}
+#vr-wrap{width:100%;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:var(--radius)}
+.vr-tbl{width:100%;min-width:720px;border-collapse:collapse;font-size:13px;display:table !important}
 .vr-tbl thead{display:table-header-group !important}
 .vr-tbl tbody{display:table-row-group !important}
 .vr-tbl tr{display:table-row !important}
-.vr-tbl th,.vr-tbl td{display:table-cell !important;padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:middle;text-transform:none !important}
+.vr-tbl th,.vr-tbl td{display:table-cell !important;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle;text-transform:none !important;visibility:visible !important;opacity:1 !important}
 .vr-tbl th{text-align:left;color:var(--fg2);font-weight:600;background:var(--bg3);font-size:12px;white-space:nowrap}
 .vr-tbl tr:last-child td{border-bottom:none}
+
 .vr-badge{display:inline-block;border-radius:4px;padding:3px 10px;font-size:11px;font-weight:700;white-space:nowrap}
 .vr-done{background:rgba(52,201,123,.15);color:var(--green)}
 .vr-pending{background:rgba(245,166,35,.15);color:var(--orange)}
 .vr-blocked{background:rgba(240,82,82,.15);color:var(--red)}
 .vr-hold{background:rgba(155,163,191,.12);color:var(--fg3)}
-.vr-sel{font-size:12px;padding:4px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--fg);cursor:pointer}
-.vr-notes{font-size:12px;width:100%;padding:4px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--fg);resize:vertical;min-height:36px;box-sizing:border-box}
-.vr-savebtn{margin-top:6px;font-size:11px;padding:3px 10px;border:none;border-radius:5px;background:var(--accent);color:#fff;cursor:pointer;display:none}
-.vr-flash{font-size:11px;color:var(--green);margin-left:8px}
+.vr-actions-cell{white-space:nowrap !important}
+.vr-actions-cell .vr-btn{margin-right:6px}
+.vr-actions-cell .vr-btn:last-child{margin-right:0}
+.vr-flash{font-size:11px;color:var(--green);margin-left:6px}
 </style>
 
 <div class="vr-title">📝 Vendor Registration Status</div>
@@ -4402,34 +4415,73 @@ td {
   <div class="vr-stat"><div class="vr-stat-n" id="vrs-blk" style="color:var(--red)">—</div><div class="vr-stat-l">Blocked / Not Started</div></div>
 </div>
 
+<div id="vr-add-bar" class="vr-toolbar" style="display:none">
+  <input id="vr-new-vendor" class="vr-inp" type="text" placeholder="Vendor name *" />
+  <input id="vr-new-cluster" class="vr-inp" type="text" placeholder="Cluster (e.g. Security)" />
+  <select id="vr-new-status" class="vr-sel">
+    <option value="registered">✅ Registered</option>
+    <option value="pending" selected>⏳ Pending</option>
+    <option value="blocked">🔴 Blocked / Not Applied</option>
+    <option value="hold">⏸ On Hold</option>
+  </select>
+  <input id="vr-new-pri" class="vr-inp" type="number" min="1" max="99" placeholder="Pri (1-4)" style="width:85px;min-width:85px" />
+  <input id="vr-new-notes" class="vr-inp" type="text" placeholder="Notes / Next action" style="flex:1;min-width:180px" />
+  <button id="vr-add-btn" type="button" class="vr-btn vr-btn-primary">+ Add Vendor</button>
+  <span id="vr-add-flash" class="vr-flash"></span>
+</div>
+
 <div id="vr-msg">⏳ Loading…</div>
 <div id="vr-wrap" style="display:none">
   <table class="vr-tbl">
-    <thead><tr>
-      <th>Vendor</th><th>Cluster</th><th>Status</th><th>Notes / Next Action</th><th>Pri</th><th id="vr-th-actions" style="display:none">Actions</th>
-    </tr></thead>
+    <thead>
+      <tr>
+        <th>Vendor</th>
+        <th>Cluster</th>
+        <th>Status</th>
+        <th>Notes / Next Action</th>
+        <th>Pri</th>
+        <th id="vr-th-actions" style="display:none">Actions</th>
+      </tr>
+    </thead>
     <tbody id="vr-tbody"></tbody>
   </table>
 </div>
 <div id="vr-updated" style="margin-top:12px;font-size:11px;color:var(--fg3);text-align:right"></div>
-<div id="vr-role-debug" style="margin-top:4px;font-size:10px;color:var(--orange);text-align:right;opacity:0.7"></div>
 
 <script>
 (function(){
   const STATUSES = [
-    {v:'registered', l:'✅ Registered',          c:'vr-done'},
-    {v:'pending',    l:'⏳ Pending',              c:'vr-pending'},
-    {v:'blocked',    l:'🔴 Blocked / Not Applied',c:'vr-blocked'},
-    {v:'hold',       l:'⏸ On Hold',              c:'vr-hold'},
+    {v:'registered', l:'✅ Registered',           c:'vr-done'},
+    {v:'pending',    l:'⏳ Pending',               c:'vr-pending'},
+    {v:'blocked',    l:'🔴 Blocked / Not Applied', c:'vr-blocked'},
+    {v:'hold',       l:'⏸ On Hold',               c:'vr-hold'},
   ];
 
   function getMeta(val){
-    return STATUSES.find(s=>s.v===val) || STATUSES[3];
+    return STATUSES.find(s => s.v === val) || STATUSES[3];
+  }
+
+  function getRole(){
+    const r = (typeof currentRole !== 'undefined' && currentRole)
+      || window.currentRole
+      || window.userRole
+      || window.role
+      || localStorage.getItem('currentRole')
+      || localStorage.getItem('userRole')
+      || localStorage.getItem('role')
+      || '';
+    return String(r).trim().toLowerCase();
   }
 
   function canEdit(){
-    const role = window.currentRole || '';
+    const role = getRole();
     return role === 'admin' || role === 'editor';
+  }
+
+  function getPriColor(pri){
+    if (pri === 1) return 'var(--red)';
+    if (pri === 2) return 'var(--orange)';
+    return 'var(--fg3)';
   }
 
   function buildRow(row){
@@ -4438,220 +4490,314 @@ td {
     const tr = document.createElement('tr');
     tr.dataset.id = row.id;
 
-    // 1. Vendor — always read-only
+    // 1. Vendor (read-only text)
     const tdV = document.createElement('td');
-    tdV.style.cssText='font-weight:700;white-space:nowrap;min-width:140px';
+    tdV.style.cssText = 'font-weight:700;white-space:nowrap';
     tdV.textContent = row.vendor || '';
     tr.appendChild(tdV);
 
-    // 2. Cluster — always read-only
+    // 2. Cluster (read-only text)
     const tdC = document.createElement('td');
-    tdC.style.cssText='color:var(--fg3);white-space:nowrap;min-width:140px';
+    tdC.style.cssText = 'color:var(--fg3);white-space:nowrap';
     tdC.textContent = row.cluster || '';
     tr.appendChild(tdC);
 
-    // 3. Status — badge (edit mode: dropdown)
+    // 3. Status (badge ظاهر + select متخبى لحين Edit)
     const tdS = document.createElement('td');
+    tdS.style.whiteSpace = 'nowrap';
+
     const badge = document.createElement('span');
-    badge.className='vr-badge '+meta.c;
-    badge.textContent=meta.l;
-    badge.id='vbadge-'+row.id;
+    badge.id = 'vbadge-' + row.id;
+    badge.className = 'vr-badge ' + meta.c;
+    badge.textContent = meta.l;
+    tdS.appendChild(badge);
+
     const sel = document.createElement('select');
-    sel.className='vr-sel'; sel.id='vsel-'+row.id; sel.style.display='none';
-    STATUSES.forEach(s=>{
-      const o=document.createElement('option');
-      o.value=s.v; o.textContent=s.l;
-      if(s.v===row.status) o.selected=true;
+    sel.id = 'vsel-' + row.id;
+    sel.className = 'vr-sel';
+    sel.style.display = 'none';
+    STATUSES.forEach(s => {
+      const o = document.createElement('option');
+      o.value = s.v;
+      o.textContent = s.l;
+      if (s.v === row.status) o.selected = true;
       sel.appendChild(o);
     });
-    tdS.appendChild(badge); tdS.appendChild(sel);
+    if (editable) tdS.appendChild(sel);
     tr.appendChild(tdS);
 
-    // 4. Notes — text (edit mode: textarea)
+    // 4. Notes (span ظاهر + textarea متخبى لحين Edit)
     const tdN = document.createElement('td');
-    tdN.style.minWidth='220px';
+    tdN.style.minWidth = '220px';
+
     const notesText = document.createElement('span');
-    notesText.id='vnotes-text-'+row.id;
-    notesText.style.cssText='font-size:12px;color:var(--fg2);white-space:pre-wrap';
-    notesText.textContent = row.notes||'';
+    notesText.id = 'vnotes-txt-' + row.id;
+    notesText.style.cssText = 'font-size:12px;color:var(--fg2);white-space:normal;word-break:break-word';
+    notesText.textContent = row.notes || '';
+    tdN.appendChild(notesText);
+
     const ta = document.createElement('textarea');
-    ta.className='vr-notes'; ta.id='vnotes-ta-'+row.id; ta.style.display='none';
-    ta.value=row.notes||'';
-    tdN.appendChild(notesText); tdN.appendChild(ta);
+    ta.id = 'vnotes-ta-' + row.id;
+    ta.className = 'vr-notes';
+    ta.value = row.notes || '';
+    ta.style.display = 'none';
+    if (editable) tdN.appendChild(ta);
     tr.appendChild(tdN);
 
-    // 5. Priority — always read-only
+    // 5. Priority (read-only colored text)
     const tdP = document.createElement('td');
-    tdP.style.cssText='font-weight:700;font-size:13px;white-space:nowrap;min-width:40px;text-align:center';
-    tdP.style.color = row.priority_level===1?'var(--red)':row.priority_level===2?'var(--orange)':'var(--fg3)';
-    tdP.textContent = row.priority_level||'';
+    tdP.style.cssText = 'font-weight:700;font-size:12px;white-space:nowrap';
+    tdP.style.color = getPriColor(row.priority_level);
+    tdP.textContent = row.priority_level ?? '';
     tr.appendChild(tdP);
 
-    // 6. Actions column (Edit / Save / Cancel / Del)
-    if(editable){
-      const tdA = document.createElement('td');
-      tdA.style.cssText='white-space:nowrap;min-width:110px';
+    // 6. Actions (Edit / Save / Cancel / Delete)
+    if (editable) {
+      const tdAct = document.createElement('td');
+      tdAct.className = 'vr-actions-cell';
+
+      const editBtn = document.createElement('button');
+      editBtn.type = 'button';
+      editBtn.className = 'vr-btn';
+      editBtn.textContent = 'Edit';
+
+      const saveBtn = document.createElement('button');
+      saveBtn.type = 'button';
+      saveBtn.className = 'vr-btn vr-btn-save';
+      saveBtn.textContent = 'Save';
+      saveBtn.style.setProperty('display', 'none', 'important');
+
+      const cancelBtn = document.createElement('button');
+      cancelBtn.type = 'button';
+      cancelBtn.className = 'vr-btn';
+      cancelBtn.textContent = 'Cancel';
+      cancelBtn.style.setProperty('display', 'none', 'important');
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.type = 'button';
+      deleteBtn.className = 'vr-btn vr-btn-del';
+      deleteBtn.textContent = 'Delete';
 
       const flash = document.createElement('span');
-      flash.className='vr-flash'; flash.id='vflash-'+row.id;
+      flash.className = 'vr-flash';
 
-      // Edit btn
-      const editBtn = document.createElement('button');
-      editBtn.className='vr-savebtn'; editBtn.id='vedit-'+row.id; editBtn.textContent='✏️';
-      editBtn.title='Edit';
-      editBtn.style.cssText='margin-right:4px;padding:4px 8px';
-
-      // Save btn (hidden initially)
-      const saveBtn = document.createElement('button');
-      saveBtn.className='vr-savebtn'; saveBtn.id='vsave-'+row.id; saveBtn.textContent='💾';
-      saveBtn.title='Save'; saveBtn.style.display='none';
-      saveBtn.style.cssText='margin-right:4px;padding:4px 8px;display:none';
-
-      // Cancel btn (hidden initially)
-      const cancelBtn = document.createElement('button');
-      cancelBtn.className='vr-savebtn'; cancelBtn.id='vcancel-'+row.id; cancelBtn.textContent='✕';
-      cancelBtn.title='Cancel'; cancelBtn.style.display='none';
-      cancelBtn.style.cssText='margin-right:4px;padding:4px 8px;display:none;opacity:0.6';
-
-      // Del btn
-      const delBtn = document.createElement('button');
-      delBtn.className='vr-savebtn'; delBtn.id='vdel-'+row.id; delBtn.textContent='🗑️';
-      delBtn.title='Delete';
-      delBtn.style.cssText='padding:4px 8px;opacity:0.5';
-
-      // Enter edit mode
-      editBtn.addEventListener('click', ()=>{
-        editBtn.style.display='none';
-        saveBtn.style.display=''; cancelBtn.style.display='';
-        badge.style.display='none'; sel.style.display='';
-        notesText.style.display='none'; ta.style.display=''; ta.focus();
+      editBtn.addEventListener('click', () => {
+        editBtn.style.setProperty('display', 'none', 'important');
+        deleteBtn.style.setProperty('display', 'none', 'important');
+        saveBtn.style.setProperty('display', 'inline-block', 'important');
+        cancelBtn.style.setProperty('display', 'inline-block', 'important');
+        badge.style.display = 'none';
+        sel.style.display = '';
+        notesText.style.display = 'none';
+        ta.style.display = '';
+        ta.focus();
       });
 
-      // Cancel edit mode
-      cancelBtn.addEventListener('click', ()=>{
-        saveBtn.style.display='none'; cancelBtn.style.display='none';
-        editBtn.style.display='';
-        sel.style.display='none'; badge.style.display='';
-        ta.style.display='none'; notesText.style.display='';
-        // restore original values
-        sel.value = row.status;
-        ta.value = row.notes||'';
-        flash.textContent='';
+      cancelBtn.addEventListener('click', () => {
+        sel.value = row.status || 'hold';
+        ta.value = row.notes || '';
+        saveBtn.style.setProperty('display', 'none', 'important');
+        cancelBtn.style.setProperty('display', 'none', 'important');
+        editBtn.style.setProperty('display', 'inline-block', 'important');
+        deleteBtn.style.setProperty('display', 'inline-block', 'important');
+        sel.style.display = 'none';
+        badge.style.display = '';
+        ta.style.display = 'none';
+        notesText.style.display = '';
       });
 
-      // Save
-      saveBtn.addEventListener('click', ()=>doSave(tr, row.id, row));
+      saveBtn.addEventListener('click', async () => {
+        saveBtn.disabled = true;
+        saveBtn.textContent = 'Saving…';
+        flash.textContent = '';
 
-      // Delete
-      delBtn.addEventListener('click', ()=>doDelete(row.id, tr));
+        const payload = {
+          status: sel.value,
+          notes: ta.value,
+          updated_at: new Date().toISOString()
+        };
 
-      tdA.appendChild(editBtn);
-      tdA.appendChild(saveBtn);
-      tdA.appendChild(cancelBtn);
-      tdA.appendChild(delBtn);
-      tdA.appendChild(flash);
-      tr.appendChild(tdA);
+        try {
+          const { error } = await window.sb
+            .from('vendor_registrations')
+            .update(payload)
+            .eq('id', row.id);
+
+          if (error) throw error;
+
+          flash.style.color = 'var(--green)';
+          flash.textContent = '✓ Saved';
+          await window.loadVendorReg();
+        } catch (e) {
+          console.error('doSave error:', e);
+          saveBtn.disabled = false;
+          saveBtn.textContent = 'Save';
+          flash.style.color = 'var(--red)';
+          flash.textContent = '✗ Error';
+        }
+      });
+
+      deleteBtn.addEventListener('click', () => doDelete(row.id, tr, flash));
+
+      tdAct.append(editBtn, saveBtn, cancelBtn, deleteBtn, flash);
+      tr.appendChild(tdAct);
     }
 
     return tr;
   }
 
-  function showSaveBtn(id){ /* no-op — kept for compatibility */ }
+  async function doDelete(id, tr, flashEl){
+    if (!confirm('Delete this row?')) return;
+    try {
+      const { error } = await window.sb
+        .from('vendor_registrations')
+        .delete()
+        .eq('id', id);
 
-  async function doSave(tr, id, origRow){
-    const saveBtn=document.getElementById('vsave-'+id);
-    const cancelBtn=document.getElementById('vcancel-'+id);
-    const editBtn=document.getElementById('vedit-'+id);
-    const flash=document.getElementById('vflash-'+id);
-    const sel=document.getElementById('vsel-'+id);
-    const ta=document.getElementById('vnotes-ta-'+id);
+      if (error) throw error;
 
-    const payload = {
-      status: sel.value,
-      notes: ta.value,
+      if (tr) tr.remove();
+      await window.loadVendorReg();
+    } catch (e) {
+      console.error('doDelete error:', e);
+      if (flashEl) {
+        flashEl.style.color = 'var(--red)';
+        flashEl.textContent = '✗ Delete failed';
+      } else {
+        alert('Error deleting row: ' + (e?.message || 'unknown'));
+      }
+    }
+  }
+
+  async function doAdd(){
+    const vInp = document.getElementById('vr-new-vendor');
+    const cInp = document.getElementById('vr-new-cluster');
+    const sSel = document.getElementById('vr-new-status');
+    const pInp = document.getElementById('vr-new-pri');
+    const nInp = document.getElementById('vr-new-notes');
+    const btn  = document.getElementById('vr-add-btn');
+    const flash= document.getElementById('vr-add-flash');
+
+    const vendor = (vInp?.value || '').trim();
+    if (!vendor) {
+      flash.style.color = 'var(--red)';
+      flash.textContent = 'Vendor name is required';
+      vInp?.focus();
+      return;
+    }
+
+    const newRow = {
+      vendor,
+      cluster: (cInp?.value || '').trim() || null,
+      status: sSel?.value || 'pending',
+      priority_level: pInp?.value ? Number(pInp.value) : null,
+      notes: (nInp?.value || '').trim() || null,
       updated_at: new Date().toISOString()
     };
 
-    saveBtn.disabled=true; saveBtn.textContent='⏳';
-    try{
-      const {error}=await window.sb.from('vendor_registrations')
-        .update(payload).eq('id',id);
-      if(error) throw error;
-      flash.style.color='var(--green)'; flash.textContent='✓';
-      setTimeout(()=>{ flash.textContent=''; window.loadVendorReg(); }, 800);
-    }catch(e){
-      saveBtn.disabled=false; saveBtn.textContent='💾';
-      flash.style.color='var(--red)'; flash.textContent='✗ Error';
+    btn.disabled = true;
+    btn.textContent = 'Adding…';
+    flash.textContent = '';
+
+    try {
+      const { error } = await window.sb
+        .from('vendor_registrations')
+        .insert([newRow]);
+
+      if (error) throw error;
+
+      vInp.value = '';
+      cInp.value = '';
+      pInp.value = '';
+      nInp.value = '';
+      sSel.value = 'pending';
+
+      flash.style.color = 'var(--green)';
+      flash.textContent = '✓ Added';
+      setTimeout(() => { flash.textContent = ''; }, 2500);
+
+      await window.loadVendorReg();
+    } catch (e) {
+      console.error('doAdd error:', e);
+      flash.style.color = 'var(--red)';
+      flash.textContent = '✗ ' + (e?.message || 'Error adding');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '+ Add Vendor';
     }
   }
 
-  async function doDelete(id, tr){
-    if(!confirm('Delete this row?')) return;
-    const delBtn=document.getElementById('vdel-'+id);
-    delBtn.disabled=true;
-    try{
-      const {error}=await window.sb.from('vendor_registrations').delete().eq('id',id);
-      if(error) throw error;
-      tr.remove();
-    }catch(e){
-      delBtn.disabled=false;
-      alert('Delete failed: '+(e?.message||'unknown'));
-    }
-  }
+  const addBtn = document.getElementById('vr-add-btn');
+  if (addBtn) addBtn.addEventListener('click', doAdd);
 
-  let _vrLoading = false;
   window.loadVendorReg = async function(){
-    if(_vrLoading) return;
-    _vrLoading = true;
-    const role=window.currentRole||'';
-    // debug: show role in UI temporarily
-    const dbg=document.getElementById('vr-role-debug');
-    if(dbg) dbg.textContent='Role: '+role+' | canEdit: '+(role==='admin'||role==='editor');
-    const msg=document.getElementById('vr-msg');
-    const wrap=document.getElementById('vr-wrap');
-    const tbody=document.getElementById('vr-tbody');
-    msg.textContent='⏳ Loading…'; msg.style.display='';
-    wrap.style.display='none';
-    tbody.innerHTML='';
-    try{
-      const {data,error}=await window.sb
+    const msg = document.getElementById('vr-msg');
+    const wrap = document.getElementById('vr-wrap');
+    const tbody = document.getElementById('vr-tbody');
+    const thAct = document.getElementById('vr-th-actions');
+    const addBar = document.getElementById('vr-add-bar');
+    const editable = canEdit();
+    const roleName = getRole() || '?';
+
+    if (thAct) thAct.style.display = editable ? '' : 'none';
+    if (addBar) addBar.style.display = editable ? 'flex' : 'none';
+
+    msg.textContent = '⏳ Loading…';
+    msg.style.display = '';
+    wrap.style.display = 'none';
+
+    try {
+      const { data, error } = await window.sb
         .from('vendor_registrations')
         .select('*')
-        .order('priority_level',{ascending:true})
-        .order('vendor',{ascending:true});
-      if(error) throw error;
-      const rows=data||[];
-      // stats
-      document.getElementById('vrs-reg').textContent=rows.filter(r=>r.status==='registered').length;
-      document.getElementById('vrs-pend').textContent=rows.filter(r=>r.status==='pending').length;
-      document.getElementById('vrs-blk').textContent=rows.filter(r=>r.status==='blocked'||r.status==='hold').length;
-      // table
-      tbody.innerHTML='';
-      if(rows.length===0){
-        tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--fg3);padding:24px">No data found.</td></tr>';
+        .order('priority_level', { ascending: true })
+        .order('vendor', { ascending: true });
+
+      if (error) throw error;
+
+      const rows = data || [];
+
+      // تحديث كروت الإحصائيات بالأعلى
+      document.getElementById('vrs-reg').textContent =
+        rows.filter(r => r.status === 'registered').length;
+      document.getElementById('vrs-pend').textContent =
+        rows.filter(r => r.status === 'pending').length;
+      document.getElementById('vrs-blk').textContent =
+        rows.filter(r => r.status === 'blocked' || r.status === 'hold').length;
+
+      // رسم الجدول
+      tbody.innerHTML = '';
+      if (rows.length === 0) {
+        const colspan = editable ? 6 : 5;
+        tbody.innerHTML = `<tr><td colspan="${colspan}" style="text-align:center;color:var(--fg3);padding:24px">No data found.</td></tr>`;
       } else {
-        if(canEdit()) document.getElementById('vr-th-actions').style.display='';
-        rows.forEach(r=>tbody.appendChild(buildRow(r)));
+        rows.forEach(r => tbody.appendChild(buildRow(r)));
       }
-      msg.style.display='none';
-      wrap.style.display='block';
-      // last updated
-      const latest=rows.map(r=>r.updated_at).filter(Boolean).sort().pop();
-      if(latest){
-        const d=new Date(latest);
-        document.getElementById('vr-updated').textContent=
-          'Last updated: '+d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})+
-          ' at '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+
+      msg.style.display = 'none';
+      wrap.style.display = 'block';
+
+      // تحديث وقت آخر تحديث + عرض الدور
+      const latest = rows.map(r => r.updated_at).filter(Boolean).sort().pop();
+      let timeText = 'Last updated: —';
+      if (latest) {
+        const d = new Date(latest);
+        timeText = 'Last updated: ' +
+          d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) +
+          ' at ' +
+          d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
       }
-    }catch(e){
-      msg.textContent='❌ Error: '+(e?.message||e?.code||JSON.stringify(e)||'unknown');
-    } finally {
-      _vrLoading = false;
+      document.getElementById('vr-updated').innerHTML =
+        `${timeText}<br><span style="color:var(--fg3)">Role: ${roleName} | canEdit: ${editable}</span>`;
+    } catch (e) {
+      console.error('loadVendorReg error:', e);
+      msg.textContent = '❌ Error: ' + (e?.message || e?.code || JSON.stringify(e) || 'unknown');
     }
   };
 })();
 </script>
 </div><!-- /section-vendor-reg -->
+
 
 <!-- ══════════════════════════════════════════════════════════
      FINANCIAL MODEL
