@@ -4668,8 +4668,7 @@ td {
     } catch(e){
       const errMsg = e?.message || e?.code || JSON.stringify(e) || 'unknown';
       loadMsg.textContent = '❌ Error: ' + errMsg;
-      alert('Vendor Reg Error: ' + errMsg);
-      console.error('vreg load error', e);
+console.error('vreg load error', e);
     }
   };
 
@@ -6012,9 +6011,12 @@ async function onSignedIn(user) {
   await loadVendors();
   show('app');
 
-  /* update pipeline Add Deal button now that role is known */
+  /* now that role is known, update pipeline button and pre-load data tabs */
   const addBtn = document.getElementById('pipe-add-btn');
   if (addBtn) addBtn.style.display = (currentRole === 'admin' || currentRole === 'editor') ? '' : 'none';
+
+  if (typeof window.loadVendorReg === 'function') window.loadVendorReg();
+  if (typeof window.loadPipeline   === 'function') window.loadPipeline();
 }
 
 // Allowed emails (role fetched from ito_user_profiles after login)
