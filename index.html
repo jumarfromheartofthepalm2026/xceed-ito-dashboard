@@ -4461,7 +4461,12 @@ td {
     if(editable) document.getElementById('vreg-th-action').style.display='';
 
     tbody.innerHTML = '';
+    if(!rows || rows.length === 0){
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--fg3);padding:24px">No vendor data found.</td></tr>';
+      return;
+    }
     rows.forEach(row => {
+      try {
       const meta = statusMeta(row.status);
       const isCritical = row.status === 'blocked';
       const tr = document.createElement('tr');
@@ -4551,6 +4556,12 @@ td {
       }
 
       tbody.appendChild(tr);
+      } catch(rowErr){
+        console.error('vreg row render error', rowErr, row);
+        const errTr = document.createElement('tr');
+        errTr.innerHTML = `<td colspan="6" style="color:var(--red);font-size:11px">Row error: ${rowErr.message}</td>`;
+        tbody.appendChild(errTr);
+      }
     });
 
     /* Fortinet critical banner */
@@ -4662,8 +4673,8 @@ td {
       loadMsg.style.display = 'none';
       container.classList.remove('vreg-hidden');
       container.style.display = 'block';
-      updateStats(data);
-      renderVregTable(data);
+      updateStats(data || []);
+      renderVregTable(data || []);
     } catch(e){
       const errMsg = e?.message || e?.code || JSON.stringify(e) || 'unknown';
       loadMsg.textContent = '❌ Error: ' + errMsg;
