@@ -3872,61 +3872,121 @@ td {
 
 <script>
 (function(){
-  let pipeDeals = [];
-  try { pipeDeals = JSON.parse(localStorage.getItem('xceed_pipeline') || '[]'); } catch(e){}
+  /* ── helpers ── */
+  function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function canEditPipe(){ return currentRole==='admin'||currentRole==='editor'; }
 
-  function pipeRender(){
+  /* ── render kanban from data array ── */
+  function pipeRender(deals){
     const stages = ['prospect','meeting','proposal','negotiation','closed'];
     stages.forEach(s => {
       const col = document.getElementById('pipe-col-'+s);
       if(!col) return;
-      const deals = pipeDeals.filter(d => d.stage === s);
-      if(!deals.length){ col.innerHTML = '<div class="pipe-empty">No deals yet</div>'; return; }
-      col.innerHTML = deals.map((d,i) => `
-        <div class="pipe-card" onclick="pipeDelete(${pipeDeals.indexOf(d)})" title="Click to remove">
-          <div class="pipe-card-name">${d.company}</div>
-          <div class="pipe-card-meta">${d.contact||''}</div>
-          <div class="pipe-card-entity">${d.entity||d.market}</div>
-          ${d.value ? `<div class="pipe-card-value">$${Number(d.value).toLocaleString()}/mo</div>` : ''}
-          ${d.next ? `<div class="pipe-card-meta" style="margin-top:4px">→ ${d.next}</div>` : ''}
+      const bucket = deals.filter(d => d.stage === s);
+      if(!bucket.length){ col.innerHTML = '<div class="pipe-empty">No deals yet</div>'; return; }
+      col.innerHTML = bucket.map(d => `
+        <div class="pipe-card">
+          <div class="pipe-card-name">${esc(d.company)}</div>
+          ${d.contact ? `<div class="pipe-card-meta">${esc(d.contact)}</div>` : ''}
+          <div class="pipe-card-entity">${esc(d.entity||d.market)}</div>
+          ${d.value_usd ? `<div class="pipe-card-value">$${Number(d.value_usd).toLocaleString()}/mo</div>` : ''}
+          ${d.next_action ? `<div class="pipe-card-meta" style="margin-top:4px">→ ${esc(d.next_action)}</div>` : ''}
+          ${canEditPipe() ? `<div style="margin-top:8px;display:flex;gap:6px">
+            <select class="vreg-select" style="font-size:11px;padding:2px 6px" onchange="pipeMoveStage('${d.id}',this.value)">
+              ${stages.map(st=>`<option value="${st}"${st===d.stage?' selected':''}>${st.charAt(0).toUpperCase()+st.slice(1)}</option>`).join('')}
+            </select>
+            <button style="font-size:10px;padding:2px 8px;border:1px solid var(--border);border-radius:4px;background:transparent;color:var(--red);cursor:pointer" onclick="pipeDelete('${d.id}')">✕</button>
+          </div>` : ''}
         </div>`).join('');
     });
-    const active = pipeDeals.filter(d => d.stage !== 'closed');
-    const closed = pipeDeals.filter(d => d.stage === 'closed');
-    const totalVal = pipeDeals.reduce((s,d) => s + (Number(d.value)||0), 0);
-    document.getElementById('pipe-total-deals').textContent = pipeDeals.length;
+    const active = deals.filter(d => d.stage !== 'closed');
+    const closed = deals.filter(d => d.stage === 'closed');
+    const totalVal = deals.reduce((s,d) => s + (Number(d.value_usd)||0), 0);
+    document.getElementById('pipe-total-deals').textContent = deals.length;
     document.getElementById('pipe-total-value').textContent = '$'+totalVal.toLocaleString();
     document.getElementById('pipe-active-deals').textContent = active.length;
     document.getElementById('pipe-closed-deals').textContent = closed.length;
   }
 
-  window.pipeOpenModal = function(){ document.getElementById('pipeModal').classList.add('open'); }
-  window.pipeCloseModal = function(){ document.getElementById('pipeModal').classList.remove('open'); }
-  window.pipeSaveDeal = function(){
+  /* ── load from Supabase ── */
+  window.loadPipeline = async function(){
+    try {
+      const { data, error } = await sb
+        .from('pipeline_deals')
+        .select('*')
+        .order('created_at', { ascending: false });
+      if(error) throw error;
+      pipeRender(data || []);
+    } catch(e){
+      console.error('pipeline load error', e);
+    }
+  };
+
+  /* ── move stage (inline dropdown) ── */
+  window.pipeMoveStage = async function(id, newStage){
+    try {
+      await sb.from('pipeline_deals').update({
+        stage: newStage,
+        updated_at: new Date().toISOString()
+      }).eq('id', id);
+      await loadPipeline();
+    } catch(e){ console.error('move stage error', e); }
+  };
+
+  /* ── delete ── */
+  window.pipeDelete = async function(id){
+    if(!confirm('Remove this deal?')) return;
+    try {
+      await sb.from('pipeline_deals').delete().eq('id', id);
+      await loadPipeline();
+    } catch(e){ console.error('delete error', e); }
+  };
+
+  /* ── modal open/close ── */
+  window.pipeOpenModal = function(){
+    if(!canEditPipe()){ alert('Only admin and editor users can add deals.'); return; }
+    document.getElementById('pipeModal').classList.add('open');
+  };
+  window.pipeCloseModal = function(){ document.getElementById('pipeModal').classList.remove('open'); };
+
+  /* ── save new deal ── */
+  window.pipeSaveDeal = async function(){
     const company = document.getElementById('pf-company').value.trim();
     if(!company){ alert('Company name is required'); return; }
-    pipeDeals.push({
-      company,
-      contact: document.getElementById('pf-contact').value.trim(),
-      market: document.getElementById('pf-market').value,
-      entity: document.getElementById('pf-entity').value,
-      stage: document.getElementById('pf-stage').value,
-      value: document.getElementById('pf-value').value,
-      next: document.getElementById('pf-next').value.trim()
-    });
-    try { localStorage.setItem('xceed_pipeline', JSON.stringify(pipeDeals)); } catch(e){}
-    pipeCloseModal();
-    pipeRender();
-    ['pf-company','pf-contact','pf-value','pf-next'].forEach(id => document.getElementById(id).value='');
-  }
-  window.pipeDelete = function(i){
-    if(!confirm('Remove this deal?')) return;
-    pipeDeals.splice(i,1);
-    try { localStorage.setItem('xceed_pipeline', JSON.stringify(pipeDeals)); } catch(e){}
-    pipeRender();
-  }
+    const btn = document.querySelector('#pipeModal .btn-save');
+    btn.textContent = 'Saving…'; btn.disabled = true;
+    try {
+      const { error } = await sb.from('pipeline_deals').insert({
+        company,
+        contact:     document.getElementById('pf-contact').value.trim(),
+        market:      document.getElementById('pf-market').value,
+        entity:      document.getElementById('pf-entity').value,
+        stage:       document.getElementById('pf-stage').value,
+        value_usd:   parseInt(document.getElementById('pf-value').value)||0,
+        next_action: document.getElementById('pf-next').value.trim(),
+        created_by:  currentUser?.email || null
+      });
+      if(error) throw error;
+      pipeCloseModal();
+      ['pf-company','pf-contact','pf-value','pf-next'].forEach(id=>document.getElementById(id).value='');
+      await loadPipeline();
+    } catch(e){
+      alert('Error saving deal: ' + (e.message||e));
+      console.error(e);
+    }
+    btn.textContent = 'Save Deal'; btn.disabled = false;
+  };
+
   document.getElementById('pipeModal').addEventListener('click', function(e){ if(e.target===this) pipeCloseModal(); });
-  pipeRender();
+
+  /* ── auto-load when tab opens ── */
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.main-tab-btn').forEach(btn => {
+      if(btn.getAttribute('onclick') && btn.getAttribute('onclick').includes('section-pipeline')){
+        btn.addEventListener('click', function(){ window.loadPipeline(); });
+      }
+    });
+  });
 })();
 </script>
 </div><!-- /section-pipeline -->
