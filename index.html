@@ -4634,7 +4634,8 @@ td {
     const loadMsg = document.getElementById('vreg-load-msg');
     const container = document.getElementById('vreg-table-container');
     loadMsg.style.display = '';
-    container.style.display = 'none';
+    /* do NOT hide container here — hiding it while section is invisible
+       causes it to stay hidden when the tab is opened later */
 
     try {
       /* make sure we have an active session — retry up to 3× with 800ms gap */
