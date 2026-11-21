@@ -4648,6 +4648,13 @@ td {
     container.style.display = 'none';
 
     try {
+      /* make sure we have an active session before querying */
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) {
+        loadMsg.textContent = '❌ Not signed in. Please refresh.';
+        return;
+      }
+
       const { data, error } = await sb
         .from('vendor_registrations')
         .select('*')
@@ -4661,7 +4668,7 @@ td {
       updateStats(data);
       renderTable(data);
     } catch(e){
-      loadMsg.textContent = '❌ Failed to load vendor data. Please refresh.';
+      loadMsg.textContent = '❌ Failed to load vendor data. Error: ' + (e?.message || JSON.stringify(e));
       console.error('vreg load error', e);
     }
   };
@@ -6010,6 +6017,10 @@ async function onSignedIn(user) {
 
   await loadVendors();
   show('app');
+
+  /* update pipeline Add Deal button now that role is known */
+  const addBtn = document.getElementById('pipe-add-btn');
+  if (addBtn) addBtn.style.display = (currentRole === 'admin' || currentRole === 'editor') ? '' : 'none';
 }
 
 // Allowed emails (role fetched from ito_user_profiles after login)
