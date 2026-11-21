@@ -4428,7 +4428,7 @@ td {
   }
 
   function canEdit(){
-    const role = (typeof currentRole !== 'undefined') ? currentRole : (window.currentRole || '');
+    const role = window.currentRole || '';
     return role === 'admin' || role === 'editor';
   }
 
@@ -4538,10 +4538,10 @@ td {
   window.loadVendorReg = async function(){
     if(_vrLoading) return;
     _vrLoading = true;
-    const role=(typeof currentRole!=='undefined')?currentRole:(window.currentRole||'?');
+    const role=window.currentRole||'';
     // debug: show role in UI temporarily
     const dbg=document.getElementById('vr-role-debug');
-    if(dbg) dbg.textContent='Role: '+role+' | canEdit: '+canEdit();
+    if(dbg) dbg.textContent='Role: '+role+' | canEdit: '+(role==='admin'||role==='editor');
     const msg=document.getElementById('vr-msg');
     const wrap=document.getElementById('vr-wrap');
     const tbody=document.getElementById('vr-tbody');
