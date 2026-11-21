@@ -4533,12 +4533,16 @@ td {
     }
   }
 
+  let _vrLoading = false;
   window.loadVendorReg = async function(){
+    if(_vrLoading) return;
+    _vrLoading = true;
     const msg=document.getElementById('vr-msg');
     const wrap=document.getElementById('vr-wrap');
     const tbody=document.getElementById('vr-tbody');
     msg.textContent='⏳ Loading…'; msg.style.display='';
     wrap.style.display='none';
+    tbody.innerHTML='';
     try{
       const {data,error}=await window.sb
         .from('vendor_registrations')
@@ -4571,6 +4575,8 @@ td {
       }
     }catch(e){
       msg.textContent='❌ Error: '+(e?.message||e?.code||JSON.stringify(e)||'unknown');
+    } finally {
+      _vrLoading = false;
     }
   };
 })();
