@@ -5853,9 +5853,8 @@ function showMainTab(btn, sectionId) {
   document.getElementById('section-vendor-reg').style.display = 'none';
   document.getElementById('section-financial').style.display = 'none';
   document.getElementById(sectionId).style.display = 'block';
-  /* load live data tabs after auth is ready */
-  if (sectionId === 'section-vendor-reg' && typeof window.loadVendorReg === 'function') window.loadVendorReg();
-  if (sectionId === 'section-pipeline'   && typeof window.loadPipeline   === 'function') window.loadPipeline();
+  /* data is pre-loaded on login; reload only pipeline to refresh deal list on each visit */
+  if (sectionId === 'section-pipeline' && typeof window.loadPipeline === 'function') window.loadPipeline();
 }
 function msShowPage(btn, id) {
   document.querySelectorAll('.ms-wrapper .nav-btn').forEach(b => b.classList.remove('active'));
