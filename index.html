@@ -4365,325 +4365,210 @@ td {
 ═══════════════════════════════════════════════════════════ -->
 <div id="section-vendor-reg" style="display:none">
 <style>
-#section-vendor-reg { padding:32px 24px; max-width:1060px; margin:0 auto; }
-.vreg-header { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; margin-bottom:8px; }
-.vreg-sub { color:var(--fg3); font-size:13px; margin-bottom:28px; }
-.vreg-summary { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:28px; }
-@media(max-width:600px){ .vreg-summary { grid-template-columns:1fr 1fr; } }
-.vreg-stat { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:16px; text-align:center; }
-.vreg-stat-n { font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:700; }
-.vreg-stat-lbl { font-size:11px; color:var(--fg3); margin-top:4px; }
-.vreg-table-wrap { overflow-x:auto; }
-.vreg-hidden { display:none; }
-.vreg-table { width:100%; border-collapse:collapse; font-size:13px; }
-.vreg-table th { padding:10px 14px; text-align:left; color:var(--fg2); font-weight:600; border-bottom:1px solid var(--border); background:var(--bg3); font-size:12px; white-space:nowrap; }
-.vreg-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:middle; }
-.vreg-table tr:last-child td { border-bottom:none; }
-.vreg-badge { display:inline-block; border-radius:4px; padding:3px 10px; font-size:11px; font-weight:700; white-space:nowrap; cursor:default; }
-.vreg-done   { background:rgba(52,201,123,.15); color:var(--green); }
-.vreg-pending{ background:rgba(245,166,35,.15);  color:var(--orange); }
-.vreg-blocked{ background:rgba(240,82,82,.15);   color:var(--red); }
-.vreg-hold   { background:rgba(155,163,191,.12); color:var(--fg3); }
-.vreg-critical { background:rgba(240,82,82,.04); }
-/* edit controls */
-.vreg-select { font-size:12px; padding:4px 8px; border:1px solid var(--border); border-radius:6px; background:var(--bg); color:var(--fg); cursor:pointer; }
-.vreg-notes-input { font-size:12px; width:100%; padding:4px 8px; border:1px solid var(--border); border-radius:6px; background:var(--bg); color:var(--fg); resize:vertical; min-height:36px; box-sizing:border-box; }
-.vreg-save-btn { margin-top:6px; font-size:11px; padding:3px 10px; border:none; border-radius:5px; background:var(--accent); color:#fff; cursor:pointer; display:none; }
-.vreg-save-btn:hover { opacity:.85; }
-.vreg-saving { opacity:.5; pointer-events:none; }
-.vreg-saved-flash { font-size:11px; color:var(--green); margin-left:8px; }
-#vreg-load-msg { padding:40px; text-align:center; color:var(--fg3); font-size:14px; }
+#section-vendor-reg{padding:32px 24px;max-width:1060px;margin:0 auto}
+.vr-title{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin-bottom:6px}
+.vr-sub{color:var(--fg3);font-size:13px;margin-bottom:24px}
+.vr-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+@media(max-width:600px){.vr-stats{grid-template-columns:1fr 1fr}}
+.vr-stat{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center}
+.vr-stat-n{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700}
+.vr-stat-l{font-size:11px;color:var(--fg3);margin-top:4px}
+#vr-msg{padding:40px;text-align:center;color:var(--fg3);font-size:14px}
+#vr-wrap{overflow-x:auto}
+.vr-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.vr-tbl th{padding:10px 14px;text-align:left;color:var(--fg2);font-weight:600;border-bottom:1px solid var(--border);background:var(--bg3);font-size:12px;white-space:nowrap}
+.vr-tbl td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+.vr-tbl tr:last-child td{border-bottom:none}
+.vr-badge{display:inline-block;border-radius:4px;padding:3px 10px;font-size:11px;font-weight:700;white-space:nowrap}
+.vr-done{background:rgba(52,201,123,.15);color:var(--green)}
+.vr-pending{background:rgba(245,166,35,.15);color:var(--orange)}
+.vr-blocked{background:rgba(240,82,82,.15);color:var(--red)}
+.vr-hold{background:rgba(155,163,191,.12);color:var(--fg3)}
+.vr-sel{font-size:12px;padding:4px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--fg);cursor:pointer}
+.vr-notes{font-size:12px;width:100%;padding:4px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--fg);resize:vertical;min-height:36px;box-sizing:border-box}
+.vr-savebtn{margin-top:6px;font-size:11px;padding:3px 10px;border:none;border-radius:5px;background:var(--accent);color:#fff;cursor:pointer;display:none}
+.vr-flash{font-size:11px;color:var(--green);margin-left:8px}
 </style>
 
-<div class="vreg-header">📝 Vendor Registration Status</div>
-<div class="vreg-sub" id="vreg-sub-txt">Partnership applications and registration progress — live from Supabase</div>
+<div class="vr-title">📝 Vendor Registration Status</div>
+<div class="vr-sub">Partnership applications and registration progress — live from Supabase</div>
 
-<!-- summary stats (computed from live data) -->
-<div class="vreg-summary" id="vreg-summary">
-  <div class="vreg-stat"><div class="vreg-stat-n" id="vstat-registered" style="color:var(--green)">—</div><div class="vreg-stat-lbl">Registered ✅</div></div>
-  <div class="vreg-stat"><div class="vreg-stat-n" id="vstat-pending"    style="color:var(--orange)">—</div><div class="vreg-stat-lbl">Pending / In Progress</div></div>
-  <div class="vreg-stat"><div class="vreg-stat-n" id="vstat-blocked"    style="color:var(--red)">—</div><div class="vreg-stat-lbl">Blocked / Not Started</div></div>
+<div class="vr-stats">
+  <div class="vr-stat"><div class="vr-stat-n" id="vrs-reg" style="color:var(--green)">—</div><div class="vr-stat-l">Registered ✅</div></div>
+  <div class="vr-stat"><div class="vr-stat-n" id="vrs-pend" style="color:var(--orange)">—</div><div class="vr-stat-l">Pending / In Progress</div></div>
+  <div class="vr-stat"><div class="vr-stat-n" id="vrs-blk" style="color:var(--red)">—</div><div class="vr-stat-l">Blocked / Not Started</div></div>
 </div>
 
-<div id="vreg-load-msg">⏳ Loading vendor data…</div>
-
-<div class="vreg-table-wrap vreg-hidden" id="vreg-table-container">
-  <table class="vreg-table">
-    <thead>
-      <tr>
-        <th>Vendor</th>
-        <th>Cluster</th>
-        <th>Status</th>
-        <th>Notes / Next Action</th>
-        <th>Priority</th>
-        <th id="vreg-th-action" style="display:none">Save</th>
-      </tr>
-    </thead>
-    <tbody id="vreg-tbody"></tbody>
+<div id="vr-msg">⏳ Loading…</div>
+<div id="vr-wrap" style="display:none">
+  <table class="vr-tbl">
+    <thead><tr>
+      <th>Vendor</th><th>Cluster</th><th>Status</th><th>Notes / Next Action</th><th>Pri</th><th id="vr-th-save" style="display:none">Save</th>
+    </tr></thead>
+    <tbody id="vr-tbody"></tbody>
   </table>
 </div>
-
-<div id="vreg-fortinet-banner" style="display:none;margin-top:20px;padding:14px 18px;background:rgba(240,82,82,.06);border:1px solid rgba(240,82,82,.2);border-radius:var(--radius);font-size:13px;color:var(--fg2)">
-  ⚠️ <strong style="color:var(--red)">Critical:</strong> Fortinet is unregistered but appears in UAE + KSA proposals. Do not include Fortinet in any client-facing material until FortiPartner registration is confirmed.
-</div>
-
-<div id="vreg-last-updated" style="margin-top:16px;font-size:11px;color:var(--fg3);text-align:right"></div>
+<div id="vr-updated" style="margin-top:12px;font-size:11px;color:var(--fg3);text-align:right"></div>
 
 <script>
 (function(){
-  /* ── config ── */
-  const STATUS_OPTIONS = [
-    { value:'registered', label:'✅ Registered',         cls:'vreg-done'    },
-    { value:'pending',    label:'⏳ Pending',             cls:'vreg-pending'  },
-    { value:'blocked',    label:'🔴 Blocked / Not Applied',cls:'vreg-blocked' },
-    { value:'hold',       label:'⏸ On Hold / Not Started',cls:'vreg-hold'    },
+  const STATUSES = [
+    {v:'registered', l:'✅ Registered',          c:'vr-done'},
+    {v:'pending',    l:'⏳ Pending',              c:'vr-pending'},
+    {v:'blocked',    l:'🔴 Blocked / Not Applied',c:'vr-blocked'},
+    {v:'hold',       l:'⏸ On Hold',              c:'vr-hold'},
   ];
-  function statusMeta(val){
-    return STATUS_OPTIONS.find(s=>s.value===val) || STATUS_OPTIONS[3];
+
+  function getMeta(val){
+    return STATUSES.find(s=>s.v===val) || STATUSES[3];
   }
 
-  /* ── canEdit = admin or editor ── */
   function canEdit(){
-    return currentRole === 'admin' || currentRole === 'editor';
+    return currentRole==='admin'||currentRole==='editor';
   }
 
-  /* ── update summary stats ── */
-  function updateStats(rows){
-    document.getElementById('vstat-registered').textContent = rows.filter(r=>r.status==='registered').length;
-    document.getElementById('vstat-pending').textContent    = rows.filter(r=>r.status==='pending').length;
-    document.getElementById('vstat-blocked').textContent    = rows.filter(r=>r.status==='blocked'||r.status==='hold').length;
-  }
-
-  /* ── render table ── */
-  function renderVregTable(rows){
-    const tbody = document.getElementById('vreg-tbody');
+  function buildRow(row){
+    const meta = getMeta(row.status);
     const editable = canEdit();
-    if(editable) document.getElementById('vreg-th-action').style.display='';
+    const tr = document.createElement('tr');
+    tr.dataset.id = row.id;
 
-    tbody.innerHTML = '';
-    if(!rows || rows.length === 0){
-      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--fg3);padding:24px">No vendor data found.</td></tr>';
-      return;
+    // Vendor
+    const tdV = document.createElement('td');
+    tdV.style.cssText='font-weight:700;white-space:nowrap';
+    tdV.textContent = row.vendor || '';
+    tr.appendChild(tdV);
+
+    // Cluster
+    const tdC = document.createElement('td');
+    tdC.style.cssText='color:var(--fg3);white-space:nowrap';
+    tdC.textContent = row.cluster || '';
+    tr.appendChild(tdC);
+
+    // Status
+    const tdS = document.createElement('td');
+    if(editable){
+      const sel = document.createElement('select');
+      sel.className='vr-sel';
+      STATUSES.forEach(s=>{
+        const o=document.createElement('option');
+        o.value=s.v; o.textContent=s.l;
+        if(s.v===row.status) o.selected=true;
+        sel.appendChild(o);
+      });
+      sel.addEventListener('change',()=>showSaveBtn(row.id));
+      tdS.appendChild(sel);
+    } else {
+      const b=document.createElement('span');
+      b.className='vr-badge '+meta.c;
+      b.textContent=meta.l;
+      tdS.appendChild(b);
     }
-    rows.forEach(row => {
-      try {
-      const meta = statusMeta(row.status);
-      const isCritical = row.status === 'blocked';
-      const tr = document.createElement('tr');
-      if(isCritical) tr.className = 'vreg-critical';
-      tr.dataset.id = row.id;
+    tr.appendChild(tdS);
 
-      /* Vendor */
-      const tdV = document.createElement('td');
-      tdV.style.cssText = 'font-weight:700;color:var(--fg);white-space:nowrap';
-      tdV.textContent = row.vendor;
-      tr.appendChild(tdV);
-
-      /* Cluster */
-      const tdC = document.createElement('td');
-      tdC.style.color = 'var(--fg3)';
-      tdC.style.whiteSpace = 'nowrap';
-      tdC.textContent = row.cluster;
-      tr.appendChild(tdC);
-
-      /* Status */
-      const tdS = document.createElement('td');
-      if(editable){
-        const sel = document.createElement('select');
-        sel.className = 'vreg-select';
-        STATUS_OPTIONS.forEach(opt=>{
-          const o = document.createElement('option');
-          o.value = opt.value;
-          o.textContent = opt.label;
-          if(opt.value === row.status) o.selected = true;
-          sel.appendChild(o);
-        });
-        sel.addEventListener('change', ()=>{ markDirty(tr); updateBadgePreview(tr, sel.value); });
-        tdS.appendChild(sel);
-        /* live badge preview */
-        const badge = document.createElement('div');
-        badge.className = 'vreg-badge ' + meta.cls;
-        badge.style.cssText = 'margin-top:5px;font-size:10px;';
-        badge.textContent = meta.label;
-        badge.id = 'badge-' + row.id;
-        tdS.appendChild(badge);
-      } else {
-        const badge = document.createElement('span');
-        badge.className = 'vreg-badge ' + meta.cls;
-        badge.textContent = meta.label;
-        tdS.appendChild(badge);
-      }
-      tr.appendChild(tdS);
-
-      /* Notes */
-      const tdN = document.createElement('td');
-      tdN.style.minWidth = '220px';
-      if(editable){
-        const ta = document.createElement('textarea');
-        ta.className = 'vreg-notes-input';
-        ta.value = row.notes;
-        ta.addEventListener('input', ()=>markDirty(tr));
-        tdN.appendChild(ta);
-      } else {
-        tdN.style.fontSize = '12px';
-        tdN.style.color = 'var(--fg2)';
-        tdN.textContent = row.notes;
-      }
-      tr.appendChild(tdN);
-
-      /* Priority */
-      const tdP = document.createElement('td');
-      tdP.style.cssText = 'white-space:nowrap;font-weight:700;font-size:12px';
-      const pColor = row.priority_level===1 ? 'var(--red)' : row.priority_level===2 ? 'var(--orange)' : 'var(--fg3)';
-      tdP.style.color = pColor;
-      tdP.textContent = row.priority_level;
-      tr.appendChild(tdP);
-
-      /* Save btn column */
-      if(editable){
-        const tdA = document.createElement('td');
-        const btn = document.createElement('button');
-        btn.className = 'vreg-save-btn';
-        btn.id = 'savebtn-' + row.id;
-        btn.textContent = 'Save';
-        btn.addEventListener('click', ()=>saveRow(tr, row.id));
-        tdA.appendChild(btn);
-        const flash = document.createElement('span');
-        flash.className = 'vreg-saved-flash';
-        flash.id = 'flash-' + row.id;
-        tdA.appendChild(flash);
-        tr.appendChild(tdA);
-      }
-
-      tbody.appendChild(tr);
-      } catch(rowErr){
-        console.error('vreg row render error', rowErr, row);
-        const errTr = document.createElement('tr');
-        errTr.innerHTML = `<td colspan="6" style="color:var(--red);font-size:11px">Row error: ${rowErr.message}</td>`;
-        tbody.appendChild(errTr);
-      }
-    });
-
-    /* Fortinet critical banner */
-    const fortinet = rows.find(r=>r.vendor==='Fortinet');
-    document.getElementById('vreg-fortinet-banner').style.display =
-      (fortinet && fortinet.status === 'blocked') ? '' : 'none';
-
-    /* last updated */
-    const latest = rows.map(r=>r.updated_at).filter(Boolean).sort().pop();
-    if(latest){
-      const d = new Date(latest);
-      document.getElementById('vreg-last-updated').textContent =
-        'Last updated: ' + d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) +
-        ' at ' + d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    // Notes
+    const tdN = document.createElement('td');
+    tdN.style.minWidth='200px';
+    if(editable){
+      const ta=document.createElement('textarea');
+      ta.className='vr-notes';
+      ta.value=row.notes||'';
+      ta.addEventListener('input',()=>showSaveBtn(row.id));
+      tdN.appendChild(ta);
+    } else {
+      tdN.style.cssText='font-size:12px;color:var(--fg2)';
+      tdN.textContent=row.notes||'';
     }
+    tr.appendChild(tdN);
+
+    // Priority
+    const tdP = document.createElement('td');
+    tdP.style.cssText='font-weight:700;font-size:12px;white-space:nowrap';
+    tdP.style.color = row.priority_level===1?'var(--red)':row.priority_level===2?'var(--orange)':'var(--fg3)';
+    tdP.textContent = row.priority_level||'';
+    tr.appendChild(tdP);
+
+    // Save btn
+    if(editable){
+      const tdA=document.createElement('td');
+      const btn=document.createElement('button');
+      btn.className='vr-savebtn'; btn.id='vsave-'+row.id; btn.textContent='Save';
+      btn.addEventListener('click',()=>doSave(tr,row.id));
+      const flash=document.createElement('span');
+      flash.className='vr-flash'; flash.id='vflash-'+row.id;
+      tdA.appendChild(btn); tdA.appendChild(flash);
+      tr.appendChild(tdA);
+    }
+
+    return tr;
   }
 
-  function updateBadgePreview(tr, val){
-    const id = tr.dataset.id;
-    const badge = document.getElementById('badge-'+id);
-    if(!badge) return;
-    const meta = statusMeta(val);
-    badge.className = 'vreg-badge ' + meta.cls;
-    badge.textContent = meta.label;
+  function showSaveBtn(id){
+    const btn=document.getElementById('vsave-'+id);
+    if(btn) btn.style.display='inline-block';
   }
 
-  function markDirty(tr){
-    const id = tr.dataset.id;
-    const btn = document.getElementById('savebtn-'+id);
-    if(btn) btn.style.display = 'inline-block';
-    document.getElementById('flash-'+id).textContent = '';
-  }
-
-  async function saveRow(tr, id){
-    const btn = document.getElementById('savebtn-'+id);
-    const flash = document.getElementById('flash-'+id);
-    const sel = tr.querySelector('.vreg-select');
-    const ta  = tr.querySelector('.vreg-notes-input');
-    if(!sel||!ta) return;
-
-    const newStatus = sel.value;
-    const newNotes  = ta.value;
-    const meta      = statusMeta(newStatus);
-
-    btn.classList.add('vreg-saving');
-    btn.textContent = 'Saving…';
-    flash.textContent = '';
-
-    try {
-      const { error } = await sb
-        .from('vendor_registrations')
-        .update({
-          status: newStatus,
-          status_label: meta.label,
-          notes: newNotes,
-          updated_at: new Date().toISOString(),
-          updated_by: currentUser?.email || null
-        })
-        .eq('id', id);
-
+  async function doSave(tr,id){
+    const btn=document.getElementById('vsave-'+id);
+    const flash=document.getElementById('vflash-'+id);
+    const sel=tr.querySelector('.vr-sel');
+    const ta=tr.querySelector('.vr-notes');
+    btn.disabled=true; btn.textContent='Saving…'; flash.textContent='';
+    try{
+      const {error}=await window.sb.from('vendor_registrations')
+        .update({status:sel.value,notes:ta.value,updated_at:new Date().toISOString()})
+        .eq('id',id);
       if(error) throw error;
-
-      btn.style.display = 'none';
-      btn.classList.remove('vreg-saving');
-      btn.textContent = 'Save';
-      flash.textContent = '✓ Saved';
-      setTimeout(()=>{ flash.textContent=''; }, 2500);
-
-      /* refresh stats */
-      await loadVendorReg();
-    } catch(e){
-      btn.classList.remove('vreg-saving');
-      btn.textContent = 'Save';
-      flash.style.color = 'var(--red)';
-      flash.textContent = '✗ Error';
-      console.error('vreg save error', e);
+      btn.style.display='none'; btn.disabled=false; btn.textContent='Save';
+      flash.style.color='var(--green)'; flash.textContent='✓ Saved';
+      setTimeout(()=>{flash.textContent=''},2500);
+      window.loadVendorReg();
+    }catch(e){
+      btn.disabled=false; btn.textContent='Save';
+      flash.style.color='var(--red)'; flash.textContent='✗ Error';
     }
   }
 
-  /* ── main load ── */
   window.loadVendorReg = async function(){
-    const loadMsg = document.getElementById('vreg-load-msg');
-    const container = document.getElementById('vreg-table-container');
-    loadMsg.style.display = '';
-    /* do NOT hide container here — hiding it while section is invisible
-       causes it to stay hidden when the tab is opened later */
-
-    try {
-      /* make sure we have an active session — retry up to 3× with 800ms gap */
-      let session = null;
-      for (let i = 0; i < 3; i++) {
-        const { data: { session: s } } = await window.sb.auth.getSession();
-        if (s) { session = s; break; }
-        await new Promise(r => setTimeout(r, 800));
-      }
-      if (!session) {
-        loadMsg.textContent = '❌ No active session. Please sign out and sign in again.';
-        return;
-      }
-
-      const { data, error } = await window.sb
+    const msg=document.getElementById('vr-msg');
+    const wrap=document.getElementById('vr-wrap');
+    const tbody=document.getElementById('vr-tbody');
+    msg.textContent='⏳ Loading…'; msg.style.display='';
+    wrap.style.display='none';
+    try{
+      const {data,error}=await window.sb
         .from('vendor_registrations')
         .select('*')
-        .order('priority_level', { ascending: true })
-        .order('vendor', { ascending: true });
-
+        .order('priority_level',{ascending:true})
+        .order('vendor',{ascending:true});
       if(error) throw error;
-
-      loadMsg.style.display = 'none';
-      container.classList.remove('vreg-hidden');
-      container.style.display = 'block';
-      updateStats(data || []);
-      renderVregTable(data || []);
-    } catch(e){
-      const errMsg = e?.message || e?.code || JSON.stringify(e) || 'unknown';
-      loadMsg.textContent = '❌ Error: ' + errMsg;
-console.error('vreg load error', e);
+      const rows=data||[];
+      // stats
+      document.getElementById('vrs-reg').textContent=rows.filter(r=>r.status==='registered').length;
+      document.getElementById('vrs-pend').textContent=rows.filter(r=>r.status==='pending').length;
+      document.getElementById('vrs-blk').textContent=rows.filter(r=>r.status==='blocked'||r.status==='hold').length;
+      // table
+      tbody.innerHTML='';
+      if(rows.length===0){
+        tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--fg3);padding:24px">No data found.</td></tr>';
+      } else {
+        if(canEdit()) document.getElementById('vr-th-save').style.display='';
+        rows.forEach(r=>tbody.appendChild(buildRow(r)));
+      }
+      msg.style.display='none';
+      wrap.style.display='';
+      // last updated
+      const latest=rows.map(r=>r.updated_at).filter(Boolean).sort().pop();
+      if(latest){
+        const d=new Date(latest);
+        document.getElementById('vr-updated').textContent=
+          'Last updated: '+d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})+
+          ' at '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+      }
+    }catch(e){
+      msg.textContent='❌ Error: '+(e?.message||e?.code||JSON.stringify(e)||'unknown');
     }
   };
-
-  /* load when tab is opened — hook added after DOM ready */
-  /* tab click handled by showMainTab → no extra listener needed */
 })();
 </script>
 </div><!-- /section-vendor-reg -->
