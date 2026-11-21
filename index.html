@@ -4406,7 +4406,7 @@ td {
 <div id="vr-wrap" style="display:none">
   <table class="vr-tbl">
     <thead><tr>
-      <th>Vendor</th><th>Cluster</th><th>Status</th><th>Notes / Next Action</th><th>Pri</th><th id="vr-th-save" style="display:none">Save</th>
+      <th>Vendor</th><th>Cluster</th><th>Status</th><th>Notes / Next Action</th><th>Pri</th><th id="vr-th-actions" style="display:none">Actions</th>
     </tr></thead>
     <tbody id="vr-tbody"></tbody>
   </table>
@@ -4438,152 +4438,164 @@ td {
     const tr = document.createElement('tr');
     tr.dataset.id = row.id;
 
-    // 1. Vendor (editable)
+    // 1. Vendor — always read-only
     const tdV = document.createElement('td');
-    tdV.style.cssText='white-space:nowrap;min-width:140px';
-    if(editable){
-      const inpV = document.createElement('input');
-      inpV.type = 'text';
-      inpV.className = 'vr-notes vr-vendor-inp';
-      inpV.style.minHeight = '32px';
-      inpV.style.fontWeight = '700';
-      inpV.value = row.vendor || '';
-      inpV.addEventListener('input', ()=>showSaveBtn(row.id));
-      tdV.appendChild(inpV);
-    } else {
-      tdV.style.fontWeight = '700';
-      tdV.textContent = row.vendor || '';
-    }
+    tdV.style.cssText='font-weight:700;white-space:nowrap;min-width:140px';
+    tdV.textContent = row.vendor || '';
     tr.appendChild(tdV);
 
-    // 2. Cluster (editable)
+    // 2. Cluster — always read-only
     const tdC = document.createElement('td');
-    tdC.style.cssText='white-space:nowrap;min-width:160px';
-    if(editable){
-      const inpC = document.createElement('input');
-      inpC.type = 'text';
-      inpC.className = 'vr-notes vr-cluster-inp';
-      inpC.style.minHeight = '32px';
-      inpC.value = row.cluster || '';
-      inpC.addEventListener('input', ()=>showSaveBtn(row.id));
-      tdC.appendChild(inpC);
-    } else {
-      tdC.style.color = 'var(--fg3)';
-      tdC.textContent = row.cluster || '';
-    }
+    tdC.style.cssText='color:var(--fg3);white-space:nowrap;min-width:140px';
+    tdC.textContent = row.cluster || '';
     tr.appendChild(tdC);
 
-    // 3. Status
+    // 3. Status — badge (edit mode: dropdown)
     const tdS = document.createElement('td');
-    if(editable){
-      const sel = document.createElement('select');
-      sel.className='vr-sel';
-      STATUSES.forEach(s=>{
-        const o=document.createElement('option');
-        o.value=s.v; o.textContent=s.l;
-        if(s.v===row.status) o.selected=true;
-        sel.appendChild(o);
-      });
-      sel.addEventListener('change',()=>showSaveBtn(row.id));
-      tdS.appendChild(sel);
-    } else {
-      const b=document.createElement('span');
-      b.className='vr-badge '+meta.c;
-      b.textContent=meta.l;
-      tdS.appendChild(b);
-    }
+    const badge = document.createElement('span');
+    badge.className='vr-badge '+meta.c;
+    badge.textContent=meta.l;
+    badge.id='vbadge-'+row.id;
+    const sel = document.createElement('select');
+    sel.className='vr-sel'; sel.id='vsel-'+row.id; sel.style.display='none';
+    STATUSES.forEach(s=>{
+      const o=document.createElement('option');
+      o.value=s.v; o.textContent=s.l;
+      if(s.v===row.status) o.selected=true;
+      sel.appendChild(o);
+    });
+    tdS.appendChild(badge); tdS.appendChild(sel);
     tr.appendChild(tdS);
 
-    // 4. Notes
+    // 4. Notes — text (edit mode: textarea)
     const tdN = document.createElement('td');
     tdN.style.minWidth='220px';
-    if(editable){
-      const ta=document.createElement('textarea');
-      ta.className='vr-notes';
-      ta.value=row.notes||'';
-      ta.addEventListener('input',()=>showSaveBtn(row.id));
-      tdN.appendChild(ta);
-    } else {
-      tdN.style.cssText='font-size:12px;color:var(--fg2)';
-      tdN.textContent=row.notes||'';
-    }
+    const notesText = document.createElement('span');
+    notesText.id='vnotes-text-'+row.id;
+    notesText.style.cssText='font-size:12px;color:var(--fg2);white-space:pre-wrap';
+    notesText.textContent = row.notes||'';
+    const ta = document.createElement('textarea');
+    ta.className='vr-notes'; ta.id='vnotes-ta-'+row.id; ta.style.display='none';
+    ta.value=row.notes||'';
+    tdN.appendChild(notesText); tdN.appendChild(ta);
     tr.appendChild(tdN);
 
-    // 5. Priority (editable)
+    // 5. Priority — always read-only
     const tdP = document.createElement('td');
-    tdP.style.cssText='white-space:nowrap;min-width:75px';
-    if(editable){
-      const inpP = document.createElement('input');
-      inpP.type = 'number';
-      inpP.min = '1';
-      inpP.max = '99';
-      inpP.className = 'vr-notes vr-pri-inp';
-      inpP.style.minHeight = '32px';
-      inpP.style.width = '64px';
-      inpP.style.fontWeight = '700';
-      inpP.style.color = row.priority_level===1?'var(--red)':row.priority_level===2?'var(--orange)':'var(--fg)';
-      inpP.value = row.priority_level ?? '';
-      inpP.addEventListener('input', ()=>showSaveBtn(row.id));
-      tdP.appendChild(inpP);
-    } else {
-      tdP.style.cssText='font-weight:700;font-size:12px;white-space:nowrap';
-      tdP.style.color = row.priority_level===1?'var(--red)':row.priority_level===2?'var(--orange)':'var(--fg3)';
-      tdP.textContent = row.priority_level||'';
-    }
+    tdP.style.cssText='font-weight:700;font-size:13px;white-space:nowrap;min-width:40px;text-align:center';
+    tdP.style.color = row.priority_level===1?'var(--red)':row.priority_level===2?'var(--orange)':'var(--fg3)';
+    tdP.textContent = row.priority_level||'';
     tr.appendChild(tdP);
 
-    // 6. Save btn
+    // 6. Actions column (Edit / Save / Cancel / Del)
     if(editable){
-      const tdA=document.createElement('td');
-      tdA.style.whiteSpace='nowrap';
-      const btn=document.createElement('button');
-      btn.className='vr-savebtn'; btn.id='vsave-'+row.id; btn.textContent='Save';
-      btn.addEventListener('click',()=>doSave(tr,row.id));
-      const flash=document.createElement('span');
+      const tdA = document.createElement('td');
+      tdA.style.cssText='white-space:nowrap;min-width:110px';
+
+      const flash = document.createElement('span');
       flash.className='vr-flash'; flash.id='vflash-'+row.id;
-      tdA.appendChild(btn); tdA.appendChild(flash);
+
+      // Edit btn
+      const editBtn = document.createElement('button');
+      editBtn.className='vr-savebtn'; editBtn.id='vedit-'+row.id; editBtn.textContent='✏️';
+      editBtn.title='Edit';
+      editBtn.style.cssText='margin-right:4px;padding:4px 8px';
+
+      // Save btn (hidden initially)
+      const saveBtn = document.createElement('button');
+      saveBtn.className='vr-savebtn'; saveBtn.id='vsave-'+row.id; saveBtn.textContent='💾';
+      saveBtn.title='Save'; saveBtn.style.display='none';
+      saveBtn.style.cssText='margin-right:4px;padding:4px 8px;display:none';
+
+      // Cancel btn (hidden initially)
+      const cancelBtn = document.createElement('button');
+      cancelBtn.className='vr-savebtn'; cancelBtn.id='vcancel-'+row.id; cancelBtn.textContent='✕';
+      cancelBtn.title='Cancel'; cancelBtn.style.display='none';
+      cancelBtn.style.cssText='margin-right:4px;padding:4px 8px;display:none;opacity:0.6';
+
+      // Del btn
+      const delBtn = document.createElement('button');
+      delBtn.className='vr-savebtn'; delBtn.id='vdel-'+row.id; delBtn.textContent='🗑️';
+      delBtn.title='Delete';
+      delBtn.style.cssText='padding:4px 8px;opacity:0.5';
+
+      // Enter edit mode
+      editBtn.addEventListener('click', ()=>{
+        editBtn.style.display='none';
+        saveBtn.style.display=''; cancelBtn.style.display='';
+        badge.style.display='none'; sel.style.display='';
+        notesText.style.display='none'; ta.style.display=''; ta.focus();
+      });
+
+      // Cancel edit mode
+      cancelBtn.addEventListener('click', ()=>{
+        saveBtn.style.display='none'; cancelBtn.style.display='none';
+        editBtn.style.display='';
+        sel.style.display='none'; badge.style.display='';
+        ta.style.display='none'; notesText.style.display='';
+        // restore original values
+        sel.value = row.status;
+        ta.value = row.notes||'';
+        flash.textContent='';
+      });
+
+      // Save
+      saveBtn.addEventListener('click', ()=>doSave(tr, row.id, row));
+
+      // Delete
+      delBtn.addEventListener('click', ()=>doDelete(row.id, tr));
+
+      tdA.appendChild(editBtn);
+      tdA.appendChild(saveBtn);
+      tdA.appendChild(cancelBtn);
+      tdA.appendChild(delBtn);
+      tdA.appendChild(flash);
       tr.appendChild(tdA);
     }
 
     return tr;
   }
 
-  function showSaveBtn(id){
-    const btn=document.getElementById('vsave-'+id);
-    if(btn) btn.style.display='inline-block';
-  }
+  function showSaveBtn(id){ /* no-op — kept for compatibility */ }
 
-  async function doSave(tr,id){
-    const btn=document.getElementById('vsave-'+id);
+  async function doSave(tr, id, origRow){
+    const saveBtn=document.getElementById('vsave-'+id);
+    const cancelBtn=document.getElementById('vcancel-'+id);
+    const editBtn=document.getElementById('vedit-'+id);
     const flash=document.getElementById('vflash-'+id);
-    const vendorInp=tr.querySelector('.vr-vendor-inp');
-    const clusterInp=tr.querySelector('.vr-cluster-inp');
-    const sel=tr.querySelector('.vr-sel');
-    const ta=tr.querySelector('.vr-notes:not(.vr-vendor-inp):not(.vr-cluster-inp):not(.vr-pri-inp)');
-    const priInp=tr.querySelector('.vr-pri-inp');
+    const sel=document.getElementById('vsel-'+id);
+    const ta=document.getElementById('vnotes-ta-'+id);
 
     const payload = {
-      vendor: vendorInp ? vendorInp.value.trim() : undefined,
-      cluster: clusterInp ? clusterInp.value.trim() : undefined,
       status: sel.value,
       notes: ta.value,
-      priority_level: priInp && priInp.value !== '' ? Number(priInp.value) : null,
       updated_at: new Date().toISOString()
     };
 
-    btn.disabled=true; btn.textContent='Saving…'; flash.textContent='';
+    saveBtn.disabled=true; saveBtn.textContent='⏳';
     try{
       const {error}=await window.sb.from('vendor_registrations')
-        .update(payload)
-        .eq('id',id);
+        .update(payload).eq('id',id);
       if(error) throw error;
-      btn.style.display='none'; btn.disabled=false; btn.textContent='Save';
-      flash.style.color='var(--green)'; flash.textContent='✓ Saved';
-      setTimeout(()=>{flash.textContent=''},2500);
-      window.loadVendorReg();
+      flash.style.color='var(--green)'; flash.textContent='✓';
+      setTimeout(()=>{ flash.textContent=''; window.loadVendorReg(); }, 800);
     }catch(e){
-      btn.disabled=false; btn.textContent='Save';
+      saveBtn.disabled=false; saveBtn.textContent='💾';
       flash.style.color='var(--red)'; flash.textContent='✗ Error';
+    }
+  }
+
+  async function doDelete(id, tr){
+    if(!confirm('Delete this row?')) return;
+    const delBtn=document.getElementById('vdel-'+id);
+    delBtn.disabled=true;
+    try{
+      const {error}=await window.sb.from('vendor_registrations').delete().eq('id',id);
+      if(error) throw error;
+      tr.remove();
+    }catch(e){
+      delBtn.disabled=false;
+      alert('Delete failed: '+(e?.message||'unknown'));
     }
   }
 
@@ -4618,7 +4630,7 @@ td {
       if(rows.length===0){
         tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--fg3);padding:24px">No data found.</td></tr>';
       } else {
-        if(canEdit()) document.getElementById('vr-th-save').style.display='';
+        if(canEdit()) document.getElementById('vr-th-actions').style.display='';
         rows.forEach(r=>tbody.appendChild(buildRow(r)));
       }
       msg.style.display='none';
