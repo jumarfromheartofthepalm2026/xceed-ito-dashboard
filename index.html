@@ -4556,7 +4556,7 @@ td {
         rows.forEach(r=>tbody.appendChild(buildRow(r)));
       }
       msg.style.display='none';
-      wrap.style.display='';
+      wrap.style.display='block';
       // last updated
       const latest=rows.map(r=>r.updated_at).filter(Boolean).sort().pop();
       if(latest){
