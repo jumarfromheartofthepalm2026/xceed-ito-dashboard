@@ -3983,14 +3983,7 @@ td {
 
   document.getElementById('pipeModal').addEventListener('click', function(e){ if(e.target===this) pipeCloseModal(); });
 
-  /* ── auto-load when tab opens ── */
-  document.addEventListener('DOMContentLoaded', function(){
-    document.querySelectorAll('.main-tab-btn').forEach(btn => {
-      if(btn.getAttribute('onclick') && btn.getAttribute('onclick').includes('section-pipeline')){
-        btn.addEventListener('click', function(){ window.loadPipeline(); });
-      }
-    });
-  });
+  /* tab click handled by showMainTab → no extra listener needed */
 })();
 </script>
 </div><!-- /section-pipeline -->
@@ -4679,13 +4672,7 @@ td {
   };
 
   /* load when tab is opened — hook added after DOM ready */
-  document.addEventListener('DOMContentLoaded', function(){
-    document.querySelectorAll('.main-tab-btn').forEach(btn => {
-      if(btn.getAttribute('onclick') && btn.getAttribute('onclick').includes('section-vendor-reg')){
-        btn.addEventListener('click', function(){ window.loadVendorReg(); });
-      }
-    });
-  });
+  /* tab click handled by showMainTab → no extra listener needed */
 })();
 </script>
 </div><!-- /section-vendor-reg -->
