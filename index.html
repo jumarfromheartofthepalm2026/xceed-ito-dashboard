@@ -4374,6 +4374,7 @@ td {
 .vreg-stat-n { font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:700; }
 .vreg-stat-lbl { font-size:11px; color:var(--fg3); margin-top:4px; }
 .vreg-table-wrap { overflow-x:auto; }
+.vreg-hidden { display:none; }
 .vreg-table { width:100%; border-collapse:collapse; font-size:13px; }
 .vreg-table th { padding:10px 14px; text-align:left; color:var(--fg2); font-weight:600; border-bottom:1px solid var(--border); background:var(--bg3); font-size:12px; white-space:nowrap; }
 .vreg-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:middle; }
@@ -4406,7 +4407,7 @@ td {
 
 <div id="vreg-load-msg">⏳ Loading vendor data…</div>
 
-<div class="vreg-table-wrap" id="vreg-table-container" style="display:none">
+<div class="vreg-table-wrap vreg-hidden" id="vreg-table-container">
   <table class="vreg-table">
     <thead>
       <tr>
@@ -4659,7 +4660,7 @@ td {
       if(error) throw error;
 
       loadMsg.style.display = 'none';
-      container.style.display = '';
+      container.classList.remove('vreg-hidden');
       updateStats(data);
       renderTable(data);
     } catch(e){
