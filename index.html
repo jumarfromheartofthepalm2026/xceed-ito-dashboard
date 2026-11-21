@@ -4632,10 +4632,8 @@ td {
 
   /* ── main load ── */
   window.loadVendorReg = async function(){
-    console.log('[vreg] loadVendorReg called');
     const loadMsg = document.getElementById('vreg-load-msg');
     const container = document.getElementById('vreg-table-container');
-    console.log('[vreg] container found:', !!container, 'classes:', container?.className);
     loadMsg.style.display = '';
     /* do NOT hide container here — hiding it while section is invisible
        causes it to stay hidden when the tab is opened later */
@@ -4659,15 +4657,12 @@ td {
         .order('priority_level', { ascending: true })
         .order('vendor', { ascending: true });
 
-      console.log('[vreg] query done. error:', error, 'data length:', data?.length);
       if(error) throw error;
 
       loadMsg.style.display = 'none';
       container.classList.remove('vreg-hidden');
-      console.log('[vreg] container classes after remove:', container.className);
       updateStats(data);
       renderTable(data);
-      console.log('[vreg] renderTable done');
     } catch(e){
       const errMsg = e?.message || e?.code || JSON.stringify(e) || 'unknown';
       loadMsg.textContent = '❌ Error: ' + errMsg;
