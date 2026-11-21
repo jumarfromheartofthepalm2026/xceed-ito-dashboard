@@ -3870,6 +3870,7 @@ td {
   </div>
 </div>
 
+<script>/* global sb — assigned in main init after Supabase loads */var sb;</script>
 <script>
 (function(){
   /* ── helpers ── */
@@ -4644,7 +4645,7 @@ td {
       /* make sure we have an active session — retry up to 3× with 800ms gap */
       let session = null;
       for (let i = 0; i < 3; i++) {
-        const { data: { session: s } } = await sb.auth.getSession();
+        const { data: { session: s } } = await window.sb.auth.getSession();
         if (s) { session = s; break; }
         await new Promise(r => setTimeout(r, 800));
       }
@@ -4653,7 +4654,7 @@ td {
         return;
       }
 
-      const { data, error } = await sb
+      const { data, error } = await window.sb
         .from('vendor_registrations')
         .select('*')
         .order('priority_level', { ascending: true })
@@ -5921,11 +5922,12 @@ if (typeof supabase === 'undefined') {
 }
 
 const { createClient } = supabase;
-const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+window.sb = sb;
 
 // ── STATE ──────────────────────────────
-let currentUser = null;
-let currentRole = 'viewer';
+var currentUser = null;
+var currentRole = 'viewer';
 let allVendors = [];
 let filteredVendors = [];
 
