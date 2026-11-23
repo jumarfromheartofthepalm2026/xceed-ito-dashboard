@@ -6183,9 +6183,9 @@ finCalc();
   <div class="certs-title-row" style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
     <span class="certs-title">🎓 Vendor Partner Certifications</span>
     <div style="display:flex;gap:6px;">
-      <button class="btn-export" onclick="exportToExcel()" title="Export to Excel">📥 Excel</button>
-      <button class="btn-template" id="certs-btn-template" style="display:none" title="Download CSV Template">📋 Template</button>
-      <button class="btn-import" id="certs-btn-import" style="display:none" title="Import from CSV">📤 Import</button>
+      <button class="btn-export" onclick="exportCertsToExcel()" title="Export Certifications to CSV">📥 Excel</button>
+      <button class="btn-template" id="certs-btn-template" style="display:none" title="Download Certs CSV Template" onclick="downloadCertsTemplate()">📋 Template</button>
+      <button class="btn-import" id="certs-btn-import" style="display:none" title="Import Certs from CSV" onclick="importCertsFromCSV()">📤 Import</button>
     </div>
   </div>
   <div class="certs-filter-row">
@@ -6656,6 +6656,59 @@ function exportToExcel() {
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(url);
   if(window._showToast) window._showToast('Exported successfully ✓','success');
+}
+
+function exportCertsToExcel() {
+  const cards = document.querySelectorAll('#section-certs .vc-card');
+  if (!cards.length) { if(window._showToast) window._showToast('No cert data','error'); return; }
+  const rows = [['Vendor','Program','Category','Timing','Cost','Certification','Exam Code','Headcount','Notes','Source']];
+  cards.forEach(card => {
+    const vendor   = card.querySelector('.vc-name')?.textContent.trim() || '';
+    const program  = card.querySelector('.vc-program')?.textContent.trim() || '';
+    const cat      = card.querySelector('.vb-cat')?.textContent.trim() || '';
+    const timing   = card.querySelector('.vb-before,.vb-after,.vb-none')?.textContent.trim() || '';
+    const cost     = card.querySelector('.vb-free,.vb-paid,.vb-portal')?.textContent.trim() || '';
+    const note     = card.querySelector('.vc-note')?.innerText.trim().split('\n')[0] || '';
+    const source   = card.querySelector('.vc-source')?.href || '';
+    const certRows = card.querySelectorAll('.vc-table tr:not(:first-child)');
+    if (!certRows.length) {
+      rows.push([vendor, program, cat, timing, cost, '', '', '', note, source]);
+    } else {
+      certRows.forEach(tr => {
+        const cells = tr.querySelectorAll('td');
+        const certName = cells[0]?.querySelector('.vc-cert-name')?.textContent.trim() || cells[0]?.textContent.trim() || '';
+        const examCode = cells[0]?.querySelector('.vc-cert-code')?.textContent.trim() || '';
+        const certCost = cells[1]?.textContent.trim() || '';
+        const people   = cells[2]?.textContent.trim() || '';
+        rows.push([vendor, program, cat, timing, certCost || cost, certName, examCode, people, note, source]);
+      });
+    }
+  });
+  const csv = rows.map(r => r.map(c => '"' + String(c).replace(/"/g,'""') + '"').join(',')).join('\n');
+  const blob = new Blob(['﻿' + csv], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'xceed-ito-certifications-' + new Date().toISOString().slice(0,10) + '.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  if(window._showToast) window._showToast('Certifications exported ✓','success');
+}
+
+function downloadCertsTemplate() {
+  const headers = ['Vendor','Program','Category','Timing','Cost','Certification','Exam Code','Headcount','Notes','Source'];
+  const example = ['Acronis','Acronis #CyberFit Partner Program','Data Management','After signing','Free','Acronis Cyber Protect Sales','ACS-200','1+','Sign first; certs needed for Silver/Gold','https://academy.acronis.com'];
+  const csv = [headers, example].map(r => r.map(c => '"'+c+'"').join(',')).join('\n');
+  const blob = new Blob(['﻿' + csv], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url;
+  a.download = 'xceed-ito-certs-template.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  if(window._showToast) window._showToast('Template downloaded ✓','success');
+}
+
+function importCertsFromCSV() {
+  if(window._showToast) window._showToast('Cert import — coming soon','info');
 }
 </script>
 
