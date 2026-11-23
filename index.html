@@ -890,8 +890,9 @@ td {
 .main-tabs {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 4px;
-  padding: 8px 16px 0;
+  padding: 6px 16px 0;
   border-bottom: 1px solid var(--border);
   background: var(--bg2);
   overflow: visible;
@@ -1191,6 +1192,18 @@ td {
     <button class="main-tab-btn" onclick="showMainTab(this,'section-vendor-reg')">📝 Vendor Reg.</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-financial')">💰 Financial Model</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-decision-engine')">⚙️ Decision Engine</button>
+    <div style="flex:1"></div>
+    <div style="display:flex;align-items:center;gap:6px;padding:0 8px;">
+      <div class="user-pill" style="margin:0">
+        <div class="avatar" id="user-avatar">?</div>
+        <span class="user-name" id="user-name-display"></span>
+        <span class="role-badge" id="role-badge">viewer</span>
+      </div>
+      <button class="btn-export" id="btn-export" onclick="exportToExcel()" title="Export to Excel">📥 Excel</button>
+      <button class="btn-template" id="btn-template" style="display:none" title="Download CSV Template">📋 Template</button>
+      <button class="btn-import" id="btn-import" style="display:none" title="Import from CSV">📤 Import</button>
+      <button class="btn-logout" id="btn-logout" title="Sign out">⬡ Sign out</button>
+    </div>
   </div>
 
   <div id="section-vendors">
@@ -1208,17 +1221,6 @@ td {
       <div class="header-brand">
         <h1>Xceed <span>ITO</span> — Vendor Partnership Tracker</h1>
         <div class="header-meta" id="header-meta">Pre-first-deal stage · 6 entities operational · Delivery: Cairo · Last updated: <strong id="header-date">—</strong> · <span style="background:#f5a623;color:#000;padding:1px 6px;border-radius:4px;font-weight:700;font-size:10px">v10</span></div>
-      </div>
-      <div class="header-actions">
-        <div class="user-pill">
-          <div class="avatar" id="user-avatar">?</div>
-          <span class="user-name" id="user-name-display"></span>
-          <span class="role-badge" id="role-badge">viewer</span>
-        </div>
-        <button class="btn-export" id="btn-export" onclick="exportToExcel()" title="Export to Excel">📥 Excel</button>
-        <button class="btn-template" id="btn-template" style="display:none" title="Download CSV Template">📋 Template</button>
-        <button class="btn-import" id="btn-import" style="display:none" title="Import from CSV">📤 Import</button>
-        <button class="btn-logout" id="btn-logout" title="Sign out">⬡ Sign out</button>
       </div>
     </div>
   </div>
@@ -6178,7 +6180,6 @@ finCalc();
 <div class="certs-header">
   <div class="certs-title-row">
     <span class="certs-title">🎓 Vendor Partner Certifications</span>
-    <span class="certs-sub">24 vendors · Official sources only · بنفس الاتفاق — لا بيانات من دماغنا</span>
   </div>
   <div class="certs-filter-row">
     <button class="cf-btn active" data-cf="all">All (24)</button>
