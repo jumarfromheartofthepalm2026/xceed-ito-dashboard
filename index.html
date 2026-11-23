@@ -6180,8 +6180,13 @@ finCalc();
 </style>
 
 <div class="certs-header">
-  <div class="certs-title-row">
+  <div class="certs-title-row" style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
     <span class="certs-title">🎓 Vendor Partner Certifications</span>
+    <div style="display:flex;gap:6px;">
+      <button class="btn-export" onclick="exportToExcel()" title="Export to Excel">📥 Excel</button>
+      <button class="btn-template" id="certs-btn-template" style="display:none" title="Download CSV Template">📋 Template</button>
+      <button class="btn-import" id="certs-btn-import" style="display:none" title="Import from CSV">📤 Import</button>
+    </div>
   </div>
   <div class="certs-filter-row">
     <button class="cf-btn active" data-cf="all">All (24)</button>
@@ -6761,6 +6766,8 @@ async function onSignedIn(user) {
   document.getElementById('actions-header').style.display = isPrivileged ? '' : 'none';
   document.getElementById('btn-template').style.display = isPrivileged ? '' : 'none';
   document.getElementById('btn-import').style.display = isPrivileged ? '' : 'none';
+  document.getElementById('certs-btn-template').style.display = isPrivileged ? '' : 'none';
+  document.getElementById('certs-btn-import').style.display = isPrivileged ? '' : 'none';
 
   await loadVendors();
   show('app');
@@ -6876,6 +6883,8 @@ document.getElementById('btn-change-pw').addEventListener('click', async () => {
     document.getElementById('actions-header').style.display = isPrivileged2 ? '' : 'none';
     document.getElementById('btn-template').style.display = isPrivileged2 ? '' : 'none';
     document.getElementById('btn-import').style.display = isPrivileged2 ? '' : 'none';
+    document.getElementById('certs-btn-template').style.display = isPrivileged2 ? '' : 'none';
+    document.getElementById('certs-btn-import').style.display = isPrivileged2 ? '' : 'none';
 
     await loadVendors();
     show('app');
@@ -6890,6 +6899,8 @@ document.getElementById('btn-logout').addEventListener('click', async () => {
   allVendors = [];
   document.getElementById('btn-template').style.display = 'none';
   document.getElementById('btn-import').style.display = 'none';
+  document.getElementById('certs-btn-template').style.display = 'none';
+  document.getElementById('certs-btn-import').style.display = 'none';
   document.getElementById('actions-header').style.display = 'none';
   show('login-screen');
 });
