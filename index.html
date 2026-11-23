@@ -1181,7 +1181,7 @@ td {
 
   <!-- Main Tab Switcher -->
   <div class="main-tabs">
-    <button class="main-tab-btn active" onclick="showMainTab(this,'section-vendors')">🏢 Vendor Tracker</button>
+    <button class="main-tab-btn active" onclick="showMainTab(this,'section-vendors')">🏢 Vendors</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-market-study')">📊 Market Study</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-partner-report')">🤝 Partner Ecosystem</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-ito-strategy')">🗺️ ITO Strategy</button>
@@ -1191,11 +1191,17 @@ td {
     <button class="main-tab-btn" onclick="showMainTab(this,'section-vendor-reg')">📝 Vendor Reg.</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-financial')">💰 Financial Model</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-decision-engine')">⚙️ Decision Engine</button>
-    <button class="main-tab-btn" onclick="showMainTab(this,'section-certs')">🎓 Certifications</button>
   </div>
 
   <div id="section-vendors">
 
+  <!-- Vendor Sub-Tabs -->
+  <div class="vendor-sub-tabs" style="display:flex;gap:4px;padding:10px 16px 0;background:var(--bg2,#1a1a2e);border-bottom:1px solid var(--border,#2a2a3e);">
+    <button class="vsub-btn active" onclick="showVendorSubTab(this,'vsub-tracker')" style="padding:6px 18px;border:none;border-radius:6px 6px 0 0;background:var(--bg3,#16213e);color:var(--fg,#e0e0ff);font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid var(--accent,#7c6af7);">📋 Tracker</button>
+    <button class="vsub-btn" onclick="showVendorSubTab(this,'vsub-certs')" style="padding:6px 18px;border:none;border-radius:6px 6px 0 0;background:transparent;color:var(--fg2,#a0a0c0);font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;">🎓 Certifications</button>
+  </div>
+
+  <div id="vsub-tracker">
   <!-- Header -->
   <div class="header">
     <div class="header-top">
@@ -1263,6 +1269,9 @@ td {
       <tbody id="vendors-body"></tbody>
     </table>
   </div>
+
+  </div><!-- /vsub-tracker -->
+
 
   </div><!-- /section-vendors -->
 
@@ -6113,7 +6122,7 @@ finCalc();
 <!-- ══════════════════════════════════════════════════════════
      CERTIFICATIONS SECTION
 ═══════════════════════════════════════════════════════════ -->
-<div id="section-certs" style="display:none">
+<div id="section-certs" style="display:none;padding-top:0">
 <style>
 #section-certs { padding: 0; font-family: 'Inter', system-ui, sans-serif; }
 .certs-header {
@@ -6559,21 +6568,43 @@ finCalc();
 function showMainTab(btn, sectionId) {
   document.querySelectorAll('.main-tab-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('section-vendors').style.display = 'none';
-  document.getElementById('section-market-study').style.display = 'none';
-  document.getElementById('section-partner-report').style.display = 'none';
-  document.getElementById('section-ito-strategy').style.display = 'none';
-  document.getElementById('section-board-gtm').style.display = 'none';
-  document.getElementById('section-decision-engine').style.display = 'none';
-  document.getElementById('section-pipeline').style.display = 'none';
-  document.getElementById('section-hiring').style.display = 'none';
-  document.getElementById('section-vendor-reg').style.display = 'none';
-  document.getElementById('section-financial').style.display = 'none';
-  document.getElementById('section-certs').style.display = 'none';
-  document.getElementById(sectionId).style.display = 'block';
-  /* reload pipeline on each visit; show vendor reg table if already loaded but container hidden */
+  // hide all main sections
+  ['section-vendors','section-market-study','section-partner-report','section-ito-strategy',
+   'section-board-gtm','section-decision-engine','section-pipeline','section-hiring',
+   'section-vendor-reg','section-financial','section-certs'].forEach(id => {
+    document.getElementById(id).style.display = 'none';
+  });
+  if (sectionId === 'section-vendors') {
+    // show vendors; then let sub-tab decide which panel is visible
+    document.getElementById('section-vendors').style.display = 'block';
+    var activeVsub = document.querySelector('.vsub-btn.active');
+    var activePanelId = activeVsub ? activeVsub.getAttribute('onclick').match(/'([^']+)'/)[1] : 'vsub-tracker';
+    if (activePanelId === 'vsub-certs') {
+      document.getElementById('section-certs').style.display = 'block';
+      document.getElementById('vsub-tracker').style.display = 'none';
+    } else {
+      document.getElementById('vsub-tracker').style.display = 'block';
+    }
+  } else {
+    document.getElementById(sectionId).style.display = 'block';
+  }
   if (sectionId === 'section-pipeline' && typeof window.loadPipeline === 'function') window.loadPipeline();
   if (sectionId === 'section-vendor-reg' && typeof window.loadVendorReg === 'function') window.loadVendorReg();
+}
+function showVendorSubTab(btn, panelId) {
+  document.querySelectorAll('.vsub-btn').forEach(b => {
+    b.classList.remove('active');
+    b.style.background = 'transparent';
+    b.style.color = 'var(--fg2,#a0a0c0)';
+    b.style.borderBottom = '2px solid transparent';
+  });
+  btn.classList.add('active');
+  btn.style.background = 'var(--bg3,#16213e)';
+  btn.style.color = 'var(--fg,#e0e0ff)';
+  btn.style.borderBottom = '2px solid var(--accent,#7c6af7)';
+  // show/hide panels
+  document.getElementById('vsub-tracker').style.display = panelId === 'vsub-tracker' ? 'block' : 'none';
+  document.getElementById('section-certs').style.display = panelId === 'vsub-certs' ? 'block' : 'none';
 }
 function msShowPage(btn, id) {
   document.querySelectorAll('.ms-wrapper .nav-btn').forEach(b => b.classList.remove('active'));
