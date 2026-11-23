@@ -885,6 +885,36 @@ td {
 }
 
 /* ══════════════════════════════════════
+   TAB PURPOSE CARD
+══════════════════════════════════════ */
+.tab-purpose {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 20px 12px 20px;
+}
+.tab-purpose-icon {
+  font-size: 22px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.tab-purpose-text {}
+.tab-purpose-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 2px;
+}
+.tab-purpose-desc {
+  font-size: 12px;
+  color: var(--fg3, #7a7a9a);
+  line-height: 1.5;
+}
+
+/* ══════════════════════════════════════
    MAIN TAB SWITCHER
 ══════════════════════════════════════ */
 .main-tabs {
@@ -1212,6 +1242,13 @@ td {
   </div>
 
   <div id="vsub-tracker">
+  <div class="tab-purpose">
+    <div class="tab-purpose-icon">📋</div>
+    <div class="tab-purpose-text">
+      <div class="tab-purpose-title">Tracker</div>
+      <div class="tab-purpose-desc">All 24 vendors — partnership status, contact, tier, and next action. The main working view: use this daily to manage vendor relationships and track progress toward each partnership goal.</div>
+    </div>
+  </div>
   <!-- Header -->
   <div class="header">
     <div class="header-top">
@@ -1281,6 +1318,14 @@ td {
 
   <!-- Market Study Section -->
   <div id="section-market-study" class="ms-wrapper" style="display:none">
+
+    <div class="tab-purpose">
+      <div class="tab-purpose-icon">📊</div>
+      <div class="tab-purpose-text">
+        <div class="tab-purpose-title">Market Study</div>
+        <div class="tab-purpose-desc">Gulf &amp; North Africa market analysis — market size, top competitors, coverage gaps, and where Xceed ITO wins. Use this to prioritise markets and sharpen your pitch against rivals.</div>
+      </div>
+    </div>
 
     <div class="site-header">
       <div>
@@ -1870,12 +1915,28 @@ td {
   </div><!-- /section-market-study -->
 
   <div id="section-partner-report" style="display:none;padding:0;margin:0">
+    <div class="tab-purpose">
+      <div class="tab-purpose-icon">🤝</div>
+      <div class="tab-purpose-text">
+        <div class="tab-purpose-title">Partner Ecosystem</div>
+        <div class="tab-purpose-desc">Xceed ITO's vendor partnerships — status, target tier, and licensed products for each. Use this to know what you can sell today versus what's still pending registration.</div>
+      </div>
+    </div>
     <iframe src="partner-ecosystem-report.html" style="width:100%;height:calc(100vh - 120px);border:none;display:block" title="Partner Ecosystem Report"></iframe>
   </div><!-- /section-partner-report -->
 
   <!-- ══ ITO STRATEGY PLAN ══ -->
-  <div id="section-ito-strategy" style="display:none;padding:24px 20px">
+  <div id="section-ito-strategy" style="display:none;padding:0 0 24px">
 
+    <div class="tab-purpose">
+      <div class="tab-purpose-icon">🗺️</div>
+      <div class="tab-purpose-text">
+        <div class="tab-purpose-title">ITO Strategy</div>
+        <div class="tab-purpose-desc">Vision, mission, market entry sequence, and go-to-market priorities across UAE, KSA, Morocco, Mauritius, and India. The strategic north star — refer to this before making major business decisions.</div>
+      </div>
+    </div>
+
+    <div style="padding:24px 20px 0">
     <!-- VISION + MISSION -->
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:24px">
       <div style="background:var(--accent-light);border:1px solid var(--accent);border-radius:12px;padding:20px">
@@ -2811,6 +2872,7 @@ td {
       ⚠️ ESTIMATE (labeled): Hardware prices · RMM tool cost · Human salaries (Cairo market rates, EGP/USD conversion) · GITEX travel · Email outreach tools<br>
       <strong style="color:var(--amber)">Note:</strong> Partner program registration is free for all 6 vendors — the investment is in certifications, tools, people, and go-to-market, not in joining programs.
     </div>
+    </div><!-- /padding wrapper -->
 
   </div><!-- /section-ito-strategy -->
 
@@ -2818,6 +2880,13 @@ td {
        BOARD GTM TAB — 2-slide board presentation
   ═══════════════════════════════════════════════════════════ -->
   <div id="section-board-gtm" style="display:none">
+  <div class="tab-purpose">
+    <div class="tab-purpose-icon">📋</div>
+    <div class="tab-purpose-text">
+      <div class="tab-purpose-title">Board GTM</div>
+      <div class="tab-purpose-desc">Board-ready go-to-market slides: target markets, revenue model, competitive positioning, and Y1 milestones. Use this to present the ITO business case to leadership or investors.</div>
+    </div>
+  </div>
   <style>
   /* ── Board GTM local tokens (reuse dashboard palette) ── */
   #section-board-gtm {
@@ -4034,6 +4103,13 @@ td {
      PIPELINE TRACKER
 ═══════════════════════════════════════════════════════════ -->
 <div id="section-pipeline" style="display:none">
+<div class="tab-purpose">
+  <div class="tab-purpose-icon">🔁</div>
+  <div class="tab-purpose-text">
+    <div class="tab-purpose-title">Pipeline</div>
+    <div class="tab-purpose-desc">Active deals tracker — prospect name, stage, deal size, and next action. Use this to manage your sales funnel and know exactly where each opportunity stands.</div>
+  </div>
+</div>
 <style>
 #section-pipeline { padding: 32px 24px; max-width: 1200px; margin: 0 auto; }
 .pipe-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px; }
@@ -4267,6 +4343,13 @@ td {
      HIRING PLAN
 ═══════════════════════════════════════════════════════════ -->
 <div id="section-hiring" style="display:none">
+<div class="tab-purpose">
+  <div class="tab-purpose-icon">👤</div>
+  <div class="tab-purpose-text">
+    <div class="tab-purpose-title">Hiring Plan</div>
+    <div class="tab-purpose-desc">Roles needed to deliver ITO services — trigger conditions, priority, and cost. Use this to decide who to hire next based on the deals you're closing.</div>
+  </div>
+</div>
 <style>
 #section-hiring { padding:32px 24px; max-width:1000px; margin:0 auto; }
 .hire-header { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; margin-bottom:8px; }
@@ -4643,6 +4726,13 @@ td {
      VENDOR REGISTRATION STATUS
 ═══════════════════════════════════════════════════════════ -->
 <div id="section-vendor-reg" style="display:none">
+<div class="tab-purpose">
+  <div class="tab-purpose-icon">📝</div>
+  <div class="tab-purpose-text">
+    <div class="tab-purpose-title">Vendor Registration</div>
+    <div class="tab-purpose-desc">Status of vendor partner program applications — submitted, pending, approved. Use this to track what's registered and what's blocking you from selling a specific product.</div>
+  </div>
+</div>
 <style>
 #section-vendor-reg{padding:24px 18px;max-width:1060px;margin:0 auto;overflow-x:hidden}
 .vr-title{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin-bottom:6px}
@@ -5082,6 +5172,13 @@ td {
      FINANCIAL MODEL
 ═══════════════════════════════════════════════════════════ -->
 <div id="section-financial" style="display:none">
+<div class="tab-purpose">
+  <div class="tab-purpose-icon">💰</div>
+  <div class="tab-purpose-text">
+    <div class="tab-purpose-title">Financial Model</div>
+    <div class="tab-purpose-desc">Revenue projections, cost structure, and break-even analysis across three scenarios (conservative, base, optimistic). Use this to plan budgets and set realistic Y1 targets.</div>
+  </div>
+</div>
 <style>
 #section-financial { padding:32px 24px; max-width:1100px; margin:0 auto; }
 .fin-header { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; margin-bottom:8px; }
@@ -5208,6 +5305,14 @@ finCalc();
 </div><!-- /section-financial -->
 
 <div id="section-decision-engine" style="display:none">
+
+<div class="tab-purpose">
+  <div class="tab-purpose-icon">⚙️</div>
+  <div class="tab-purpose-text">
+    <div class="tab-purpose-title">Decision Engine</div>
+    <div class="tab-purpose-desc">Interactive tool to evaluate which vendor, market, or service to prioritise — scores options against your criteria and surfaces a recommended action. Use this when you're weighing a business decision and need a structured answer.</div>
+  </div>
+</div>
 
 <!-- Header -->
 <div style="padding:24px 20px 0; overflow-x:visible">
@@ -6127,6 +6232,13 @@ finCalc();
      CERTIFICATIONS SECTION
 ═══════════════════════════════════════════════════════════ -->
 <div id="section-certs" style="display:none;padding-top:0">
+<div class="tab-purpose">
+  <div class="tab-purpose-icon">🎓</div>
+  <div class="tab-purpose-text">
+    <div class="tab-purpose-title">Certifications</div>
+    <div class="tab-purpose-desc">Required and recommended certifications per vendor — exam codes, cost, headcount needed, and whether certs come before or after signing. Use this to plan your team's training roadmap and unlock higher partner tiers.</div>
+  </div>
+</div>
 <style>
 #section-certs { padding: 0; font-family: 'Inter', system-ui, sans-serif; }
 .certs-header {
