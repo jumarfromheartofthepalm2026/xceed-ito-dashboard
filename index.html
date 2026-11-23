@@ -1191,6 +1191,7 @@ td {
     <button class="main-tab-btn" onclick="showMainTab(this,'section-vendor-reg')">📝 Vendor Reg.</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-financial')">💰 Financial Model</button>
     <button class="main-tab-btn" onclick="showMainTab(this,'section-decision-engine')">⚙️ Decision Engine</button>
+    <button class="main-tab-btn" onclick="showMainTab(this,'section-certs')">🎓 Certifications</button>
   </div>
 
   <div id="section-vendors">
@@ -6109,6 +6110,337 @@ finCalc();
 </div><!-- /padding wrapper -->
 </div><!-- /section-decision-engine -->
 
+<!-- ══════════════════════════════════════════════════════════
+     CERTIFICATIONS SECTION
+═══════════════════════════════════════════════════════════ -->
+<div id="section-certs" style="display:none">
+<style>
+#section-certs { padding: 0; font-family: 'Inter', system-ui, sans-serif; }
+.certs-header {
+  position: sticky; top: 56px; z-index: 15;
+  background: var(--bg2); border-bottom: 1px solid var(--border);
+  padding: 12px 20px; display: flex; flex-direction: column; gap: 10px;
+}
+.certs-title-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.certs-title { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; color: var(--fg); }
+.certs-sub { font-size: 12px; color: var(--fg3); }
+.certs-filter-row { display: flex; gap: 6px; flex-wrap: wrap; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+.certs-filter-row::-webkit-scrollbar { display: none; }
+.cf-btn { flex-shrink: 0; padding: 5px 11px; font-size: 12px; font-weight: 500; border: 1px solid var(--border); border-radius: 20px; background: var(--bg3); color: var(--fg2); cursor: pointer; transition: all .15s; white-space: nowrap; }
+.cf-btn:hover { background: var(--surface2); color: var(--fg); }
+.cf-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.certs-body { padding: 20px 20px 40px; max-width: 1200px; margin: 0 auto; }
+.certs-section-label { font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--fg3); margin: 24px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+@media (max-width: 600px) { .certs-grid { grid-template-columns: 1fr; } .certs-header { top: 48px; } }
+.vc-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.vc-card:hover { border-color: var(--accent); }
+.vc-head { display: flex; align-items: center; gap: 10px; }
+.vc-logo { width: 36px; height: 36px; border-radius: 8px; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 700; color: var(--accent); flex-shrink: 0; }
+.vc-name { font-weight: 700; font-size: 14px; color: var(--fg); line-height: 1.2; }
+.vc-program { font-size: 11px; color: var(--fg3); margin-top: 1px; }
+.vc-badges { display: flex; flex-wrap: wrap; gap: 5px; }
+.vb { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; line-height: 20px; }
+.vb-before { background: rgba(240,82,82,.18); color: var(--red); }
+.vb-after  { background: rgba(52,201,123,.18); color: var(--green); }
+.vb-none   { background: rgba(155,163,191,.15); color: var(--grey); }
+.vb-portal { background: rgba(99,102,241,.18); color: var(--accent2); }
+.vb-free   { background: rgba(56,196,196,.18); color: var(--teal); }
+.vb-paid   { background: rgba(245,166,35,.18); color: var(--orange); }
+.vb-cat    { background: rgba(79,142,247,.12); color: var(--accent); }
+.vc-table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 0; }
+.vc-table th { background: var(--bg3); color: var(--fg3); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 5px 7px; text-align: left; }
+.vc-table td { padding: 5px 7px; border-bottom: 1px solid var(--border); color: var(--fg); vertical-align: top; }
+.vc-table tr:last-child td { border-bottom: none; }
+.vc-cert-name { display: block; font-weight: 600; color: var(--fg); }
+.vc-cert-code { display: block; font-size: 10px; color: var(--fg3); margin-top: 1px; }
+.vc-cost-free { background: rgba(56,196,196,.18); color: var(--teal); padding: 1px 6px; border-radius: 10px; font-size: 10px; font-weight: 700; }
+.vc-cost-paid { background: rgba(245,166,35,.18); color: var(--orange); padding: 1px 6px; border-radius: 10px; font-size: 10px; font-weight: 700; }
+.vc-note { font-size: 11px; color: var(--fg3); line-height: 1.5; }
+.vc-source { display: inline-block; margin-top: 4px; color: var(--accent); font-size: 11px; text-decoration: none; }
+.vc-source:hover { text-decoration: underline; }
+#certs-no-results { display:none; text-align:center; color:var(--fg3); padding:40px; font-size:14px; }
+.certs-legend { margin-top: 28px; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+.certs-legend-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--fg3); margin-bottom: 10px; }
+.certs-legend-items { display: flex; flex-wrap: wrap; gap: 8px; }
+.certs-legend-note { margin-top: 10px; font-size: 11px; color: var(--fg3); line-height: 1.5; }
+</style>
+
+<div class="certs-header">
+  <div class="certs-title-row">
+    <span class="certs-title">🎓 Vendor Partner Certifications</span>
+    <span class="certs-sub">24 vendors · Official sources only · بنفس الاتفاق — لا بيانات من دماغنا</span>
+  </div>
+  <div class="certs-filter-row">
+    <button class="cf-btn active" data-cf="all">All (24)</button>
+    <button class="cf-btn" data-cf="before">⚠️ Before signing</button>
+    <button class="cf-btn" data-cf="after">✅ After signing</button>
+    <button class="cf-btn" data-cf="none">No cert needed</button>
+    <button class="cf-btn" data-cf="portal">🔒 Portal-gated</button>
+    <button class="cf-btn" data-cf="free">Free</button>
+    <button class="cf-btn" data-cf="paid">Paid</button>
+  </div>
+</div>
+
+<div class="certs-body">
+<div id="certs-no-results">No vendors match this filter.</div>
+
+<!-- DATA MANAGEMENT -->
+<div class="certs-section-label">💾 Data Management</div>
+<div class="certs-grid">
+  <div class="vc-card" data-ctags="after free">
+    <div class="vc-head"><div class="vc-logo">AC</div><div><div class="vc-name">Acronis</div><div class="vc-program">Acronis #CyberFit Partner Program</div></div></div>
+    <div class="vc-badges"><span class="vb vb-after">✅ After signing</span><span class="vb vb-free">Free</span><span class="vb vb-cat">Data Management</span></div>
+    <table class="vc-table"><tr><th>Certification</th><th>Cost</th><th>People</th></tr>
+    <tr><td><span class="vc-cert-name">Acronis Cyber Protect Sales</span><span class="vc-cert-code">ACS-200</span></td><td><span class="vc-cost-free">Free</span></td><td>1+</td></tr>
+    <tr><td><span class="vc-cert-name">Acronis Cyber Protect Technical</span><span class="vc-cert-code">ACT-300</span></td><td><span class="vc-cost-free">Free</span></td><td>1+</td></tr></table>
+    <div class="vc-note">Sign first (Registered = no cert). Certs needed for Silver/Gold/Platinum. All free via academy.acronis.com.<br><a class="vc-source" href="https://academy.acronis.com" target="_blank">academy.acronis.com ↗</a></div>
+  </div>
+  <div class="vc-card" data-ctags="after paid">
+    <div class="vc-head"><div class="vc-logo">VE</div><div><div class="vc-name">Veeam</div><div class="vc-program">ProPartner Program (VAR / VCSP)</div></div></div>
+    <div class="vc-badges"><span class="vb vb-after">✅ After signing</span><span class="vb vb-paid">Paid (channel-gated)</span><span class="vb vb-cat">Data Management</span></div>
+    <table class="vc-table"><tr><th>Certification</th><th>Cost</th><th>People</th></tr>
+    <tr><td><span class="vc-cert-name">VMCE+ (replaces VMCE, Mar 2026)</span></td><td><span class="vc-cost-paid">Channel-gated</span></td><td>2 VAR · 1 VCSP</td></tr></table>
+    <div class="vc-note">Sign first. VMCE+ needed to maintain/advance VAR tier. Exam pricing via Pearson VUE — visible in partner portal only.<br><a class="vc-source" href="https://www.veeam.com/propartner.html" target="_blank">veeam.com/propartner ↗</a></div>
+  </div>
+  <div class="vc-card" data-ctags="portal">
+    <div class="vc-head"><div class="vc-logo">NA</div><div><div class="vc-name">NetApp</div><div class="vc-program">Unified Partner Program</div></div></div>
+    <div class="vc-badges"><span class="vb vb-portal">🔒 Portal-gated</span><span class="vb vb-cat">Data Management</span></div>
+    <table class="vc-table"><tr><th>Track</th><th>Details</th></tr>
+    <tr><td><span class="vc-cert-name">19 Solution Competencies + 11 Services tracks</span></td><td>Portal-gated</td></tr></table>
+    <div class="vc-note">Full cert requirements only after joining the partner portal.<br><a class="vc-source" href="https://partners.netapp.com" target="_blank">partners.netapp.com ↗</a></div>
+  </div>
+  <div class="vc-card" data-ctags="portal">
+    <div class="vc-head"><div class="vc-logo">CO</div><div><div class="vc-name">Cohesity</div><div class="vc-program">Aspire Partner Program (Aug 2025)</div></div></div>
+    <div class="vc-badges"><span class="vb vb-portal">🔒 Portal-gated</span><span class="vb vb-cat">Data Management</span></div>
+    <table class="vc-table"><tr><th>Notes</th></tr><tr><td>Requirements managed via portal (Aug 2025 relaunch). No public cert list.</td></tr></table>
+    <div class="vc-note">Apply at cohesity.com/partners. Requirements disclosed after approval.<br><a class="vc-source" href="https://www.cohesity.com/partners" target="_blank">cohesity.com/partners ↗</a></div>
+  </div>
+</div>
+
+<!-- NETWORK & SECURITY -->
+<div class="certs-section-label">🔐 Network &amp; Security</div>
+<div class="certs-grid">
+  <div class="vc-card" data-ctags="after free paid">
+    <div class="vc-head"><div class="vc-logo">FT</div><div><div class="vc-name">Fortinet</div><div class="vc-program">Engage Partner Program</div></div></div>
+    <div class="vc-badges"><span class="vb vb-after">✅ After signing</span><span class="vb vb-free">Free (entry)</span><span class="vb vb-paid">Paid (upper tiers)</span><span class="vb vb-cat">Network &amp; Security</span></div>
+    <table class="vc-table"><tr><th>Tier</th><th>Certification</th><th>Cost</th><th>People</th></tr>
+    <tr><td>Advocate</td><td><span class="vc-cert-name">None</span></td><td><span class="vc-cost-free">Free</span></td><td>—</td></tr>
+    <tr><td>Select</td><td><span class="vc-cert-name">FCF + FCP</span></td><td><span class="vc-cost-free">FCF: Free</span> <span class="vc-cost-paid">FCP: ~$400</span></td><td>1 each</td></tr>
+    <tr><td>Advanced</td><td><span class="vc-cert-name">+FCA + FCSS</span></td><td><span class="vc-cost-free">FCA: Free</span> <span class="vc-cost-paid">FCSS: ~$400</span></td><td>+1</td></tr></table>
+    <div class="vc-note">Sign first as Advocate. FCF/FCA: free on-demand + free exam.<br><a class="vc-source" href="https://www.fortinet.com/partners/partner-program" target="_blank">fortinet.com/partners ↗</a></div>
+  </div>
+  <div class="vc-card" data-ctags="after free paid">
+    <div class="vc-head"><div class="vc-logo">CP</div><div><div class="vc-name">Check Point</div><div class="vc-program">Engage Partner Program 2025</div></div></div>
+    <div class="vc-badges"><span class="vb vb-after">✅ After signing</span><span class="vb vb-free">Free (entry)</span><span class="vb vb-paid">Paid (CP voucher)</span><span class="vb vb-cat">Network &amp; Security</span></div>
+    <table class="vc-table"><tr><th>Tier</th><th>Certification</th><th>Cost</th></tr>
+    <tr><td>Advanced</td><td><span class="vc-cert-name">CPSC + Pre-Sales</span></td><td><span class="vc-cost-free">Free</span></td></tr>
+    <tr><td>Professional</td><td><span class="vc-cert-name">+CCSE/CCCS/CCES</span><span class="vc-cert-code">156-315.82</span></td><td><span class="vc-cost-paid">~$300 (CP voucher)</span></td></tr>
+    <tr><td>Premier/Elite</td><td><span class="vc-cert-name">+Infinity Specialist</span></td><td><span class="vc-cost-paid">~$300 (CP voucher)</span></td></tr></table>
+    <div class="vc-note">Check Point provides vouchers for all mandatory paid certs.<br><a class="vc-source" href="https://www.checkpoint.com/partners" target="_blank">checkpoint.com/partners ↗</a></div>
+  </div>
+  <div class="vc-card" data-ctags="portal">
+    <div class="vc-head"><div class="vc-logo">BA</div><div><div class="vc-name">Barracuda</div><div class="vc-program">Partner Program (3 tiers)</div></div></div>
+    <div class="vc-badges"><span class="vb vb-portal">🔒 Portal-gated</span><span class="vb vb-cat">Network &amp; Security</span></div>
+    <table class="vc-table"><tr><th>Tiers</th><th>Notes</th></tr><tr><td><span class="vc-cert-name">Authorized / Preferred / Premier</span></td><td>Gated — apply via partner portal</td></tr></table>
+    <div class="vc-note"><a class="vc-source" href="https://partners.barracuda.com" target="_blank">partners.barracuda.com ↗</a></div>
+  </div>
+  <div class="vc-card" data-ctags="after paid">
+    <div class="vc-head"><div class="vc-logo">TN</div><div><div class="vc-name">Tenable</div><div class="vc-program">Partner Program (Silver / Gold / Platinum)</div></div></div>
+    <div class="vc-badges"><span class="vb vb-after">✅ After signing</span><span class="vb vb-paid">Paid (cost not public)</span><span class="vb vb-cat">Network &amp; Security</span></div>
+    <table class="vc-table"><tr><th>Tier</th><th>Sales Certs</th><th>SE Certs</th></tr>
+    <tr><td>Silver</td><td>1</td><td>1</td></tr>
+    <tr><td>Gold</td><td>3</td><td>2</td></tr>
+    <tr><td>Platinum</td><td>6</td><td>4</td></tr></table>
+    <div class="vc-note">No Bronze tier. Certs completed after signing. Cost via partner portal.<br><a class="vc-source" href="https://www.tenable.com/partners" target="_blank">tenable.com/partners ↗</a></div>
+  </div>
+  <div class="vc-card" data-ctags="after free none">
+    <div class="vc-head"><div class="vc-logo">KA</div><div><div class="vc-name">Kaspersky</div><div class="vc-program">United Channel Program</div></div></div>
+    <div class="vc-badges"><span class="vb vb-after">✅ After signing</span><span class="vb vb-none">None (Registered)</span><span class="vb vb-cat">Network &amp; Security</span></div>
+    <table class="vc-table"><tr><th>Tier</th><th>Certification</th><th>Cost</th></tr>
+    <tr><td>Registered</td><td><span class="vc-cert-name">None required</span></td><td><span class="vc-cost-free">Free</span></td></tr>
+    <tr><td>Silver+</td><td><span class="vc-cert-name">KL Certified Sales / KL Certified Pro</span></td><td><span class="vc-cost-paid">Portal-gated</span></td></tr></table>
+    <div class="vc-note">Sign first as Registered (no cert needed).<br><a class="vc-source" href="https://partners.kaspersky.com" target="_blank">partners.kaspersky.com ↗</a></div>
+  </div>
+  <div class="vc-card" data-ctags="after paid">
+    <div class="vc-head"><div class="vc-logo">DT</div><div><div class="vc-name">Darktrace</div><div class="vc-program">Defenders Partner Program (Jul 2024)</div></div></div>
+    <div class="vc-badges"><span class="vb vb-after">✅ After signing</span><span class="vb vb-paid">Paid (partner discount)</span><span class="vb vb-cat">Network &amp; Security</span></div>
+    <table class="vc-table"><tr><th>Certification (Credly)</th></tr>
+    <tr><td><span class="vc-cert-name">Darktrace Cyber Engineer Professional</span></td></tr>
+    <tr><td><span class="vc-cert-name">Threat Visualizer Security Practitioner</span></td></tr>
+    <tr><td><span class="vc-cert-name">Darktrace Cyber Analyst Professional</span></td></tr>
+    <tr><td><span class="vc-cert-name">Darktrace Email Practitioner</span></td></tr></table>
+    <div class="vc-note">POST-signing onboarding benefits. Partner discounts applied.<br><a class="vc-source" href="https://www.darktrace.com/partners" target="_blank">darktrace.com/partners ↗</a></div>
+  </div>
+  <div class="vc-card" data-ctags="after paid portal">
+    <div class="vc-head"><div class="vc-logo">AN</div><div><div class="vc-name">Anomali</div><div class="vc-program">Resilience Partner Program</div></div></div>
+    <div class="vc-badges"><span class="vb vb-after">✅ After signing</span><span class="vb vb-portal">🔒 Cost portal-gated</span><span class="vb vb-cat">Network &amp; Security</span></div>
+    <table class="vc-table"><tr><th>Certification</th><th>Notes</th></tr>
+    <tr><td><span class="vc-cert-name">Anomali Proof of Value Certified Engineer</span></td><td>Unlocks Platinum Elite</td></tr>
+    <tr><td><span class="vc-cert-name">Anomali Certified ThreatStream Engineer</span></td><td>Unlocks Platinum Elite</td></tr>
+    <tr><td><span class="vc-cert-name">Anomali Platform Certified Engineer</span></td><td>Unlocks Platinum Elite</td></tr></table>
+    <div class="vc-note">All 3 certs accessible to all partner engineers. Completing unlocks Platinum Elite.<br><a class="vc-source" href="https://www.anomali.com/partners/channel" target="_blank">anomali.com/partners ↗</a></div>
+  </div>
+  <div class="vc-card" data-ctags="after free none">
+    <div class="vc-head"><div class="vc-logo">SR</div><div><div class="vc-name">SOCRadar</div><div class="vc-program">VAR / MSSP Partner Program</div></div></div>
+    <div class="vc-badges"><span class="vb vb-after">✅ After signing</span><span class="vb vb-free">Free</span><span class="vb vb-none">No mandatory cert</span><span class="vb vb-cat">Network &amp; Security</span></div>
+    <table class="vc-table"><tr><th>Training</th><th>Cost</th><th>Notes</th></tr>
+    <tr><td><span class="vc-cert-name">SOCRadar Academy (online)</span></td><td><span class="vc-cost-free">Free</span></td><td>No formal exam</td></tr></table>
+    <div class="vc-note"><a class="vc-source" href="https://socradar.io/partners/" target="_blank">socradar.io/partners ↗</a></div>
+  </div>
+  <div class="vc-card" data-ctags="after portal">
+    <div class="vc-head"><div class="vc-logo">CQ</div><div><div class="vc-name">Cequence Security</div><div class="vc-program">Authorized Partner Program</div></div></div>
+    <div class="vc-badges"><span class="vb vb-after">✅ After signing</span><span class="vb vb-portal">🔒 Portal-gated</span><span class="vb vb-cat">Network &amp; Security</span></div>
+    <table class="vc-table"><tr><th>Certification</th><th>Status</th></tr>
+    <tr><td><span class="vc-cert-name">Cequence Certified Sales</span></td><td>Live (portal only)</td></tr>
+    <tr><td><span class="vc-cert-name">Cequence Certified SE</span></td><td>Planned — not yet live</td></tr></table>
+    <div class="vc-note">Both certs are POST-signing benefits.<br><a class="vc-source" href="https://www.cequence.ai/partners/" target="_blank">cequence.ai/partners ↗</a></div>
+  </div>
+</div>
+
+<!-- CLOUD & PRODUCTIVITY -->
+<div class="certs-section-label">☁️ Cloud &amp; Productivity</div>
+<div class="certs-grid">
+  <div class="vc-card" data-ctags="after none free">
+    <div class="vc-head"><div class="vc-logo">MS</div><div><div class="vc-name">Microsoft CSP</div><div class="vc-program">Indirect Reseller via Ingram Micro</div></div></div>
+    <div class="vc-badges"><span class="vb vb-none">No cert required</span><span class="vb vb-free">Free to join</span><span class="vb vb-cat">Cloud &amp; Productivity</span></div>
+    <table class="vc-table"><tr><th>Requirement</th><th>Notes</th></tr>
+    <tr><td><span class="vc-cert-name">None (technical certs)</span></td><td>No Microsoft cert required for Indirect Reseller via Ingram Micro</td></tr></table>
+    <div class="vc-note">MPN membership free. Business verification required.<br><a class="vc-source" href="https://partner.microsoft.com/en-us/membership/cloud-solution-provider" target="_blank">Microsoft CSP program ↗</a></div>
+  </div>
+  <div class="vc-card" data-ctags="before paid">
+    <div class="vc-head"><div class="vc-logo">AW</div><div><div class="vc-name">AWS</div><div class="vc-program">APN Select Tier (minimum)</div></div></div>
+    <div class="vc-badges"><span class="vb vb-before">⚠️ Before signing (Select)</span><span class="vb vb-paid">Paid</span><span class="vb vb-cat">Cloud &amp; Productivity</span></div>
+    <table class="vc-table"><tr><th>Certification</th><th>Code</th><th>Cost</th><th>People</th></tr>
+    <tr><td><span class="vc-cert-name">AWS Cloud Practitioner</span><span class="vc-cert-code">CLF-C02</span></td><td>CLF-C02</td><td><span class="vc-cost-paid">$100</span></td><td>2</td></tr>
+    <tr><td><span class="vc-cert-name">AWS Associate-level</span><span class="vc-cert-code">SAA-C03 / DVA-C02</span></td><td>Associate</td><td><span class="vc-cost-paid">$150</span></td><td>2</td></tr></table>
+    <div class="vc-note">Select tier: 4 certs BEFORE achieving tier (~$500) + $2,500/yr APN fee.<br><a class="vc-source" href="https://aws.amazon.com/partners/join/" target="_blank">aws.amazon.com/partners/join ↗</a></div>
+  </div>
+  <div class="vc-card" data-ctags="after free paid">
+    <div class="vc-head"><div class="vc-logo">GC</div><div><div class="vc-name">Google Cloud</div><div class="vc-program">Partner Advantage (Sell track)</div></div></div>
+    <div class="vc-badges"><span class="vb vb-after">✅ After signing</span><span class="vb vb-free">Sales: Free</span><span class="vb vb-paid">Technical: Paid</span><span class="vb vb-cat">Cloud &amp; Productivity</span></div>
+    <table class="vc-table"><tr><th>Certification</th><th>Cost</th><th>People</th></tr>
+    <tr><td><span class="vc-cert-name">Google Cloud Sales Credential</span></td><td><span class="vc-cost-free">Free</span></td><td>Min. 2</td></tr>
+    <tr><td><span class="vc-cert-name">Associate Cloud Engineer (ACE)</span></td><td><span class="vc-cost-paid">$125/attempt</span></td><td>Min. 2</td></tr>
+    <tr><td><span class="vc-cert-name">Professional certs</span></td><td><span class="vc-cost-paid">$200/attempt</span></td><td>Varies</td></tr></table>
+    <div class="vc-note">Sign first. Min. ~2 sales + 2 technical for base specialization.<br><a class="vc-source" href="https://cloud.google.com/partners" target="_blank">cloud.google.com/partners ↗</a></div>
+  </div>
+  <div class="vc-card" data-ctags="after paid">
+    <div class="vc-head"><div class="vc-logo">HW</div><div><div class="vc-name">Huawei Enterprise</div><div class="vc-program">Channel Partner Program</div></div></div>
+    <div class="vc-badges"><span class="vb vb-after">✅ After registration</span><span class="vb vb-paid">Paid</span><span class="vb vb-cat">Cloud &amp; Productivity</span></div>
+    <table class="vc-table"><tr><th>Tier</th><th>Certification</th><th>Cost</th></tr>
+    <tr><td>Silver</td><td><span class="vc-cert-name">HCS-Sales</span></td><td><span class="vc-cost-paid">Portal-gated</span></td></tr>
+    <tr><td>Gold</td><td><span class="vc-cert-name">HCS + HCIA</span><span class="vc-cert-code">H12-xxx</span></td><td><span class="vc-cost-paid">~$200</span></td></tr>
+    <tr><td>Platinum</td><td><span class="vc-cert-name">HCIP</span><span class="vc-cert-code">H12-xxx</span></td><td><span class="vc-cost-paid">~$300</span></td></tr></table>
+    <div class="vc-note">Register at partner.huawei.com, then sign offline with local team. HCIA/HCIP via Pearson VUE.<br><a class="vc-source" href="https://partner.huawei.com" target="_blank">partner.huawei.com ↗</a></div>
+  </div>
+  <div class="vc-card" data-ctags="portal">
+    <div class="vc-head"><div class="vc-logo">IV</div><div><div class="vc-name">Ivanti</div><div class="vc-program">Ivanti One Partner Program</div></div></div>
+    <div class="vc-badges"><span class="vb vb-portal">🔒 Fully gated</span><span class="vb vb-cat">Cloud &amp; Productivity</span></div>
+    <table class="vc-table"><tr><th>Notes</th></tr><tr><td>Requirements, cert names, cost not published publicly. Apply via IPN@ivanti.com.</td></tr></table>
+    <div class="vc-note"><a class="vc-source" href="https://www.ivanti.com/partners" target="_blank">ivanti.com/partners ↗</a></div>
+  </div>
+</div>
+
+<!-- HCI & LINUX -->
+<div class="certs-section-label">🖥️ HCI &amp; Linux</div>
+<div class="certs-grid">
+  <div class="vc-card" data-ctags="after free paid">
+    <div class="vc-head"><div class="vc-logo">NU</div><div><div class="vc-name">Nutanix</div><div class="vc-program">Partner Program (Authorized / Professional / Champion)</div></div></div>
+    <div class="vc-badges"><span class="vb vb-after">✅ After signing</span><span class="vb vb-free">Entry: Free</span><span class="vb vb-paid">Upper: Paid</span><span class="vb vb-cat">HCI &amp; Linux</span></div>
+    <table class="vc-table"><tr><th>Tier</th><th>Certification</th><th>People</th></tr>
+    <tr><td>Authorized</td><td><span class="vc-cert-name">None required</span></td><td>—</td></tr>
+    <tr><td>Professional</td><td><span class="vc-cert-name">4× NCSR + 3× NCSE Core</span></td><td>4 sales + 3 tech</td></tr>
+    <tr><td>Champion</td><td><span class="vc-cert-name">+NCSX + NCP-MCI + NCS-C</span></td><td>Additional</td></tr></table>
+    <div class="vc-note">Sign first as Authorized (no cert). NCSR: free online assessment.<br><a class="vc-source" href="https://www.nutanix.com/partners" target="_blank">nutanix.com/partners ↗</a></div>
+  </div>
+  <div class="vc-card" data-ctags="after free paid">
+    <div class="vc-head"><div class="vc-logo">RH</div><div><div class="vc-name">Red Hat</div><div class="vc-program">Connect Partner Program</div></div></div>
+    <div class="vc-badges"><span class="vb vb-after">✅ After signing</span><span class="vb vb-free">Training: Free</span><span class="vb vb-paid">Exam: ~$400–550</span><span class="vb vb-cat">HCI &amp; Linux</span></div>
+    <table class="vc-table"><tr><th>Tier</th><th>Certification</th><th>Cost</th></tr>
+    <tr><td>Ready</td><td><span class="vc-cert-name">None required</span></td><td><span class="vc-cost-free">Free</span></td></tr>
+    <tr><td>Advanced</td><td><span class="vc-cert-name">1× RHCE</span><span class="vc-cert-code">EX294</span></td><td><span class="vc-cost-paid">~$400–550</span></td></tr></table>
+    <div class="vc-note">Training FREE via Red Hat Learning Subscription for partners. RHCE exam paid.<br><a class="vc-source" href="https://www.redhat.com/en/partners" target="_blank">redhat.com/en/partners ↗</a></div>
+  </div>
+  <div class="vc-card" data-ctags="after portal">
+    <div class="vc-head"><div class="vc-logo">BC</div><div><div class="vc-name">BlueCat Networks</div><div class="vc-program">Authorized Reseller Partner</div></div></div>
+    <div class="vc-badges"><span class="vb vb-after">✅ After signing</span><span class="vb vb-portal">🔒 Cost portal-gated</span><span class="vb vb-cat">HCI &amp; Linux</span></div>
+    <table class="vc-table"><tr><th>Certification (Credly)</th></tr>
+    <tr><td><span class="vc-cert-name">BlueCat Integrity Certified Associate</span></td></tr>
+    <tr><td><span class="vc-cert-name">BlueCat DNS Certified Professional</span></td></tr>
+    <tr><td><span class="vc-cert-name">BlueCat Channel Solutions Architect</span></td></tr></table>
+    <div class="vc-note">All certs POST-signing. Partner agreement requires "suitably trained staff."<br><a class="vc-source" href="https://bluecatnetworks.com/partners/" target="_blank">bluecatnetworks.com/partners ↗</a></div>
+  </div>
+</div>
+
+<!-- EUC & HARDWARE -->
+<div class="certs-section-label">💻 EUC &amp; Hardware</div>
+<div class="certs-grid">
+  <div class="vc-card" data-ctags="portal">
+    <div class="vc-head"><div class="vc-logo">TS</div><div><div class="vc-name">Thinscale Technology</div><div class="vc-program">MSP / Solution Provider Partner</div></div></div>
+    <div class="vc-badges"><span class="vb vb-portal">🔒 No public info</span><span class="vb vb-cat">EUC &amp; Hardware</span></div>
+    <table class="vc-table"><tr><th>Notes</th></tr><tr><td>No public partner page or cert requirements. Direct contact required.</td></tr></table>
+    <div class="vc-note"><a class="vc-source" href="https://www.thinscaletechnology.com/contact/" target="_blank">thinscaletechnology.com/contact ↗</a></div>
+  </div>
+</div>
+
+<!-- STAFFING & PARTNERS -->
+<div class="certs-section-label">🤝 Staffing &amp; Partners</div>
+<div class="certs-grid">
+  <div class="vc-card" data-ctags="after none free">
+    <div class="vc-head"><div class="vc-logo">SF</div><div><div class="vc-name">SupportFinity</div><div class="vc-program">Referral / AI Staffing Partner</div></div></div>
+    <div class="vc-badges"><span class="vb vb-none">No cert required</span><span class="vb vb-free">Free</span><span class="vb vb-after">✅ Instant onboarding</span><span class="vb vb-cat">Staffing</span></div>
+    <table class="vc-table"><tr><th>Requirement</th><th>Notes</th></tr>
+    <tr><td><span class="vc-cert-name">None</span></td><td>Apply → Approve → Connect PayPal. No fees, no headcount, no certs.</td></tr></table>
+    <div class="vc-note"><a class="vc-source" href="https://supportfinity.com/partners/" target="_blank">supportfinity.com/partners ↗</a></div>
+  </div>
+  <div class="vc-card" data-ctags="portal">
+    <div class="vc-head"><div class="vc-logo">SA</div><div><div class="vc-name">Sahara.com</div><div class="vc-program">Professional Services Marketplace</div></div></div>
+    <div class="vc-badges"><span class="vb vb-portal">🔒 No public partner program</span><span class="vb vb-cat">Staffing</span></div>
+    <table class="vc-table"><tr><th>Notes</th></tr><tr><td>Saudi IT company — no public partner/seller onboarding found.</td></tr></table>
+    <div class="vc-note">Contact: marketing@sahara.com<br><a class="vc-source" href="https://www.sahara.com" target="_blank">sahara.com ↗</a></div>
+  </div>
+</div>
+
+<!-- Legend -->
+<div class="certs-legend">
+  <div class="certs-legend-title">Legend</div>
+  <div class="certs-legend-items">
+    <span class="vb vb-before">⚠️ Before signing — certs required BEFORE you can join</span>
+    <span class="vb vb-after">✅ After signing — sign first, certs for tier/compliance</span>
+    <span class="vb vb-none">No cert required at any tier</span>
+    <span class="vb vb-portal">🔒 Portal-gated — details not public</span>
+    <span class="vb vb-free">Free</span>
+    <span class="vb vb-paid">Has paid certifications</span>
+  </div>
+  <div class="certs-legend-note">⚠️ <strong>All data from official sources only.</strong> Portal-gated entries require contacting the vendor directly. Costs and headcounts may change — verify via official partner portal before enrollment.</div>
+</div>
+</div><!-- /certs-body -->
+
+<script>
+(function(){
+  var btns = document.querySelectorAll('.cf-btn');
+  var cards = document.querySelectorAll('.vc-card');
+  var noRes = document.getElementById('certs-no-results');
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var f = btn.getAttribute('data-cf');
+      btns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var visible = 0;
+      cards.forEach(function(card){
+        var tags = (card.getAttribute('data-ctags') || '').split(' ');
+        var show = f === 'all' || tags.indexOf(f) !== -1;
+        card.style.display = show ? '' : 'none';
+        if(show) visible++;
+      });
+      if(noRes) noRes.style.display = visible === 0 ? 'block' : 'none';
+    });
+  });
+})();
+</script>
+</div><!-- /section-certs -->
+
 </div>
 
 <!-- Edit Modal -->
@@ -6237,6 +6569,7 @@ function showMainTab(btn, sectionId) {
   document.getElementById('section-hiring').style.display = 'none';
   document.getElementById('section-vendor-reg').style.display = 'none';
   document.getElementById('section-financial').style.display = 'none';
+  document.getElementById('section-certs').style.display = 'none';
   document.getElementById(sectionId).style.display = 'block';
   /* reload pipeline on each visit; show vendor reg table if already loaded but container hidden */
   if (sectionId === 'section-pipeline' && typeof window.loadPipeline === 'function') window.loadPipeline();
